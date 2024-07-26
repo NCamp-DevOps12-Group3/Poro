@@ -1,7 +1,7 @@
-package com.project.service;
+package com.bit.devops12.poro.service;
 
-import com.project.dao.UserFeedsDao;
-import com.project.dto.PortfolioDto;
+import com.bit.devops12.poro.dao.UserFeedsDao;
+import com.bit.devops12.poro.dto.PortfolioDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,7 @@
-package com.project.controller;
+package com.bit.devops12.poro.controller;
 
 
-import com.project.dto.PortfolioDto;
-import com.project.service.UserFeedsServiceImpl;
+import com.bit.devops12.poro.service.UserFeedsServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

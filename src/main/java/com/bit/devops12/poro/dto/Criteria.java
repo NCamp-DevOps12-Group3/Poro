@@ -1,4 +1,4 @@
-package com.project.dto;
+package com.bit.devops12.poro.dto;
 
 public class Criteria {
     // 현재 페이지 번호
