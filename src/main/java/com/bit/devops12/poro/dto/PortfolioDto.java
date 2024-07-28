@@ -1,9 +1,10 @@
 package com.bit.devops12.poro.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class PortfolioDto {
-    private int id;
+    private int portfolioid;
     private int userid;
     private String cssurl;
     private String jsurl;
@@ -21,12 +22,12 @@ public class PortfolioDto {
         this.content = content;
     }
 
-    public int getId() {
-        return id;
+    public int getPortfolioid() {
+        return portfolioid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPortfolioid(int portfolioid) {
+        this.portfolioid = portfolioid;
     }
 
     public int getUserid() {

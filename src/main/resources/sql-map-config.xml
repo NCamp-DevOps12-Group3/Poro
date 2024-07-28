@@ -13,4 +13,5 @@
     <mappers>
         <mapper resource="mappings/mapper-userfeeds.xml"/>
     </mappers>
+
 </configuration>
