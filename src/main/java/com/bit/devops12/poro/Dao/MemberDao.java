@@ -28,11 +28,7 @@ public class MemberDao {
 		return mybatis.selectList("MemberDao.getMembers");
 	}
 	
-	public MemberDto getMemberByEmail(String email) {
-		System.out.println("MemberDao의 getMemberByUsername 메소드 실행");
-		
-		return mybatis.selectOne("MemberDao.getMemberByEmail", email);
-	}
+	
 	
 	public int emailCheck(String email) {
 		return mybatis.selectOne("MemberDao.emailCheck", email);

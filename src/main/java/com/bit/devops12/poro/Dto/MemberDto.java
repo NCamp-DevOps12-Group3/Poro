@@ -2,14 +2,13 @@ package com.bit.devops12.poro.dto;
 
 public class MemberDto {
 	private int id;
-	private String Nickname;
-	private String Name;
+	private String nickname;
+	private String name;
 	private String gender;
 	private String job;
 	private String phonenumber;
 	private String email;
 	private String password;
-	private String passwordChk;
 	private String role;
 	
 	public int getId() {
@@ -21,19 +20,19 @@ public class MemberDto {
 	}
 	
 	public String getNickname() {
-		return Nickname;
+		return nickname;
 	}
 	
 	public void setNickname(String nickname) {
-		Nickname = nickname;
+		this.nickname = nickname;
 	}
 	
 	public String getName() {
-		return Name;
+		return name;
 	}
 	
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 	
 	public String getGender() {
@@ -76,14 +75,6 @@ public class MemberDto {
 		this.password = password;
 	}
 	
-	public String getPasswordChk() {
-		return passwordChk;
-	}
-	
-	public void setPasswordChk(String passwordChk) {
-		this.passwordChk = passwordChk;
-	}
-	
 	public String getRole() {
 		return role;
 	}
@@ -96,14 +87,13 @@ public class MemberDto {
 	public String toString() {
 		return "MemberDto{" +
 				       "id=" + id +
-				       ", Nickname='" + Nickname + '\'' +
-				       ", Name='" + Name + '\'' +
+				       ", nickname='" + nickname + '\'' +
+				       ", name='" + name + '\'' +
 				       ", gender='" + gender + '\'' +
 				       ", job='" + job + '\'' +
 				       ", phonenumber='" + phonenumber + '\'' +
 				       ", email='" + email + '\'' +
 				       ", password='" + password + '\'' +
-				       ", passwordChk='" + passwordChk + '\'' +
 				       ", role='" + role + '\'' +
 				       '}';
 	}
