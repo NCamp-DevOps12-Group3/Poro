@@ -136,7 +136,7 @@
         const NicknameappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = NicknameAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {NicknameAlertholder.removeChild(alerts[0]);}
@@ -147,7 +147,7 @@
         const NameappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = NameAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {NameAlertholder.removeChild(alerts[0]);}
@@ -158,7 +158,7 @@
         const GenderappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = GenderAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {GenderAlertholder.removeChild(alerts[0]);}
@@ -171,7 +171,7 @@
         const TelappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = TelAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {TelAlertholder.removeChild(alerts[0]);}
@@ -182,7 +182,7 @@
         const EmailappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = EmailAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {EmailAlertholder.removeChild(alerts[0]);}
@@ -193,7 +193,7 @@
         const PasswordappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = PasswordAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {PasswordAlertholder.removeChild(alerts[0]);}
@@ -204,7 +204,7 @@
         const PasswordChkappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = PasswordChkAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {PasswordChkAlertholder.removeChild(alerts[0]);}
@@ -215,7 +215,7 @@
         const UserappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = UserAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {UserAlertholder.removeChild(alerts[0]);}

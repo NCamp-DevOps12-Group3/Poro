@@ -24,7 +24,7 @@
     <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
-    <script src="${pageContext.request.contextPath}/static/css/login_join_changepassword.css" rel="stylesheet"></script>
+    <link href="${pageContext.request.contextPath}/static/css/login_join_changepassword.css" rel="stylesheet">
     <style>
     
     </style>
@@ -73,10 +73,12 @@
         const EmailappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = EmailAlertholder.querySelectorAll('.alert');
+           
             if (alerts.length >= 1) {EmailAlertholder.removeChild(alerts[0]);}
+            
             EmailAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
             setTimeout(() => { wrapper.remove();}, 1000);
         }
@@ -84,37 +86,41 @@
         const PasswordappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = PasswordAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {PasswordAlertholder.removeChild(alerts[0]);}
             PasswordAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
         const appendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
-                /*div 열고 wrapper 스타일 부트스트랩*/` <div>${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = alertPlaceholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {alertPlaceholder.removeChild(alerts[0]);}
             alertPlaceholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
         $("#email").on("keydown", (e) => {
-            if(e.key.toLowerCase() === 'enter') {
-                e.preventDefault();
-                $("#signIn").click();
+            if(typeof e.key !== "undefined") {
+                if (e.key.toLowerCase() === 'enter') {
+                    e.preventDefault();
+                    $("#signIn").click();
+                }
             }
         });
         
         
         $("#password").on("keydown", (e) => {
+            if(typeof e.key !== "undefined") {
             if(e.key.toLowerCase() === 'enter') {
                 e.preventDefault();
                 $("#signIn").click();
+            }
             }
         });
         
@@ -124,7 +130,7 @@
             
             // 이메일 미 입력시
             if($("#email").val() === '') {
-                EmailappendAlert('이메일를 입력하세요', 'success');
+                EmailappendAlert( '이메일를 입력하세요', 'success');
                 e.preventDefault();
                 return;
             }
@@ -136,17 +142,17 @@
                 e.preventDefault();
                 return;
             }
-            const getpassword = document.getElementById("password");
             
-            // if($("#email").val() !== 'helldive@naver.com') {
+            
+            
             if($("#email").val() !== 'bitcamp502@naver.com') {
-                appendAlert('이메일이나 비밀번호에 문제가있습니다.', 'success')
+                EmailappendAlert('이메일이나 비밀번호에 문제가있습니다.', 'success');
                 e.preventDefault();
                 return;
             }
-            // if($("#password").val() !== 'helldive@2') {
+            
             if($("#password").val() !== '1') {
-                appendAlert('이메일이나 비밀번호에 문제가있습니다.', 'success')
+                PasswordappendAlert('이메일이나 비밀번호에 문제가있습니다.', 'success');
                 e.preventDefault();
                 return;
             }
