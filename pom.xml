@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.bit</groupId>
-  <artifactId>springboard</artifactId>
+  <artifactId>devops12.</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>springboard Maven Webapp</name>
+  <name>poro Maven Webapp</name>
   <properties>
     <java-version>17</java-version>
     <org.springframework-version>6.0.22</org.springframework-version>
