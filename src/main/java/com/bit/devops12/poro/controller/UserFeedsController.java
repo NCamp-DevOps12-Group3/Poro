@@ -39,9 +39,18 @@ public class UserFeedsController {
     //처음 유저페이지 돌입할 때 사용, 클릭한 개체의 유저id에 따라 표출되는 내용이 달라짐, 현재는 로그인 유저 정보 표출
     @GetMapping("/user-feeds.do")
     public String userFeeds(Model model, HttpSession session/*UserDto userdto */, @RequestParam(name = "id") int id, Criteria criteria) {
-//        model.addAttribute("user",)
-        //유저 아이디를 사용하여 유저 테이블에서 프로파일 출력에 필요한 정보를 저장
-
+        userFeedsService.getUserPortfolio(id,criteria).forEach(x->{
+            System.out.println("x.getHtmlurl() = " + x.getHtmlurl());
+            System.out.println("x.getCssurl() = " + x.getCssurl());
+            System.out.println("x.getJsurl() = " + x.getJsurl());
+            System.out.println("x.getPortfolioid() = " + x.getPortfolio_id());
+            System.out.println("x.getContent() = " + x.getContent());
+            System.out.println("x.getRegdate() = " + x.getRegdate());
+            System.out.println("x.getSkillname() = " + x.getSkillname());
+            System.out.println("x.getThumbnailurl() = " + x.getThumbnailurl());
+            System.out.println("x.getUserid() = " + x.getUser_id());
+        });
+        System.out.println(criteria);
         model.addAttribute("profile",userFeedsService.getUserInfo(id));
         //유저 아이디를 사용하여 포폴 관련테이블에서 테이블 출력에 필요한 정보를 저장
         criteria.setAmount(9);
@@ -50,17 +59,7 @@ public class UserFeedsController {
         int total=userFeedsService.getUserPortfolioTotalCnt(id);
         model.addAttribute("page",new UserFeedsPageDto(criteria,total));
         model.addAttribute("popularPortfolio",userFeedsService.getUserPopularPortfolio(id));
-        userFeedsService.getUserPortfolio(id,criteria).forEach(x->{
-            System.out.println("x.getHtmlurl() = " + x.getHtmlurl());
-            System.out.println("x.getCssurl() = " + x.getCssurl());
-            System.out.println("x.getJsurl() = " + x.getJsurl());
-            System.out.println("x.getPortfolioid() = " + x.getPortfolioid());
-            System.out.println("x.getContent() = " + x.getContent());
-            System.out.println("x.getRegdate() = " + x.getRegdate());
-            System.out.println("x.getSkillname() = " + x.getSkillname());
-            System.out.println("x.getThumbnailurl() = " + x.getThumbnailurl());
-            System.out.println("x.getUserid() = " + x.getUserid());
-        });
+
         return "/user/userfeeds";
     }
     @GetMapping("/user-collection-feeds.do")

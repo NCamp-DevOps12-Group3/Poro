@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PortfolioDto {
-    private int portfolioid;
-    private int userid;
+    private int portfolio_id;
+    private int user_id;
     private String cssurl;
     private String jsurl;
     private String htmlurl;
@@ -72,20 +72,20 @@ public class PortfolioDto {
         this.content = content;
     }
 
-    public int getPortfolioid() {
-        return portfolioid;
+    public int getPortfolio_id() {
+        return portfolio_id;
     }
 
-    public void setPortfolioid(int portfolioid) {
-        this.portfolioid = portfolioid;
+    public void setPortfolio_id(int portfolio_id) {
+        this.portfolio_id = portfolio_id;
     }
 
-    public int getUserid() {
-        return userid;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getCssurl() {

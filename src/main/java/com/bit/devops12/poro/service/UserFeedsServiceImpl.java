@@ -31,16 +31,29 @@ public class UserFeedsServiceImpl {
     public List<PortfolioDto> getUserPortfolio(int id,Criteria criteria) {
         criteria.setStartNum((criteria.getPageNum()-1)*criteria.getAmount());
         Map<String,Object> map=new HashMap<>();
+        System.out.println("11");
+        System.out.println(criteria);
         map.put("userid",id);
         map.put("criteria",criteria);
         List<PortfolioDto> portfolioDtos = userFeedsDao.getUserPortfolio(map);
+       userFeedsDao.getUserPortfolio(map).forEach(x->{
+           System.out.println("x.getHtmlurl() = " + x.getHtmlurl());
+           System.out.println("x.getCssurl() = " + x.getCssurl());
+           System.out.println("x.getJsurl() = " + x.getJsurl());
+           System.out.println("x.getPortfolioid() = " + x.getPortfolio_id());
+           System.out.println("x.getContent() = " + x.getContent());
+           System.out.println("x.getRegdate() = " + x.getRegdate());
+           System.out.println("x.getSkillname() = " + x.getSkillname());
+           System.out.println("x.getThumbnailurl() = " + x.getThumbnailurl());
+           System.out.println("x.getUserid() = " + x.getUser_id());
+       });
         portfolioDtos.forEach(portfolioDto -> {
             portfolioDto.setHtmlCode(readFiles(Arrays.stream(portfolioDto.getHtmlurl().split(",")).toList()));
             portfolioDto.setCssCode(readFiles(Arrays.stream(portfolioDto.getCssurl().split(",")).toList()));
             portfolioDto.setJsCode(readFiles(Arrays.stream(portfolioDto.getJsurl().split(",")).toList()));
             portfolioDto.setMergeCode(mergeFile(portfolioDto.getHtmlList(),portfolioDto.getCssList(),portfolioDto.getJsList()));
         });
-        return userFeedsDao.getUserPortfolio(map);
+        return portfolioDtos;
     }
     public String mergeFile(List<String> htmlContentList, List<String> cssContentList, List<String> jsContentList) {
         String merged_cssContent = cssContentList.stream()
