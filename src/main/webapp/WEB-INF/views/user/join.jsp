@@ -21,7 +21,7 @@
     <style>
         /* 컨테이너 스타일 */
         .container {
-            height: 90vh;
+            height: 110vh;
             display: flex;
             justify-content: center;
             align-items: center;

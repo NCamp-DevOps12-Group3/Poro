@@ -1,4 +1,4 @@
-package com.bit.devops12.poro.Dto;
+package com.bit.devops12.poro.dto;
 
 public class MemberDto {
 	private int id;

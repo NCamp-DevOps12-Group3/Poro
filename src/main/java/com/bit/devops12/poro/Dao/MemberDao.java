@@ -1,6 +1,6 @@
-package com.bit.devops12.poro.Dao;
+package com.bit.devops12.poro.dao;
 
-import com.bit.devops12.poro.Dto.MemberDto;
+import com.bit.devops12.poro.dto.MemberDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

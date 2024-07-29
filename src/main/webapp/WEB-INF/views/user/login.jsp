@@ -20,34 +20,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 페이지</title>
-    <script src="${pageContext.request.contextPath}/static/css/login_join_changepassword.css"></script>
+
     <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
+    <script src="${pageContext.request.contextPath}/static/css/login_join_changepassword.css" rel="stylesheet"></script>
     <style>
-        .container {
-            height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .card {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .text-muted {
-            font-size: 0.8rem;
-        }
-        /* 경고창 위치 마커 스타일 */
-        .alert{
-            width:auto;
-            padding: 0%;
-            margin: 0%;
-            color: red;
-        }
+
     </style>
 </head>
 <body>
@@ -72,24 +51,24 @@
             <div class="d-grid mb-3">
                 <button type="button" class="btn btn-dark" id="signIn">로그인</button>
             </div>
-            
+
             <div class="d-grid mb-3">
                 <button type="button" class="btn btn-dark" id="signUp">이메일로 회원가입</button>
             </div>
-        
+
         </form>
     </div>
 </div>
 <script>
     $(()=>{
-        const userdata = new Object(); // 사용자의 정보를 저장할 객체를 생성합니다.
-        
-        
+
+
+
         const joinForm = document.querySelector("#login-form"); /*회원가입 양식 폼 선택*/
         const EmailAlertholder = document.getElementById('EmailAlertholder'); /*경고창 위치 마커 선택*/
         const PasswordAlertholder = document.getElementById('PasswordAlertholder'); /*경고창 위치 마커 선택*/
         const alertPlaceholder = document.getElementById('liveAlertPlaceholder'); /*경고창 위치 마커 선택*/
-        
+
         // 알림 메시지를 추가하는 함수입니다.
         const EmailappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
@@ -99,9 +78,9 @@
             const alerts = EmailAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {EmailAlertholder.removeChild(alerts[0]);}
             EmailAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
-        
+
         const PasswordappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
@@ -112,7 +91,7 @@
             PasswordAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
             setTimeout(() => { wrapper.remove();}, 5000);
         }
-        
+
         const appendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
@@ -123,35 +102,34 @@
             alertPlaceholder.append(wrapper); /*Alert holder 에 써 넣기*/
             setTimeout(() => { wrapper.remove();}, 5000);
         }
-        
+
         $("#email").on("keydown", (e) => {
             if(e.key.toLowerCase() === 'enter') {
                 e.preventDefault();
                 $("#signIn").click();
             }
         });
-        
-        
+
+
         $("#password").on("keydown", (e) => {
             if(e.key.toLowerCase() === 'enter') {
                 e.preventDefault();
                 $("#signIn").click();
             }
         });
-        
-        
-        
+
+
+
         $("#signIn").on("click", (e) => {
-            
+
             // 이메일 미 입력시
             if($("#email").val() === '') {
                 EmailappendAlert('이메일를 입력하세요', 'success');
                 e.preventDefault();
                 return;
             }
-            const getemail = document.getElementById("email");
-            // userdata.email = getemail.value;
-            
+
+
             // 비밀번호 미 입력시
             if($("#password").val() === '') {
                 PasswordappendAlert('비밀번호를 입력하세요', 'success');
@@ -159,7 +137,7 @@
                 return;
             }
             const getpassword = document.getElementById("password");
-            
+
             // if($("#email").val() !== 'helldive@naver.com') {
             if($("#email").val() !== 'bitcamp502@naver.com') {
                 appendAlert('이메일이나 비밀번호에 문제가있습니다.', 'success')
@@ -172,62 +150,55 @@
                 e.preventDefault();
                 return;
             }
-            
+
             // 오브젝트에 입력
-            userdata.email = getemail.value;
-            userdata.password = getpassword.value;
-            // 사용자의 정보를 콘솔에 출력합니다. 테스트용
-            userdata.info = function() {
-                console.log(`이메일: ${this.email}`);
-                console.log(`비밀번호: ${this.password}`);
-            }
-            userdata.info();
-            
+
+
             window.location.href='main.html';
         });
-        
+
         $('#signUp').on('click',(e)=>{
-            window.location.href='join.html';
+            window.location.href='join.jsp';
         });
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // $('#signIn').on('click',(e)=>{
         //    window.location.href='base.html';
         // });
         // $('#signInEmail').on('click',(e)=>{
         //     window.location.href='join.html';
         // });
-        
+
     });
 </script>
 
