@@ -20,34 +20,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 페이지</title>
-    <script src="${pageContext.request.contextPath}/static/css/login_join_changepassword.css"></script>
+   
     <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
+    <script src="${pageContext.request.contextPath}/static/css/login_join_changepassword.css" rel="stylesheet"></script>
     <style>
-        .container {
-            height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .card {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .text-muted {
-            font-size: 0.8rem;
-        }
-        /* 경고창 위치 마커 스타일 */
-        .alert{
-            width:auto;
-            padding: 0%;
-            margin: 0%;
-            color: red;
-        }
+    
     </style>
 </head>
 <body>
@@ -82,7 +61,7 @@
 </div>
 <script>
     $(()=>{
-        const userdata = new Object(); // 사용자의 정보를 저장할 객체를 생성합니다.
+       
         
         
         const joinForm = document.querySelector("#login-form"); /*회원가입 양식 폼 선택*/
@@ -99,7 +78,7 @@
             const alerts = EmailAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {EmailAlertholder.removeChild(alerts[0]);}
             EmailAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
         const PasswordappendAlert = (message, type) => {
@@ -149,8 +128,7 @@
                 e.preventDefault();
                 return;
             }
-            const getemail = document.getElementById("email");
-            // userdata.email = getemail.value;
+            
             
             // 비밀번호 미 입력시
             if($("#password").val() === '') {
@@ -174,20 +152,13 @@
             }
             
             // 오브젝트에 입력
-            userdata.email = getemail.value;
-            userdata.password = getpassword.value;
-            // 사용자의 정보를 콘솔에 출력합니다. 테스트용
-            userdata.info = function() {
-                console.log(`이메일: ${this.email}`);
-                console.log(`비밀번호: ${this.password}`);
-            }
-            userdata.info();
+            
             
             window.location.href='main.html';
         });
         
         $('#signUp').on('click',(e)=>{
-            window.location.href='join.html';
+            window.location.href='join.jsp';
         });
         
         

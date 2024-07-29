@@ -21,29 +21,7 @@
     <style>
         /* 컨테이너 스타일 */
         .container {
-            height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        /* 카드 스타일 */
-        .card {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        /* 폰트 스타일 */
-        .text-muted {
-            font-size: 0.8rem;
-        }
-        /* 경고창 위치 마커 스타일 */
-        
-        .alert{
-            width:auto;
-            padding: 0%;
-            margin: 0%;
-            color: red;
+            height: 110vh;
         }
     
     </style>
@@ -57,7 +35,7 @@
     <div class="card"><!-- 회원가입 양식 -->
         <p class="h5 card-title text-center">계정생성</p><!-- 회원가입 양식 텍스트 -->
         <p class="text-center" >이메일로 회원가입 하기</p><!-- 회원가입 양식 텍스트 -->
-        <form  action="" id="login-form"><!-- 회원가입 양식 폼 -->
+        <form  action="/member/join.do" id="join-form" method="post"><!-- 회원가입 양식 폼 -->
             <div class="mb-3"><!-- 회원가입 양식 입력창 -->
                 <div style="height: 60px; margin-bottom: 25px;">닉네임
                     <input type="text" class="form-control" id="Nickname" name="Nickname" placeholder="닉네임 ">
@@ -92,6 +70,7 @@
                 </div>
                 <div style="height: 60px; margin-bottom: 25px;">이메일
                     <input type="email" class="form-control" id="email" name="email" placeholder="이메일">
+                    <button type="button" class="btn btn-dark" id="emailChk">중복확인</button>
                     <div id="EmailAlertholder"></div>
                 </div>
                 <div style="height: 60px; margin-bottom: 50px;">비밀번호
@@ -108,12 +87,14 @@
                         
                         <br>
                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnuser" id="individualuser" value="individualuser" autocomplete="off" >
+                            <input type="radio" class="btn-check" name="role" id="individualuser" value="COMMON"
+                                   autocomplete="off" >
                             <label class="btn btn-outline-dark" for="individualuser">개인 사용자</label>
                             
                             
                             
-                            <input type="radio" class="btn-check" name="btnuser" id="corporateusers" value="corporateusers" autocomplete="off">
+                            <input type="radio" class="btn-check" name="role" id="corporateusers" value="corporateusers"
+                                   autocomplete="off">
                             <label class="btn btn-outline-dark" for="corporateusers">기업 사용자</label>
                         
                         </div>
@@ -130,7 +111,7 @@
 </div>
 <script>
     $(()=>{
-        const userdata = new Object(); // 사용자의 정보를 저장할 객체를 생성합니다.
+         // 사용자의 정보를 저장할 객체를 생성합니다.
         
         // HTML 요소를 선택합니다.
         const aNickname = document.querySelector("input[name='Nickname']"); /*닉네임 선택*/
@@ -140,7 +121,7 @@
         const aemail = document.querySelector("input[name='email']"); /*이메일 선택*/
         const apassword = document.querySelector("input[name='password']"); /*비밀번호 선택*/
         const apasswordchk = document.querySelector("input[name='passwordChk']"); /*비밀번호 확인 선택*/
-        const joinForm = document.querySelector("#login-form"); /*회원가입 양식 폼 선택*/
+        const joinform = document.querySelector("#join-form"); /*회원가입 양식 폼 선택*/
         const NicknameAlertholder = document.getElementById('NicknameAlertholder'); /*경고창 위치 마커 선택*/
         const NameAlertholder = document.getElementById('NameAlertholder'); /*경고창 위치 마커 선택*/
         const GenderAlertholder = document.getElementById('genderAlertholder');
@@ -319,6 +300,60 @@
             passwordChkValidation = true;
         });
         
+        // ajax를 통한 아이디 중복체크
+        $("#btn-id-check").on("click", (e) => {
+            console.log($("#join-form").serialize());
+            // 중복체크 버튼 클릭 시 아이디값이 비어 있으면
+            if($("#email").val() === "") {
+                EmailappendAlert("아이디를 입력하세요.");
+                $("#email").focus();
+                return;
+            }
+            
+            // ajax를 이용해서 백엔드와 비동기 통신
+            $.ajax({
+                url: "/member/usernameCheck.do",
+                type: "post",
+                contentType: "x-www-form-urlencoded",
+                data: $("#join-form").serialize(),
+                success: (obj) => {
+                    
+                    // Json String을 Json Object로 변경
+                    const jsonObj = JSON.parse(obj);
+                    
+                    console.log(obj);
+                    console.log(jsonObj);
+                    
+                    if(jsonObj.usernameCheckMsg === 'usernameOk') {
+                        if(confirm(`사용가능한 아이디입니다. \${\$("#username").val()}를 사용하시겠습니까?`)) {
+                            idCheck = true;
+                            $("#btn-id-check").attr("disabled", true);
+                        }
+                        return;
+                    }
+                    
+                    alert("중복된 아이디입니다.");
+                    idCheck = false;
+                    $("#username").focus();
+                    // if(obj === 'usernameOk') {
+                    //     alert("사용가능한 아이디입니다.");
+                    // } else {
+                    //     alert("중복된 아이디입니다.");
+                    // }
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            });
+        });
+        
+        // 중복체크 후에 아이디 값이 변경되면 다시 중복체크 버튼을 활성화
+        $("#username").on("change", (e) => {
+            idCheck = false;
+            $("#btn-id-check").attr("disabled", false);
+        });
+        
+        
         // 조건을 만족못하고 회원가입 버튼 클릭 시 발생하는 이벤트입니다.
         $("#signUp").on("click", (e) => {
             // 닉네임 미 입력시
@@ -327,16 +362,16 @@
                 e.preventDefault();
                 return;
             }
-            const getNickname = document.getElementById("Nickname");
-            userdata.Nickname = getNickname.value;
+            
+           
             
             if($("#Name").val() === '') {
                 NameappendAlert('이름을 입력하세요', 'success');
                 e.preventDefault();
                 return;
             }
-            const getName = document.getElementById("Name");
-            userdata.Name = getName.value;
+           
+            
             
             
             
@@ -344,10 +379,10 @@
             //성별미입력시
             let genderTypeCtn = 0;
             
-            $("input[name='btngender']").each(function() {
+            $("input[name='gender']").each(function() {
                 console.log($("input[name='gender']").is(":checked"));
                 if($(this).is(":checked")) {
-                    userdata.gentypetype = $(this).val();
+                   
                     genderTypeCtn++;
                 }
             });
@@ -361,21 +396,19 @@
             
             // 전화번호 미 입력시
             if($("#tel").val() === '') {
-                appendAlert('전화번호를 입력하세요', 'success');
+                TelappendAlert('전화번호를 입력하세요', 'success');
                 e.preventDefault();
                 return;
             }
-            const gettel = document.getElementById("tel");
-            let telValue = gettel.value.replace(/-/g, ''); // 하이픈 제거
-            userdata.tel = telValue;
+            
             // 이메일 미 입력시
             if($("#email").val() === '') {
-                appendAlert('이메일를 입력하세요', 'success');
+                EmailappendAlert('이메일를 입력하세요', 'success');
                 e.preventDefault();
                 return;
             }
-            const getemail = document.getElementById("email");
-            userdata.email = getemail.value;
+            
+           
             // 비밀번호 미 입력시
             if($("#password").val() === '') {
                 PasswordappendAlert('비밀번호를 입력하세요', 'success');
@@ -395,16 +428,15 @@
                 return;
             }
             
-            const getpassword = document.getElementById("password");
-            userdata.password = getpassword.value;
+           
+            
             
             
             let userTypeCtn = 0;
             
-            $("input[name='btnuser']").each(function() {
-                console.log($("input[name='btnuser']").is(":checked"));
+            $("input[name='role']").each(function() {
+                console.log($("input[name='role']").is(":checked"));
                 if($(this).is(":checked")) {
-                    userdata.usertype = $(this).val();
                     userTypeCtn++;
                 }
             });
@@ -415,7 +447,7 @@
                 return;
             }
             
-            // 사용자의 정보를 콘솔에 출력합니다. 테스트용
+           
             
             
            
