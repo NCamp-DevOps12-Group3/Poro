@@ -23,7 +23,7 @@
         web서버에서 기본적으로 rootpath가 webapp 폴더로 잡혀있다.
     -->
     <!--    <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>-->
-    <mvc:resources mapping="/upload/**" location="file:///C:\Users\SeoJaeHwan\OneDrive\바탕 화면\projectFileStore"/>
+    <mvc:resources mapping="/upload/**" location="file:///C:\Users\bitcamp\Desktop\projectFileStore"/>
     <mvc:resources mapping="/static/**" location="/static/"></mvc:resources>
 
 

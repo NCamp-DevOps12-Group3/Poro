@@ -4,38 +4,48 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="UserFeedsDao">
     <select id="getUserInfo" parameterType="int" resultType="profile">
-        select profileimage,name,introduction,email,phonenumber,gender ,status ,job ,siteurl
+        select profile_image,name,introduction,email,phonenumber,gender ,role ,job ,site_url
         from user
-        where userid  = #{id}
+        where user_id  = #{id}
     </select>
 
-    <select id="getUserPopularPofol" parameterType="int" resultType="portfolio">
-
+    <select id="getUserPortfolioTotalCnt" parameterType="int" resultType="int">
+        select count(*)
+        from portfolio
+        where user_id=#{id}
     </select>
 
-    <select id="getUserPortfolio" parameterType="int" resultType="portfolio">
+    <select id="getUserPortfolio" parameterType="map" resultType="portfolio">
         SELECT
-        p.portfolioid,
-        p.userid,
-        p.thumbnailurl,
+        p.portfolio_id,
+        p.user_id,
+        p.thumbnail_url,
         p.content,
         p.regdate,
         GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
-        GROUP_CONCAT(DISTINCT h.htmlurl) AS htmlurl,
-        GROUP_CONCAT(DISTINCT c.cssurl) AS cssurl,
-        GROUP_CONCAT(DISTINCT j.javascripturl) AS jsurl
+        GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
+        GROUP_CONCAT(DISTINCT c.css_url) AS cssurl,
+        GROUP_CONCAT(DISTINCT j.javascript_url) AS jsurl
         FROM portfolio p
-        JOIN portfolio_skilltag ps
-        ON p.portfolioid = ps.portfolioid
+        JOIN portfolio_skill ps
+        ON p.portfolio_id = ps.portfolio_id
         JOIN skilltag st
-        ON ps.hashtagid = st.hashtagid
+        ON ps.hashtag_id = st.hashtag_id
         JOIN html h
-        ON p.portfolioid = h.portfolioid
+        ON p.portfolio_id = h.portfolio_id
         JOIN css c
-        ON p.portfolioid = c.portfolioid
+        ON p.portfolio_id = c.portfolio_id
         JOIN javascript j
-        ON p.portfolioid = j.portfolioid
-        WHERE p.userid = #{id}
-        GROUP BY p.portfolioid, p.userid, p.thumbnailurl, p.content, p.regdate;
+        ON p.portfolio_id = j.portfolio_id
+        WHERE p.user_id = #{userid}
+        GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.content, p.regdate
+        LIMIT #{criteria.amount} OFFSET #{criteria.startNum};
     </select>
+
+    <delete id="deleteUserPortfolio" parameterType="list">
+        delete from portfolio where portfolio_id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

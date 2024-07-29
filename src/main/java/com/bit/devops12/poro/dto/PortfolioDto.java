@@ -1,6 +1,8 @@
 package com.bit.devops12.poro.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PortfolioDto {
@@ -13,7 +15,55 @@ public class PortfolioDto {
     private LocalDateTime regdate;
     private String skillname;
     private String content;
+    private List<String> htmlCode;
+    private List<String> cssCode;
+    private List<String> jsCode;
+    private String mergeCode;
 
+    public String getMergeCode() {
+        return mergeCode;
+    }
+
+    public void setMergeCode(String mergeCode) {
+        this.mergeCode = mergeCode;
+    }
+
+    public List<String> getHtmlCode() {
+        return htmlCode;
+    }
+
+    public void setHtmlCode(List<String> htmlCode) {
+        this.htmlCode = htmlCode;
+    }
+
+    public List<String> getCssCode() {
+        return cssCode;
+    }
+
+
+    public void setCssCode(List<String> cssCode) {
+        this.cssCode = cssCode;
+    }
+
+    public List<String> getJsCode() {
+        return jsCode;
+    }
+
+    public void setJsCode(List<String> jsCode) {
+        this.jsCode = jsCode;
+    }
+
+    public List<String> getCssList(){
+        return Arrays.stream(cssurl.split(",")).toList();
+    }
+
+    public List<String> getJsList(){
+        return Arrays.stream(jsurl.split(",")).toList();
+    }
+
+    public List<String> getHtmlList(){
+        return Arrays.stream(htmlurl.split(",")).toList();
+    }
     public String getContent() {
         return content;
     }

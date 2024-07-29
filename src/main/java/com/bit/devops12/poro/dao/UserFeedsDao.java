@@ -1,6 +1,7 @@
 package com.bit.devops12.poro.dao;
 
 
+import com.bit.devops12.poro.dto.Criteria;
 import com.bit.devops12.poro.dto.PortfolioDto;
 import com.bit.devops12.poro.dto.ProfileDto;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -20,8 +21,15 @@ public class UserFeedsDao {
     public ProfileDto getUserInfo(int id) {
         return mybatis.selectOne("UserFeedsDao.getUserInfo",id);
     }
-    public List<PortfolioDto> getUserPortfolio(int id){
-        return mybatis.selectList("UserFeedsDao.getUserPortfolio",id);
+    public List<PortfolioDto> getUserPortfolio(Map<String,Object> map){
+        return mybatis.selectList("UserFeedsDao.getUserPortfolio",map);
     }
 
+    public int getUserPortfolioTotalCnt(int id) {
+        return mybatis.selectOne("UserFeedsDao.getUserPortfolioTotalCnt",id);
+    }
+
+    public void deletePortfolio(List<String> deleteList) {
+        mybatis.delete("userFeedsDao.deleteUserPortfolio",deleteList);
+    }
 }
