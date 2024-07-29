@@ -48,4 +48,35 @@
             #{item}
         </foreach>
     </delete>
+
+    <select id="getUserPopularPortfolio" parameterType="int" resultType="portfolio">
+        SELECT
+            p.portfolio_id,
+            p.user_id,
+            p.thumbnail_url,
+            p.content,
+            p.regdate,
+            GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
+            GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
+            GROUP_CONCAT(DISTINCT c.css_url) AS cssurl,
+            GROUP_CONCAT(DISTINCT j.javascript_url) AS jsurl
+        FROM portfolio p
+                 JOIN portfolio_skill ps
+                      ON p.portfolio_id = ps.portfolio_id
+                 JOIN skilltag st
+                      ON ps.hashtag_id = st.hashtag_id
+                 JOIN html h
+                      ON p.portfolio_id = h.portfolio_id
+                 JOIN css c
+                      ON p.portfolio_id = c.portfolio_id
+                 JOIN javascript j
+                      ON p.portfolio_id = j.portfolio_id
+                 join portfolio_like pl
+                        on pl.user_id = p.user_id
+        WHERE p.user_id = #{userid}
+        GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.content, p.regdate
+            LIMIT 5
+        order by pl.likecount;
+
+    </select>
 </mapper>

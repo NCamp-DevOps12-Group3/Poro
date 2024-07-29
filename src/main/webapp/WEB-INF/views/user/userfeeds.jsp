@@ -4,16 +4,16 @@
 <html>
 <head>
     <title>Sign Up Page</title>
-    <link href="static/css/bootstrap.css" rel="stylesheet">
-    <script src="static/js/jquery-3.7.1.min.js"></script>
-    <script src="static/js/bootstrap.bundle.js"></script>
-    <script src="static/js/masonry.pkgd.min.js"></script>
+    <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/masonry.pkgd.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="static/css/darkmode.css">
-    <link rel="stylesheet" href="static/css/modal-main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -302,7 +302,7 @@
 <body>
 <button type="button" id="toTop">↑</button>
 <div class="container-fluid  d-flex">
-    <jsp:include page="../sidebar.jsp"/>
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar.jsp"/>
     <div class="container d-inline-block w-100">
         <button class="btn-toggle btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProfile" id="profileInfoBtn">
             profile
@@ -342,10 +342,10 @@
                     <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbarSupportedContent">
                         <ul class="navbar-nav">
                             <li class="nav-item mx-3 mouseHover">
-                                <a class="nav-link active" href="#">Home</a>
+                                <a class="nav-link" href="/user-feeds.do">Home</a>
                             </li>
                             <li class="nav-item mx-3 mouseHover">
-                                <a class="nav-link" href="#">collection</a>
+                                <a class="nav-link" href="/user-collection-feeds.do">collection</a>
                             </li>
                         </ul>
                     </div>
@@ -398,15 +398,11 @@
                     <div class="modal-body sil" id="modal-body-div">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <iframe src="index.html"></iframe>
-                                </div>
-                                <div class="swiper-slide">
-                                    <iframe src="main.html"></iframe>
-                                </div>
-                                <div class="swiper-slide">
-                                    <iframe src="setting.html"></iframe>
-                                </div>
+                                <c:forEach items="${popularPortfolio}" var="porfol">
+                                    <div class="swiper-slide">
+                                        <iframe srcdoc="${porfol.mergeCode}"></iframe>
+                                    </div>
+                                </c:forEach>
                             </div>
                             <div class="swiper-pagination"></div>
                             <div class="swiper-button-next"></div>
@@ -670,15 +666,6 @@
         //     $('#upload-modal-container').load('upload_modal.html', function() {
         //         $('#uploadModal').modal('show');
         //     });
-        // });
-        // $('#modal-short').on('show.bs.modal', function (e) {
-        //     $('#modal-short .modal-body .modal-content').attr("src", 'example/example.html');
-        // });
-        // $('#modal-portfolio-btn-left').on('click',function (e) {
-        //     $('#modal-short .modal-body .modal-content').attr("src", 'example/example1.html');
-        // });
-        // $('#modal-portfolio-btn-right').on('click',function (e) {
-        //     $('#modal-short .modal-body .modal-content').attr("src", 'example/example2.html');
         // });
 
 

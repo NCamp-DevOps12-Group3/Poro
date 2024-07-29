@@ -49,6 +49,7 @@ public class UserFeedsController {
         model.addAttribute("portfolio",userFeedsService.getUserPortfolio(id,criteria));
         int total=userFeedsService.getUserPortfolioTotalCnt(id);
         model.addAttribute("page",new UserFeedsPageDto(criteria,total));
+        model.addAttribute("popularPortfolio",userFeedsService.getUserPopularPortfolio(id));
         userFeedsService.getUserPortfolio(id,criteria).forEach(x->{
             System.out.println("x.getHtmlurl() = " + x.getHtmlurl());
             System.out.println("x.getCssurl() = " + x.getCssurl());
@@ -60,6 +61,10 @@ public class UserFeedsController {
             System.out.println("x.getThumbnailurl() = " + x.getThumbnailurl());
             System.out.println("x.getUserid() = " + x.getUserid());
         });
+        return "/user/userfeeds";
+    }
+    @GetMapping("/user-collection-feeds.do")
+    public String userCollectionFeeds(Model model, HttpSession session, @RequestParam(name = "id") int id, Criteria criteria) {
         return "/user/userfeeds";
     }
 }

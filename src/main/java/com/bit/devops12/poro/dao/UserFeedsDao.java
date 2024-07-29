@@ -32,4 +32,8 @@ public class UserFeedsDao {
     public void deletePortfolio(List<String> deleteList) {
         mybatis.delete("userFeedsDao.deleteUserPortfolio",deleteList);
     }
+
+    public List<PortfolioDto> getUserPopularPortfolio(int id) {
+        return mybatis.selectList("UserFeedsDao.getUserPopularPortfolio",id);
+    }
 }

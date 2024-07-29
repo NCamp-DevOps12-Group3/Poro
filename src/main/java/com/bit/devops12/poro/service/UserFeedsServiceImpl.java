@@ -96,4 +96,17 @@ public class UserFeedsServiceImpl {
     public void deletePortfolio(List<String> deleteList) {
         userFeedsDao.deletePortfolio(deleteList);
     }
+    public List<PortfolioDto> getUserPopularPortfolio(int id) {
+
+
+        List<PortfolioDto> portfolioDtos = userFeedsDao.getUserPopularPortfolio(id);
+        portfolioDtos.forEach(portfolioDto -> {
+            portfolioDto.setHtmlCode(readFiles(Arrays.stream(portfolioDto.getHtmlurl().split(",")).toList()));
+            portfolioDto.setCssCode(readFiles(Arrays.stream(portfolioDto.getCssurl().split(",")).toList()));
+            portfolioDto.setJsCode(readFiles(Arrays.stream(portfolioDto.getJsurl().split(",")).toList()));
+            portfolioDto.setMergeCode(mergeFile(portfolioDto.getHtmlList(),portfolioDto.getCssList(),portfolioDto.getJsList()));
+        });
+        return portfolioDtos;
+    }
+
 }
