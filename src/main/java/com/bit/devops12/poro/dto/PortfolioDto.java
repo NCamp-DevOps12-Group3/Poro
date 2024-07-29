@@ -1,11 +1,13 @@
 package com.bit.devops12.poro.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PortfolioDto {
-    private int portfolioid;
-    private int userid;
+    private int portfolio_id;
+    private int user_id;
     private String cssurl;
     private String jsurl;
     private String htmlurl;
@@ -13,7 +15,55 @@ public class PortfolioDto {
     private LocalDateTime regdate;
     private String skillname;
     private String content;
+    private List<String> htmlCode;
+    private List<String> cssCode;
+    private List<String> jsCode;
+    private String mergeCode;
 
+    public String getMergeCode() {
+        return mergeCode;
+    }
+
+    public void setMergeCode(String mergeCode) {
+        this.mergeCode = mergeCode;
+    }
+
+    public List<String> getHtmlCode() {
+        return htmlCode;
+    }
+
+    public void setHtmlCode(List<String> htmlCode) {
+        this.htmlCode = htmlCode;
+    }
+
+    public List<String> getCssCode() {
+        return cssCode;
+    }
+
+
+    public void setCssCode(List<String> cssCode) {
+        this.cssCode = cssCode;
+    }
+
+    public List<String> getJsCode() {
+        return jsCode;
+    }
+
+    public void setJsCode(List<String> jsCode) {
+        this.jsCode = jsCode;
+    }
+
+    public List<String> getCssList(){
+        return Arrays.stream(cssurl.split(",")).toList();
+    }
+
+    public List<String> getJsList(){
+        return Arrays.stream(jsurl.split(",")).toList();
+    }
+
+    public List<String> getHtmlList(){
+        return Arrays.stream(htmlurl.split(",")).toList();
+    }
     public String getContent() {
         return content;
     }
@@ -22,20 +72,20 @@ public class PortfolioDto {
         this.content = content;
     }
 
-    public int getPortfolioid() {
-        return portfolioid;
+    public int getPortfolio_id() {
+        return portfolio_id;
     }
 
-    public void setPortfolioid(int portfolioid) {
-        this.portfolioid = portfolioid;
+    public void setPortfolio_id(int portfolio_id) {
+        this.portfolio_id = portfolio_id;
     }
 
-    public int getUserid() {
-        return userid;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getCssurl() {
