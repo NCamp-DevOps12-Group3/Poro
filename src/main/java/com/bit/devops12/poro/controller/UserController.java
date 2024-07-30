@@ -1,7 +1,7 @@
 package com.bit.devops12.poro.controller;
 
-import com.bit.devops12.poro.Dto.UserDto;
-import com.bit.devops12.poro.Service.UserService;
+import com.bit.devops12.poro.dto.UserDto;
+import com.bit.devops12.poro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

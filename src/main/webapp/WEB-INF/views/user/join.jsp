@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="${pageContext.request.contextPath}/static/css/login_join_changepassword.css"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
