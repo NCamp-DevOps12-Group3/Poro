@@ -931,7 +931,7 @@ porodb|schema||devops12_3||UPDATE|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="290" parent="1" name="porodb">
-      <LastIntrospectionLocalTimestamp>2024-07-30.08:09:32</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-07-30.08:59:19</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="291" parent="1" name="devops12_3"/>

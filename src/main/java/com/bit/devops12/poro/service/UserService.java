@@ -12,6 +12,6 @@ public interface UserService {
 	UserDto getMemberByUsername(UserDto userDto);
 	
 	String emailCheck(String email);
-	String NicknameCheck(String nickname);
-	String NameCheck(String email);
+	String nicknameCheck(String nickname);
+	String nameCheck(String name);
 }

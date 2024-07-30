@@ -34,18 +34,18 @@ public class UserController {
 		return userService.emailCheck(userDto.getEmail());
 	}
 	
-	@PostMapping("/NicknameCheck.do")
+	@PostMapping("/nicknameCheck.do")
 	@ResponseBody
-	public String NicknameCheck(UserDto userDto) {
-		System.out.println(userService.NicknameCheck(userDto.getNickname()));
-		return userService.NicknameCheck(userDto.getNickname());
+	public String nicknameCheck(UserDto userDto) {
+		System.out.println(userService.nicknameCheck(userDto.getNickname()));
+		return userService.nicknameCheck(userDto.getNickname());
 	}
 	
-	@PostMapping("/NameCheck.do")
+	@PostMapping("/nameCheck.do")
 	@ResponseBody
-	public String NameCheck(UserDto userDto) {
-		System.out.println(userService.NameCheck(userDto.getName()));
-		return userService.NameCheck(userDto.getName());
+	public String nameCheck(UserDto userDto) {
+		System.out.println(userService.nameCheck(userDto.getName()));
+		return userService.nameCheck(userDto.getName());
 	}
 	
 	@PostMapping("/join.do")

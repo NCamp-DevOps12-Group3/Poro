@@ -61,16 +61,16 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public String NicknameCheck(String nickname) {
+	public String nicknameCheck(String nickname) {
 		int nicknameCheck = userDao.nicknameCheck(nickname);
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		Map<String, String> jsonMap = new HashMap<>();
 		
 		if (nicknameCheck == 0) {
-			jsonMap.put("NicknameCheckMsg", "NicknameOk");
+			jsonMap.put("nicknameCheckMsg", "nicknameOk");
 		} else {
-			jsonMap.put("NicknameCheckMsg", "NicknameFail");
+			jsonMap.put("nicknameCheckMsg", "nicknameFail");
 		}
 		String jsonString = "";
 		
@@ -85,16 +85,16 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public String NameCheck(String name) {
-		int nameCheck = userDao.nicknameCheck(name);
+	public String nameCheck(String name) {
+		int nameCheck = userDao.nameCheck(name);
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		Map<String, String> jsonMap = new HashMap<>();
 		
 		if (nameCheck == 0) {
-			jsonMap.put("NameCheckMsg", "NameOk");
+			jsonMap.put("nameCheckMsg", "nameOk");
 		} else {
-			jsonMap.put("NameCheckMsg", "NameFail");
+			jsonMap.put("nameCheckMsg", "nameFail");
 		}
 		String jsonString = "";
 		

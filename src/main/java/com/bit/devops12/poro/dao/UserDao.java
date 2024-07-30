@@ -34,8 +34,8 @@ public class UserDao {
 		return mybatis.selectOne("UserDao.emailCheck", email);
 	}
 	
-	public int nameCheck(String username) {
-		return mybatis.selectOne("UserDao.nameCheck", username);
+	public int nameCheck(String name) {
+		return mybatis.selectOne("UserDao.nameCheck", name);
 	}
 	
 	public int nicknameCheck(String nickname) {
