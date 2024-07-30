@@ -1,7 +1,7 @@
 package com.bit.devops12.poro.dto;
 
 public class ProfileDto {
-    private String porfileimage;
+    private String profile_image;
     private String name;
     private String introduction;
     private String email;
@@ -11,12 +11,12 @@ public class ProfileDto {
     private String job;
     private String siteurl;
 
-    public String getPorfileimage() {
-        return porfileimage;
+    public String getProfile_image() {
+        return profile_image;
     }
 
-    public void setPorfileimage(String porfileimage) {
-        this.porfileimage = porfileimage;
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 
     public String getName() {

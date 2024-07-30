@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/js/darkmode.js">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <style>
         body {
@@ -302,13 +303,15 @@
 <body>
 <button type="button" id="toTop">↑</button>
 <div class="container-fluid  d-flex">
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar.jsp"/>
+    <jsp:include page="/WEB-INF/views/user/sidebar.jsp"/>
     <div class="container d-inline-block w-100">
         <button class="btn-toggle btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProfile" id="profileInfoBtn">
             profile
         </button>
         <div class="top-section d-flex align-items-center">
-            
+            <button class="ratio ratio-1x1 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#modal-short" id="profileImgBtn">
+                <img src="${profile.profile_image}" alt="" class="mouse-Cursor" id="profileImg">
+            </button>
             <div class="w-50">
                 <div class="mouse-Cursor mb-3" id="profileName">
                     <p class="d-inline-block" >name</p>
@@ -334,43 +337,47 @@
                 <a href="#" class="list-group-item">message</a> -->
                 <button type="button" class="list-group-item inactive" id="portfolioDelete">delete</button>
             </div>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary border border-dark rounded">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbarSupportedContent">
-                        <ul class="navbar-nav">
-                            <li class="nav-item mx-3 mouseHover">
-                                <a class="nav-link" href="/user-feeds.do">Home</a>
-                            </li>
-                            <li class="nav-item mx-3 mouseHover">
-                                <a class="nav-link" href="/user-collection-feeds.do">collection</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
 
+        </div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary border border-dark rounded">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item mx-3 mouseHover">
+                            <a class="nav-link" href="/user-feeds.do">Home</a>
+                        </li>
+                        <li class="nav-item mx-3 mouseHover">
+                            <a class="nav-link" href="/user-collection-feeds.do">coperation collection</a>
+                        </li>
+                        <li class="nav-item mx-3 mouseHover">
+                            <a class="nav-link" href="/user-collection-feeds.do">portfolio collection</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="bottom-section">
             <form action="/feed-form.do" method="post" id="formFeeds">
                 <input type="hidden" name="pageNum" value="${page.cri.pageNum}">
                 <input type="hidden" name="amount" value="${page.cri.amount}">
                 <input type="hidden" name="endPage" value="${page.endPage}">
                 <input type="hidden" name="deleteList" id="deleteList" value="">
+                <input type="hidden" name="id" value="${page.userid}">
                 <div class="row grid" id="feed">
                     <c:forEach items="${portfolio}" var="portfolio">
                         <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
                             <div class="card">
                                 <div class="card-header">
-                                        ${portfolio.id}
+                                        ${portfolio.user_id}
                                 </div>
-                                <input type="checkbox" class="delete-dot" value="${portfolio.id}">
+                                <input type="checkbox" class="delete-dot" value="${portfolio.portfolio_id}">
                                 <a href="/feed-detail.do">
-                                    <img src="/upload/${portfolio.thumnailurl}" class="card-img-top" alt=".">
-                                    <iframe height="1076" class="card-iframe ratio ratio-1x1" srcdoc="${portfolio.mergeCode}" style="display:none" id="${portfolio.id}iframe"
-                                            ></iframe>
+                                    <img src="${portfolio.thumbnail_url}" class="card-img-top" alt=".">
+                                    <iframe  class="card-iframe ratio ratio-1x1" style="display:none" id="${portfolio.portfolio_id}iframe"
+                                             srcdoc="<c:out value='${portfolio.mergeCode}' escapeXml='false'/>" ></iframe>
                                 </a>
                                 <div class="card-body">
                                     <p class="card-text">
@@ -381,7 +388,7 @@
                                     </p>
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-body-secondary">${obj.portfolioList[i].regdate}</small>
+                                    <small class="text-body-secondary">${portfolio.regdate}</small>
                                 </div>
                             </div>
                         </div>
@@ -400,7 +407,7 @@
                             <div class="swiper-wrapper">
                                 <c:forEach items="${popularPortfolio}" var="porfol">
                                     <div class="swiper-slide">
-                                        <iframe srcdoc="${porfol.mergeCode}"></iframe>
+                                        <iframe srcdoc="`${porfol.mergeCode}`"></iframe>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -425,7 +432,7 @@
                     </div>
                     <div class="modal-body h-75 text-center">
                         <div class="ratio ratio-1x1 mb-3">
-                            <img src="/upload/${profile.profileimage}" alt="" id="profile-vertical">
+                            <img src="${profile.profile_image}" alt="" id="profile-vertical">
                         </div>
                         <div>
                         <pre class="overflow-x-scroll sil" id="scrollContainer">
@@ -465,123 +472,16 @@
 ####################################################################################################################
 -->
 <script>
-    const deleteList=[];
-    //프론트 단에서 만 사용하는 함수
-    const zeroDate=(date)=>{
-        return date<10 ? `0\${date}` :date;
-    }
-    //백 단 처리에 이용되는 함수
-    const makeImageElement=(file)=>{
-        if(file != null && file.filetype ==='image')
-            return `<img width="100%" src="/upload/\${file.filename}" alt=\${file.fileoriginname}/>`
-        return `<img width="100%" src="/static/img/search.png" alt=\${file.fileoriginname}/>`
-    }
-    function mergeFile(htmlContentList,cssContentList,jsContentList){
-        const merged_cssContent = cssContentList.join('\n');
-        const merged_htmlContent = htmlContentList.join('\n');
-        const merged_jsContent = jsContentList.join('\n');
-        const merged_content = `
-            &lt;!DOCTYPE html&gt;
-            &lt;html lang="en"&gt;
-            &lt;head&gt;
-                &lt;meta charset="UTF-8"&gt;
-                &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-                &lt;title&gt;Merged HTML&lt;/title&gt;
-                &lt;style&gt;
-                    ${merged_cssContent}
-                &lt;/style&gt;
-            &lt;/head&gt;
-            &lt;body&gt;
-                ${merged_htmlContent}
-                &lt;script&gt;
-                ${merged_jsContent}
-                &lt;/script&gt;
-            &lt;/body&gt;
-            &lt;/html&gt;
-            `;
 
-        return (merged_content);
-    }
-    function load(){
-        $.ajax({
-            url:'/userfeeds/feed-ajax.do',
-            type:'post',
-            data:$("#formFeeds").serialize(),
-            success:(obj)=>{
-                let htmlStr="";
-                for (let i=0;i<obj.portfolioList.length ;i++){
-                    const srcdoc=mergeFile(obj.portfolioList[i].htmlCode,obj.portfolioList[i].cssCode,obj.portfolioList[i].jsCode);
-                    htmlStr+=`
-                                    <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
-        <div class="card">
-            <div class="card-header">
-                ${obj.portfolioList[i].id}
-            </div>
-            <input type="checkbox" class="delete-dot" value="${obj.portfolioList[i].id}">
-            <a href="/feed-form.do">
-                <img src="/upload/${obj.portfolioList[i].thumnailurl}" class="card-img-top" alt=".">
-                <iframe height="1076" srcdoc="${obj.portfolioList[i].mergeCode}" class="card-iframe ratio ratio-1x1" style="display:none"></iframe>
-            </a>
-            <div class="card-body">
-            <p class="card-text">
-                ${obj.portfolioList[i].skillname}
-            </p>
-            <p class="card-text card-info-toggle">
-                ${obj.portfolioList[i].content}
-            </p>
-            </div>
-            <div class="card-footer">
-                <small class="text-body-secondary">${obj.portfolioList[i].regdate}</small>
-            </div>
-        </div>
-    </div>
-                                    `;
-                }
-                $("#feed").append(htmlStr);
-                imagesLoaded(grid, function() {
-                    msnry.reloadItems();
-                    msnry.layout();
-                });
-            },
-            error:(err)=>{
-                console.log(err);
-            }
-        });
-
-
-    }
-    function toggleButtonState() {
-        let button = document.getElementById('portfolioDelete');
-        let isActive = button.classList.contains('active');
-
-        if (isActive) {
-            button.classList.remove('active');
-            button.classList.add('inactive');
-            button.textContent = 'delete';
-            $('.delete-dot').css('display','none');
-            deleteList.length = 0;
-            let elements = document.querySelectorAll('.delete-dot:checked');
-            elements.forEach(function(element) {
-                deleteList.push(element.getAttribute("value"));
-            });
-            $("#deleteList").val(JSON.stringify(deleteList));
-            $('#formFeeds').submit();
-        } else {
-            button.classList.remove('inactive');
-            button.classList.add('active');
-            button.textContent = 'confirm';
-            $('.delete-dot').css('display','inline-block');
-        }
-    }
     $(function(){
         // 초기 화면 설정, 자동 배치 위한 설정 부분
-        var isDarkMode = loadDarkModeState();
-        applyDarkMode(isDarkMode);
-        $('#darkModeToggle').on('click', function() {
-            isDarkMode = !$('body').hasClass('dark-mode');
-            applyDarkMode(isDarkMode);
-            saveDarkModeState(isDarkMode);
-        });
+        // var isDarkMode = loadDarkModeState();
+        // applyDarkMode(isDarkMode);
+        // $('#darkModeToggle').on('click', function() {
+        //     isDarkMode = !$('body').hasClass('dark-mode');
+        //     applyDarkMode(isDarkMode);
+        //     saveDarkModeState(isDarkMode);
+        // });
         var msnry;
         var grid = document.querySelector('.grid');
         imagesLoaded(grid, function() {
@@ -685,6 +585,7 @@
                     clickable: true,
                 },
             });
+
         });
         // 단순 화면단에서 처리가능한 부분
         $('.modal-portfolio-btn').hover(
@@ -763,6 +664,118 @@
                 msnry.layout();
             });
         });
+
+        function mergeFile(htmlContentList,cssContentList,jsContentList){
+            const merged_cssContent = cssContentList.join('\n');
+            const merged_htmlContent = htmlContentList.join('\n');
+            const merged_jsContent = jsContentList.join('\n');
+            const merged_content = `
+            &lt;!DOCTYPE html&gt;
+            &lt;html lang="en"&gt;
+            &lt;head&gt;
+                &lt;meta charset="UTF-8"&gt;
+                &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                &lt;title&gt;Merged HTML&lt;/title&gt;
+                &lt;style&gt;
+                    ${merged_cssContent}
+                &lt;/style&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+                ${merged_htmlContent}
+                &lt;script&gt;
+                ${merged_jsContent}
+                &lt;/script&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+            `;
+            return (merged_content);
+        }
+        const deleteList=[];
+        //프론트 단에서 만 사용하는 함수
+        const zeroDate=(date)=>{
+            return date<10 ? `0\${date}` :date;
+        }
+        //백 단 처리에 이용되는 함수
+        const makeImageElement=(file)=>{
+            if(file != null && file.filetype ==='image')
+                return `<img width="100%" src="/upload/\${file.filename}" alt=\${file.fileoriginname}/>`
+            return `<img width="100%" src="/static/img/search.png" alt=\${file.fileoriginname}/>`
+        }
+        function load(){
+            $.ajax({
+                url:'/feed-ajax.do',
+                type:'post',
+                data:$("#formFeeds").serialize(),
+                success:(obj)=>{
+                    console.log(obj);
+                    let htmlStr="";
+                    for (let i=0;i<obj.portfolioList.length ;i++){
+                        const srcdoc=mergeFile(obj.portfolioList[i].htmlCode,obj.portfolioList[i].cssCode,obj.portfolioList[i].jsCode);
+                        console.log(obj.portfolioList[i].user_id)
+                        console.log(JSON.stringify(obj))
+                        htmlStr+=`
+                                    <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
+        <div class="card">
+            <div class="card-header">
+                \${obj.portfolioList[i].user_id}
+            </div>
+            <input type="checkbox" class="delete-dot" value="\${obj.portfolioList[i].portfolio_id}">
+            <a href="/feed-detail.do" id="iframe\${obj.portfolioList[i].portfolio_id}>
+                <img src="\${obj.portfolioList[i].thumbnail_url}" class="card-img-top" alt=".">
+                <iframe srcdoc="\${obj.portfolioList[i].mergeCode}" class="card-iframe ratio ratio-1x1" style="display:none" id="iframe\${obj.portfolioList[i].portfolio_id}"></iframe>
+            </a>
+            <div class="card-body">
+            <p class="card-text">
+                \${obj.portfolioList[i].skillname}
+            </p>
+            <p class="card-text card-info-toggle">
+                \${obj.portfolioList[i].content}
+            </p>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">\${obj.portfolioList[i].regdate}</small>
+            </div>
+        </div>
+    </div>
+                                    `;
+                    }
+
+                    $("#feed").append(htmlStr);
+                    imagesLoaded(grid, function() {
+                        msnry.reloadItems();
+                        msnry.layout();
+                    });
+                },
+                error:(err)=>{
+                    console.log(err);
+                }
+            });
+
+
+        }
+        function toggleButtonState() {
+            let button = document.getElementById('portfolioDelete');
+            let isActive = button.classList.contains('active');
+            if (isActive) {
+                button.classList.remove('active');
+                button.classList.add('inactive');
+                button.textContent = 'delete';
+                $('.delete-dot').css('display','none');
+                deleteList.length = 0;
+                let elements = document.querySelectorAll('.delete-dot:checked');
+                elements.forEach(function(element) {
+                    deleteList.push(element.getAttribute("value"));
+                });
+                $("#deleteList").val(JSON.stringify(deleteList));
+                alert(deleteList);
+                $('#formFeeds').submit();
+            } else {
+                button.classList.remove('inactive');
+                button.classList.add('active');
+                button.textContent = 'confirm';
+                $('.delete-dot').css('display','inline-block');
+            }
+        }
     });
 </script>
 </body>
