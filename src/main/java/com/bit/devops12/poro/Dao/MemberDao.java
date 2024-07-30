@@ -1,6 +1,6 @@
 package com.bit.devops12.poro.dao;
 
-import com.bit.devops12.poro.dto.MemberDto;
+import com.bit.devops12.poro.dto.UserDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,13 +16,13 @@ public class MemberDao {
 		this.mybatis = sqlSessionTemplate;
 	}
 	
-	public void join(MemberDto memberDto){
+	public void join(UserDto memberDto){
 		System.out.println("MemberDao의 join 메소드 실행");
 		mybatis.insert("MemberDao.join", memberDto);
 		System.out.println("MemberDao의 join 메소드 실행 종료");
 	}
 	
-	public List<MemberDto> getMembers() {
+	public List<UserDto> getMembers() {
 		System.out.println("MemberDao의 getMembers 메소드 실행");
 		
 		return mybatis.selectList("MemberDao.getMembers");
@@ -41,11 +41,11 @@ public class MemberDao {
 		return mybatis.selectOne("MemberDao.nicknameCheck", nickname);
 	}
 	
-	public MemberDto login(MemberDto memberDto) {
+	public UserDto login(UserDto memberDto) {
 		return mybatis.selectOne("MemberDao.login", memberDto);
 	}
 	
-	public List<MemberDto> findMembersUsingKeyword(String keyword){
+	public List<UserDto> findMembersUsingKeyword(String keyword){
 		return mybatis.selectList("MemberDao.findMembersUsingKeyword", keyword);
 	}
 	

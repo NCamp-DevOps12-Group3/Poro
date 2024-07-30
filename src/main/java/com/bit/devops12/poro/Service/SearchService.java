@@ -1,6 +1,6 @@
 package com.bit.devops12.poro.service;
 
-import com.bit.devops12.poro.dto.MemberDto;
+import com.bit.devops12.poro.dto.UserDto;
 
 import java.util.List;
 import java.util.Map;
