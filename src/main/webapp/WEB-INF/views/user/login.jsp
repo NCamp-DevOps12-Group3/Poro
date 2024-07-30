@@ -147,17 +147,14 @@
 
 
 
-            if($("#email").val() !== 'bitcamp502@naver.com') {
-                EmailappendAlert('이메일이나 비밀번호에 문제가있습니다.', 'success');
-                e.preventDefault();
-                return;
-            }
-
-            if($("#password").val() !== '1') {
-                PasswordappendAlert('이메일이나 비밀번호에 문제가있습니다.', 'success');
-                e.preventDefault();
-                return;
-            }
+           
+            
+            
+            
+            
+            
+            
+            
         });
         $("#signUp").on("click", () => {
             window.location.href="/user/join.do";

@@ -51,6 +51,6 @@ public class UserController {
 	@PostMapping("/join.do")
 	public String join(UserDto userDto) {
 		userService.join(userDto);
-		return "user/login.do";
+		return "user/login";
 	}
 }
