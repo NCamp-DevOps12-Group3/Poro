@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="${pageContext.request.contextPath}/static/css/login_join_changepassword.css"></script>
+    
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,11 +17,11 @@
     <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
-    <script src="${pageContext.request.contextPath}/static/css/login_join_changepassword.css"></script>
+    <link href="${pageContext.request.contextPath}/static/css/login_join_changepassword.css" rel="stylesheet">
     <style>
         /* 컨테이너 스타일 */
         .container {
-            height: 110vh;
+            height: 130vh;
         }
     
     </style>
@@ -35,24 +35,26 @@
     <div class="card"><!-- 회원가입 양식 -->
         <p class="h5 card-title text-center">계정생성</p><!-- 회원가입 양식 텍스트 -->
         <p class="text-center" >이메일로 회원가입 하기</p><!-- 회원가입 양식 텍스트 -->
-        <form  action="/member/join.do" id="join-form" method="post"><!-- 회원가입 양식 폼 -->
+        <form  action="/user/join.do" id="join-form" method="post"><!-- 회원가입 양식 폼 -->
             <div class="mb-3"><!-- 회원가입 양식 입력창 -->
-                <div style="height: 60px; margin-bottom: 25px;">닉네임
+                <div style="height: 60px; margin-bottom: 70px;">닉네임
                     <input type="text" class="form-control" id="Nickname" name="Nickname" placeholder="닉네임 ">
+                    <button type="button" class="btn btn-outline-dark" id="NicnameChk">중복확인</button>
                     <div id="NicknameAlertholder"></div>
                 </div>
                 
-                <div style="height: 60px; margin-bottom: 25px;">이름
+                <div style="height: 60px; margin-bottom: 70px;">이름
                     <input type="text" class="form-control" id="Name" name="Name" placeholder="이름">
+                    <button type="button" class="btn btn-outline-dark" id="NameChk">중복확인</button>
                     <div id="NameAlertholder"></div>
                 </div>
                 <div style="height: 60px; margin-bottom: 25px;">성별
                     <div class="types">
                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="gender" id="gender-male" value="gender-male" autocomplete="off" >
+                            <input type="radio" class="btn-check" name="gender" id="gender-male" value="male" autocomplete="off" >
                             <label class="btn btn-outline-dark" for="gender-male">남성</label>
                             
-                            <input type="radio" class="btn-check" name="gender" id="gender-female" value="gender-female" autocomplete="off">
+                            <input type="radio" class="btn-check" name="gender" id="gender-female" value="female" autocomplete="off">
                             <label class="btn btn-outline-dark" for="gender-female">여성</label>
                         </div>
                     </div>
@@ -65,12 +67,12 @@
                 
                 
                 <div style="height: 60px; margin-bottom: 25px;">전화번호
-                    <input type="tel" class="form-control" id="tel" name="tel" pattern="\d{3}\d{4}\d{4}" placeholder="000-0000-0000 -없이입력" required>
+                    <input type="tel" class="form-control" id="phonenumber" name="phonenumber" pattern="\d{3}\d{4}\d{4}" placeholder="000-0000-0000 -없이입력" required>
                     <div id="TelAlertholder"></div>
                 </div>
-                <div style="height: 60px; margin-bottom: 25px;">이메일
+                <div style="height: 60px; margin-bottom: 70px;">이메일
                     <input type="email" class="form-control" id="email" name="email" placeholder="이메일">
-                    <button type="button" class="btn btn-dark" id="emailChk">중복확인</button>
+                    <button type="button" class="btn btn-outline-dark" id="emailChk">중복확인</button>
                     <div id="EmailAlertholder"></div>
                 </div>
                 <div style="height: 60px; margin-bottom: 50px;">비밀번호
@@ -93,7 +95,7 @@
                             
                             
                             
-                            <input type="radio" class="btn-check" name="role" id="corporateusers" value="corporateusers"
+                            <input type="radio" class="btn-check" name="role" id="corporateusers" value="COMPANY"
                                    autocomplete="off">
                             <label class="btn btn-outline-dark" for="corporateusers">기업 사용자</label>
                         
@@ -103,7 +105,7 @@
                 </div>
             </div>
             <div class="d-grid mb-3"><!-- 회원가입 양식 텍스트 보내기버튼 -->
-                <button type="button" class="btn btn-dark" id="signUp">회원가입</button>
+                <button type="submit" class="btn btn-dark" id="signUp">회원가입</button>
             </div>
         </form>
     
@@ -117,7 +119,7 @@
         const aNickname = document.querySelector("input[name='Nickname']"); /*닉네임 선택*/
         const aName = document.querySelector("input[name='Name']"); /*닉네임 선택*/
         const agender = document.querySelector("input[name='gender']"); /*닉네임 선택*/
-        const aTel = document.querySelector("input[name='tel']"); /*전화번호 선택*/
+        const aTel = document.querySelector("input[name='phonenumber']"); /*전화번호 선택*/
         const aemail = document.querySelector("input[name='email']"); /*이메일 선택*/
         const apassword = document.querySelector("input[name='password']"); /*비밀번호 선택*/
         const apasswordchk = document.querySelector("input[name='passwordChk']"); /*비밀번호 확인 선택*/
@@ -152,7 +154,7 @@
             const alerts = NameAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {NameAlertholder.removeChild(alerts[0]);}
             NameAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
         const GenderappendAlert = (message, type) => {
@@ -163,7 +165,7 @@
             const alerts = GenderAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {GenderAlertholder.removeChild(alerts[0]);}
             GenderAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
         
@@ -176,7 +178,7 @@
             const alerts = TelAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {TelAlertholder.removeChild(alerts[0]);}
             TelAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
         const EmailappendAlert = (message, type) => {
@@ -187,7 +189,7 @@
             const alerts = EmailAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {EmailAlertholder.removeChild(alerts[0]);}
             EmailAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
         const PasswordappendAlert = (message, type) => {
@@ -198,7 +200,7 @@
             const alerts = PasswordAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {PasswordAlertholder.removeChild(alerts[0]);}
             PasswordAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
         const PasswordChkappendAlert = (message, type) => {
@@ -209,7 +211,7 @@
             const alerts = PasswordChkAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {PasswordChkAlertholder.removeChild(alerts[0]);}
             PasswordChkAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
         const UserappendAlert = (message, type) => {
@@ -220,19 +222,21 @@
             const alerts = UserAlertholder.querySelectorAll('.alert');
             if (alerts.length >= 1) {UserAlertholder.removeChild(alerts[0]);}
             UserAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
-            setTimeout(() => { wrapper.remove();}, 5000);
+            setTimeout(() => { wrapper.remove();}, 1000);
         }
         
-        let idValidation = false; // 아이디 유효성 검사를 위한 변수입니다.
-        // 닉네임 입력란에 조건을 만족못하고  포커스를 잃었을 때 발생하는 이벤트입니다.
+        
+        
+        let NicknameValidation = false; // 이름 유효성 검사를 위한 변수입니다.
+        // 이름 입력란에 조건을 만족못하고  포커스를 잃었을 때 발생하는 이벤트입니다.
         aNickname.addEventListener("blur", (e) => {
             console.log(e.target.value);
-            if(e.target.value.length < 8 || e.target.value.length > 20) {
-                NicknameappendAlert('아이디는 8자리이상 20자이하로 지정해주세요.', 'success');
-                idValidation = false;
+            if(e.target.value === "") {
+                NicknameappendAlert('닉네임을 입력 해주세요.', 'success');
+                NicknameValidation = false;
                 return;
             }
-            idValidation = true;
+            NicknameValidation = true;
         });
         
         let NameValidation = false; // 이름 유효성 검사를 위한 변수입니다.
@@ -241,10 +245,10 @@
             console.log(e.target.value);
             if(e.target.value === "") {
                 NameappendAlert('이름을 입력 해주세요.', 'success');
-                idValidation = false;
+                NameValidation = false;
                 return;
             }
-            idValidation = true;
+            NameValidation = true;
         });
         
         let TelValidation = false;
@@ -300,41 +304,41 @@
             passwordChkValidation = true;
         });
         
-        // ajax를 통한 아이디 중복체크
-        $("#btn-id-check").on("click", (e) => {
+        // ajax를 통한 email 중복체크
+        $("#emailChk").on("click", (e) => {
             console.log($("#join-form").serialize());
-            // 중복체크 버튼 클릭 시 아이디값이 비어 있으면
+            // 중복체크 버튼 클릭 시 email값이 비어 있으면
             if($("#email").val() === "") {
-                EmailappendAlert("아이디를 입력하세요.");
+                EmailappendAlert('아이디를 입력하세요.', 'success');
                 $("#email").focus();
                 return;
             }
             
             // ajax를 이용해서 백엔드와 비동기 통신
             $.ajax({
-                url: "/member/usernameCheck.do",
+                url: "/user/emailCheck.do",
                 type: "post",
                 contentType: "x-www-form-urlencoded",
                 data: $("#join-form").serialize(),
-                success: (obj) => {
+                success: (obj1) => {
                     
                     // Json String을 Json Object로 변경
-                    const jsonObj = JSON.parse(obj);
+                    const jsonObj1 = JSON.parse(obj1);
                     
-                    console.log(obj);
-                    console.log(jsonObj);
+                    console.log(obj1);
+                    console.log(jsonObj1);
                     
-                    if(jsonObj.usernameCheckMsg === 'usernameOk') {
-                        if(confirm(`사용가능한 아이디입니다. \${\$("#username").val()}를 사용하시겠습니까?`)) {
-                            idCheck = true;
-                            $("#btn-id-check").attr("disabled", true);
+                    if(jsonObj1.emailCheckMsg === 'emailOk') {
+                        if(confirm(`사용가능한 이메일입니다. \${\$("#email").val()}를 사용하시겠습니까?`)) {
+                            emailCheck = true;
+                            $("#emailChk").attr("disabled", true);
                         }
                         return;
                     }
                     
-                    alert("중복된 아이디입니다.");
-                    idCheck = false;
-                    $("#username").focus();
+                    EmailappendAlert("중복된 이메일입니다.", 'success');
+                    emailCheck = false;
+                    $("#email").focus();
                     // if(obj === 'usernameOk') {
                     //     alert("사용가능한 아이디입니다.");
                     // } else {
@@ -348,10 +352,122 @@
         });
         
         // 중복체크 후에 아이디 값이 변경되면 다시 중복체크 버튼을 활성화
-        $("#username").on("change", (e) => {
-            idCheck = false;
-            $("#btn-id-check").attr("disabled", false);
+        $("#email").on("change", (e) => {
+            emailCheck = false;
+            $("#emailChk").attr("disabled", false);
         });
+        
+        // ---------------------------------------------------------------------------------------------
+        
+        $("#Nickname").on("click", (e) => {
+            console.log($("#join-form").serialize());
+            // 중복체크 버튼 클릭 시 email값이 비어 있으면
+            if($("#Nickname").val() === "") {
+                NicknameappendAlert('닉네임를 입력하세요.', 'success');
+                $("#Nickname").focus();
+                return;
+            }
+            
+            // ajax를 이용해서 백엔드와 비동기 통신
+            $.ajax({
+                url: "/user/NicknameCheck.do",
+                type: "post",
+                contentType: "x-www-form-urlencoded",
+                data: $("#join-form").serialize(),
+                success: (obj) => {
+                    
+                    // Json String을 Json Object로 변경
+                    const jsonObj = JSON.parse(obj);
+                    
+                    console.log(obj);
+                    console.log(jsonObj);
+                    
+                    if(jsonObj.NicknameCheckMsg === 'NicknameOk') {
+                        if(confirm(`사용가능한 닉네임입니다. \${\$("#Nickname").val()}를 사용하시겠습니까?`)) {
+                            NicknameCheck = true;
+                            $("#NicknameChk").attr("disabled", true);
+                        }
+                        return;
+                    }
+                    
+                    NicknameappendAlert('중복된 닉네임 입니다.', 'success');
+                    NicknameCheck = false;
+                    $("#Nickname").focus();
+                    // if(obj === 'usernameOk') {
+                    //     alert("사용가능한 아이디입니다.");
+                    // } else {
+                    //     alert("중복된 아이디입니다.");
+                    // }
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            });
+        });
+        
+        // 중복체크 후에 아이디 값이 변경되면 다시 중복체크 버튼을 활성화
+        $("#Nickname").on("change", (e) => {
+            NicknameCheck = false;
+            $("#NicknameChk").attr("disabled", false);
+        });
+        
+        
+        
+        
+        
+        // ------------------------------------------------------------------------------------------------
+        $("#NameChk").on("click", (e) => {
+            console.log($("#join-form").serialize());
+            // 중복체크 버튼 클릭 시 email값이 비어 있으면
+            if($("#Name").val() === "") {
+                NameappendAlert('이름을 입력하세요.', 'success');
+                $("#Name").focus();
+                return;
+            }
+            
+            // ajax를 이용해서 백엔드와 비동기 통신
+            $.ajax({
+                url: "/user/NameCheck.do",
+                type: "post",
+                contentType: "x-www-form-urlencoded",
+                data: $("#join-form").serialize(),
+                success: (obj) => {
+                    
+                    // Json String을 Json Object로 변경
+                    const jsonObj = JSON.parse(obj);
+                    
+                    console.log(obj);
+                    console.log(jsonObj);
+                    
+                    if(jsonObj.emailCheckMsg === 'NameOk') {
+                        if(confirm(`사용가능한 이름입니다. \${\$("#Name").val()}를 사용하시겠습니까?`)) {
+                            NameCheck = true;
+                            $("#NameChk").attr("disabled", true);
+                        }
+                        return;
+                    }
+                    
+                    NameappendAlert('복된 이름입니다.', 'success');
+                    NameCheck = false;
+                    $("#Name").focus();
+                    // if(obj === 'usernameOk') {
+                    //     alert("사용가능한 아이디입니다.");
+                    // } else {
+                    //     alert("중복된 아이디입니다.");
+                    // }
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            });
+        });
+        
+        // 중복체크 후에 아이디 값이 변경되면 다시 중복체크 버튼을 활성화
+        $("#Name").on("change", (e) => {
+            NameCheck = false;
+            $("#NameChk").attr("disabled", false);
+        });
+        
         
         
         // 조건을 만족못하고 회원가입 버튼 클릭 시 발생하는 이벤트입니다.
@@ -454,7 +570,7 @@
             
             
             //로그인으로이동
-            window.location.href='login.html';
+           
         });
     });
 </script>

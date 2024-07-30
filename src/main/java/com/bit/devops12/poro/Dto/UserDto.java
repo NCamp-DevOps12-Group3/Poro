@@ -1,6 +1,8 @@
 package com.bit.devops12.poro.Dto;
 
-public class MemberDto {
+import java.time.LocalDateTime;
+
+public class UserDto {
 	private int id;
 	private String nickname;
 	private String name;
@@ -10,6 +12,9 @@ public class MemberDto {
 	private String email;
 	private String password;
 	private String role;
+	private LocalDateTime regdate;
+	private LocalDateTime moddate;
+	
 	
 	public int getId() {
 		return id;
@@ -83,9 +88,25 @@ public class MemberDto {
 		this.role = role;
 	}
 	
+	public LocalDateTime getRegdate() {
+		return regdate;
+	}
+	
+	public void setRegdate(LocalDateTime regdate) {
+		this.regdate = regdate;
+	}
+	
+	public LocalDateTime getModdate() {
+		return moddate;
+	}
+	
+	public void setModdate(LocalDateTime moddate) {
+		this.moddate = moddate;
+	}
+	
 	@Override
 	public String toString() {
-		return "MemberDto{" +
+		return "UserDto{" +
 				       "id=" + id +
 				       ", nickname='" + nickname + '\'' +
 				       ", name='" + name + '\'' +
@@ -95,6 +116,8 @@ public class MemberDto {
 				       ", email='" + email + '\'' +
 				       ", password='" + password + '\'' +
 				       ", role='" + role + '\'' +
+				       ", regdate=" + regdate +
+				       ", moddate=" + moddate +
 				       '}';
 	}
 }

@@ -5,10 +5,10 @@
     <!-- 객체 별칭 지정가능
     원래 mapper에 파라미터 타입,resulttupe에 패키지 까지 포함된 전체 클래스 명을 작성해야하지만 별칭으로 지정하면 별칭만 사용해서 작성가능-->
     <typeAliases>
-        <typeAlias type="com.bit.devops12.poro.Dto.MemberDto" alias="member"/>
+        <typeAlias type="com.bit.devops12.poro.Dto.UserDto" alias="user"/>
     </typeAliases>
     <!-- 사용할 sql mapper등록 -->
     <mappers>
-        <mapper resource="Member-mapper.xml"/>
+        <mapper resource="mappings/User-mapper.xml"/>
     </mappers>
 </configuration>

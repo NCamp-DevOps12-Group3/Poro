@@ -53,7 +53,9 @@
             </div>
             
             <div class="d-grid mb-3">
-                <button type="button" class="btn btn-dark" id="signUp">이메일로 회원가입</button>
+               
+                    <button type="button" class="btn btn-dark" id="signUp"> 이메일로 회원가입</button>
+                
             </div>
         
         </form>
@@ -157,15 +159,16 @@
                 return;
             }
             
-            // 오브젝트에 입력
+           
             
             
-            window.location.href='main.html';
+            
+            
+        });
+        $("#signUp").on("click", () => {
+            window.location.href="/user/join.do";
         });
         
-        $('#signUp').on('click',(e)=>{
-            window.location.href='join.jsp';
-        });
         
         
         
