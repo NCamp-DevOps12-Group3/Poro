@@ -29,7 +29,6 @@ public class MemberDao {
 	}
 	
 	
-	
 	public int emailCheck(String email) {
 		return mybatis.selectOne("MemberDao.emailCheck", email);
 	}
@@ -46,6 +45,8 @@ public class MemberDao {
 		return mybatis.selectOne("MemberDao.login", memberDto);
 	}
 	
-	
+	public List<MemberDto> findMembersUsingKeyword(String keyword){
+		return mybatis.selectList("MemberDao.findMembersUsingKeyword", keyword);
+	}
 	
 }

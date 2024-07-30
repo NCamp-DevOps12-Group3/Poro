@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/Impl/SearchServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/SearchService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/SearchController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappings/Member-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappings/Member-mapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sidebar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sidebar.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/sidebar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +21,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -53,15 +59,15 @@
     "Smart Tomcat.Poro.executor": "Run",
     "Smart Tomcat.Tomcat: Poro.executor": "Run",
     "Smart Tomcat.poro.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "LeeJunSeop",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/BITCAMP/.SmartTomcat/Poro/Poro",
+    "last_opened_file_path": "C:/Users/BITCAMP/.SmartTomcat/_21_Spring_Board_Fileupload",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "모듈",
+    "project.structure.last.edited": "아티팩트",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.lookFeel",

@@ -42,6 +42,19 @@ $(()=>{
 
         $('.search-item-profile').html("");
         // 임시 검색 데이터 추가
+
+        $.ajax({
+            url: '/search/search.do',
+            type: 'get',
+            data: {"searchKeyword" : $("#sidebar-search-input").value},
+            success: function(res){
+                console.log(res);
+            },
+            error : function(err){
+                console.log(err);
+
+            }
+        })
         for(let i = 0; i < 30; ++i){
             $('.search-item-profile').append(`<div class="search-item d-flex justify-content-start align-items-center">
                         <img src="img/home.png" alt="">
