@@ -1,7 +1,7 @@
-package com.bit.devops12.poro.Service.Impl;
+package com.bit.devops12.poro.service.impl;
 
-import com.bit.devops12.poro.Dto.MemberDto;
-import com.bit.devops12.poro.Service.MemberService;
+import com.bit.devops12.poro.dto.MemberDto;
+import com.bit.devops12.poro.service.MemberService;
 
 import java.util.List;
 

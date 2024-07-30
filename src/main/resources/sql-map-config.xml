@@ -8,15 +8,12 @@
         <typeAlias type="com.bit.devops12.poro.dto.ProfileDto" alias="profile"/>
         <typeAlias type="com.bit.devops12.poro.dto.PortfolioDto" alias="portfolio"/>
         <typeAlias type="com.bit.devops12.poro.dto.FileDto" alias="file"/>
+        <typeAlias type="com.bit.devops12.poro.dto.MemberDto" alias="member"/>
     </typeAliases>
     <!-- 사용할 sql mapper등록 -->
     <mappers>
+        <mapper resource="mappings/Member-mapper.xml"/>
         <mapper resource="mappings/mapper-userfeeds.xml"/>
-        <typeAlias type="com.bit.devops12.poro.Dto.MemberDto" alias="member"/>
-    </typeAliases>
-    <!-- 사용할 sql mapper등록 -->
-    <mappers>
-        <mapper resource="Member-mapper.xml"/>
     </mappers>
 
 </configuration>

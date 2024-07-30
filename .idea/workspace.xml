@@ -5,26 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/Impl/MemberServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/MemberService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/MemberController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Dao/MemberDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Dao/MemberDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Dto/MemberDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappings/Member-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappings/Member-mapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dao/UserFeedsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dao/UserFeedsDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/sql-map-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql-map-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/join.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/join.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/passwordchanges.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/passwordchanges.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/passwordchangesChk.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/passwordchangesChk.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/css/login_join_changepassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/css/login_join_changepassword.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sidebar.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/css/sidebar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fe398239-4adc-46ee-af3a-f7d68b5e794a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fe398239-4adc-46ee-af3a-f7d68b5e794a.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +54,7 @@
     "Smart Tomcat.Poro.executor": "Run",
     "Smart Tomcat.Tomcat: Poro.executor": "Run",
     "Smart Tomcat.poro.executor": "Run",
-    "git-widget-placeholder": "main 병합 중",
+    "git-widget-placeholder": "LeeJunSeop",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/BITCAMP/.SmartTomcat/Poro/Poro",
     "node.js.detected.package.eslint": "true",
@@ -115,9 +98,6 @@
       <option name="catalinaBase" value="C:\Users\BITCAMP\.SmartTomcat\Poro\poro" />
       <option name="contextPath" value="/" />
       <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="extraClassPath" value="" />
       <option name="port" value="8090" />
       <option name="tomcatInfo">
