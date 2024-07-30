@@ -4,12 +4,20 @@ public class UserFeedsPageDto {
     private int endPage;
     private Criteria cri;
     private int total;
-
+    private int userid;
     public UserFeedsPageDto(Criteria cri, int total) {
         this.cri = cri;
         this.total = total;
         this.endPage=(int)(Math.ceil(total/1.0/ cri.getAmount()));
 
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public int getEndPage() {
