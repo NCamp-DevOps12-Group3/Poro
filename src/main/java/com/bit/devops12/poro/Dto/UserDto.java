@@ -1,4 +1,4 @@
-package com.bit.devops12.poro.Dto;
+package com.bit.devops12.poro.dto;
 
 import java.time.LocalDateTime;
 

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserFeedsDao">
+    <select id="getUserInfo" parameterType="int" resultType="profile">
+        select profile_image,name,introduction,email,phonenumber,gender ,role ,job ,site_url
+        from user
+        where user_id  = #{id}
+    </select>
+
+    <select id="getUserPortfolioTotalCnt" parameterType="int" resultType="int">
+        select count(*)
+        from portfolio
+        where user_id=#{id}
+    </select>
+
+    <select id="getUserPortfolio" parameterType="map" resultType="portfolio">
+        SELECT
+        p.portfolio_id,
+        p.user_id,
+        p.thumbnail_url,
+        p.content,
+        p.regdate,
+        GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
+        GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
+        GROUP_CONCAT(DISTINCT c.css_url) AS cssurl,
+        GROUP_CONCAT(DISTINCT j.javascript_url) AS jsurl
+        FROM portfolio p
+        JOIN portfolio_skill ps
+        ON p.portfolio_id = ps.portfolio_id
+        JOIN skilltag st
+        ON ps.hashtag_id = st.hashtagid
+        JOIN html h
+        ON p.portfolio_id = h.portfolio_id
+        JOIN css c
+        ON p.portfolio_id = c.portfolio_id
+        JOIN javascript j
+        ON p.portfolio_id = j.portfolio_id
+        WHERE p.user_id = #{userid}
+        GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.content, p.regdate
+        LIMIT #{criteria.amount} OFFSET #{criteria.startNum};
+    </select>
+
+    <delete id="deleteUserPortfolio" parameterType="list">
+        delete from portfolio where portfolio_id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="getUserPopularPortfolio" parameterType="int" resultType="portfolio">
+        select
+            sub.portfolio_id,
+            sub.portfolio_id,
+            sub.user_id,
+            sub.thumbnail_url,
+            sub.content,
+            sub.regdate,
+            sub.skillname,
+            sub.htmlurl,
+            sub.cssurl,
+            sub.jsurl
+            from
+        (SELECT
+            p.portfolio_id,
+            p.user_id,
+            p.thumbnail_url,
+            p.content,
+            p.regdate,
+            GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
+            GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
+            GROUP_CONCAT(DISTINCT c.css_url) AS cssurl,
+            GROUP_CONCAT(DISTINCT j.javascript_url) AS jsurl
+        FROM portfolio p
+                 JOIN portfolio_skill ps
+                      ON p.portfolio_id = ps.portfolio_id
+                 JOIN skilltag st
+                      ON ps.hashtag_id = st.hashtagid
+                 JOIN html h
+                      ON p.portfolio_id = h.portfolio_id
+                 JOIN css c
+                      ON p.portfolio_id = c.portfolio_id
+                 JOIN javascript j
+                      ON p.portfolio_id = j.portfolio_id
+        WHERE p.user_id = #{userid}
+        GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.content, p.regdate) sub
+        join portfolio_like pl
+        on pl.user_id = sub.user_id
+        order by pl.likecount
+        LIMIT 5;
+    </select>
+</mapper>

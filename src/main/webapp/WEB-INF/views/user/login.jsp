@@ -20,13 +20,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 페이지</title>
-   
+
     <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
     <link href="${pageContext.request.contextPath}/static/css/login_join_changepassword.css" rel="stylesheet">
     <style>
-    
+
     </style>
 </head>
 <body>
@@ -51,26 +51,26 @@
             <div class="d-grid mb-3">
                 <button type="button" class="btn btn-dark" id="signIn">로그인</button>
             </div>
-            
+
             <div class="d-grid mb-3">
                
                     <button type="button" class="btn btn-dark" id="signUp"> 이메일로 회원가입</button>
                 
             </div>
-        
+
         </form>
     </div>
 </div>
 <script>
     $(()=>{
-       
-        
-        
+
+
+
         const joinForm = document.querySelector("#login-form"); /*회원가입 양식 폼 선택*/
         const EmailAlertholder = document.getElementById('EmailAlertholder'); /*경고창 위치 마커 선택*/
         const PasswordAlertholder = document.getElementById('PasswordAlertholder'); /*경고창 위치 마커 선택*/
         const alertPlaceholder = document.getElementById('liveAlertPlaceholder'); /*경고창 위치 마커 선택*/
-        
+
         // 알림 메시지를 추가하는 함수입니다.
         const EmailappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
@@ -78,13 +78,13 @@
                 /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = EmailAlertholder.querySelectorAll('.alert');
-           
+
             if (alerts.length >= 1) {EmailAlertholder.removeChild(alerts[0]);}
-            
+
             EmailAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
             setTimeout(() => { wrapper.remove();}, 1000);
         }
-        
+
         const PasswordappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
@@ -95,7 +95,7 @@
             PasswordAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
             setTimeout(() => { wrapper.remove();}, 1000);
         }
-        
+
         const appendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
@@ -106,7 +106,7 @@
             alertPlaceholder.append(wrapper); /*Alert holder 에 써 넣기*/
             setTimeout(() => { wrapper.remove();}, 1000);
         }
-        
+
         $("#email").on("keydown", (e) => {
             if(typeof e.key !== "undefined") {
                 if (e.key.toLowerCase() === 'enter') {
@@ -115,99 +115,61 @@
                 }
             }
         });
-        
-        
+
+
         $("#password").on("keydown", (e) => {
             if(typeof e.key !== "undefined") {
-            if(e.key.toLowerCase() === 'enter') {
-                e.preventDefault();
-                $("#signIn").click();
-            }
+                if(e.key.toLowerCase() === 'enter') {
+                    e.preventDefault();
+                    $("#signIn").click();
+                }
             }
         });
-        
-        
-        
+
+
+
         $("#signIn").on("click", (e) => {
-            
+
             // 이메일 미 입력시
             if($("#email").val() === '') {
                 EmailappendAlert( '이메일를 입력하세요', 'success');
                 e.preventDefault();
                 return;
             }
-            
-            
+
+
             // 비밀번호 미 입력시
             if($("#password").val() === '') {
                 PasswordappendAlert('비밀번호를 입력하세요', 'success');
                 e.preventDefault();
                 return;
             }
-            
-            
-            
+
+
+
             if($("#email").val() !== 'bitcamp502@naver.com') {
                 EmailappendAlert('이메일이나 비밀번호에 문제가있습니다.', 'success');
                 e.preventDefault();
                 return;
             }
-            
+
             if($("#password").val() !== '1') {
                 PasswordappendAlert('이메일이나 비밀번호에 문제가있습니다.', 'success');
                 e.preventDefault();
                 return;
             }
-            
-           
-            
-            
-            
-            
         });
         $("#signUp").on("click", () => {
             window.location.href="/user/join.do";
         });
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+ 
         // $('#signIn').on('click',(e)=>{
         //    window.location.href='base.html';
         // });
         // $('#signInEmail').on('click',(e)=>{
         //     window.location.href='join.html';
         // });
-        
+
     });
 </script>
 
