@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Dao/MemberDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/Impl/MemberServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/Impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/MemberService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/MemberController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/join.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/join.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +54,7 @@
     "Smart Tomcat.Poro.executor": "Run",
     "Smart Tomcat.Tomcat: Poro.executor": "Run",
     "Smart Tomcat.poro.executor": "Run",
+    "Smart Tomcat.구동.executor": "Run",
     "Smart Tomcat.이름이 지정되지 않았습니다.executor": "Run",
     "git-widget-placeholder": "leeheeseng",
     "kotlin-language-version-configured": "true",
@@ -123,9 +113,6 @@
       <option name="catalinaBase" value="C:\Users\kid16\.SmartTomcat\mini\poro" />
       <option name="contextPath" value="/" />
       <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="extraClassPath" value="" />
       <option name="port" value="8090" />
       <option name="tomcatInfo">
