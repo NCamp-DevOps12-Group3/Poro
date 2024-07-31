@@ -2,8 +2,10 @@ package com.bit.devops12.poro.controller;
 
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -52,5 +54,31 @@ public class UserController {
 	public String join(UserDto userDto) {
 		userService.join(userDto);
 		return "user/login";
+	}
+	
+	@PostMapping("/login.do")
+	public String login(UserDto userDto, Model model, HttpSession session) {
+		try {
+			UserDto loginUser = userService.login(userDto);
+			
+			loginUser.setPassword("");
+			
+			session.setAttribute("loginUser", loginUser);
+			
+			return "user/main";
+		} catch (Exception e) {
+			model.addAttribute("loginFailMsg", e.getMessage());
+			
+			return "user/login";
+		}
+	}
+	
+	
+	@GetMapping("/logout.do")
+	public String logout(HttpSession session) {
+		// 세션에 있는 내용 모두 초기화
+		session.invalidate();
+		
+		return "redirect:/user/login.do";
 	}
 }

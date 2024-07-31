@@ -107,4 +107,19 @@ public class UserServiceImpl implements UserService {
 		}
 		return jsonString;
 	}
+	
+	@Override
+	public UserDto login(UserDto userDto) {
+		int emailCheck = userDao.emailCheck(userDto.getEmail());
+		
+		if(emailCheck == 0)
+			throw new RuntimeException("emailNotExist");
+		
+		UserDto loginUser = userDao.login(userDto);
+		
+		if(loginUser == null)
+			throw new RuntimeException("wrongPassword");
+		
+		return loginUser;
+	}
 }

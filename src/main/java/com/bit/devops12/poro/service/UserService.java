@@ -14,4 +14,6 @@ public interface UserService {
 	String emailCheck(String email);
 	String nicknameCheck(String nickname);
 	String nameCheck(String name);
+	
+	UserDto login(UserDto userDto);
 }

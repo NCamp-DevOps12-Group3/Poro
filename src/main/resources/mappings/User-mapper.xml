@@ -44,7 +44,17 @@
 		WHERE NAME = #{name}
 	</select>
 	
-	
+	<select id="login" parameterType="user" resultType="user">
+		SELECT USER_ID
+		     , NICKNAME
+		     , PASSWORD
+			 , NAME
+			 , EMAIL
+			 , ROLE
+		FROM USER
+		WHERE EMAIL = #{email}
+		  AND PASSWORD = #{password}
+	</select>
 	
 	
 	
