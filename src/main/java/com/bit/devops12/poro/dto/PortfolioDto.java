@@ -14,7 +14,7 @@ public class PortfolioDto {
     private String thumbnail_url;
     private LocalDateTime regdate;
     private String skillname;
-    private String content;
+    private String description;
     private List<String> htmlCode;
     private List<String> cssCode;
     private List<String> jsCode;
@@ -64,12 +64,13 @@ public class PortfolioDto {
     public List<String> getHtmlList(){
         return Arrays.stream(htmlurl.split(",")).toList();
     }
-    public String getContent() {
-        return content;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getPortfolio_id() {
@@ -134,5 +135,24 @@ public class PortfolioDto {
 
     public void setSkillname(String skillname) {
         this.skillname = skillname;
+    }
+
+    @Override
+    public String toString() {
+        return "PortfolioDto{" +
+                "portfolio_id=" + portfolio_id +
+                ", user_id=" + user_id +
+                ", cssurl='" + cssurl + '\'' +
+                ", jsurl='" + jsurl + '\'' +
+                ", htmlurl='" + htmlurl + '\'' +
+                ", thumbnail_url='" + thumbnail_url + '\'' +
+                ", regdate=" + regdate +
+                ", skillname='" + skillname + '\'' +
+                ", description='" +description + '\'' +
+                ", htmlCode=" + htmlCode +
+                ", cssCode=" + cssCode +
+                ", jsCode=" + jsCode +
+                ", mergeCode='" + mergeCode + '\'' +
+                '}';
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PortfolioDao">
+    <select id="searchPortfolioByKeyword" parameterType="string" resultType="portfolio">
+        SELECT P.PORTFOLIO_ID
+             , P.USER_ID
+             , P.PORTFOLIO_URL
+             , P.THUMBNAIL_URL
+             , P.DESCRIPTION
+             , GROUP_CONCAT(DISTINCT ST.SKILLNAME) AS SKILLNAME
+            FROM PORTFOLIO P
+        INNER JOIN PORTFOLIO_SKILL PS
+                ON PS.PORTFOLIO_ID = P.PORTFOLIO_ID
+        INNER JOIN SKILLTAG ST
+                ON PS.HASHTAG_ID IN (
+                    SELECT HASHTAGID
+                        FROM SKILLTAG
+                        WHERE SKILLNAME LIKE CONCAT('%', #{searchKeyword}, '%')
+                        )
+            GROUP BY P.PORTFOLIO_ID
+                   , P.USER_ID
+                   , P.PORTFOLIO_URL
+                   , P.THUMBNAIL_URL
+                   , P.DESCRIPTION
+    </select>
+
+</mapper>
