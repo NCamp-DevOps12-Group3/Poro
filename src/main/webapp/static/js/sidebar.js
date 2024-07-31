@@ -44,25 +44,25 @@ $(()=>{
         // 임시 검색 데이터 추가
 
         $.ajax({
-            url: '/search/search.do',
+            url: `/search/search.do?searchKeyword=${$("#sidebar-search-input").val()}`,
             type: 'get',
-            data: {"searchKeyword" : $("#sidebar-search-input").value},
-            success: function(res){
-                console.log(res);
+            data: {},
+            success: function(obj){
+                console.log(obj);
+                for(let i = 0;  i < obj.members.length; ++i){
+                    $('.search-item-profile').append(`<div class="search-item d-flex justify-content-start align-items-center">
+                        <img src="img/home.png" alt="">
+                        <div class="search-item-info d-flex flex-column justify-content-center">
+                            <div><p>${obj.members[i].nickname}<i class="bi bi-check-circle-fill"></i></p></div>
+                            <div><p>${obj.members[i].email}</p></div>
+                        </div>
+                    </div>`);
+                }
             },
             error : function(err){
                 console.log(err);
 
             }
         })
-        for(let i = 0; i < 30; ++i){
-            $('.search-item-profile').append(`<div class="search-item d-flex justify-content-start align-items-center">
-                        <img src="img/home.png" alt="">
-                        <div class="search-item-info d-flex flex-column justify-content-center">
-                            <div><p>닉네임<i class="bi bi-check-circle-fill"></i></p></div>
-                            <div><p>이메일</p></div>
-                        </div>
-                    </div>`);
-        }
     });
 });
