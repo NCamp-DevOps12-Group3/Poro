@@ -45,8 +45,9 @@ public class MemberDao {
 		return mybatis.selectOne("MemberDao.login", memberDto);
 	}
 	
-	public List<UserDto> findMembersUsingKeyword(String keyword){
-		return mybatis.selectList("MemberDao.findMembersUsingKeyword", keyword);
+	public List<MemberDto> findMembersUsingKeyword(String searchKeyword){
+		System.out.println("MemberDao::findMembersUsingKeyword");
+		return mybatis.selectList("MemberDao.findMembersUsingKeyword", searchKeyword);
 	}
 	
 }

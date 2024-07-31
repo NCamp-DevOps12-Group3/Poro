@@ -24,8 +24,9 @@ public class SearchController {
     @ResponseBody
     public Map<String, Object> search(String searchKeyword){
         System.out.println("searchController search 메소드 실행");
-        
+        System.out.println("searchKeyword : " + searchKeyword);
         Map<String, Object> searchMap = searchService.searchList(searchKeyword);
+        System.out.println("search 결과 : " + searchMap);
         return searchMap;
     }
 }

@@ -195,7 +195,7 @@
                         <div class="form-control sidebar-content-search-bar d-flex align-items-center">
                             <div class="sidebar-content-search-bar-icon"><i class="bi bi-search"></i></div>
                             <input type="text" placeholder="검색" id="sidebar-search-input" class="no-border-input sidebar-search-input"
-                            value="searchKeyword">
+                            name="searchKeyword">
                             <div class="sidebar-content-search-delete-icon"><i class="bi bi-x-circle"></i></div>
                         </div>
                     </form>
