@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
     <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
+
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +46,7 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
+
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
@@ -76,6 +79,7 @@
     &quot;DatabaseDriversLRU&quot;: [
       &quot;mysql&quot;
     ]
+
   }
 }</component>
   <component name="RunAnythingCache">
@@ -102,9 +106,6 @@
       <option name="catalinaBase" value="C:\Users\kid16\.SmartTomcat\mini\poro" />
       <option name="contextPath" value="/" />
       <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="extraClassPath" value="" />
       <option name="port" value="8090" />
       <option name="tomcatInfo">
@@ -121,10 +122,18 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="" />
+      <changelist id="899edf73-cca6-49c9-aa40-c4f4a90253c2" name="변경" comment="" />
       <created>1721961829790</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -132,7 +141,12 @@
       <workItem from="1721961831416" duration="10202000" />
       <workItem from="1722213964279" duration="8321000" />
       <workItem from="1722236645009" duration="9797000" />
+<<<<<<< HEAD
       <workItem from="1722328062599" duration="5275000" />
+=======
+      <workItem from="1722328062599" duration="5241000" />
+      <workItem from="1722386367126" duration="288000" />
+>>>>>>> 4655caadb545c9944345c24cc61a74732bc0aafd
     </task>
     <servers />
   </component>
