@@ -8,7 +8,7 @@ target/
 *.iws
 *.iml
 *.ipr
-.smarttomcat
+.smarttomcat/
 ### Eclipse ###
 .apt_generated
 .classpath
