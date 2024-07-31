@@ -14,11 +14,20 @@ public class PortfolioDto {
     private String thumbnail_url;
     private LocalDateTime regdate;
     private String skillname;
-    private String content;
+    private String description;
     private List<String> htmlCode;
     private List<String> cssCode;
     private List<String> jsCode;
     private String mergeCode;
+    private int bookmark_id;
+
+    public int getBookmark_id() {
+        return bookmark_id;
+    }
+
+    public void setBookmark_id(int bookmark_id) {
+        this.bookmark_id = bookmark_id;
+    }
 
     public String getMergeCode() {
         return mergeCode;
@@ -64,12 +73,13 @@ public class PortfolioDto {
     public List<String> getHtmlList(){
         return Arrays.stream(htmlurl.split(",")).toList();
     }
-    public String getContent() {
-        return content;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getPortfolio_id() {

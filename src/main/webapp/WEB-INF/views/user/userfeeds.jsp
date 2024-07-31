@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Sign Up Page</title>
@@ -297,6 +298,53 @@
         }
         .mouseHover:hover{
             font-weight: bold;
+            cursor: pointer;
+        }
+        .portfolio-item {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            height: 300px; /* 원하는 높이로 설정 */
+        }
+
+        .portfolio-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6); /* 반투명 검은색 배경 */
+            color: white;
+            padding: 10px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-info {
+            opacity: 1;
+        }
+        .portfolio-item {
+            position: relative;
+        }
+
+        .portfolio-thumbnail {
+            background-size: cover;
+            background-position: center;
+            height: 300px; /* 원하는 높이로 설정 */
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-thumbnail:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .company-icon {
+            width: 50px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -322,7 +370,7 @@
                     </a>
                 </div>
                 <div class="mb-3">
-                    <p class="d-inline-block">게시물 숫자</p>
+                    <p class="d-inline-block">${profile.portfolioCnt}</p>
                     <b class="d-inline-block" id="numberOfPortfolio"></b>
                 </div>
                 <div>
@@ -337,9 +385,8 @@
                 <a href="#" class="list-group-item">message</a> -->
                 <button type="button" class="list-group-item inactive" id="portfolioDelete">delete</button>
             </div>
-
         </div>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary border border-dark rounded">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary border border-dark rounded my-3">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -347,13 +394,13 @@
                 <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item mx-3 mouseHover">
-                            <a class="nav-link" href="/user-feeds.do">Home</a>
+                            <p class="nav-link" id="linkHome">Home</p>
                         </li>
                         <li class="nav-item mx-3 mouseHover">
-                            <a class="nav-link" href="/user-collection-feeds.do">coperation collection</a>
+                            <p class="nav-link" id="linkCoperation">coperation collection</p>
                         </li>
                         <li class="nav-item mx-3 mouseHover">
-                            <a class="nav-link" href="/user-collection-feeds.do">portfolio collection</a>
+                            <p class="nav-link" id="linkOtherPortfolio">portfolio collection</p>
                         </li>
                     </ul>
                 </div>
@@ -366,33 +413,78 @@
                 <input type="hidden" name="endPage" value="${page.endPage}">
                 <input type="hidden" name="deleteList" id="deleteList" value="">
                 <input type="hidden" name="id" value="${page.userid}">
+                <input type="hidden" name="pageType" value="${page.pageType}">
                 <div class="row grid" id="feed">
-                    <c:forEach items="${portfolio}" var="portfolio">
-                        <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
-                            <div class="card">
-                                <div class="card-header">
-                                        ${portfolio.user_id}
-                                </div>
-                                <input type="checkbox" class="delete-dot" value="${portfolio.portfolio_id}">
-                                <a href="/feed-detail.do">
-                                    <img src="${portfolio.thumbnail_url}" class="card-img-top" alt=".">
-                                    <iframe  class="card-iframe ratio ratio-1x1" style="display:none" id="${portfolio.portfolio_id}iframe"
-                                             srcdoc="<c:out value='${portfolio.mergeCode}' escapeXml='false'/>" ></iframe>
-                                </a>
-                                <div class="card-body">
-                                    <p class="card-text">
-                                            ${portfolio.skillname}
-                                    </p>
-                                    <p class="card-text card-info-toggle">
-                                            ${portfolio.content}
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-body-secondary">${portfolio.regdate}</small>
+                    <c:if test="${page.pageType eq 'home'}">
+                        <c:forEach items="${portfolio}" var="portfolio">
+                            <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
+                                <div class="card">
+                                    <div class="card-header">
+                                            ${portfolio.user_id}
+                                    </div>
+                                    <input type="checkbox" class="delete-dot" value="${portfolio.portfolio_id}">
+                                    <a href="/feed-detail.do">
+                                        <img src="${portfolio.thumbnail_url}" class="card-img-top" alt=".">
+                                        <iframe  class="card-iframe ratio ratio-1x1" style="display:none" id="${portfolio.portfolio_id}iframe"
+                                                 srcdoc="${portfolio.mergeCode}">
+                                        </iframe>
+                                    </a>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                                ${portfolio.skillname}
+                                        </p>
+                                        <p class="card-text card-info-toggle">
+                                                ${portfolio.description}
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-body-secondary"><javatime:format value="${portfolio.regdate}" pattern="yyyy-MM-dd"/></small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${page.pageType eq 'coperation'}">
+                            <c:forEach items="${coperation}" var="coperation">
+                                <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item portfolio-item">
+                                    <div class="portfolio-thumbnail" style="background-image: url('${coperation.company_icon_url}')">
+                                        <input type="checkbox" class="delete-dot" value="${coperation.bookmark_id}">
+                                        <div class="portfolio-info">
+                                            <img src="${coperation.company_icon_url}" alt="${coperation.company_name}" class="company-icon">
+                                            <h5>${coperation.company_name}</h5>
+                                            <p>${coperation.recruitment_title}</p>
+                                            <p>${coperation.dday}</p>
+                                            <p>${coperation.location}</p>
+                                            <p>${coperation.career}</p>
+                                            <p>${coperation.education}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${page.pageType eq 'otherporfolio'}">
+                        <c:forEach items="${otherportfolio}" var="portfolio">
+                            <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item portfolio-item">
+                                <div style="background-image: url("${portfolio.thumbnail_url}")">
+                                    <input type="checkbox" class="delete-dot" value="${portfolio.bookmark_id}">
+                                    <div class="portfolio-info">
+                                        <p>
+                                                ${portfolio.user_id}
+                                        </p>
+                                        <p>
+                                                ${portfolio.skillname}
+                                        </p>
+                                        <p>
+                                                ${portfolio.description}
+                                        </p>
+                                        <p>
+                                                ${portfolio.regdate}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
                 </div>
             </form>
         </div>
@@ -407,7 +499,7 @@
                             <div class="swiper-wrapper">
                                 <c:forEach items="${popularPortfolio}" var="porfol">
                                     <div class="swiper-slide">
-                                        <iframe srcdoc="`${porfol.mergeCode}`"></iframe>
+                                        <iframe srcdoc="${porfol.mergeCode}"></iframe>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -497,14 +589,12 @@
         $('#portfolioDelete').on('click',()=>{
             toggleButtonState();
         });
-
         //로드 하는 부분 collection,home두 부분 나눠서 로드하는 방법 필요
         let hoverTimeout;
         $(".card-img-top").on("mouseenter",
             function (evt){
                 hoverTimeout = setTimeout(() => {
                     $(this).css("display","none");
-                    // $(this).siblings().first().attr('srcdoc',mergeFile(portfolio.htmlCode,portfolio.cssCode,portfolio.jsCode));
                     $(this).siblings().first().css("display","block");
                     imagesLoaded(grid, function() {
                         msnry.reloadItems();
@@ -513,6 +603,7 @@
                 }, 2000);
             }
         );
+
         $(".card-img-top").on("mouseleave",function (evt){
                 clearTimeout(hoverTimeout);
             }
@@ -587,6 +678,18 @@
             });
 
         });
+        $("#linkHome").on("click",(e)=>{
+            $("input[name='pageType']").val("home");
+            $("#formFeeds").submit();
+        })
+        $("#linkCoperation").on("click",(e)=>{
+            $("input[name='pageType']").val("coperation");
+            $("#formFeeds").submit();
+        })
+        $("#linkOtherPortfolio").on("click",(e)=>{
+            $("input[name='pageType']").val("otherporfolio");
+            $("#formFeeds").submit();
+        })
         // 단순 화면단에서 처리가능한 부분
         $('.modal-portfolio-btn').hover(
             ()=>{
@@ -707,39 +810,72 @@
                 type:'post',
                 data:$("#formFeeds").serialize(),
                 success:(obj)=>{
-                    console.log(obj);
                     let htmlStr="";
-                    for (let i=0;i<obj.portfolioList.length ;i++){
-                        const srcdoc=mergeFile(obj.portfolioList[i].htmlCode,obj.portfolioList[i].cssCode,obj.portfolioList[i].jsCode);
-                        console.log(obj.portfolioList[i].user_id)
-                        console.log(JSON.stringify(obj))
-                        htmlStr+=`
-                                    <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
-        <div class="card">
-            <div class="card-header">
-                \${obj.portfolioList[i].user_id}
-            </div>
-            <input type="checkbox" class="delete-dot" value="\${obj.portfolioList[i].portfolio_id}">
-            <a href="/feed-detail.do" id="iframe\${obj.portfolioList[i].portfolio_id}>
-                <img src="\${obj.portfolioList[i].thumbnail_url}" class="card-img-top" alt=".">
-                <iframe srcdoc="\${obj.portfolioList[i].mergeCode}" class="card-iframe ratio ratio-1x1" style="display:none" id="iframe\${obj.portfolioList[i].portfolio_id}"></iframe>
-            </a>
-            <div class="card-body">
-            <p class="card-text">
-                \${obj.portfolioList[i].skillname}
-            </p>
-            <p class="card-text card-info-toggle">
-                \${obj.portfolioList[i].content}
-            </p>
-            </div>
-            <div class="card-footer">
-                <small class="text-body-secondary">\${obj.portfolioList[i].regdate}</small>
-            </div>
-        </div>
-    </div>
-                                    `;
+                    if (obj.portfolioList) {
+                        for (let i=0; i<obj.portfolioList.length; i++){
+                            const srcdoc = mergeFile(obj.portfolioList[i].htmlCode,obj.portfolioList[i].cssCode,obj.portfolioList[i].jsCode);
+                            htmlStr += `
+                                <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            ${obj.portfolioList[i].user_id}
+                                        </div>
+                                        <input type="checkbox" class="delete-dot" value="${obj.portfolioList[i].portfolio_id}">
+                                        <a href="/feed-detail.do" id="iframe${obj.portfolioList[i].portfolio_id}">
+                                            <img src="${obj.portfolioList[i].thumbnail_url}" class="card-img-top" alt=".">
+                                            <iframe srcdoc="${srcdoc}" class="card-iframe ratio ratio-1x1" style="display:none" id="iframe${obj.portfolioList[i].portfolio_id}"></iframe>
+                                        </a>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                ${obj.portfolioList[i].skillname}
+                                            </p>
+                                            <p class="card-text card-info-toggle">
+                                                ${obj.portfolioList[i].description}
+                                            </p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-body-secondary">${obj.portfolioList[i].regdate}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    } else if (obj.recruitmentList) {
+                        for (let i=0; i<obj.recruitmentList.length; i++){
+                            htmlStr += `
+                                <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item portfolio-item">
+                                    <div class="portfolio-thumbnail" style="background-image: url('${obj.recruitmentList[i].company_icon_url}')">
+                                        <input type="checkbox" class="delete-dot" value="${obj.recruitmentList[i].recruitmentId}">
+                                        <div class="portfolio-info">
+                                            <img src="${obj.recruitmentList[i].company_icon_url}" alt="${obj.recruitmentList[i].company_name}" class="company-icon">
+                                            <h5>${obj.recruitmentList[i].company_name}</h5>
+                                            <p>${obj.recruitmentList[i].recruitment_title}</p>
+                                            <p>${obj.recruitmentList[i].dday}</p>
+                                            <p>${obj.recruitmentList[i].location}</p>
+                                            <p>${obj.recruitmentList[i].career}</p>
+                                            <p>${obj.recruitmentList[i].education}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    } else if (obj.otherPortfolioList) {
+                        for (let i=0; i<obj.otherPortfolioList.length; i++){
+                            htmlStr += `
+                                <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item portfolio-item">
+                                    <div style="background-image: url('${obj.otherPortfolioList[i].thumbnail_url}')">
+                                        <input type="checkbox" class="delete-dot" value="${obj.otherPortfolioList[i].portfolio_id}">
+                                        <div class="portfolio-info">
+                                            <p>${obj.otherPortfolioList[i].user_id}</p>
+                                            <p>${obj.otherPortfolioList[i].skillname}</p>
+                                            <p>${obj.otherPortfolioList[i].description}</p>
+                                            <p>${obj.otherPortfolioList[i].regdate}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
                     }
-
                     $("#feed").append(htmlStr);
                     imagesLoaded(grid, function() {
                         msnry.reloadItems();
@@ -750,8 +886,6 @@
                     console.log(err);
                 }
             });
-
-
         }
         function toggleButtonState() {
             let button = document.getElementById('portfolioDelete');
@@ -767,7 +901,6 @@
                     deleteList.push(element.getAttribute("value"));
                 });
                 $("#deleteList").val(JSON.stringify(deleteList));
-                alert(deleteList);
                 $('#formFeeds').submit();
             } else {
                 button.classList.remove('inactive');
@@ -775,6 +908,15 @@
                 button.textContent = 'confirm';
                 $('.delete-dot').css('display','inline-block');
             }
+        }
+        function setIframeContent() {
+            $('.swiper-iframe').each(function() {
+                var mergeCode = $(this).data('merge-code');
+                var iframeDocument = this.contentWindow.document;
+                iframeDocument.open();
+                iframeDocument.write(mergeCode);
+                iframeDocument.close();
+            });
         }
     });
 </script>
