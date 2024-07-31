@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="899edf73-cca6-49c9-aa40-c4f4a90253c2" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/web/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Dao/MemberDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Dao/MemberDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/Impl/SearchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/Impl/SearchServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/SearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/Service/SearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/impl/UserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,11 +50,16 @@
     "Smart Tomcat.Poro.executor": "Run",
     "Smart Tomcat.Tomcat.executor": "Run",
     "Smart Tomcat.구동.executor": "Run",
+    "Smart Tomcat.이름이 지정되지 않았습니다.executor": "Run",
     "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/project/Poro",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "모듈",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunAnythingCache">
@@ -86,9 +86,6 @@
       <option name="catalinaBase" value="C:\Users\BITCAMP\.SmartTomcat\Poro\poro" />
       <option name="contextPath" value="/" />
       <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="extraClassPath" value="" />
       <option name="port" value="8090" />
       <option name="tomcatInfo">
@@ -105,10 +102,18 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="" />
+      <changelist id="899edf73-cca6-49c9-aa40-c4f4a90253c2" name="변경" comment="" />
       <created>1721961829790</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -117,6 +122,7 @@
       <workItem from="1722213964279" duration="8321000" />
       <workItem from="1722236645009" duration="9797000" />
       <workItem from="1722328062599" duration="5241000" />
+      <workItem from="1722386367126" duration="288000" />
     </task>
     <servers />
   </component>
