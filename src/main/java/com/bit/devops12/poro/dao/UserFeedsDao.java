@@ -22,18 +22,6 @@ public class UserFeedsDao {
         return mybatis.selectOne("UserFeedsDao.getUserInfo",id);
     }
     public List<PortfolioDto> getUserPortfolio(Map<String,Object> map){
-        List<PortfolioDto> list=mybatis.selectList("UserFeedsDao.getUserPortfolio",map);
-        list.forEach(x->{
-            System.out.println("x.getHtmlurl() = " + x.getHtmlurl());
-            System.out.println("x.getCssurl() = " + x.getCssurl());
-            System.out.println("x.getJsurl() = " + x.getJsurl());
-            System.out.println("x.getPortfolioid() = " + x.getPortfolio_id());
-            System.out.println("x.getContent() = " + x.getContent());
-            System.out.println("x.getRegdate() = " + x.getRegdate());
-            System.out.println("x.getSkillname() = " + x.getSkillname());
-            System.out.println("x.getThumbnailurl() = " + x.getThumbnailurl());
-            System.out.println("x.getUserid() = " + x.getUser_id());
-        });
         return mybatis.selectList("UserFeedsDao.getUserPortfolio",map);
     }
 
@@ -41,11 +29,13 @@ public class UserFeedsDao {
         return mybatis.selectOne("UserFeedsDao.getUserPortfolioTotalCnt",id);
     }
 
-    public void deletePortfolio(List<String> deleteList) {
-        mybatis.delete("userFeedsDao.deleteUserPortfolio",deleteList);
+    public void deletePortfolio(List<Integer> deleteList) {
+        System.out.println(deleteList);
+        mybatis.delete("UserFeedsDao.deleteUserPortfolio",deleteList);
     }
 
     public List<PortfolioDto> getUserPopularPortfolio(int id) {
+        List<PortfolioDto> userPortfolio = mybatis.selectList("UserFeedsDao.getUserPopularPortfolio",id);
         return mybatis.selectList("UserFeedsDao.getUserPopularPortfolio",id);
     }
 }

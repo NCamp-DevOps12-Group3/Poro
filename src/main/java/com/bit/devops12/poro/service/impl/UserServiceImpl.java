@@ -1,4 +1,4 @@
-package com.bit.devops12.poro.service.Impl;
+package com.bit.devops12.poro.service.impl;
 
 import com.bit.devops12.poro.dao.UserDao;
 import com.bit.devops12.poro.dto.UserDto;

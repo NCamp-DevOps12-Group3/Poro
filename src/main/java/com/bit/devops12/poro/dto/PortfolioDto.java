@@ -11,7 +11,7 @@ public class PortfolioDto {
     private String cssurl;
     private String jsurl;
     private String htmlurl;
-    private String thumbnailurl;
+    private String thumbnail_url;
     private LocalDateTime regdate;
     private String skillname;
     private String content;
@@ -112,12 +112,12 @@ public class PortfolioDto {
         this.htmlurl = htmlurl;
     }
 
-    public String getThumbnailurl() {
-        return thumbnailurl;
+    public String getThumbnail_url() {
+        return thumbnail_url;
     }
 
-    public void setThumbnailurl(String thumbnailurl) {
-        this.thumbnailurl = thumbnailurl;
+    public void setThumbnail_url(String thumbnail_url) {
+        this.thumbnail_url = thumbnail_url;
     }
 
     public LocalDateTime getRegdate() {
