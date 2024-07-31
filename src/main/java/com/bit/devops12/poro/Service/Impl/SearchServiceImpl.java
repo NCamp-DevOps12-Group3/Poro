@@ -1,6 +1,6 @@
 package com.bit.devops12.poro.service.impl;
 
-import com.bit.devops12.poro.dao.MemberDao;
+import com.bit.devops12.poro.dao.UserDao;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,17 @@ import java.util.Map;
 
 @Service
 public class SearchServiceImpl implements SearchService {
-    private MemberDao memberDao;
+    private UserDao userDao;
 
     @Autowired
-    public SearchServiceImpl(MemberDao memberDao){
-        this.memberDao = memberDao;
+    public SearchServiceImpl(UserDao userDao){
+        this.userDao = userDao;
     }
     public Map<String, Object> searchList(String searchKeyword){
         System.out.println("SearchServiceImpl::searchList");
         Map<String, Object> searchMap = new HashMap<>();
 
-        List<UserDto> memberDtos = memberDao.findMembersUsingKeyword(searchKeyword);
+        List<UserDto> memberDtos = userDao.findMembersUsingKeyword(searchKeyword);
 
         searchMap.put("members", memberDtos);
 

@@ -45,7 +45,10 @@ public class UserDao {
 	public UserDto login(UserDto userDto) {
 		return mybatis.selectOne("UserDao.login", userDto);
 	}
-	
-	
+
+	public List<UserDto> findMembersUsingKeyword(String searchKeyword){
+		System.out.println("MemberDao::findMembersUsingKeyword");
+		return mybatis.selectList("MemberDao.findMembersUsingKeyword", searchKeyword);
+	}
 	
 }
