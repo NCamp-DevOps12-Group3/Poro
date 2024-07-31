@@ -49,8 +49,15 @@
 		     , NICKNAME
 		     , PASSWORD
 			 , NAME
+		     , PHONENUMBER
 			 , EMAIL
+		     , GENDER
+		     , JOB
 			 , ROLE
+			 , INTRODUCTION
+			 , SITE_URL
+			 , REGDATE
+			 , MODDATE
 		FROM USER
 		WHERE EMAIL = #{email}
 		  AND PASSWORD = #{password}
