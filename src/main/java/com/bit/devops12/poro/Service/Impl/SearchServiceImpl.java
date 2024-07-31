@@ -26,7 +26,7 @@ public class SearchServiceImpl implements SearchService {
 
         searchMap.put("members", memberDtos);
 
-        System.out.println("MemberDao::findMembersUsingKeyword 종료");
+        System.out.println("UserDao::findMembersUsingKeyword 종료");
         return searchMap;
     }
 }

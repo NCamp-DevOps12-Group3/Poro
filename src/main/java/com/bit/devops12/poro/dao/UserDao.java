@@ -47,8 +47,8 @@ public class UserDao {
 	}
 
 	public List<UserDto> findMembersUsingKeyword(String searchKeyword){
-		System.out.println("MemberDao::findMembersUsingKeyword");
-		return mybatis.selectList("MemberDao.findMembersUsingKeyword", searchKeyword);
+		System.out.println("UserDao::findMembersUsingKeyword");
+		return mybatis.selectList("UserDao.findMembersUsingKeyword", searchKeyword);
 	}
 	
 }

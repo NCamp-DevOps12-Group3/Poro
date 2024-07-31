@@ -43,7 +43,22 @@
 		FROM USER
 		WHERE NAME = #{name}
 	</select>
-	
+	<select id="findMembersUsingKeyword" parameterType="string" resultType="member">
+		SELECT U.NICKNAME
+		, U.NAME
+		, U.EMAIL
+		, U.JOB
+		, U.ROLE
+		, U.PROFILE_IMAGE
+		FROM USER U
+		WHERE 1=1
+		<if test="searchKeyword != null and searchKeyword != ''">
+			AND (U.NICKNAME LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR U.NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR U.EMAIL LIKE CONCAT('%', #{searchKeyword}, '%'))
+		</if>
+	</select>
+
 	
 	
 	
