@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.bit</groupId>
-  <artifactId>springboard</artifactId>
+  <groupId>com.bit.devops12</groupId>
+  <artifactId>poro</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>springboard Maven Webapp</name>
+  <name>poro Maven Webapp</name>
   <properties>
     <java-version>17</java-version>
     <org.springframework-version>6.0.22</org.springframework-version>

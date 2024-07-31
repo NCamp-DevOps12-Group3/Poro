@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-
 @Controller
 public class UserFeedsController {
     private UserFeedsServiceImpl userFeedsService;
