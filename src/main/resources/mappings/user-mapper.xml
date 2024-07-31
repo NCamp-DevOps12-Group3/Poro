@@ -43,7 +43,7 @@
 		FROM USER
 		WHERE NAME = #{name}
 	</select>
-	<select id="findMembersUsingKeyword" parameterType="string" resultType="member">
+	<select id="findMembersUsingKeyword" parameterType="string" resultType="user">
 		SELECT U.NICKNAME
 		, U.NAME
 		, U.EMAIL
