@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="899edf73-cca6-49c9-aa40-c4f4a90253c2" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+
+    <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
+
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,23 +46,42 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Smart Tomcat.Poro.executor": "Run",
-    "Smart Tomcat.Tomcat.executor": "Run",
-    "Smart Tomcat.구동.executor": "Run",
-    "Smart Tomcat.이름이 지정되지 않았습니다.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/project/Poro",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "모듈",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.poro [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.poro [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.poro [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Smart Tomcat.Poro.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.Tomcat: Poro.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.poro.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.구동.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.이름이 지정되지 않았습니다.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;leeheeseng&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/BITCAMP/.SmartTomcat/Poro/Poro&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;모듈&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
+
   }
-}]]></component>
+}</component>
   <component name="RunAnythingCache">
     <myKeys>
       <visibility group="Gradle 작업" flag="true" />
@@ -77,13 +97,13 @@
     </myKeys>
   </component>
   <component name="RunManager">
-    <configuration name="이름이 지정되지 않았습니다" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
+    <configuration name="톰캣" type="com.poratu.idea.plugins.tomcat">
       <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
       <predefined_log_file enabled="true" id="Tomcat Access Log" />
       <predefined_log_file id="Tomcat Catalina Log" />
       <predefined_log_file id="Tomcat Manager Log" />
       <predefined_log_file id="Tomcat Host Manager Log" />
-      <option name="catalinaBase" value="C:\Users\BITCAMP\.SmartTomcat\Poro\poro" />
+      <option name="catalinaBase" value="C:\Users\kid16\.SmartTomcat\mini\poro" />
       <option name="contextPath" value="/" />
       <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
       <option name="extraClassPath" value="" />
@@ -91,7 +111,7 @@
       <option name="tomcatInfo">
         <TomcatInfo>
           <option name="name" value="Apache Tomcat/10.1.25" />
-          <option name="path" value="C:/DevTools/apache-tomcat-10.1.25-windows-x64/apache-tomcat-10.1.25" />
+          <option name="path" value="C:/devTools/apache-tomcat-10.1.25" />
           <option name="version" value="10.1.25.0" />
         </TomcatInfo>
       </option>
@@ -121,8 +141,12 @@
       <workItem from="1721961831416" duration="10202000" />
       <workItem from="1722213964279" duration="8321000" />
       <workItem from="1722236645009" duration="9797000" />
+<<<<<<< HEAD
+      <workItem from="1722328062599" duration="5275000" />
+=======
       <workItem from="1722328062599" duration="5241000" />
       <workItem from="1722386367126" duration="288000" />
+>>>>>>> 4655caadb545c9944345c24cc61a74732bc0aafd
     </task>
     <servers />
   </component>
