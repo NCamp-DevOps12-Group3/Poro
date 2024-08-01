@@ -11,8 +11,7 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en" >
+<html>
 <head>
     <meta charset="UTF-8">
     <meta  name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,53 +50,7 @@
             padding-right: 10%;
             padding-right: 0%;
         }
-        .sidebar {
-            position: fixed;
-            width: 15vw;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            padding-top: 20px;
-            border-right: 1px solid #dbdbdb;
-        }
-        
-        .sidebar-icon {
-            padding: 0px 0px 2vh;
-            margin-left: 2vw;
-        }
-        
-        .sidebar-icon .sidebar-icon-text {
-            font-size: 2em;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        }
-        
-        .sidebar a {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 10px 20px;
-            color: #333;
-            text-decoration: none;
-        }
-        
-        .sidebar a:hover {
-            background-color: #ddd;
-        }
-        
-        .sidebar img {
-            width: 30px;
-            height: auto;
-        }
-        
-        .sidebar-list div {
-            display: inline-block;
-            margin-left: 10px;
-            
-        }
-        
-        .sidebar i {
-            font-size: 1.5em;
-        }
+       
         .content {
             padding: 20px;
             margin-left:20vw;
@@ -208,8 +161,8 @@
         }
         img{
             border-radius: 50%;
-            width: 40%;
-            height: 40%  ;
+            width: 25vh;
+            height: 25vh ;
         }
         #website{
             border-radius: 7px;
@@ -438,26 +391,24 @@
                             <div class="d-inline-block " style="border-radius: 16px; margin-left: 10px; margin-top: 20px; margin-bottom: 20px; background-color: #ddd;">
                                 
                                 <div id="imagePreview" style="background-color: #ddd;">
-                                    <img id="profile-Pic" class="profile-img" alt="${file.fileoriginname}"
-                                         src="/upload/${user.file.filename}" style="background-color: #ddd;">
+                                    <img id="profile-Pic" class="profile-img" alt="aa"
+                                         src="${loginUser.profile_image}" style="background-color: #ddd;">
                                 </div>
                             </div>
                             <div class="d-inline-block" style="background-color: #ddd;">
                                 
                                 <h5 type="text" class="from-control"   style="background-color:
-                                #ddd; color: black;">${loginUser.Nickname}</h5>
+                                #ddd; color: black;">${loginUser.nickname}</h5>
                                 <p style="background-color: #ddd; color: black;">${loginUser.name}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.email}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.gender}</p>
-                                <p style="background-color: #ddd; color: black;">${loginUser.tel}</p>
+                                <p style="background-color: #ddd; color: black;">${loginUser.phonenumber}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.introduction}</p>
                             
                             </div>
                             <div class="d-inline-block " style="background-color: #ddd; margin-right: 20px; " >
-                                <p style="background-color: #ddd; color: black;">${loginUser.status}</p>
+                                <p style="background-color: #ddd; color: black;">${loginUser.role}</p>
                             </div>
-                        
-                        
                         </header>
                         
                         <div class="accordion" id="accordionExample" style="background-color: #ddd;">
@@ -518,9 +469,6 @@
                             </div>
                         </div>
                     </div>
-                
-                
-                
                 </form><br><br><br><br><br><br><br><br>
                 
                 <h4 id="list-myhistory" style="margin-top: 0px;">내 활동</h4>
@@ -1056,12 +1004,7 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script> -->
+
 <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>

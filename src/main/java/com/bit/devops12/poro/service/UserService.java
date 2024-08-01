@@ -1,6 +1,7 @@
 package com.bit.devops12.poro.service;
 
 import com.bit.devops12.poro.dto.UserDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

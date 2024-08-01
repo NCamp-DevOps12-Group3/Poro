@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/user")
@@ -51,8 +52,9 @@ public class UserController {
 	}
 	
 	@PostMapping("/join.do")
-	public String join(UserDto userDto) {
+	public String join(UserDto userDto , MultipartFile uploadFiles) {
 		userService.join(userDto);
+		
 		return "user/login";
 	}
 	
@@ -65,7 +67,7 @@ public class UserController {
 			
 			session.setAttribute("loginUser", loginUser);
 			
-			return "user/main";
+			return "main";
 		} catch (Exception e) {
 			model.addAttribute("loginFailMsg", e.getMessage());
 			
@@ -80,5 +82,10 @@ public class UserController {
 		session.invalidate();
 		
 		return "redirect:/user/login.do";
+	}
+	
+	@RequestMapping("/settings.do")
+	public String settingView() {
+		return "/user/settings";
 	}
 }

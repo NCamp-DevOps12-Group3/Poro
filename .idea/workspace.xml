@@ -5,7 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/common/FileUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/img/default_profile_Img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5d13c474-01a1-40e0-926a-ee40ba0ddbcc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5d13c474-01a1-40e0-926a-ee40ba0ddbcc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/FileDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/FileDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappings/User-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappings/User-mapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sidebar.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/join.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/join.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/settings.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/settings.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/sidebar.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/sidebar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/sidebar.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +47,9 @@
     <option name="FILTER_INFO" value="true" />
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -79,6 +99,16 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.bit.devops12.poro.dto" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\mini\src\main\webapp" />
+      <recent name="D:\mini\src\main\webapp\static\img" />
+      <recent name="D:\mini\src\main\webapp\static\img\defult_profile_Img" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <myKeys>
       <visibility group="Gradle 작업" flag="true" />
@@ -130,7 +160,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="899edf73-cca6-49c9-aa40-c4f4a90253c2" name="변경" comment="" />
+      <changelist id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="" />
       <created>1721961829790</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -139,6 +169,8 @@
       <workItem from="1722213964279" duration="8321000" />
       <workItem from="1722236645009" duration="9797000" />
       <workItem from="1722328062599" duration="5275000" />
+      <workItem from="1722472477326" duration="24268000" />
+      <workItem from="1722501484434" duration="1712000" />
     </task>
     <servers />
   </component>

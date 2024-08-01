@@ -13,6 +13,7 @@
 	    EMAIL,
 	    PASSWORD,
 	    ROLE
+	    
 		
 	) VALUE (
 	    #{nickname},
@@ -58,6 +59,7 @@
 			 , SITE_URL
 			 , REGDATE
 			 , MODDATE
+			 , PROFILE_IMAGE
 		FROM USER
 		WHERE EMAIL = #{email}
 		  AND PASSWORD = #{password}
