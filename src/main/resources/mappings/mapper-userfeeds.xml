@@ -106,15 +106,21 @@
     </select>
     <select id="getUserBookmarkCoperation" parameterType="map" resultType="coperation">
         select  r.RECRUITMENT_ID,r.USER_ID,r.COMPANY_NAME,r.COMPANY_ICON_URL,r.RECRUITMENT_URL,r.RECRUITMENT_TITLE,r.DDAY
-        ,r.REGDATE,r.MODDATE,r.LOCATION,r.CAREER,r.EDUCATION,rb.bookmark_id
+        ,r.REGDATE,r.MODDATE,r.LOCATION,r.CAREER,r.EDUCATION,rb.bookmark_id,GROUP_CONCAT(DISTINCT st.skillname) AS skillname
         from recruitment r
         join recruitment_bookmark rb
-        on r.RECRUITMENT_ID = rb.RECRUITMENT_ID
+        on r.RECRUITMENT_ID = rb.RECRUITMENT_ID and r.user_id = rb.user_id
+        join recruitment_skilltag rs
+        on rs.recruitmentid = r.RECRUITMENT_ID
+        join skilltag st
+        on st.hashtagid = rs.hashtagid
         where r.recruitment_id in (
             select recruitment_id
             from recruitment_bookmark
             where user_id=#{userid}
                   )
+        group by  r.RECRUITMENT_ID, r.USER_ID, r.COMPANY_NAME, r.COMPANY_ICON_URL, r.RECRUITMENT_URL,
+                  r.RECRUITMENT_TITLE, r.DDAY, r.REGDATE, r.MODDATE, r.LOCATION, r.CAREER, r.EDUCATION, rb.bookmark_id
         LIMIT #{criteria.amount} OFFSET #{criteria.startNum};
     </select>
     <select id="getUserBookmarkPortfolio" parameterType="map" resultType="portfolio">
@@ -122,7 +128,7 @@
             p.portfolio_id,
             p.user_id,
             p.thumbnail_url,
-            p.content,
+            p.description,
             p.regdate,
             GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
             GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
@@ -141,13 +147,13 @@
                  left JOIN javascript j
                            ON p.portfolio_id = j.portfolio_id
                 left join portfolio_bookmark pb
-                on p.portfolio_id = pb.portfolio_id
+                on p.portfolio_id = pb.portfolio_id and p.user_id = pb.user_id
         where p.portfolio_id in (
             select portfolio_id
             from portfolio_bookmark
             where user_id=#{userid}
         )
-        GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.description, p.regdate
+        GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.description, p.regdate,pb.bookmark_id
             LIMIT #{criteria.amount} OFFSET #{criteria.startNum};
     </select>
 </mapper>

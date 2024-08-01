@@ -6,6 +6,7 @@ import com.bit.devops12.poro.dto.PortfolioDto;
 import com.bit.devops12.poro.dto.ProfileDto;
 import com.bit.devops12.poro.dto.RecruitmentDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,23 +64,6 @@ public class UserFeedsServiceImpl {
 
         // JS 삽입
         String merged_content = htmlContent.replace("</body>", jsContent + "\n</body>");
-//        String merged_content = "&lt!DOCTYPE html&gt\n" +
-//                "&lt;html lang=\"en\"&gt;\n" +
-//                "&lt;head&gt;\n" +
-//                "    &lt;meta charset=\"UTF-8\"&gt;\n" +
-//                "    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;\n" +
-//                "    &lt;title&gtMerged HTML&lt;/title&gt;\n" +
-//                "&lt;style&gt;\n" +
-//                merged_cssContent + "\n" +
-//                "&lt;/style&gt;\n" +
-//                "&lt;/head&gt;\n" +
-//                "&lt;body&gt;\n" +
-//                merged_htmlContent + "\n" +
-//                "&lt;script&gt;\n" +
-//                merged_jsContent + "\n" +
-//                "&lt;/script&gt;\n" +
-//                "&lt;/body&gt;\n" +
-//                "&lt;/html&gt;";
 
         return escapeHtml(merged_content);
     }
@@ -116,7 +100,7 @@ public class UserFeedsServiceImpl {
     }
 
     public void deletePortfolio(String deleteList) {
-        if (!deleteList.equals("")&&!(deleteList == null)){
+        if (deleteList.equals("")||(deleteList == null)){
             return;
         }
         try {
@@ -161,11 +145,12 @@ public class UserFeedsServiceImpl {
     }
 
     public void deleteCoperationBookmark(String deleteList) {
-        if (!deleteList.equals("")&&!(deleteList == null)){
+        if (deleteList.equals("")||(deleteList == null)){
             return;
         }
         try {
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
             String[] portfolioIdStrings = objectMapper.readValue(deleteList, String[].class);
 
             List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
@@ -180,11 +165,12 @@ public class UserFeedsServiceImpl {
     }
 
     public void deleteOtherPortfolioBookmark(String deleteList) {
-        if (!deleteList.equals("")&&!(deleteList == null)){
+        if (deleteList.equals("")||(deleteList == null)){
             return;
         }
         try {
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
             String[] portfolioIdStrings = objectMapper.readValue(deleteList, String[].class);
 
             List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)

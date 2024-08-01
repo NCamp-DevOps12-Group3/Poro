@@ -12,10 +12,19 @@ public class RecruitmentDto {
     private LocalDateTime dday;
     private LocalDateTime regdate;
     private LocalDateTime moddate;
-    private String loaction;
+    private String location;
     private String career;
     private String education;
+    private String skillname;
     private int bookmark_id;
+
+    public String getSkillname() {
+        return skillname;
+    }
+
+    public void setSkillname(String skillname) {
+        this.skillname = skillname;
+    }
 
     public int getBookmark_id() {
         return bookmark_id;
@@ -115,12 +124,12 @@ public class RecruitmentDto {
         this.moddate = moddate;
     }
 
-    public String getLoaction() {
-        return loaction;
+    public String getLocation() {
+        return location;
     }
 
-    public void setLoaction(String loaction) {
-        this.loaction = loaction;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getCareer() {

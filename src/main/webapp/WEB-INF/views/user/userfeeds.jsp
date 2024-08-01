@@ -317,6 +317,7 @@
             padding: 10px;
             box-sizing: border-box;
             opacity: 0;
+            overflow: hidden;
             transition: opacity 0.3s ease;
         }
 
@@ -447,11 +448,12 @@
                     <c:if test="${page.pageType eq 'coperation'}">
                             <c:forEach items="${coperation}" var="coperation">
                                 <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item portfolio-item">
-                                    <div class="portfolio-thumbnail" style="background-image: url('${coperation.company_icon_url}')">
+                                    <div class="portfolio-thumbnail w-100" style="background-image: url('${coperation.company_icon_url}')">
                                         <input type="checkbox" class="delete-dot" value="${coperation.bookmark_id}">
                                         <div class="portfolio-info">
                                             <img src="${coperation.company_icon_url}" alt="${coperation.company_name}" class="company-icon">
                                             <h5>${coperation.company_name}</h5>
+                                            <p>${coperation.skillname}</p>
                                             <p>${coperation.recruitment_title}</p>
                                             <p>${coperation.dday}</p>
                                             <p>${coperation.location}</p>
@@ -462,10 +464,10 @@
                                 </div>
                         </c:forEach>
                     </c:if>
-                    <c:if test="${page.pageType eq 'otherporfolio'}">
+                    <c:if test="${page.pageType eq 'otherportfolio'}">
                         <c:forEach items="${otherportfolio}" var="portfolio">
                             <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item portfolio-item">
-                                <div style="background-image: url("${portfolio.thumbnail_url}")">
+                                <div class="w-100" style="background-image: url('${portfolio.thumbnail_url}')">
                                     <input type="checkbox" class="delete-dot" value="${portfolio.bookmark_id}">
                                     <div class="portfolio-info">
                                         <p>
@@ -478,7 +480,7 @@
                                                 ${portfolio.description}
                                         </p>
                                         <p>
-                                                ${portfolio.regdate}
+                                            <javatime:format value="${portfolio.regdate}" pattern="yyyy-MM-dd"/>
                                         </p>
                                     </div>
                                 </div>
@@ -687,7 +689,7 @@
             $("#formFeeds").submit();
         })
         $("#linkOtherPortfolio").on("click",(e)=>{
-            $("input[name='pageType']").val("otherporfolio");
+            $("input[name='pageType']").val("otherportfolio");
             $("#formFeeds").submit();
         })
         // 단순 화면단에서 처리가능한 부분
@@ -801,8 +803,8 @@
         //백 단 처리에 이용되는 함수
         const makeImageElement=(file)=>{
             if(file != null && file.filetype ==='image')
-                return `<img width="100%" src="/upload/\${file.filename}" alt=\${file.fileoriginname}/>`
-            return `<img width="100%" src="/static/img/search.png" alt=\${file.fileoriginname}/>`
+                return `<img width="100%" src="/upload/\${file.filename}" />`
+            return `<img width="100%" src="/static/img/search.png"/>`
         }
         function load(){
             $.ajax({
@@ -844,7 +846,7 @@
                         for (let i=0; i<obj.recruitmentList.length; i++){
                             htmlStr += `
                                 <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item portfolio-item">
-                                    <div class="portfolio-thumbnail" style="background-image: url('${obj.recruitmentList[i].company_icon_url}')">
+                                    <div class="portfolio-thumbnail w-100" style="background-image: url('${obj.recruitmentList[i].company_icon_url}')">
                                         <input type="checkbox" class="delete-dot" value="${obj.recruitmentList[i].recruitmentId}">
                                         <div class="portfolio-info">
                                             <img src="${obj.recruitmentList[i].company_icon_url}" alt="${obj.recruitmentList[i].company_name}" class="company-icon">
@@ -863,13 +865,13 @@
                         for (let i=0; i<obj.otherPortfolioList.length; i++){
                             htmlStr += `
                                 <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item portfolio-item">
-                                    <div style="background-image: url('${obj.otherPortfolioList[i].thumbnail_url}')">
+                                    <div class="w-100" style="background-image: url('${obj.otherPortfolioList[i].thumbnail_url}')">
                                         <input type="checkbox" class="delete-dot" value="${obj.otherPortfolioList[i].portfolio_id}">
                                         <div class="portfolio-info">
                                             <p>${obj.otherPortfolioList[i].user_id}</p>
                                             <p>${obj.otherPortfolioList[i].skillname}</p>
                                             <p>${obj.otherPortfolioList[i].description}</p>
-                                            <p>${obj.otherPortfolioList[i].regdate}</p>
+                                            <p><javatime:format value="${obj.otherPortfolioList[i].regdate}" pattern="yyyy-MM-dd"/></p>
                                         </div>
                                     </div>
                                 </div>
