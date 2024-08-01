@@ -25,6 +25,10 @@ public class UserFeedsServiceImpl {
     }
 
     public ProfileDto getUserInfo(int id) {
+        ProfileDto profileDto = userFeedsDao.getUserInfo(id);
+        if (!existFiles(profileDto.getProfile_image())){
+            profileDto.setProfile_image("/static/img/default.png");
+        }
         return userFeedsDao.getUserInfo(id);
     }
 
@@ -35,6 +39,9 @@ public class UserFeedsServiceImpl {
         map.put("criteria",criteria);
         List<PortfolioDto> portfolioDtos = userFeedsDao.getUserPortfolio(map);
         portfolioDtos.forEach(portfolioDto -> {
+            if (!existFiles(portfolioDto.getThumbnail_url())){
+                portfolioDto.setThumbnail_url("/static/img/default.png");
+            }
             List<String> htmlUrls = portfolioDto.getHtmlurl() != null ? Arrays.stream(portfolioDto.getHtmlurl().split(",")).toList() : Collections.emptyList();
             List<String> cssUrls = portfolioDto.getCssurl() != null ? Arrays.stream(portfolioDto.getCssurl().split(",")).toList() : Collections.emptyList();
             List<String> jsUrls = portfolioDto.getJsurl() != null ? Arrays.stream(portfolioDto.getJsurl().split(",")).toList() : Collections.emptyList();
@@ -98,6 +105,15 @@ public class UserFeedsServiceImpl {
             return List.of();
         }
     }
+    private boolean existFiles(String filePaths) {
+        String realPath = "C:/devops12/poro" + filePaths;
+        if (Files.exists(Paths.get(realPath))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     public void deletePortfolio(String deleteList) {
         if (deleteList.equals("")||(deleteList == null)){
@@ -120,6 +136,10 @@ public class UserFeedsServiceImpl {
     public List<PortfolioDto> getUserPopularPortfolio(int id) {
         List<PortfolioDto> portfolioDtos = userFeedsDao.getUserPopularPortfolio(id);
         portfolioDtos.forEach(portfolioDto -> {
+            if (!existFiles(portfolioDto.getThumbnail_url())){
+                portfolioDto.setThumbnail_url("/static/img/default.png");
+            }
+
             portfolioDto.setHtmlCode(readFiles(Arrays.stream(portfolioDto.getHtmlurl().split(",")).toList()));
             portfolioDto.setCssCode(readFiles(Arrays.stream(portfolioDto.getCssurl().split(",")).toList()));
             portfolioDto.setJsCode(readFiles(Arrays.stream(portfolioDto.getJsurl().split(",")).toList()));
@@ -133,7 +153,13 @@ public class UserFeedsServiceImpl {
         Map<String,Object> map=new HashMap<>();
         map.put("userid",id);
         map.put("criteria",criteria);
-        return userFeedsDao.getUserBookmarkCoperation(map);
+        List<RecruitmentDto> recruitmentDtos = userFeedsDao.getUserBookmarkCoperation(map);
+        recruitmentDtos.forEach(recruitmentDto -> {
+            if (!existFiles(recruitmentDto.getCompany_icon_url())){
+                recruitmentDto.setCompany_icon_url("/static/img/default.png");
+            }
+        });
+        return recruitmentDtos;
     }
 
     public List<PortfolioDto> getUserBookmarkPortfolio(int id, Criteria criteria) {
@@ -141,7 +167,13 @@ public class UserFeedsServiceImpl {
         Map<String,Object> map=new HashMap<>();
         map.put("userid",id);
         map.put("criteria",criteria);
-        return userFeedsDao.getUserBookmarkPortfolio(map);
+        List<PortfolioDto> PortfolioDtos = userFeedsDao.getUserBookmarkPortfolio(map);
+        PortfolioDtos.forEach(PortfolioDto -> {
+            if (!existFiles(PortfolioDto.getThumbnail_url())){
+                PortfolioDto.setThumbnail_url("/static/img/default.png");
+            }
+        });
+        return PortfolioDtos;
     }
 
     public void deleteCoperationBookmark(String deleteList) {

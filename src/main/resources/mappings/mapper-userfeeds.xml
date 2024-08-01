@@ -109,11 +109,11 @@
         ,r.REGDATE,r.MODDATE,r.LOCATION,r.CAREER,r.EDUCATION,rb.bookmark_id,GROUP_CONCAT(DISTINCT st.skillname) AS skillname
         from recruitment r
         join recruitment_bookmark rb
-        on r.RECRUITMENT_ID = rb.RECRUITMENT_ID and r.user_id = rb.user_id
-        join recruitment_skilltag rs
-        on rs.recruitmentid = r.RECRUITMENT_ID
-        join skilltag st
-        on st.hashtagid = rs.hashtagid
+        on r.RECRUITMENT_ID = rb.RECRUITMENT_ID
+        left join recruitment_skilltag rs
+                  on rs.recruitmentid = r.RECRUITMENT_ID
+        left join skilltag st
+                  on st.hashtagid = rs.hashtagid
         where r.recruitment_id in (
             select recruitment_id
             from recruitment_bookmark
@@ -147,7 +147,7 @@
                  left JOIN javascript j
                            ON p.portfolio_id = j.portfolio_id
                 left join portfolio_bookmark pb
-                on p.portfolio_id = pb.portfolio_id and p.user_id = pb.user_id
+                on p.portfolio_id = pb.portfolio_id
         where p.portfolio_id in (
             select portfolio_id
             from portfolio_bookmark

@@ -3,7 +3,7 @@ package com.bit.devops12.poro.dto;
 import java.time.LocalDateTime;
 
 public class RecruitmentDto {
-    private int recruitmentId;
+    private int recruitment_Id;
     private int user_id;
     private String company_name;
     private String company_icon_url;
@@ -17,6 +17,26 @@ public class RecruitmentDto {
     private String education;
     private String skillname;
     private int bookmark_id;
+
+    @Override
+    public String toString() {
+        return "RecruitmentDto{" +
+                "recruitmentId=" + recruitment_Id +
+                ", user_id=" + user_id +
+                ", company_name='" + company_name + '\'' +
+                ", company_icon_url='" + company_icon_url + '\'' +
+                ", recruitment_url='" + recruitment_url + '\'' +
+                ", recruitment_title='" + recruitment_title + '\'' +
+                ", dday=" + dday +
+                ", regdate=" + regdate +
+                ", moddate=" + moddate +
+                ", location='" + location + '\'' +
+                ", career='" + career + '\'' +
+                ", education='" + education + '\'' +
+                ", skillname='" + skillname + '\'' +
+                ", bookmark_id=" + bookmark_id +
+                '}';
+    }
 
     public String getSkillname() {
         return skillname;
@@ -34,30 +54,13 @@ public class RecruitmentDto {
         this.bookmark_id = bookmark_id;
     }
 
-    @Override
-    public String toString() {
-        return "RecruitmentDto{" +
-                "recruitmentId=" + recruitmentId +
-                ", user_id=" + user_id +
-                ", company_name='" + company_name + '\'' +
-                ", company_icon_url='" + company_icon_url + '\'' +
-                ", recruitment_url='" + recruitment_url + '\'' +
-                ", recruitment_title='" + recruitment_title + '\'' +
-                ", dday=" + dday +
-                ", regdate=" + regdate +
-                ", moddate=" + moddate +
-                ", loaction='" + loaction + '\'' +
-                ", career='" + career + '\'' +
-                ", education='" + education + '\'' +
-                '}';
+
+    public int getRecruitment_Id() {
+        return recruitment_Id;
     }
 
-    public int getRecruitmentId() {
-        return recruitmentId;
-    }
-
-    public void setRecruitmentId(int recruitmentId) {
-        this.recruitmentId = recruitmentId;
+    public void setRecruitment_Id(int recruitment_Id) {
+        this.recruitment_Id = recruitment_Id;
     }
 
     public int getUser_id() {

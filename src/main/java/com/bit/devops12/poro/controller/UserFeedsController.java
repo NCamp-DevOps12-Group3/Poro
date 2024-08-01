@@ -63,13 +63,13 @@ public class UserFeedsController {
         //유저 아이디를 사용하여 포폴 관련테이블에서 테이블 출력에 필요한 정보를 저장
         if (pageType.equals("home")) {
             criteria.setAmount(4);
-            total=userFeedsService.getUserPortfolioTotalCnt(id);
-            profileDto.setPortfolioCnt(total);
+
             model.addAttribute("portfolio",userFeedsService.getUserPortfolio(id,criteria));
         }
         else if (pageType.equals("coperation")){
             criteria.setAmount(12);
             total=userFeedsService.getUserBookmarkCoperationToltalCnt(id);
+            System.out.println(userFeedsService.getUserBookmarkCoperation(id,criteria));
             model.addAttribute("coperation",userFeedsService.getUserBookmarkCoperation(id,criteria));
         }
         else if (pageType.equals("otherportfolio")){
@@ -86,6 +86,7 @@ public class UserFeedsController {
 //            System.out.println("x.getJsurl() = " + x.getJsurl());
 //            System.out.println("x.getMergeCode() = " + x.getMergeCode());
 //        });
+        profileDto.setPortfolioCnt(userFeedsService.getUserPortfolioTotalCnt(id));
         UserFeedsPageDto userFeedsPageDto=new UserFeedsPageDto(criteria,total);
         userFeedsPageDto.setUserid(id);
         userFeedsPageDto.setPageType(pageType);
