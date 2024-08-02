@@ -18,15 +18,10 @@ public class SearchServiceImpl implements SearchService {
     public SearchServiceImpl(UserDao userDao){
         this.userDao = userDao;
     }
-    public Map<String, Object> searchList(String searchKeyword){
-        System.out.println("SearchServiceImpl::searchList");
-        Map<String, Object> searchMap = new HashMap<>();
-
-        List<UserDto> memberDtos = userDao.findMembersUsingKeyword(searchKeyword);
-
-        searchMap.put("members", memberDtos);
-
-        System.out.println("UserDao::findMembersUsingKeyword 종료");
-        return searchMap;
+    public List<UserDto> searchMemberList(String searchKeyword){
+        return userDao.findMembersUsingKeyword(searchKeyword);
+    }
+    public List<PortfolioDto> searchPortfolioList(String searchKeyword){
+        return portfolioDao.findPortfolioByKeyword(searchKeyword);
     }
 }

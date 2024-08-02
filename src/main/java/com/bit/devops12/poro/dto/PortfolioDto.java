@@ -57,15 +57,15 @@ public class PortfolioDto {
     }
 
     public List<String> getCssList(){
-        return Arrays.stream(cssurl.split(",")).toList();
+        return cssurl != null ? Arrays.stream(cssurl.split(",")).toList() : null;
     }
 
     public List<String> getJsList(){
-        return Arrays.stream(jsurl.split(",")).toList();
+        return jsurl != null ? Arrays.stream(jsurl.split(",")).toList() : null;
     }
 
     public List<String> getHtmlList(){
-        return Arrays.stream(htmlurl.split(",")).toList();
+        return htmlurl != null ? Arrays.stream(htmlurl.split(",")).toList() : null;
     }
 
     public int getPortfolio_id() {

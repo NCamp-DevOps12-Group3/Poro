@@ -17,7 +17,7 @@ public class PortfolioDao {
         this.mybatis = sqlSessionTemplate;
     }
 
-    public List<PortfolioDto> searchPortfolioByKeyword(String searchKeyword){
+    public List<PortfolioDto> findPortfolioByKeyword(String searchKeyword){
         return mybatis.selectList(
                 "PortfolioDao.searchPortfolioByKeyword",
                 searchKeyword);
