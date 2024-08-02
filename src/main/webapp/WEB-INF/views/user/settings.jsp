@@ -11,6 +11,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -34,11 +43,11 @@
         
         
         h3{
-            margin-bottom: 0px;
+            margin-bottom: 0;
         }
         .col-9{
             padding-right: 10%;
-            padding-right: 0%;
+            padding-right: 0;
         }
        
         .content {
@@ -57,8 +66,8 @@
             display:  inline-block;
             margin-left:15vw;
             border-right: 1px solid #dbdbdb;
-            box-shadow: 1px 0px 10px 1px #eeeeee;
-            z-index: 100;
+            box-shadow: 1px 0 10px 1px #eeeeee;
+            z-index: 1;
             
         }
         .pobox a {
@@ -151,8 +160,8 @@
         }
         img{
             border-radius: 50%;
-            width: 20%;
-            height: 20% ;
+            width: 30%;
+            height: 30% ;
         }
         #website{
             border-radius: 7px;
@@ -181,12 +190,12 @@
                 
             }
             .pobox{
-                position: fixed;
+                
                 height: 100vh;
                 background: #f8f9fa;
                 width: 190px;
                 display:  inline-block;
-                
+                z-index: 1;
                 border-left:none;
             }
             .boardt{
@@ -200,11 +209,11 @@
         }
         @media screen and (max-width: 1025px) {
             .col-3{
-                padding-right: 0%;
+                padding-right: 0;
                 
             }
             .col-9{
-                padding-left: 0%;
+                padding-left: 0;
                 
             }
             .col-9 h4{
@@ -215,7 +224,7 @@
             
             
             .scrollspy{
-                padding: 20px 0px;
+                padding: 20px 0;
             }
             .sidebar {
                 height: 100vh;
@@ -226,7 +235,7 @@
                 border-right: none;
             }
             .boardt{
-                margin-left: 0%;
+                margin-left: 0;
                 box-shadow: none;
                 border-left: none;
                 
@@ -240,8 +249,7 @@
                 
             }
             .scrollspy{
-                padding: 0px 20px;
-                padding-top: 30px;
+                padding: 30px 20px 0;
             }
             button{
                 margin-right: 10px;
@@ -251,9 +259,7 @@
             .col-3{
                 width: 20%;
             }
-            .col-9{
             
-            }
             .sidebar {
                 display: none;
             }
@@ -285,15 +291,15 @@
     
     </style>
 </head>
-<body style="overflow-x: hidden">
+<body style="overflow-x: hidden; z-index: 1">
 <div class="row">
     <div class="col-3">
-        <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"></jsp:include>
+        <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"/>
         
         <!--업로드 모달-->
         <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true" >
             <div class="modal-dialog">
-                <div class="modal-content" style="border: 0.7px solid rgb(201, 201, 201);padding: 0px;  border-radius: 15px;">
+                <div class="modal-content" style="border: 1px solid rgb(201, 201, 201);padding: 0;  border-radius: 15px;">
                     <div class="modal-header" style="  border-radius: 14px;">
                         <h5 class="modal-title" id="uploadModalLabel">포트폴리오 업로드</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -327,26 +333,7 @@
             </div>
         </div>
         
-        <div class="modal fade" id="modalPic">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-head">
-                        <h3 class="text-lg-center m-3">사진변경</h3>
-                    </div>
-                    <div class="modal-body h-75">
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">변경할 프로필 사진</label>
-                            <input class="form-control" type="file" id="formFile" name="profileImage">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" style="color: white; background-color:#0D6EFD;" data-bs-dismiss="modal">
-                            닫기
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         
         
         
@@ -368,27 +355,58 @@
     <div class="col-9" data-bs-spy="scroll">
         <div class="boardt" data-bs-spy="scroll" >
             <div data-bs-spy="scroll" data-bs-target="#setting-list" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy_gap-2" tabindex="0"><br><br>
-                <div id="list-profile"></div>
                 
-                <h4  style="margin-top: 2%; ">프로필</h4>
+                
+               
                 
                 
                 <form action="#" method="post" id="modify-form" enctype="multipart/form-data">
                     <div class="container position-relative" style="border-radius: 15px;">
-                        
-                        <header class="w-auto h-auto box d-flex align-items-center justify-content-around" style="background-color: #ddd; padding: 0; margin: 0; border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                            <div class="d-inline-block" style="border-radius: 16px; margin-left: 10px; margin-top: 20px; margin-bottom: 20px; background-color: #ddd;">
-                                <div id="imagePreview" style="background-color: #ddd;">
-                                    <img id="profile-Pic" class="profile-img" alt="aa" src="${loginUser.profile_image}" style="background-color: #ddd;">
+                        <div class="modal fade" id="modalPic">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-head">
+                                        <h3 class="text-lg-center m-3">사진변경</h3>
+                                    </div>
+                                    <div class="modal-body h-75">
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">변경할 프로필 사진</label>
+                                            <input class="form-control" type="file" id="formFile" name="profileImage">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" style="color: white; background-color:#0D6EFD;" data-bs-dismiss="modal">
+                                            닫기
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-inline-block" style="background-color: #ddd;">
-                                <h5 style="background-color: #ddd; color: black;">${loginUser.nickname}</h5>
+                        </div>
+                        
+                        
+                        <h4   style="margin-top: 2%; ">프로필</h4>
+                        
+                        <header class="w-auto h-auto box d-flex align-items-center justify-content-around"
+                                style="background-color: #ddd; padding-bottom: 20px; margin: 0; border-top-left-radius:
+                                 15px; border-top-right-radius: 15px;">
+                            
+                            <div id="list-profile" class="d-inline-block" style="border-radius: 16px; margin-left: 10px;background-color: #ddd;">
+                                <div id="imagePreview" style="background-color: #ddd;">
+                                    <img id="profile-Pic" class="profile-img" alt="${loginUser.profile_image}" src="${loginUser.profile_image}" style="background-color: #ddd;">
+                                </div>
+                            </div>
+                            <div class="d-inline-block" style="background-color: #ddd; margin-right: 20px">
+                                
+                                <h5
+                                        style="background-color: #ddd; color: black; margin-top:
+                                        30px">${loginUser.nickname}</h5>
                                 <p style="background-color: #ddd; color: black;">${loginUser.name}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.email}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.gender}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.phonenumber}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.introduction}</p>
+                                <p style="background-color: #ddd; color: black;">${loginUser.site_url}</p>
+                                
                             </div>
                             <div class="d-inline-block" style="background-color: #ddd; margin-right: 20px;">
                                 <p style="background-color: #ddd; color: black;">${loginUser.role}</p>
@@ -396,11 +414,13 @@
                         </header>
                         
                         <div class="accordion" id="accordionExample" style="background-color: #ddd;">
-                            <div class="accordion-item" style="border: none;">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" style="background-color: #ddd; border-radius: 0%; border: none;" type="button" data-bs-toggle="collapse" data-bs-target="#changeProfile" aria-expanded="false" aria-controls="changeProfile">프로필 정보 변경하기</button>
+                            <div class="accordion-item" style="border: none;" >
+                                <h2 class="accordion-header"  id="headingOne">
+                                    <button class=" accordion-button collapsed" style="background-color: #ddd;
+                                    border-radius: 0; border: none;" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#changeProfile" aria-expanded="false" aria-labelledby="headingOne" aria-controls="changeProfile">프로필 정보 변경하기</button>
                                 </h2>
-                                <div id="changeProfile" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div id="changeProfile" class="accordion-collapse collapse" data-bs-parent="accordionExample">
                                     <div class="accordion-body">
                                         <div style="padding: 10px;">
                                             <button type="button" style="width: 100px; padding-top: 12px; padding-bottom: 12px; border-radius: 10px; border: 1px solid #ddd;" class="btn" data-bs-toggle="modal" data-bs-target="#modalPic" id="Pic">
@@ -437,16 +457,20 @@
                                             <textarea type="text" name="introduction" id="introduction" class="w-100 form-control">${loginUser.introduction}</textarea>
                                             <div class="form-text">유저 상세페이지 상단에 출력되는 글입니다</div>
                                         </div>
-                                        <button type="submit" class="btn w-25" style="margin: 10px; background-color: #ddd; color: black;">제출</button>
+                                        <div style="padding: 10px;">
+                                        <button type="submit" class="btn w-25" style="margin: 10px; background-color: #ddd; color: black;">제출
+                                        </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
+                
                 <br><br><br><br><br><br><br><br>
                 
-                <h4 id="list-history" style="margin-top: 0px;">내 활동</h4>
+                <h4 id="list-history" style="margin-top: 0;">내 활동</h4>
                 <div style="border: 1px solid rgb(201, 201, 201);padding: 20px;  border-radius: 7px; ">
                     <div class="container">
                         <table class="table table-hover text-center">
@@ -459,10 +483,12 @@
                             </tr>
                             </thead>
                             <tbody class="table-group-divider">
+                           
                             <c:forEach items="${myhistory}" var="historylog">
                                 <tr class="board-tr" onclick="location.href='/board/update-cnt.do?id=${historylog.id}'">
                                     <td>${historylog.id}</td>
                                     <c:choose>
+                                        
                                         <c:when test="${historylog.type != comment}">
                                             <td>${historylog.title}</td>
                                         </c:when>
@@ -491,7 +517,7 @@
                 <br><br><br><br><br><br><br><br>
                 
                 
-                <h4 id="list-locksandsecurity" style="margin-top: 0px;">잠금과 보안</h4>
+                <h4 id="list-locksandsecurity" style="margin-top: 0;">잠금과 보안</h4>
                 <div style="border: 1px solid rgb(201, 201, 201);padding: 20px;  border-radius: 7px; ">
                     <div style="margin: 20px auto;">
                         <h5>비밀번호 변경</h5>
@@ -527,14 +553,14 @@
                         <div class="modal fade" id="staticpassswordBackdrop"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content" >
-                                    <div class="modal-header" style=" margin: 0px; text-align: center; justify-content: center;">
+                                    <div class="modal-header" style=" margin: 0; text-align: center; justify-content: center;">
                                         <h1 class="modal-title fs-5" id="staticBackdropLabel">비밀번호 변경</h1>
                                     
                                     </div>
                                     <div class="modal-body">
                                         <h3>비밀번호를 변경 하시겠습니까?</h3>
                                     </div>
-                                    <div class="modal-footer" style=" margin: 0px; text-align: center; justify-content: center;">
+                                    <div class="modal-footer" style=" margin: 0; text-align: center; justify-content: center;">
                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color:#0D6EFD;">취소</button>
                                         <a href="passwordchangesChk.html" style="color: white;"><button type="button" style="background-color:#DB3545;" class="btn btn-danger"  id="passwordchange">
                                             비밀번호 변경
@@ -584,7 +610,7 @@
                         </ul>
                         
                         
-                        <button type="button" class="btn  " style="background-color:#DB3545; color: white; border-radius: 10px;"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button type="button" class="btn  " style="background-color:#DB3545; color: white; border-radius: 10px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             계정 삭제
                         </button>
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -634,7 +660,7 @@
                         <div class="accordion" id="accordion2" >
                             <div class="accordion-item" style="margin: 10px;">
                                 <h2 class="accordion-header"  >
-                                    <button class="accordion-button collapsed" style="background-color: #ddd;"type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="#collapse">
+                                    <button class="accordion-button collapsed" style="background-color: #ddd;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="#collapse">
                                         <h3 style="background-color: rgba(0, 0, 0, 0) ; color: black;"> 이용약관</h3>
                                     </button>
                                 </h2>
@@ -663,7 +689,7 @@
                                                 생성하고, 발견하며, 이에 참여하고, 이를 공유하도록 돕습니다. 그 일환으로 회원님 및 다른 사람들이
                                                 PORO  안팎에서 하는 활동에 기초하여 회원님이 관심을 가질 만한 콘텐츠, 기능, 혜택, 계정을 더 잘 보여드리고 회원님에게 PORO 을 경험하는 방법을 제안하기도 합니다.
                                             </li>
-                                            <br><br>
+                                            
                                             
                                             <li>
                                                 <b>긍정적이고 포괄적이며 안전한 환경을 조성합니다.</b>
@@ -852,7 +878,7 @@
                                             사용자에게 표시되지 않지만 계속해서 본 이용 약관 및 개인정보처리방침의 적용을 받습니다. 콘텐츠가 삭제된 후에는 백업과 재난 복구 시스템에서
                                             삭제하는 데 최대 90일이 더 걸릴 수 있습니다.
                                         </li><br>
-                                        <ui>
+                                        <ul>
                                             <li>다음과 같은 경우에는 콘텐츠는 계정 삭제 또는 콘텐츠 삭제 프로세스가 시작된 후 90일 이내에 삭제되지 않습니다.
                                                 <ul>
                                                     <li>다른 사람이 이 라이선스에 따라 콘텐츠를 이용하였고 아직 삭제하지 않은 경우(이 경우 콘텐츠가 삭제될 때까지 해당 라이선스가 계속 적용됨) 또는</li><br>
@@ -872,7 +898,7 @@
                                                 </ul>
                                             </li>
                                             <li>회원님이 계정을 삭제하거나 비활성화하면 본 약관은 회원님과 저희의 계약과 마찬가지로 해지되나, 본 조항 및 아래 조항('계약 및 상호 의견이 합치되지 않는 경우')은 계정이 해지, 비활성화 또는 삭제된 후에도 여전히 적용됩니다.</li>
-                                        </ui>
+                                        </ul>
                                         <br><br>
                                         
                                         
@@ -973,7 +999,13 @@
     </div>
 </div>
 
+
+
+
 </body>
+
+
+
 
 
 
@@ -1006,7 +1038,7 @@
         
         
         // Load dark mode state
-        var isDarkMode = loadDarkModeState();
+        let isDarkMode = loadDarkModeState();
         applyDarkMode(isDarkMode);
         
         $('#darkModeToggle').on('click', function () {
