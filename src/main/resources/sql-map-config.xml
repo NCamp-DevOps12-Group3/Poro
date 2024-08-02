@@ -19,6 +19,7 @@
     <mappers>
         <mapper resource="mappings/user-mapper.xml"/>
         <mapper resource="mappings/mapper-userfeeds.xml"/>
+        <mapper resource="mappings/portfolio-mapper.xml"/>
     </mappers>
 
 </configuration>
