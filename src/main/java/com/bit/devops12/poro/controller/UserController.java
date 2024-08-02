@@ -65,8 +65,8 @@ public class UserController {
 			loginUser.setPassword("");
 			
 			session.setAttribute("loginUser", loginUser);
-			
-			return "redirect:/main/main.do";
+			System.out.println(loginUser);
+			return "main";
 		} catch (Exception e) {
 			model.addAttribute("loginFailMsg", e.getMessage());
 			
@@ -83,7 +83,7 @@ public class UserController {
 		return "redirect:/user/login.do";
 	}
 	
-	@RequestMapping("/settings.do")
+	@GetMapping("/settings.do")
 	public String settingView() {
 		return "/user/settings";
 	}

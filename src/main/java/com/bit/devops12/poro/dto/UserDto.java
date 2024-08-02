@@ -14,6 +14,8 @@ public class UserDto {
 	private String role;
 	private LocalDateTime regdate;
 	private LocalDateTime moddate;
+	private String introduction;
+	private String site_url;
 	
 	
 	public int getId() {
@@ -88,6 +90,14 @@ public class UserDto {
 		this.role = role;
 	}
 	
+	public String getProfile_image() {
+		return profile_image;
+	}
+	
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+	
 	public LocalDateTime getRegdate() {
 		return regdate;
 	}
@@ -103,7 +113,23 @@ public class UserDto {
 	public void setModdate(LocalDateTime moddate) {
 		this.moddate = moddate;
 	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
 	
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+	
+	public String getSite_url() {
+		return site_url;
+	}
+	
+	public void setSite_url(String site_url) {
+		this.site_url = site_url;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDto{" +
@@ -118,6 +144,8 @@ public class UserDto {
 				       ", role='" + role + '\'' +
 				       ", regdate=" + regdate +
 				       ", moddate=" + moddate +
+				       ", introduction='" + introduction + '\'' +
+				       ", site_url='" + site_url + '\'' +
 				       '}';
 	}
 }

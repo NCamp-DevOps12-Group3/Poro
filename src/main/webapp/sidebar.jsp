@@ -14,15 +14,12 @@
     <!-- Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <!-- Bootstrap Icons CSS -->
->>>>>>> origin/leeheeseng
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/add-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <style>
         .content {
             padding: 20px;
@@ -32,6 +29,49 @@
 
         }
 
+        /* 상단 바 */
+        /* .top-line-list {
+            position: fixed;
+        } */
+
+        /* 메인화면 프로필 영역 */
+        /* .top-line-personal-info {
+            margin-right: 1vw;
+        }
+
+        .top-line-personal-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #222;
+            background: #ffffff;
+        }
+
+        .top-line-personal-info-identifier {
+            padding-left: 10px;
+        }
+
+        .top-line-personal-info-identifier i {
+            color: blue;
+            padding-left: 2px;
+            vertical-align: center;
+            display: none;
+        }
+
+        .top-line-personal-info-identifier div:first-child {
+            font-size: 0.8em;
+            font-weight: 600;
+            padding: 1px;
+        }
+
+        .top-line-personal-info-identifier div:last-child {
+            font-size: 0.7em;
+            padding: 1px;
+        } */
+
+        /* .base-sector{
+
+        } */
         .base-sector-personal,
         .base-sector-company {
             margin: 5vh auto;
@@ -79,13 +119,13 @@
             margin-left: 10px;
         }
 
+
         .notification-dropdown {
             transition: background-color 0.3s, border-color 0.3s;
         }
     </style>
 </head>
-<body>
-    <input type="hidden" id="user-type" value="company">
+<body style="z-index: 99999; position: relative !important;  ">
     <div class="sidebar">
         <div class="sidebar-content d-flex flex-column">
             <div class="sidebar-icon">
@@ -112,7 +152,7 @@
                     <i class="bi bi-building"></i>
                     <div>기업 채용</div>
                 </a>
-                <a class="nav-link" id="openModal">
+                <a class="nav-link" id="uploadWindowBtn">
                     <i class="bi bi-upload"></i>
                     <div>업로드</div>
                 </a>
@@ -135,7 +175,7 @@
                     <i class="bi bi-brightness-low"></i>
                     <div>화면 모드</div>
                 </a>
-                <a href="setting.html" class="nav-link" data-page="setting.html">
+                <a href="/user/settings.do" class="nav-link" data-page="/settings.do">
                     <i class="bi bi-gear"></i>
                     <div>설정</div>
                 </a>
@@ -147,18 +187,18 @@
                 </a>
             </div>
         </div>
-        <div class="sidebar-content-search">
+        <div class="sidebar-content-search" style="z-index: 99999;   ">
             <div class="sidebar-content-search-top d-flex flex-column justify-content-center">
                 <div class="sidebar-content-search-title h2">검색</div>
 
             </div>
-            <div class="sidebar-content-search-body">
+            <div class="sidebar-content-search-body" >
                 <div class="sidebar-content-searchbar-area sidebar-content-body-outline">
                     <form class="d-flex justify-content-center" action="#" method="post">
                         <div class="form-control sidebar-content-search-bar d-flex align-items-center">
                             <div class="sidebar-content-search-bar-icon"><i class="bi bi-search"></i></div>
                             <input type="text" placeholder="검색" id="sidebar-search-input" class="no-border-input sidebar-search-input"
-                            name="searchKeyword">
+                            value="searchKeyword">
                             <div class="sidebar-content-search-delete-icon"><i class="bi bi-x-circle"></i></div>
                         </div>
                     </form>
@@ -180,100 +220,6 @@
             </div>
         </div>
     </div>
-
-    <div id="commonModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close-button" id="closeCommonModalButton">&times;</span>
-            <form id="uploadFormCommon" enctype="multipart/form-data" action="${pageContext.request.contextPath}/upload" method="post">
-                <div id="step1Common" class="step-common">
-                    <div class="content-center">
-                        <h2>Step 1: 포트폴리오 Zip 파일로 올려주세요.</h2>
-                        <h3>주의사항</h3>
-                        <p>
-                            1. 파일은 항상 zip 확장자로 압축 후 올려주세요. <br>
-                            2. 미리보기로 보여줄 페이지는 index.html 파일입니다. (업로드 전에 확인 부탁드립니다.) <br>
-                            3. 썸네일을 같이 올려주세요. 업로드하지 않으면 기본이미지로 적용됩니다. <br>
-                            4. 태그는 띄어쓰기로 구분합니다. 주의바랍니다.
-                        </p>
-                        <input type="file" id="zipFileCommon" name="zipFile" accept=".zip">
-                    </div>
-                    <button type="button" id="toStep2Common" class="modal-button center-button">다음</button>
-                </div>
-                <div id="step2Common" class="step-common" style="display:none;">
-                    <h2>Step 2: index.html 프리뷰 / 썸네일 추가(선택)</h2>
-                    <div class="step2-content">
-                        <iframe id="previewCommon" style="width:100%; height:400px;"></iframe>
-                        <div class="thumbnail-preview">
-                            <input type="file" id="thumbnailFileCommon" name="thumbnailFile" accept="image/*">
-                            <img id="thumbnailPreviewCommon" src="#" alt="Thumbnail Preview" style="display: none;"/>
-                        </div>
-                    </div>
-                    <button type="button" id="backToStep1Common" class="modal-button center-button">이전</button>
-                    <button type="button" id="toStep3Common" class="modal-button center-button">다음</button>
-                </div>
-                <div id="step3Common" class="step-common" style="display:none;">
-                    <h2>Step 3: 설명, 태그 추가</h2><br>
-                    <div class="step3-content">
-                        <iframe id="previewStep3Common" style="width:100%; height:400px;"></iframe>
-                        <div class="description-tags">
-                            <h3 style="margin-left: 20px;">설명</h3>
-                            <textarea id="descriptionCommon" name="description" placeholder="Enter description" class="modal-textarea"></textarea>
-                            <h3 style="margin-left: 20px;">태그</h3>
-                            <textarea id="tagsCommon" name="tags" placeholder="Enter tags" class="modal-textarea"></textarea>
-                        </div>
-                    </div>
-                    <button type="button" id="backToStep2Common" class="modal-button center-button">이전</button>
-                    <button type="submit" id="submitCommon" class="modal-button center-button">업로드</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="companyModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close-button" id="closeCompanyModalButton">&times;</span>
-            <form id="uploadFormCompany" method="post" enctype="multipart/form-data" action="/cupload">
-                <div id="step1Company" class="step-company">
-                    <div class="content-center">
-                        <h2>Step 1: 긴 사진 파일을 올려주세요.</h2>
-                        <input type="file" id="imageFileCompany" name="imageFile" accept="image/*">
-                        <img id="imagePreviewCompany" src="#" alt="Image Preview" style="display: none; width: 100%;"/>
-                    </div>
-                    <button id="toStep2Company" type="button" class="modal-button center-button">다음</button>
-                </div>
-                <div id="step2Company" class="step-company" style="display:none;">
-                    <h2>Step 2: 제목, 설명, 태그 추가</h2><br>
-                    <div class="step2-content">
-                        <img id="imagePreviewStep2Company" src="#" alt="Image Preview" style="width: 50%;"/>
-                        <div class="description-tags">
-                            <h3>제목</h3>
-                            <textarea id="titleCompany" name="title" placeholder="Enter title" class="modal-textarea"></textarea>
-                            <h3>Dday 날짜</h3>
-                            <input type="date" id="ddayCompany" name="dday" class="modal-input">
-                        </div>
-                    </div>
-                    <button id="backToStep1Company" type="button" class="modal-button center-button">이전</button>
-                    <button id="toStep3Company" type="button" class="modal-button center-button">다음</button>
-                </div>
-                <div id="step3Company" class="step-company" style="display:none;">
-                    <h2>Step 3: Dday날짜와 위치, 경력, 학력 추가</h2><br>
-                    <div class="step3-content">
-                        <img id="imagePreviewStep3Company" src="#" alt="Image Preview" style="width: 50%;"/>
-                        <div class="additional-info">
-                            <h3>위치</h3>
-                            <input type="text" id="locationCompany" name="location" placeholder="Enter location" class="modal-input">
-                            <h3>경력</h3>
-                            <textarea id="experienceCompany" name="experience" placeholder="Enter experience" class="modal-textarea"></textarea>
-                            <h3>학력</h3>
-                            <textarea id="educationCompany" name="education" placeholder="Enter education" class="modal-textarea"></textarea>
-                        </div>
-                    </div>
-                    <button id="backToStep2Company" type="button" class="modal-button center-button">이전</button>
-                    <button id="submitCompany" type="submit" class="modal-button center-button">업로드</button>
-                </div>
-            </form>
-        </div>
-    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -284,9 +230,6 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- Custom JavaScript -->
     <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/uploadScripts.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/commonScripts.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/companyScripts.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/sidebar.js"></script>
