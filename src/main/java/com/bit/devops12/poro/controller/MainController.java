@@ -43,8 +43,6 @@ public class MainController {
     @ResponseBody
     public Map<String, Object> userMainAjax(MainCriteria mainCri) {
 
-        System.out.println("1234");
-
         List<Map<String, Object>> portfolioList = new ArrayList<>();
 
         portfolioService.getPortfolioList(mainCri).forEach(portfolioDto -> {
@@ -121,8 +119,6 @@ public class MainController {
 
         response.put("commentList", buildCommentTree(commentService.getCommentList(portfolioDto)));
         response.put("portfolio", portfolioDto);
-
-        System.out.println(response);
 
         return response;
     }
