@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.controller;
 
+import com.bit.devops12.poro.dto.MainCriteria;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,38 @@ public class UserController {
 		userService.join(userDto);
 		return "user/login";
 	}
+<<<<<<< HEAD
+=======
+	
+	@PostMapping("/login.do")
+	public String login(UserDto userDto, Model model, HttpSession session) {
+		try {
+			UserDto loginUser = userService.login(userDto);
+			
+			loginUser.setPassword("");
+			
+			session.setAttribute("loginUser", loginUser);
+			
+			return "redirect:/main/main.do";
+		} catch (Exception e) {
+			model.addAttribute("loginFailMsg", e.getMessage());
+			
+			return "user/login";
+		}
+	}
+	
+	
+	@GetMapping("/logout.do")
+	public String logout(HttpSession session) {
+		// 세션에 있는 내용 모두 초기화
+		session.invalidate();
+		
+		return "redirect:/user/login.do";
+	}
+	
+	@RequestMapping("/settings.do")
+	public String settingView() {
+		return "/user/settings";
+	}
+>>>>>>> origin/chunghyun
 }

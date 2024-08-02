@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PortfolioDao">
+    <select id="searchPortfolioByKeyword" parameterType="string" resultType="portfolio">
+        SELECT P.PORTFOLIO_ID
+             , P.USER_ID
+             , P.PORTFOLIO_URL
+             , P.THUMBNAIL_URL
+             , P.DESCRIPTION
+             , GROUP_CONCAT(DISTINCT ST.SKILLNAME) AS SKILLNAME
+            FROM PORTFOLIO P
+        INNER JOIN PORTFOLIO_SKILL PS
+                ON PS.PORTFOLIO_ID = P.PORTFOLIO_ID
+        INNER JOIN SKILLTAG ST
+                ON PS.HASHTAG_ID IN (
+                    SELECT HASHTAGID
+                        FROM SKILLTAG
+                        WHERE SKILLNAME LIKE CONCAT('%', #{searchKeyword}, '%')
+                        )
+            GROUP BY P.PORTFOLIO_ID
+                   , P.USER_ID
+                   , P.PORTFOLIO_URL
+                   , P.THUMBNAIL_URL
+                   , P.DESCRIPTION
+    </select>
+
+    <select id="getPortfolioList" parameterType="map" resultType="portfolio">
+        SELECT P.PORTFOLIO_ID
+             , P.USER_ID
+             , P.PORTFOLIO_URL
+             , P.THUMBNAIL_URL
+             , P.DESCRIPTION
+             , P.REGDATE
+             , P.MODDATE
+             , U.NICKNAME
+             , H.HTML_URL AS htmlurl
+             , J.JAVASCRIPT_URL AS jsurl
+             , C.CSS_URL AS cssurl
+             , COALESCE(PL.LIKECOUNT, 0) AS LIKECOUNT
+             , COALESCE(CM.COMMENTCOUNT, 0) AS COMMENTCOUNT
+        FROM PORTFOLIO P
+                 JOIN USER U
+                      ON P.USER_ID = U.USER_ID
+                 JOIN HTML H
+                      ON P.PORTFOLIO_ID = H.PORTFOLIO_ID
+                 JOIN JAVASCRIPT J
+                      ON P.PORTFOLIO_ID = J.PORTFOLIO_ID
+                 JOIN CSS C
+                      ON P.PORTFOLIO_ID = C.PORTFOLIO_ID
+                 LEFT JOIN (
+            SELECT PORTFOLIO_ID, COUNT(*) AS LIKECOUNT
+            FROM PORTFOLIO_LIKE
+            GROUP BY PORTFOLIO_ID
+        ) PL ON P.PORTFOLIO_ID = PL.PORTFOLIO_ID
+                 LEFT JOIN (
+            SELECT PORTFOLIO_ID, COUNT(*) AS COMMENTCOUNT
+            FROM COMMENT
+            GROUP BY PORTFOLIO_ID
+        ) CM ON P.PORTFOLIO_ID = CM.PORTFOLIO_ID
+            LIMIT #{mainCri.amount} OFFSET #{mainCri.startNum}
+    </select>
+
+    <select id="getPortfolioById" parameterType="int" resultType="portfolio">
+        SELECT P.PORTFOLIO_ID
+             , P.USER_ID
+             , P.PORTFOLIO_URL
+             , P.THUMBNAIL_URL
+             , P.DESCRIPTION
+             , P.REGDATE
+             , P.MODDATE
+             , U.NICKNAME
+             , H.HTML_URL AS htmlurl
+             , J.JAVASCRIPT_URL AS jsurl
+             , C.CSS_URL AS cssurl
+        FROM PORTFOLIO P
+                 JOIN USER U
+                      ON P.USER_ID = U.USER_ID
+                 JOIN HTML H
+                      ON P.PORTFOLIO_ID = H.PORTFOLIO_ID
+                 JOIN JAVASCRIPT J
+                      ON P.PORTFOLIO_ID = J.PORTFOLIO_ID
+                 JOIN CSS C
+                      ON P.PORTFOLIO_ID = C.PORTFOLIO_ID
+        WHERE P.PORTFOLIO_ID = #{portfolio_id}
+    </select>
+
+    <select id="getPortfolioTotalCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM PORTFOLIO
+    </select>
+
+</mapper>

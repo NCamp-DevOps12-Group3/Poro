@@ -13,12 +13,88 @@ public class PortfolioDto {
     private String htmlurl;
     private String thumbnail_url;
     private LocalDateTime regdate;
+    private LocalDateTime modDate;
     private String skillname;
+<<<<<<< HEAD
     private String content;
+=======
+    private String nickname;
+    private String description;
+>>>>>>> origin/chunghyun
     private List<String> htmlCode;
     private List<String> cssCode;
     private List<String> jsCode;
     private String mergeCode;
+<<<<<<< HEAD
+=======
+    private int bookmark_id;
+    private int likeCount;
+    private int commentCount;
+
+    @Override
+    public String toString() {
+        return "PortfolioDto{" +
+                "portfolio_id=" + portfolio_id +
+                ", user_id=" + user_id +
+                ", cssurl='" + cssurl + '\'' +
+                ", jsurl='" + jsurl + '\'' +
+                ", htmlurl='" + htmlurl + '\'' +
+                ", thumbnail_url='" + thumbnail_url + '\'' +
+                ", regdate=" + regdate +
+                ", modDate=" + modDate +
+                ", skillname='" + skillname + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", description='" + description + '\'' +
+                ", htmlCode=" + htmlCode +
+                ", cssCode=" + cssCode +
+                ", jsCode=" + jsCode +
+                ", mergeCode='" + mergeCode + '\'' +
+                ", bookmark_id=" + bookmark_id +
+                ", likeCount=" + likeCount +
+                ", commentCount=" + commentCount +
+                '}';
+    }
+
+    public LocalDateTime getModDate() {
+        return modDate;
+    }
+
+    public void setModDate(LocalDateTime modDate) {
+        this.modDate = modDate;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getBookmark_id() {
+        return bookmark_id;
+    }
+
+    public void setBookmark_id(int bookmark_id) {
+        this.bookmark_id = bookmark_id;
+    }
+>>>>>>> origin/chunghyun
 
     public String getMergeCode() {
         return mergeCode;
