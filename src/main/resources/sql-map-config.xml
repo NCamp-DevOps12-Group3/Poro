@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<!-- mybatis에서 사용하는 설정 파일 -->
 <configuration>
-    <!-- 객체 별칭 지정가능
-    원래 mapper에 파라미터 타입,resulttupe에 패키지 까지 포함된 전체 클래스 명을 작성해야하지만 별칭으로 지정하면 별칭만 사용해서 작성가능-->
     <typeAliases>
         <typeAlias type="com.bit.devops12.poro.dto.ProfileDto" alias="profile"/>
         <typeAlias type="com.bit.devops12.poro.dto.PortfolioDto" alias="portfolio"/>
         <typeAlias type="com.bit.devops12.poro.dto.FileDto" alias="file"/>
-        <typeAlias type="com.bit.devops12.poro.dto.RecruitmentDto" alias="coperation"/>
         <typeAlias type="com.bit.devops12.poro.dto.UserDto" alias="user"/>
     </typeAliases>
-    <!-- 사용할 sql mapper등록 -->
+
     <mappers>
         <mapper resource="mappings/user-mapper.xml"/>
         <mapper resource="mappings/mapper-userfeeds.xml"/>
-        <mapper resource="mappings/portfolio-mapper.xml"/>
     </mappers>
 
 </configuration>

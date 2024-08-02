@@ -1,14 +1,11 @@
 package com.bit.devops12.poro.service.impl;
 
-import com.bit.devops12.poro.dao.PortfolioDao;
 import com.bit.devops12.poro.dao.UserDao;
-import com.bit.devops12.poro.dto.PortfolioDto;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sound.sampled.Port;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,23 +13,18 @@ import java.util.Map;
 @Service
 public class SearchServiceImpl implements SearchService {
     private UserDao userDao;
-    private PortfolioDao portfolioDao;
 
     @Autowired
-    public SearchServiceImpl(UserDao userDao, PortfolioDao portfolioDao){
-
+    public SearchServiceImpl(UserDao userDao){
         this.userDao = userDao;
-        this.portfolioDao = portfolioDao;
     }
     public Map<String, Object> searchList(String searchKeyword){
         System.out.println("SearchServiceImpl::searchList");
         Map<String, Object> searchMap = new HashMap<>();
 
         List<UserDto> memberDtos = userDao.findMembersUsingKeyword(searchKeyword);
-        List<PortfolioDto> portfolioDtos = portfolioDao.searchPortfolioByKeyword(searchKeyword);
 
         searchMap.put("members", memberDtos);
-        searchMap.put("portfolio", portfolioDtos);
 
         System.out.println("UserDao::findMembersUsingKeyword 종료");
         return searchMap;

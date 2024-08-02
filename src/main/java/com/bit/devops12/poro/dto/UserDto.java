@@ -3,7 +3,7 @@ package com.bit.devops12.poro.dto;
 import java.time.LocalDateTime;
 
 public class UserDto {
-	private int user_id;
+	private int id;
 	private String nickname;
 	private String name;
 	private String gender;
@@ -12,17 +12,16 @@ public class UserDto {
 	private String email;
 	private String password;
 	private String role;
-	private String profile_image;
 	private LocalDateTime regdate;
 	private LocalDateTime moddate;
 	
 	
-	public int getUser_id() {
-		return user_id;
+	public int getId() {
+		return id;
 	}
 	
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getNickname() {
@@ -105,18 +104,10 @@ public class UserDto {
 		this.moddate = moddate;
 	}
 	
-	public String getProfile_image() {
-		return profile_image;
-	}
-	
-	public void setProfile_image(String profile_image) {
-		this.profile_image = profile_image;
-	}
-	
 	@Override
 	public String toString() {
 		return "UserDto{" +
-				       "user_id=" + user_id +
+				       "id=" + id +
 				       ", nickname='" + nickname + '\'' +
 				       ", name='" + name + '\'' +
 				       ", gender='" + gender + '\'' +
@@ -125,7 +116,6 @@ public class UserDto {
 				       ", email='" + email + '\'' +
 				       ", password='" + password + '\'' +
 				       ", role='" + role + '\'' +
-				       ", profile_image='" + profile_image + '\'' +
 				       ", regdate=" + regdate +
 				       ", moddate=" + moddate +
 				       '}';

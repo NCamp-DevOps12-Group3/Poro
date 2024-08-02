@@ -4,9 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5d13c474-01a1-40e0-926a-ee40ba0ddbcc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f218b696-cf27-45e7-8ff6-03609589553d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/PortfolioController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/RecruitmentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/mapper/PortfolioMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/mapper/RecruitmentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/mapper/SkillTagMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/model/Portfolio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/model/Recruitment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/model/SkillTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/PortfolioService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/RecruitmentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/config/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/config/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/PortfolioMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/RecruitmentMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/SkillTagMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/upload/cupload.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/upload/upload.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/css/cstyles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/css/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/commonScripts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/companyScripts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/uploadScripts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql-map-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql-map-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/root-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/root-context.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sidebar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sidebar.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,9 +41,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -32,49 +56,32 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="2jlVoonWVYy5dKo3atImOSjLCco" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2k56weZxWuyqjvQiEgubff6zfIF" />
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
-    <option name="sortByType" value="true" />
-    <option name="sortKey" value="BY_TYPE" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.poro [clean].executor": "Run",
-    "Maven.poro [compile].executor": "Run",
-    "Maven.poro [install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Smart Tomcat.Poro.executor": "Run",
-    "Smart Tomcat.Tomcat: Poro.executor": "Run",
+    "Smart Tomcat.Unnamed.executor": "Run",
     "Smart Tomcat.poro.executor": "Run",
-    "Smart Tomcat.구동.executor": "Run",
-    "Smart Tomcat.이름이 지정되지 않았습니다.executor": "Run",
-    "Smart Tomcat.톰캣.executor": "Run",
-    "git-widget-placeholder": "youngwoo",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/lecture/SpringFramework/_20_Spring_Board_Paging",
+    "last_opened_file_path": "C:/develop/define_page",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "모듈",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propCompiler",
+    "settings.editor.selected.configurable": "com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -84,49 +91,40 @@
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.bit.devops12.poro.dto" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\develop\Poro\src\main\webapp\WEB-INF\views\upload" />
+      <recent name="C:\develop\Poro\src\main\webapp\static\js" />
+      <recent name="C:\develop\Poro\src\main\webapp\static\css" />
+      <recent name="C:\develop\Poro\src\main\resources" />
+      <recent name="C:\develop\Poro\src\main\java\com\bit\devops12\poro\service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\mini\src\main\webapp" />
-      <recent name="D:\mini\src\main\webapp\static\img" />
-      <recent name="D:\mini\src\main\webapp\static\img\defult_profile_Img" />
+      <recent name="C:\develop\Poro\src\main\resources\config" />
     </key>
   </component>
-  <component name="RunAnythingCache">
-    <myKeys>
-      <visibility group="Gradle 작업" flag="true" />
-      <visibility group="Grunt" flag="true" />
-      <visibility group="Gulp" flag="true" />
-      <visibility group="HTTP 요청" flag="true" />
-      <visibility group="Maven Goal" flag="true" />
-      <visibility group="Node.js" flag="true" />
-      <visibility group="Recent projects" flag="true" />
-      <visibility group="Run configurations" flag="true" />
-      <visibility group="npm" flag="true" />
-      <visibility group="yarn" flag="true" />
-    </myKeys>
-  </component>
   <component name="RunManager">
-    <configuration name="톰캣" type="com.poratu.idea.plugins.tomcat">
+    <configuration name="poro" type="com.poratu.idea.plugins.tomcat">
       <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
       <predefined_log_file enabled="true" id="Tomcat Access Log" />
       <predefined_log_file id="Tomcat Catalina Log" />
       <predefined_log_file id="Tomcat Manager Log" />
       <predefined_log_file id="Tomcat Host Manager Log" />
-      <option name="catalinaBase" value="C:\Users\kid16\.SmartTomcat\mini\poro" />
+      <option name="catalinaBase" value="C:\Users\shoon\.SmartTomcat\Poro\poro" />
       <option name="contextPath" value="/" />
       <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
       <option name="extraClassPath" value="" />
       <option name="port" value="8090" />
       <option name="tomcatInfo">
         <TomcatInfo>
           <option name="name" value="Apache Tomcat/10.1.25" />
-          <option name="path" value="C:/devTools/apache-tomcat-10.1.25" />
+          <option name="path" value="$PROJECT_DIR$/../../devTools/apache-tomcat-10.1.25" />
           <option name="version" value="10.1.25.0" />
         </TomcatInfo>
       </option>
-      <option name="vmOptions" value="-Dfile.encoding=UTF-8" />
+      <option name="vmOptions" value="" />
       <module name="poro" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -141,22 +139,15 @@
       </set>
     </attachedChunks>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="" />
-      <created>1721961829790</created>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f218b696-cf27-45e7-8ff6-03609589553d" name="Changes" comment="" />
+      <created>1722561330807</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1721961829790</updated>
-      <workItem from="1721961831416" duration="10202000" />
-      <workItem from="1722213964279" duration="8321000" />
-      <workItem from="1722236645009" duration="9797000" />
-      <workItem from="1722328062599" duration="5275000" />
-      <workItem from="1722472477326" duration="24268000" />
-      <workItem from="1722501484434" duration="1712000" />
-      <workItem from="1722558884024" duration="2817000" />
-      <workItem from="1722563662546" duration="878000" />
+      <updated>1722561330807</updated>
+      <workItem from="1722561332156" duration="18469000" />
     </task>
     <servers />
   </component>

@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"></jsp:include>
+
 </body>
 </html>

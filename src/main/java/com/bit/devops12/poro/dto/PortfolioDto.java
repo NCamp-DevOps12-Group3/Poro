@@ -14,22 +14,11 @@ public class PortfolioDto {
     private String thumbnail_url;
     private LocalDateTime regdate;
     private String skillname;
-    private String description;
+    private String content;
     private List<String> htmlCode;
     private List<String> cssCode;
     private List<String> jsCode;
     private String mergeCode;
-    private int bookmark_id;
-
-   
-
-    public int getBookmark_id() {
-        return bookmark_id;
-    }
-
-    public void setBookmark_id(int bookmark_id) {
-        this.bookmark_id = bookmark_id;
-    }
 
     public String getMergeCode() {
         return mergeCode;
@@ -75,13 +64,12 @@ public class PortfolioDto {
     public List<String> getHtmlList(){
         return Arrays.stream(htmlurl.split(",")).toList();
     }
-
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public int getPortfolio_id() {
@@ -146,25 +134,5 @@ public class PortfolioDto {
 
     public void setSkillname(String skillname) {
         this.skillname = skillname;
-    }
-    
-    @Override
-    public String toString() {
-        return "PortfolioDto{" +
-                       "portfolio_id=" + portfolio_id +
-                       ", user_id=" + user_id +
-                       ", cssurl='" + cssurl + '\'' +
-                       ", jsurl='" + jsurl + '\'' +
-                       ", htmlurl='" + htmlurl + '\'' +
-                       ", thumbnail_url='" + thumbnail_url + '\'' +
-                       ", regdate=" + regdate +
-                       ", skillname='" + skillname + '\'' +
-                       ", description='" + description + '\'' +
-                       ", htmlCode=" + htmlCode +
-                       ", cssCode=" + cssCode +
-                       ", jsCode=" + jsCode +
-                       ", mergeCode='" + mergeCode + '\'' +
-                       ", bookmark_id=" + bookmark_id +
-                       '}';
     }
 }

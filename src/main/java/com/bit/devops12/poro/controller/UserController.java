@@ -2,12 +2,9 @@ package com.bit.devops12.poro.controller;
 
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/user")
@@ -52,40 +49,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/join.do")
-	public String join(UserDto userDto , MultipartFile uploadFiles) {
+	public String join(UserDto userDto) {
 		userService.join(userDto);
-		
 		return "user/login";
-	}
-	
-	@PostMapping("/login.do")
-	public String login(UserDto userDto, Model model, HttpSession session) {
-		try {
-			UserDto loginUser = userService.login(userDto);
-			
-			loginUser.setPassword("");
-			
-			session.setAttribute("loginUser", loginUser);
-			
-			return "main";
-		} catch (Exception e) {
-			model.addAttribute("loginFailMsg", e.getMessage());
-			
-			return "user/login";
-		}
-	}
-	
-	
-	@GetMapping("/logout.do")
-	public String logout(HttpSession session) {
-		// 세션에 있는 내용 모두 초기화
-		session.invalidate();
-		
-		return "redirect:/user/login.do";
-	}
-	
-	@RequestMapping("/settings.do")
-	public String settingView() {
-		return "/user/settings";
 	}
 }
