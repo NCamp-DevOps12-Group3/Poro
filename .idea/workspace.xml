@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/settings.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/settings.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/CompanyController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dao/CompanyDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/CompanyDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/CompanyPageDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/CompanyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/impl/CompanyServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,10 +66,10 @@
     "Smart Tomcat.구동.executor": "Run",
     "Smart Tomcat.이름이 지정되지 않았습니다.executor": "Run",
     "Smart Tomcat.톰캣.executor": "Run",
-    "git-widget-placeholder": "leeheeseng",
+    "git-widget-placeholder": "youngwoo",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/BITCAMP/.SmartTomcat/Poro/Poro",
+    "last_opened_file_path": "D:/lecture/poro/src/main/java/com/bit/devops12/poro/dto",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
