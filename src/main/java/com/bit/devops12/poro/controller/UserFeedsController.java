@@ -13,6 +13,7 @@ import java.util.*;
 
 @Controller
 public class UserFeedsController {
+
     private UserFeedsServiceImpl userFeedsService;
     @Autowired
     public UserFeedsController(UserFeedsServiceImpl userFeedsService){
@@ -20,17 +21,25 @@ public class UserFeedsController {
     }
     //삭제하려는 포폴이 있거나
     @RequestMapping("/feed-form.do")
-    public String feedForm(Model model,@RequestParam(name = "deleteList") String deleteList,@RequestParam(name = "id") int id,
+    public String feedForm(Model model,HttpSession session,@RequestParam(name = "deleteList") String deleteList,@RequestParam(name = "id") int id,
                            @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType) {
-        if (pageType.equals("home")) {
-            userFeedsService.deletePortfolio(deleteList);
+//        UserDto user= (UserDto) session.getAttribute("loginUser");
+//        boolean isOwner=user.getId()==id;
+        boolean isOwner=true;
+//        boolean deleteListIsOwner=userFeedsService.deleteListIsOwner(user.getId(),deleteList);
+        boolean deleteListIsOwner=true;
+        if (isOwner && deleteListIsOwner){
+            if (pageType.equals("home")) {
+                userFeedsService.deletePortfolio(deleteList);
+            }
+            else if (pageType.equals("coperation")){
+                userFeedsService.deleteCoperationBookmark(deleteList);
+            }
+            else if (pageType.equals("otherportfolio")){
+                userFeedsService.deleteOtherPortfolioBookmark(deleteList);
+            }
         }
-        else if (pageType.equals("coperation")){
-            userFeedsService.deleteCoperationBookmark(deleteList);
-        }
-        else if (pageType.equals("otherportfolio")){
-            userFeedsService.deleteOtherPortfolioBookmark(deleteList);
-        }
+
 
         return "redirect:/user-feeds.do?id="+id+"&pageType="+pageType;
     }
@@ -42,7 +51,14 @@ public class UserFeedsController {
         Map<String,Object> map=new HashMap<>();
         if (pageType.equals("home")) {
             List<PortfolioDto> portfolioList=userFeedsService.getUserPortfolio(id,criteria);
+            portfolioList.forEach(x->{
+//                x.setMergeCode("");
+                x.setJsCode(List.of());
+                x.setCssCode(List.of());
+                x.setHtmlCode(List.of());
+            });
             map.put("portfolioList",portfolioList);
+
         }
         else if (pageType.equals("coperation")){
             List<RecruitmentDto> recruitmentDtoList=userFeedsService.getUserBookmarkCoperation(id,criteria);
@@ -58,18 +74,22 @@ public class UserFeedsController {
     @GetMapping("/user-feeds.do")
     public String userFeeds(Model model, HttpSession session, @RequestParam(name = "id") int id,
             @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType, Criteria criteria) {
+        int userid=2;
+//        UserDto user= (UserDto) session.getAttribute("loginUser");
+//        boolean isOwner=user.getId()==id;
+        boolean isOwner=userid==id;//테스트 용 추후 삭제 필요
+        model.addAttribute("isOwner",isOwner);
         int total=0;
         ProfileDto profileDto=userFeedsService.getUserInfo(id);
         //유저 아이디를 사용하여 포폴 관련테이블에서 테이블 출력에 필요한 정보를 저장
         if (pageType.equals("home")) {
             criteria.setAmount(4);
-
+            total=userFeedsService.getUserPortfolioTotalCnt(id);
             model.addAttribute("portfolio",userFeedsService.getUserPortfolio(id,criteria));
         }
         else if (pageType.equals("coperation")){
             criteria.setAmount(12);
             total=userFeedsService.getUserBookmarkCoperationToltalCnt(id);
-            System.out.println(userFeedsService.getUserBookmarkCoperation(id,criteria));
             model.addAttribute("coperation",userFeedsService.getUserBookmarkCoperation(id,criteria));
         }
         else if (pageType.equals("otherportfolio")){
@@ -77,15 +97,6 @@ public class UserFeedsController {
             total=userFeedsService.getUserBookmarkPortfolioCnt(id);
             model.addAttribute("otherportfolio",userFeedsService.getUserBookmarkPortfolio(id,criteria));
         }
-//        userFeedsService.getUserPortfolio(id,criteria).forEach(x->
-//        {
-//            System.out.println("x.getUser_id() = " + x.getUser_id());
-//            System.out.println("x.getPortfolio_id() = " + x.getPortfolio_id());
-//            System.out.println("x.getCssurl() = " + x.getCssurl());
-//            System.out.println("x.getHtmlurl() = " + x.getHtmlurl());
-//            System.out.println("x.getJsurl() = " + x.getJsurl());
-//            System.out.println("x.getMergeCode() = " + x.getMergeCode());
-//        });
         profileDto.setPortfolioCnt(userFeedsService.getUserPortfolioTotalCnt(id));
         UserFeedsPageDto userFeedsPageDto=new UserFeedsPageDto(criteria,total);
         userFeedsPageDto.setUserid(id);
@@ -93,8 +104,51 @@ public class UserFeedsController {
 
         model.addAttribute("profile",profileDto);
         model.addAttribute("page",userFeedsPageDto);
-
         model.addAttribute("popularPortfolio",userFeedsService.getUserPopularPortfolio(id));
+
+//        int userid=user.getId();
+
+        model.addAttribute("follow",userFeedsService.getFollowInfo(userid,id));
+        model.addAttribute("bookmark",userFeedsService.getbookmarkInfo(userid,id));
+
         return "/user/userfeeds";
+    }
+
+
+
+    @PostMapping("/user-feeds/unfollow.do")
+    @ResponseBody
+    public Map<String, Object> unfollow(@RequestParam("id") int id, HttpSession session) {
+//        Integer userId = (Integer) session.getAttribute("userId");
+        Integer userId = 2;
+        Map<String, Object> response = new HashMap<>();
+        if (userId == null) {
+            response.put("success", false);
+            response.put("message", "로그인이 필요합니다.");
+            return response;
+        }
+
+        boolean success = userFeedsService.unfollow(userId, id);
+        response.put("success", success);
+        return response;
+    }
+    @PostMapping("/user-feeds/follow.do")
+    @ResponseBody
+    public Map<String, Object> follow(@RequestParam("id") int id, HttpSession session) {
+//        Integer userId = (Integer) session.getAttribute("userId");
+        Integer userId = 2;
+        Map<String, Object> response = new HashMap<>();
+
+        if (userId == null) {
+
+            response.put("success", false);
+            response.put("message", "로그인이 필요합니다.");
+            return response;
+        }
+
+        boolean success = userFeedsService.follow(userId, id);
+
+        response.put("success", success);
+        return response;
     }
 }

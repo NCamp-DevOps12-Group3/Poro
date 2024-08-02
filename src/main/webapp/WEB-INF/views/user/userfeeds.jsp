@@ -14,7 +14,7 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/js/darkmode.js">
+<%--    <script rel="stylesheet" href="${pageContext.request.contextPath}/static/js/darkmode.js"/>--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <style>
         body {
@@ -177,6 +177,17 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
+            top: 10px;
+            right: 10px;
+        }
+        .bookmark-icon {
+            cursor: pointer;
+            position: absolute;
+            background: rgba(0, 0, 0, 0);
+
+            z-index: 1000;
+            width: 20px;
+            height: 20px;
             top: 10px;
             right: 10px;
         }
@@ -355,7 +366,7 @@
 <body>
 <button type="button" id="toTop">↑</button>
 <div class="container-fluid  d-flex">
-    <jsp:include page="/WEB-INF/views/user/sidebar.jsp"/>
+    <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"/>
     <div class="container d-inline-block w-100">
         <button class="btn-toggle btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProfile" id="profileInfoBtn">
             profile
@@ -391,32 +402,52 @@
                     </p>
                 </div>
             </div>
-            <div class="list-group text-center">
-                <!-- <a href="#" class="list-group-item">follow</a>
-                <a href="#" class="list-group-item">message</a> -->
-                <button type="button" class="list-group-item inactive" id="portfolioDelete">delete</button>
-            </div>
+            <c:choose>
+                <c:when test="${isOwner eq true}">
+                    <div class="list-group text-center">
+                        <!-- <a href="#" class="list-group-item">follow</a>
+                        <a href="#" class="list-group-item">message</a> -->
+                        <button type="button" class="list-group-item inactive" id="portfolioDelete">delete</button>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="list-group text-center">
+                        <c:choose>
+                            <c:when test="${follow != true}">
+                                <button type="button" class="btn btn-outline-dark  d-inline-block" id="followBtn">follow</button>
+                                <button type="button" class="btn btn-primary d-none" id="unfollowBtn">unfollow</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="button" class="btn btn-outline-dark d-none" id="followBtn">follow</button>
+                                <button type="button" class="btn btn-primary d-inline-block" id="unfollowBtn">unfollow</button>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary border border-dark rounded my-3">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item mx-3 mouseHover">
-                            <p class="nav-link" id="linkHome">Home</p>
-                        </li>
-                        <li class="nav-item mx-3 mouseHover">
-                            <p class="nav-link" id="linkCoperation">coperation collection</p>
-                        </li>
-                        <li class="nav-item mx-3 mouseHover">
-                            <p class="nav-link" id="linkOtherPortfolio">portfolio collection</p>
-                        </li>
-                    </ul>
+        <c:if test="${isOwner eq true}">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary border border-dark rounded my-3">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item mx-3 mouseHover">
+                                <p class="nav-link" id="linkHome">Home</p>
+                            </li>
+                            <li class="nav-item mx-3 mouseHover">
+                                <p class="nav-link" id="linkCoperation">coperation collection</p>
+                            </li>
+                            <li class="nav-item mx-3 mouseHover">
+                                <p class="nav-link" id="linkOtherPortfolio">portfolio collection</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </c:if>
         <div class="bottom-section">
             <form action="/feed-form.do" method="post" id="formFeeds">
                 <input type="hidden" name="pageNum" value="${page.cri.pageNum}">
@@ -433,7 +464,16 @@
                                     <div class="card-header">
                                             ${portfolio.user_id}
                                     </div>
-                                    <input type="checkbox" class="delete-dot" value="${portfolio.portfolio_id}">
+                                    <c:choose>
+                                        <c:when test="${isOwner eq true}">
+                                            <input type="checkbox" class="delete-dot" value="${portfolio.portfolio_id}">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <label class="bookmark-icon" value="${portfolio.portfolio_id}">
+                                                <i class="bi bi-bookmark-fill"></i>
+                                            </label>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <a href="/feed-detail.do">
                                         <c:choose>
                                             <c:when test="${portfolio.thumbnail_url != null}">
@@ -476,7 +516,9 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
-                                    <input type="checkbox" class="delete-dot" value="${coperation.bookmark_id}">
+                                    <c:if test="${isOwner eq true}">
+                                        <input type="checkbox" class="delete-dot" value="${coperation.bookmark_id}">
+                                    </c:if>
                                     <div class="details-container">
                                         <c:choose>
                                             <c:when test="${coperation.company_icon_url != null}">
@@ -502,7 +544,9 @@
                         <c:forEach items="${otherportfolio}" var="portfolio">
                             <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
                                 <div class="card">
-                                    <input type="checkbox" class="delete-dot" value="${portfolio.bookmark_id}">
+                                    <c:if test="${isOwner eq true}">
+                                        <input type="checkbox" class="delete-dot" value="${portfolio.bookmark_id}">
+                                    </c:if>
                                     <div class="img-container">
                                         <c:choose>
                                             <c:when test="${portfolio.thumbnail_url != null}">
@@ -709,11 +753,6 @@
 
         });
 
-        // $('#uploadWindowBtn').on('click', function() {
-        //     $('#upload-modal-container').load('upload_modal.html', function() {
-        //         $('#uploadModal').modal('show');
-        //     });
-        // });
 
 
         let swiper;
@@ -823,6 +862,48 @@
                 msnry.layout();
             });
         });
+        $("#followBtn").on("click",(e)=>{
+            $.ajax({
+                url: '/user-feeds/follow.do',
+                method: 'POST',
+                data: { id: $("input[name='id']").val() },
+                success: function(response){
+                    if(response.success){
+                        $("#followBtn").removeClass("d-inline-block")
+                        $("#followBtn").addClass("d-none")
+                        $("#unfollowBtn").removeClass("d-none")
+                        $("#unfollowBtn").addClass("d-inline-block")
+                        alert('팔로우에 추가되었습니다.');
+                    } else {
+                        alert('팔로우 추가에 실패했습니다.');
+                    }
+                },
+                error: function(){
+                    alert('오류가 발생했습니다.');
+                }
+            });
+        })
+        $("#unfollowBtn").on("click",(e)=>{
+            $.ajax({
+                url: '/user-feeds/unfollow.do',
+                method: 'POST',
+                data: { id: $("input[name='id']").val() },
+                success: function(response){
+                    if(response.success){
+                        $("#followBtn").removeClass("d-none")
+                        $("#followBtn").addClass("d-inline-block")
+                        $("#unfollowBtn").removeClass("d-inline-block")
+                        $("#unfollowBtn").addClass("d-none")
+                        alert('팔로우에서 삭제되었습니다.');
+                    } else {
+                        alert('팔로우 삭제에 실패했습니다.');
+                    }
+                },
+                error: function(){
+                    alert('오류가 발생했습니다.');
+                }
+            });
+        })
 
         function mergeFile(htmlContentList,cssContentList,jsContentList){
             const merged_cssContent = cssContentList.join('\n');
@@ -866,19 +947,24 @@
                 type:'post',
                 data:$("#formFeeds").serialize(),
                 success:(obj)=>{
+                    console.log("load")
+
+                    console.log(obj.portfolioList)
                     let htmlStr="";
                     if (obj.portfolioList) {
+
                         for (let i=0; i<obj.portfolioList.length; i++){
-                            const srcdoc = mergeFile(obj.portfolioList[i].htmlCode,obj.portfolioList[i].cssCode,obj.portfolioList[i].jsCode);
                             htmlStr += `
                                 <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
                                     <div class="card">
                                         <div class="card-header">
                                             ${obj.portfolioList[i].user_id}
                                         </div>
-                                        <input type="checkbox" class="delete-dot" value="${obj.portfolioList[i].portfolio_id}">
+<%--                                        <c:if test="${isOwner eq true}">--%>
+<%--                                        <input type="checkbox" class="delete-dot" value="${obj.portfolioList[i].portfolio_id}">--%>
+<%--                                        </c:if>--%>
                                         <a href="/feed-detail.do" id="iframe${obj.portfolioList[i].portfolio_id}">
-                                            <img src="${obj.portfolioList[i].thumbnail_url}" class="card-img-top" alt=".">
+                                            <img src="\${obj.portfolioList[i].thumbnail_url}" class="card-img-top" alt=".">
                                             <iframe srcdoc="${srcdoc}" class="card-iframe ratio ratio-1x1" style="display:none" id="iframe${obj.portfolioList[i].portfolio_id}"></iframe>
                                         </a>
                                         <div class="card-body">
@@ -911,7 +997,9 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <input type="checkbox" class="delete-dot" value="${obj.recruitmentList[i].bookmark_id}">
+                            <c:if test="${isOwner eq true}">
+                                <input type="checkbox" class="delete-dot" value="${obj.recruitmentList[i].bookmark_id}">
+                            </c:if>
                             <div class="details-container">
                                 <c:choose>
                                     <c:when test="${obj.recruitmentList[i].company_icon_url != null}">
@@ -939,7 +1027,9 @@
                             htmlStr += `
 <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
                                 <div class="card">
-                                <input type="checkbox" class="delete-dot" value="${obj.otherPortfolioList[i].bookmark_id}">
+                                <c:if test="${isOwner eq true}">
+                                    <input type="checkbox" class="delete-dot" value="${obj.otherPortfolioList[i].bookmark_id}">
+                                </c:if>
                                 <div class="img-container">
                                     <c:choose>
                                         <c:when test="${obj.otherPortfolioList[i].thumbnail_url != null}">
@@ -987,9 +1077,12 @@
                     });
                 },
                 error:(err)=>{
+                    alert("로드 실패");
                     console.log(err);
                 }
+
             });
+
         }
         function toggleButtonState() {
             let button = document.getElementById('portfolioDelete');

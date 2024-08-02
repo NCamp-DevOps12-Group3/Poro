@@ -114,11 +114,8 @@ public class UserFeedsServiceImpl {
         }
     }
 
-
     public void deletePortfolio(String deleteList) {
-        if (deleteList.equals("")||(deleteList == null)){
-            return;
-        }
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String[] portfolioIdStrings = objectMapper.readValue(deleteList, String[].class);
@@ -126,7 +123,9 @@ public class UserFeedsServiceImpl {
             List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
-
+            if (portfolioIds.size() ==0 ){
+                return;
+            }
             userFeedsDao.deletePortfolio(portfolioIds);
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,6 +144,7 @@ public class UserFeedsServiceImpl {
             portfolioDto.setJsCode(readFiles(Arrays.stream(portfolioDto.getJsurl().split(",")).toList()));
             portfolioDto.setMergeCode(mergeFile(portfolioDto.getHtmlCode(),portfolioDto.getCssCode(),portfolioDto.getJsCode()));
         });
+
         return portfolioDtos;
     }
 
@@ -188,7 +188,9 @@ public class UserFeedsServiceImpl {
             List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
-
+            if (portfolioIds.size() ==0 ){
+                return;
+            }
             userFeedsDao.deleteCoperationBookmark(portfolioIds);
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,7 +210,9 @@ public class UserFeedsServiceImpl {
             List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
-
+            if (portfolioIds.size() ==0 ){
+                return;
+            }
             userFeedsDao.deleteOtherPortfolioBookmark(portfolioIds);
         } catch (Exception e) {
             e.printStackTrace();
@@ -222,5 +226,52 @@ public class UserFeedsServiceImpl {
 
     public int getUserBookmarkPortfolioCnt(int id) {
         return userFeedsDao.getUserBookmarkPortfolioCnt(id);
+    }
+
+    public boolean deleteListIsOwner(int id, String deleteList) {
+        if (deleteList.equals("")||(deleteList == null)){
+            return false;
+        }
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            String[] portfolioIdStrings = objectMapper.readValue(deleteList, String[].class);
+
+            List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+
+            return userFeedsDao.deleteListIsOwner(id,portfolioIds);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 예외 처리 로직 추가
+        }
+        return false;
+    }
+
+    public boolean getFollowInfo(int userid, int id) {
+        return userFeedsDao.getFollowInfo(userid,id);
+    }
+
+    public boolean unfollow(Integer userId, int id) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("userid",userId);
+        map.put("id",id);
+        return userFeedsDao.unfollow(map);
+    }
+
+    public boolean follow(Integer userId, int id) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("userid",userId);
+        map.put("id",id);
+        return  userFeedsDao.follow(map);
+    }
+
+    public List<Object> getbookmarkInfo(Integer userid, int id) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("userid",userid);
+        map.put("id",id);
+        return userFeedsDao.getbookmarkInfo(map);
+
     }
 }

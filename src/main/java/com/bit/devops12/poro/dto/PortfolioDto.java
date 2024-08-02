@@ -41,67 +41,6 @@ public class PortfolioDto {
                 '}';
     }
 
-    public int getBookmark_id() {
-        return bookmark_id;
-    }
-
-    public void setBookmark_id(int bookmark_id) {
-        this.bookmark_id = bookmark_id;
-    }
-
-    public String getMergeCode() {
-        return mergeCode;
-    }
-
-    public void setMergeCode(String mergeCode) {
-        this.mergeCode = mergeCode;
-    }
-
-    public List<String> getHtmlCode() {
-        return htmlCode;
-    }
-
-    public void setHtmlCode(List<String> htmlCode) {
-        this.htmlCode = htmlCode;
-    }
-
-    public List<String> getCssCode() {
-        return cssCode;
-    }
-
-
-    public void setCssCode(List<String> cssCode) {
-        this.cssCode = cssCode;
-    }
-
-    public List<String> getJsCode() {
-        return jsCode;
-    }
-
-    public void setJsCode(List<String> jsCode) {
-        this.jsCode = jsCode;
-    }
-
-    public List<String> getCssList(){
-        return Arrays.stream(cssurl.split(",")).toList();
-    }
-
-    public List<String> getJsList(){
-        return Arrays.stream(jsurl.split(",")).toList();
-    }
-
-    public List<String> getHtmlList(){
-        return Arrays.stream(htmlurl.split(",")).toList();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getPortfolio_id() {
         return portfolio_id;
     }
@@ -166,22 +105,51 @@ public class PortfolioDto {
         this.skillname = skillname;
     }
 
-    @Override
-    public String toString() {
-        return "PortfolioDto{" +
-                "portfolio_id=" + portfolio_id +
-                ", user_id=" + user_id +
-                ", cssurl='" + cssurl + '\'' +
-                ", jsurl='" + jsurl + '\'' +
-                ", htmlurl='" + htmlurl + '\'' +
-                ", thumbnail_url='" + thumbnail_url + '\'' +
-                ", regdate=" + regdate +
-                ", skillname='" + skillname + '\'' +
-                ", description='" +description + '\'' +
-                ", htmlCode=" + htmlCode +
-                ", cssCode=" + cssCode +
-                ", jsCode=" + jsCode +
-                ", mergeCode='" + mergeCode + '\'' +
-                '}';
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<String> getHtmlCode() {
+        return htmlCode;
+    }
+
+    public void setHtmlCode(List<String> htmlCode) {
+        this.htmlCode = htmlCode;
+    }
+
+    public List<String> getCssCode() {
+        return cssCode;
+    }
+
+    public void setCssCode(List<String> cssCode) {
+        this.cssCode = cssCode;
+    }
+
+    public List<String> getJsCode() {
+        return jsCode;
+    }
+
+    public void setJsCode(List<String> jsCode) {
+        this.jsCode = jsCode;
+    }
+
+    public String getMergeCode() {
+        return mergeCode;
+    }
+
+    public void setMergeCode(String mergeCode) {
+        this.mergeCode = mergeCode;
+    }
+
+    public int getBookmark_id() {
+        return bookmark_id;
+    }
+
+    public void setBookmark_id(int bookmark_id) {
+        this.bookmark_id = bookmark_id;
     }
 }

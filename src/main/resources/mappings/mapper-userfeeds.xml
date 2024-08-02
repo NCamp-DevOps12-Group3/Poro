@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="UserFeedsDao">
     <select id="getUserInfo" parameterType="int" resultType="profile">
-        select profile_image,name,introduction,email,phonenumber,gender ,role ,job ,site_url
+        select user_id,nickname,profile_image,name,introduction,email,phonenumber,gender ,role ,job ,site_url
         from user
         where user_id  = #{id}
     </select>
@@ -100,7 +100,9 @@
                       JOIN javascript j ON p.portfolio_id = j.portfolio_id
              WHERE p.user_id = #{userid}
              GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.description, p.regdate) sub
-                JOIN portfolio_like pl ON sub.portfolio_id = pl.portfolio_id
+                JOIN portfolio_like pl
+                    ON sub.portfolio_id = pl.portfolio_id
+                    and pl.user_id = #{userid}
         ORDER BY pl.likecount DESC
             LIMIT 5;
     </select>
@@ -156,4 +158,53 @@
         GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.description, p.regdate,pb.bookmark_id
             LIMIT #{criteria.amount} OFFSET #{criteria.startNum};
     </select>
+    
+    
+    <select id="deleteListIsOwner" parameterType="map" resultType="int">
+        select count(*)
+        from portfolio
+        where portfolio_id in
+            <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        and user_id != #{id}
+    </select>
+
+    <select id="getFollowInfo" parameterType="map" resultType="boolean">
+            select
+                case
+                    when exists (
+                        select 1 from follow
+                        where following_id = #{id} and follower_id = #{userid}
+                    )
+                then true
+                else false
+            end as follow
+    </select>
+    <select id="isfollow" parameterType="map" resultType="int">
+        select count(*)
+        from follow
+        where follower_id = #{userid}
+          and following_id = #{id}
+    </select>
+    <delete id="unfollow" parameterType="map">
+        delete
+        from follow
+        where follower_id = #{userid}
+        and following_id = #{id}
+    </delete>
+    <insert id="follow" parameterType="map">
+        insert into follow (follower_id,following_id)
+        values(#{userid},#{id})
+    </insert>
+
+    <select id="getbookmarkInfo" parameterType="map" resultType="integer">
+        select pb.portfolio_id
+        from portfolio_bookmark pb
+        join portfolio p
+        on pb.portfolio_id = p.portfolio_id
+        where pb.user_id = #{userid}
+        and p.user_id = #{id}
+    </select>
+
 </mapper>
