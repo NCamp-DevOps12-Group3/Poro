@@ -17,9 +17,12 @@ import java.util.List;
 @Controller
 public class PortfolioController {
 
-    @Autowired
     private PortfolioService portfolioService;
 
+    @Autowired
+    public PortfolioController(PortfolioService portfolioService) {
+        this.portfolioService = portfolioService;
+    }
 
     @PostMapping("/upload")
     public String uploadPortfolio(@RequestParam("zipFile") MultipartFile zipFile,

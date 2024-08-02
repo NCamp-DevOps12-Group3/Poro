@@ -4,6 +4,10 @@ import com.bit.devops12.poro.dao.PortfolioDao;
 import com.bit.devops12.poro.dto.Criteria;
 import com.bit.devops12.poro.dto.MainCriteria;
 import com.bit.devops12.poro.dto.PortfolioDto;
+import com.bit.devops12.poro.mapper.PortfolioMapper;
+import com.bit.devops12.poro.mapper.SkillTagMapper;
+import com.bit.devops12.poro.model.Portfolio;
+import com.bit.devops12.poro.model.SkillTag;
 import com.bit.devops12.poro.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +21,14 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     private PortfolioDao portfolioDao;
 
+    private PortfolioMapper portfolioMapper;
+    private SkillTagMapper skillTagMapper;
+
     @Autowired
-    public PortfolioServiceImpl(PortfolioDao portfolioDao) {
+    public PortfolioServiceImpl(PortfolioDao portfolioDao, PortfolioMapper portfolioMapper, SkillTagMapper skillTagMapper) {
         this.portfolioDao = portfolioDao;
+        this.portfolioMapper = portfolioMapper;
+        this.skillTagMapper = skillTagMapper;
     }
 
     @Override
@@ -40,5 +49,14 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public PortfolioDto getPortfolioById(int portfolio_id) {
         return portfolioDao.getPortfolioById(portfolio_id);
+    }
+
+
+    public void savePortfolio(Portfolio portfolio) {
+        portfolioMapper.insertPortfolio(portfolio);
+    }
+
+    public void saveSkillTag(SkillTag skillTag) {
+        skillTagMapper.insertSkillTag(skillTag);
     }
 }

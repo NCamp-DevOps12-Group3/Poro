@@ -12,11 +12,8 @@
     <mappers>
         <mapper resource="mappings/user-mapper.xml"/>
         <mapper resource="mappings/mapper-userfeeds.xml"/>
-<<<<<<< HEAD
-=======
         <mapper resource="mappings/portfolio-mapper.xml"/>
         <mapper resource="mappings/comment-mapper.xml"/>
->>>>>>> origin/chunghyun
     </mappers>
 
 </configuration>
