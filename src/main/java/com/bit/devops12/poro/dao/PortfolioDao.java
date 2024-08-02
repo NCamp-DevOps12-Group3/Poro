@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PortfolioDao {
@@ -20,8 +21,20 @@ public class PortfolioDao {
         return mybatis.selectList(
                 "PortfolioDao.searchPortfolioByKeyword",
                 searchKeyword);
+    }
 
+    public List<PortfolioDto> getPortfolioList(Map<String, Object> paramMap) {
+        System.out.println("PortfolioDao의 getPortfolioList 메소드 실행");
 
+        return mybatis.selectList("PortfolioDao.getPortfolioList", paramMap);
+    }
+
+    public int getPortfolioTotalCnt(){
+        return mybatis.selectOne("PortfolioDao.getPortfolioTotalCnt");
+    }
+
+    public PortfolioDto getPortfolioById(int portfolio_id){
+        return mybatis.selectOne("PortfolioDao.getPortfolioById", portfolio_id);
     }
 
 }

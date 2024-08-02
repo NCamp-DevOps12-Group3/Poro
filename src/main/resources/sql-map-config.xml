@@ -7,6 +7,7 @@
     <typeAliases>
         <typeAlias type="com.bit.devops12.poro.dto.ProfileDto" alias="profile"/>
         <typeAlias type="com.bit.devops12.poro.dto.PortfolioDto" alias="portfolio"/>
+        <typeAlias type="com.bit.devops12.poro.dto.CommentDto" alias="comment"/>
         <typeAlias type="com.bit.devops12.poro.dto.FileDto" alias="file"/>
         <typeAlias type="com.bit.devops12.poro.dto.RecruitmentDto" alias="coperation"/>
         <typeAlias type="com.bit.devops12.poro.dto.UserDto" alias="user"/>
@@ -16,6 +17,7 @@
         <mapper resource="mappings/user-mapper.xml"/>
         <mapper resource="mappings/mapper-userfeeds.xml"/>
         <mapper resource="mappings/portfolio-mapper.xml"/>
+        <mapper resource="mappings/comment-mapper.xml"/>
     </mappers>
 
 </configuration>

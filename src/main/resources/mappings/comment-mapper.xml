@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--쿼리문이 Dao 클래스에서 분리되어 온 것이기 때문에 namespace는 관례적으로 Dao 클래스명과 일치시킨다.-->
+<mapper namespace="CommentDao">
+    <select id="getCommentList" resultType="comment" parameterType="portfolio">
+        SELECT C.COMMENT_ID,
+               C.PORTFOLIO_ID,
+               C.USER_ID,
+               C.CONTENT,
+               C.REGDATE,
+               C.MODDATE,
+               C.COMMENT_PARENT_ID,
+               COALESCE(CL.LIKECOUNT, 0) AS LIKECOUNT
+        FROM COMMENT C
+                 LEFT JOIN (
+            SELECT COMMENT_ID, COUNT(*) AS LIKECOUNT
+            FROM COMMENT_LIKE
+            GROUP BY COMMENT_ID
+        ) CL ON C.COMMENT_ID = CL.COMMENT_ID
+        WHERE C.PORTFOLIO_ID = #{portfolio_id}
+    </select>
+
+    <insert id="postComment" parameterType="comment">
+        INSERT INTO COMMENT(
+            PORTFOLIO_ID,
+            CONTENT,
+            USER_ID,
+            COMMENT_PARENT_ID
+        ) VALUES (
+                     #{portfolio_id},
+                     #{content},
+                     #{user_id},
+                     #{comment_parent_id}
+                 )
+    </insert>
+
+</mapper>
