@@ -8,9 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,8 +21,18 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void join(UserDto userDto) {
+		
+		
+		
+		
+		
+		
+		
 		userDao.join(userDto);
+		
 	}
+	
+	
 	
 	@Override
 	public List<UserDto> getMembers() {
@@ -106,5 +114,20 @@ public class UserServiceImpl implements UserService {
 			System.out.println(je.getMessage());
 		}
 		return jsonString;
+	}
+	
+	@Override
+	public UserDto login(UserDto userDto) {
+		int emailCheck = userDao.emailCheck(userDto.getEmail());
+		
+		if(emailCheck == 0)
+			throw new RuntimeException("emailNotExist");
+		
+		UserDto loginUser = userDao.login(userDto);
+		
+		if(loginUser == null)
+			throw new RuntimeException("wrongPassword");
+		
+		return loginUser;
 	}
 }
