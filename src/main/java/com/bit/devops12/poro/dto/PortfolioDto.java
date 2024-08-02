@@ -165,23 +165,4 @@ public class PortfolioDto {
     public void setSkillname(String skillname) {
         this.skillname = skillname;
     }
-
-    @Override
-    public String toString() {
-        return "PortfolioDto{" +
-                "portfolio_id=" + portfolio_id +
-                ", user_id=" + user_id +
-                ", cssurl='" + cssurl + '\'' +
-                ", jsurl='" + jsurl + '\'' +
-                ", htmlurl='" + htmlurl + '\'' +
-                ", thumbnail_url='" + thumbnail_url + '\'' +
-                ", regdate=" + regdate +
-                ", skillname='" + skillname + '\'' +
-                ", description='" +description + '\'' +
-                ", htmlCode=" + htmlCode +
-                ", cssCode=" + cssCode +
-                ", jsCode=" + jsCode +
-                ", mergeCode='" + mergeCode + '\'' +
-                '}';
-    }
 }
