@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CompanyDao">
+    <select id="getCompanyList" parameterType="map" resultType="company">
+        SELECT C.RECRUITMENT_ID
+              , C.COMPANY_NAME
+              , C.COMPANY_ICON_URL
+              , C.RECRUITMENT_URL
+              , C.RECRUITMENT_TITLE
+              , C.DDAY
+              , C.REGDATE
+              , C.MODDATE
+              , C.LOCATION
+              , C.CAREER
+              , C.EDUCATION
+             FROM RECRUITMENT C
+             ORDER BY C.RECRUITMENT_ID
+            LIMIT #{cri.amount} OFFSET #{cri.startNum}
+    </select>
+
+    <select id="getCompanyTotalCnt" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+            FROM RECRUITMENT
+    </select>
+</mapper>
