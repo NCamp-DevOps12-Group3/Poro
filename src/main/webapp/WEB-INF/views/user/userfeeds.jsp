@@ -463,39 +463,38 @@
                         </c:forEach>
                     </c:if>
                     <c:if test="${page.pageType eq 'coperation'}">
-                            <c:forEach items="${coperation}" var="coperation">
-                    <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
-                        <div class="card">
-                            <div class="img-container">
-                                <c:choose>
-                                    <c:when test="${coperation.company_icon_url != null}">
-                                        <img src="${coperation.company_icon_url}" alt="${coperation.company_name}">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="/static/img/default.png" alt="${coperation.company_name}">
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                            <input type="checkbox" class="delete-dot" value="${coperation.bookmark_id}">
-                            <div class="details-container">
-                                <c:choose>
-                                    <c:when test="${coperation.company_icon_url != null}">
-                                        <img src="${coperation.company_icon_url}" alt="${coperation.company_name}">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="/static/img/default.png" alt="${coperation.company_name}">
-                                    </c:otherwise>
-                                </c:choose>
-                                <h5>${coperation.company_name}</h5>
-                                <p>${coperation.skillname}</p>
-                                <p>${coperation.recruitment_title}</p>
-                                <p>${coperation.dday}</p>
-                                <p>${coperation.location}</p>
-                                <p>${coperation.career}</p>
-                                <p>${coperation.education}</p>
-                            </div>
-                        </div>
-                    </div>
+                        <c:forEach items="${coperation}" var="coperation">
+                            <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
+                                <div class="card">
+                                     <div class="img-container">
+                                        <c:choose>
+                                            <c:when test="${coperation.company_icon_url != null}">
+                                                <img src="${coperation.company_icon_url}" alt="${coperation.company_name}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="/static/img/default.png" alt="${coperation.company_name}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <input type="checkbox" class="delete-dot" value="${coperation.bookmark_id}">
+                                    <div class="details-container">
+                                        <c:choose>
+                                            <c:when test="${coperation.company_icon_url != null}">
+                                                <img src="${coperation.company_icon_url}" alt="${coperation.company_name}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="/static/img/default.png" alt="${coperation.company_name}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <h5>${coperation.company_name}</h5>
+                                        <p>${coperation.skillname}</p>
+                                        <p>${coperation.recruitment_title}</p>
+                                        <p>${coperation.dday}</p>
+                                        <p>${coperation.location}</p>
+                                        <p>${coperation.career}</p>
+                                        <p>${coperation.education}</p>
+                                    </div>
+                                </div>
                             </div>
                         </c:forEach>
                     </c:if>
@@ -503,43 +502,43 @@
                         <c:forEach items="${otherportfolio}" var="portfolio">
                             <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
                                 <div class="card">
-                                <input type="checkbox" class="delete-dot" value="${portfolio.bookmark_id}">
-                                <div class="img-container">
-                                    <c:choose>
-                                        <c:when test="${portfolio.thumbnail_url != null}">
-                                            <img src="${portfolio.thumbnail_url}">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="/static/img/default.png">
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                                <div class="details-container">
-                                    <c:choose>
-                                        <c:when test="${portfolio.thumbnail_url != null}">
-                                            <img src="${portfolio.thumbnail_url}">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="/static/img/default.png">
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <div>
-                                        <p>
-                                                ${portfolio.user_id}
-                                        </p>
-                                        <p>
-                                                ${portfolio.skillname}
-                                        </p>
-                                        <p>
-                                                ${portfolio.description}
-                                        </p>
-                                        <p>
-                                            <javatime:format value="${portfolio.regdate}" pattern="yyyy-MM-dd"/>
-                                        </p>
+                                    <input type="checkbox" class="delete-dot" value="${portfolio.bookmark_id}">
+                                    <div class="img-container">
+                                        <c:choose>
+                                            <c:when test="${portfolio.thumbnail_url != null}">
+                                                <img src="${portfolio.thumbnail_url}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="/static/img/default.png">
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <div class="details-container">
+                                        <c:choose>
+                                            <c:when test="${portfolio.thumbnail_url != null}">
+                                                <img src="${portfolio.thumbnail_url}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="/static/img/default.png">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div>
+                                            <p>
+                                                    ${portfolio.user_id}
+                                            </p>
+                                            <p>
+                                                    ${portfolio.skillname}
+                                            </p>
+                                            <p>
+                                                    ${portfolio.description}
+                                            </p>
+                                            <p>
+                                                <javatime:format value="${portfolio.regdate}" pattern="yyyy-MM-dd"/>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                                </div>
+                            </div>
                         </c:forEach>
                     </c:if>
                 </div>
@@ -900,45 +899,46 @@
                     } else if (obj.recruitmentList) {
                         for (let i=0; i<obj.recruitmentList.length; i++){
                             htmlStr += `
-                            <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item ">
-                                    <input type="checkbox" class="delete-dot" value="${obj.recruitmentList[i].bookmark_id}">
-                                    <div class="img-container">
-                                        <c:choose>
-                                            <c:when test="${obj.recruitmentList[i].company_icon_url != null}">
-                                                <img src="${obj.recruitmentList[i].company_icon_url}" alt="${obj.recruitmentList[i].company_name}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="/static/img/default.png" alt="${obj.recruitmentList[i].company_name}">
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </div>
-                                    <div class="details-container">
-                                        <c:choose>
-                                            <c:when test="${obj.recruitmentList[i].company_icon_url != null}">
-                                                <img src="${obj.recruitmentList[i].company_icon_url}" alt="${obj.recruitmentList[i].company_name}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="/static/img/default.png" alt="${obj.recruitmentList[i].company_name}">
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <h5>${obj.recruitmentList[i].company_name}</h5>
-                                        <p>${obj.recruitmentList[i].skillname}</p>
-                                        <p>${obj.recruitmentList[i].recruitment_title}</p>
-                                        <p>${obj.recruitmentList[i].dday}</p>
-                                        <p>${obj.recruitmentList[i].location}</p>
-                                        <p>${obj.recruitmentList[i].career}</p>
-                                        <p>${obj.recruitmentList[i].education}</p>
-                                    </div>
+                            <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
+                        <div class="card">
+                            <div class="img-container">
+                                <c:choose>
+                                    <c:when test="${obj.recruitmentList[i].company_icon_url != null}">
+                                        <img src="${obj.recruitmentList[i].company_icon_url}" alt="${obj.recruitmentList[i].company_name}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="/static/img/default.png" alt="${obj.recruitmentList[i].company_name}">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
+                            <input type="checkbox" class="delete-dot" value="${obj.recruitmentList[i].bookmark_id}">
+                            <div class="details-container">
+                                <c:choose>
+                                    <c:when test="${obj.recruitmentList[i].company_icon_url != null}">
+                                        <img src="${obj.recruitmentList[i].company_icon_url}" alt="${obj.recruitmentList[i].company_name}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="/static/img/default.png" alt="${obj.recruitmentList[i].company_name}">
+                                    </c:otherwise>
+                                </c:choose>
+                                <h5>${obj.recruitmentList[i].company_name}</h5>
+                                <p>${obj.recruitmentList[i].skillname}</p>
+                                <p>${obj.recruitmentList[i].recruitment_title}</p>
+                                <p>${obj.recruitmentList[i].dday}</p>
+                                <p>${obj.recruitmentList[i].location}</p>
+                                <p>${obj.recruitmentList[i].career}</p>
+                                <p>${obj.recruitmentList[i].education}</p>
+                            </div>
+                        </div>
+                    </div>
 
                             `;
                         }
                     } else if (obj.otherPortfolioList) {
                         for (let i=0; i<obj.otherPortfolioList.length; i++){
                             htmlStr += `
-
-
-                                <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
+<div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
+                                <div class="card">
                                 <input type="checkbox" class="delete-dot" value="${obj.otherPortfolioList[i].bookmark_id}">
                                 <div class="img-container">
                                     <c:choose>
@@ -974,9 +974,8 @@
                                         </p>
                                     </div>
                                 </div>
-
                                 </div>
-
+                                </div>
 
                             `;
                         }
