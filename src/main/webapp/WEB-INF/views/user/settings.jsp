@@ -18,18 +18,7 @@
     <title>설정</title>
     
     
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     
-    <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
-    
-    <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>
-    <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
-    <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
-<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">--%>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -162,8 +151,8 @@
         }
         img{
             border-radius: 50%;
-            width: 25vh;
-            height: 25vh ;
+            width: 20%;
+            height: 20% ;
         }
         #website{
             border-radius: 7px;
@@ -338,7 +327,26 @@
             </div>
         </div>
         
-        
+        <div class="modal fade" id="modalPic">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-head">
+                        <h3 class="text-lg-center m-3">사진변경</h3>
+                    </div>
+                    <div class="modal-body h-75">
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">변경할 프로필 사진</label>
+                            <input class="form-control" type="file" id="formFile" name="profileImage">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" style="color: white; background-color:#0D6EFD;" data-bs-dismiss="modal">
+                            닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         
         
@@ -347,7 +355,7 @@
             
             <div class="pobox">
                 <a class="p-1 rounded list-group-item list-group-item-action mt-4 "  href="#list-profile">프로필</a><br>
-                <a class="p-1 rounded list-group-item list-group-item-action "  href="#list-myhistory">내 활동</a>                       <br>
+                <a class="p-1 rounded list-group-item list-group-item-action "  href="#list-history">내 활동</a>                       <br>
                 <a class="p-1 rounded list-group-item list-group-item-action "  href="#list-locksandsecurity">잠금과 보안</a>                       <br>
                 <a class="p-1 rounded list-group-item list-group-item-action "  href="#list-account">계정</a><br>
                 <a class="p-1 rounded list-group-item list-group-item-action "  href="#list-termsofuse">이용약관</a>
@@ -366,87 +374,57 @@
                 
                 
                 <form action="#" method="post" id="modify-form" enctype="multipart/form-data">
-                    <div class="container position-relative"  style=" padding: 0; border-radius: 15px;   margin: 0%; width: 100%;  ">
-                        <div class="modal fade" id="modalPic">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-head">
-                                        <h3 class="text-lg-center m-3">사진변경</h3>
-                                    </div>
-                                    <div class="modal-body h-75" >
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">변경할 프로필 사진</label>
-                                            <input class="form-control" type="file" id="formFile" >
-                                        
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn " style=" color: white; background-color:#0D6EFD; " data-bs-dismiss="modal">
-                                            닫기
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <header class=" w-auto h-auto box d-flex align-items-center justify-content-around " style="background-color: #ddd; padding: 0; margin: 0; border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                            <div class="d-inline-block " style="border-radius: 16px; margin-left: 10px; margin-top: 20px; margin-bottom: 20px; background-color: #ddd;">
-                                
+                    <div class="container position-relative" style="border-radius: 15px;">
+                        
+                        <header class="w-auto h-auto box d-flex align-items-center justify-content-around" style="background-color: #ddd; padding: 0; margin: 0; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <div class="d-inline-block" style="border-radius: 16px; margin-left: 10px; margin-top: 20px; margin-bottom: 20px; background-color: #ddd;">
                                 <div id="imagePreview" style="background-color: #ddd;">
-                                    <img id="profile-Pic" class="profile-img" alt="aa"
-                                         src="${loginUser.profile_image}" style="background-color: #ddd;">
+                                    <img id="profile-Pic" class="profile-img" alt="aa" src="${loginUser.profile_image}" style="background-color: #ddd;">
                                 </div>
                             </div>
                             <div class="d-inline-block" style="background-color: #ddd;">
-                                
-                                <h5 type="text" class="form-control"   style="background-color:
-                                #ddd; color: black;">${loginUser.nickname}</h5>
+                                <h5 style="background-color: #ddd; color: black;">${loginUser.nickname}</h5>
                                 <p style="background-color: #ddd; color: black;">${loginUser.name}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.email}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.gender}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.phonenumber}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.introduction}</p>
-                            
                             </div>
-                            <div class="d-inline-block " style="background-color: #ddd; margin-right: 20px; " >
+                            <div class="d-inline-block" style="background-color: #ddd; margin-right: 20px;">
                                 <p style="background-color: #ddd; color: black;">${loginUser.role}</p>
                             </div>
                         </header>
                         
                         <div class="accordion" id="accordionExample" style="background-color: #ddd;">
-                            <div class="accordion-item" style="border: none;" >
-                                <h2 class="accordion-header" >
-                                    <h3 style="background-color: #ddd ; color: black;">프로필 정보 변경하기</h3>
-                                    <button class="accordion-button collapsed" style="background-color: #ddd ; border-radius: 0%;border: none;"type="button" data-bs-toggle="collapse" data-bs-target="#changeprofile" aria-expanded="false" aria-controls="#changeprofile"></button>
+                            <div class="accordion-item" style="border: none;">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" style="background-color: #ddd; border-radius: 0%; border: none;" type="button" data-bs-toggle="collapse" data-bs-target="#changeProfile" aria-expanded="false" aria-controls="changeProfile">프로필 정보 변경하기</button>
                                 </h2>
-                                <div id="changeprofile" class="accordion-collapse collapse "
-                                     data-bs-parent="#changeprofile" >
-                                    <div class="accordion-body" >
+                                <div id="changeProfile" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
                                         <div style="padding: 10px;">
-                                            <button type="button" style="width: 100px; padding-top: 12px;
-                                            padding-bottom: 12px; border-radius: 10px; border: 1px solid #ddd; "
-                                                    class="btn  " data-bs-toggle="modal" data-bs-target="#modalPic"
-                                            id="Pic">
+                                            <button type="button" style="width: 100px; padding-top: 12px; padding-bottom: 12px; border-radius: 10px; border: 1px solid #ddd;" class="btn" data-bs-toggle="modal" data-bs-target="#modalPic" id="Pic">
                                                 사진 변경
                                             </button>
                                         </div>
                                         <div style="padding: 10px;">
-                                            <label for="Nickname" class="form-label" >닉네임</label>
-                                            <input type="text" name="Nickname" id="Nickname" value="${loginUser.nickname}" class="w-100 form-control" >
+                                            <label for="Nickname" class="form-label">닉네임</label>
+                                            <input type="text" name="Nickname" id="Nickname" value="${loginUser.nickname}" class="w-100 form-control">
                                             <div class="form-text">변경할 닉네임을 입력해주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
-                                            <label for="name" class="form-label" >이름</label>
-                                            <input type="text" name="name" id="name" value="${loginUser.name}" class="w-100 form-control" >
+                                            <label for="name" class="form-label">이름</label>
+                                            <input type="text" name="name" id="name" value="${loginUser.name}" class="w-100 form-control">
                                             <div class="form-text">변경할 이름을 입력해 주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
-                                            <label for="gender" class="form-label" >성별</label>
-                                            <input type="text" name="gender" id="gender" value="${loginUser.gender}" class="w-100 form-control" >
-                                            <div class="form-text"> 변경할 성별을 입력해 주세요</div>
+                                            <label for="gender" class="form-label">성별</label>
+                                            <input type="text" name="gender" id="gender" value="${loginUser.gender}" class="w-100 form-control">
+                                            <div class="form-text">변경할 성별을 입력해 주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
-                                            <label for="phonenumber" class="form-label" >전화번호</label>
-                                            <input type="tel" name="phonenumber" id="phonenumber" value="${loginUser.phonenumber}" class="w-100 form-control" >
+                                            <label for="phonenumber" class="form-label">전화번호</label>
+                                            <input type="tel" name="phonenumber" id="phonenumber" value="${loginUser.phonenumber}" class="w-100 form-control">
                                             <div class="form-text">변경할 전화번호를 입력해 주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
@@ -459,16 +437,16 @@
                                             <textarea type="text" name="introduction" id="introduction" class="w-100 form-control">${loginUser.introduction}</textarea>
                                             <div class="form-text">유저 상세페이지 상단에 출력되는 글입니다</div>
                                         </div>
-                                        <button type="submit" class="btn  w-25" style="margin: 10px; background-color: #ddd; color: black;"> 제출</button>
+                                        <button type="submit" class="btn w-25" style="margin: 10px; background-color: #ddd; color: black;">제출</button>
                                     </div>
-                                
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form><br><br><br><br><br><br><br><br>
+                </form>
+                <br><br><br><br><br><br><br><br>
                 
-                <h4 id="list-myhistory" style="margin-top: 0px;">내 활동</h4>
+                <h4 id="list-history" style="margin-top: 0px;">내 활동</h4>
                 <div style="border: 1px solid rgb(201, 201, 201);padding: 20px;  border-radius: 7px; ">
                     <div class="container">
                         <table class="table table-hover text-center">
@@ -478,7 +456,6 @@
                                 <th>제목</th>
                                 <th>작성자</th>
                                 <th>등록일</th>
-                            
                             </tr>
                             </thead>
                             <tbody class="table-group-divider">
