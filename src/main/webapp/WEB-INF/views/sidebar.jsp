@@ -14,7 +14,6 @@
     <!-- Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <!-- Bootstrap Icons CSS -->
->>>>>>> origin/leeheeseng
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/add-main.css">
@@ -112,7 +111,7 @@
                     <i class="bi bi-building"></i>
                     <div>기업 채용</div>
                 </a>
-                <a class="nav-link" id="openModal">
+                <a class="nav-link" id="uploadWindowBtn">
                     <i class="bi bi-upload"></i>
                     <div>업로드</div>
                 </a>
@@ -158,7 +157,7 @@
                         <div class="form-control sidebar-content-search-bar d-flex align-items-center">
                             <div class="sidebar-content-search-bar-icon"><i class="bi bi-search"></i></div>
                             <input type="text" placeholder="검색" id="sidebar-search-input" class="no-border-input sidebar-search-input"
-                            name="searchKeyword">
+                                   name="searchKeyword">
                             <div class="sidebar-content-search-delete-icon"><i class="bi bi-x-circle"></i></div>
                         </div>
                     </form>

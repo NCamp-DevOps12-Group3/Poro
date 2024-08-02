@@ -147,4 +147,20 @@ public class PortfolioDto {
     public void setModDate(LocalDateTime modDate) {
         this.modDate = modDate;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
