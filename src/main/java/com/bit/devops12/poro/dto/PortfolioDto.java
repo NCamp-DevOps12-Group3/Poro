@@ -21,25 +21,7 @@ public class PortfolioDto {
     private String mergeCode;
     private int bookmark_id;
 
-    @Override
-    public String toString() {
-        return "PortfolioDto{" +
-                "portfolio_id=" + portfolio_id +
-                ", user_id=" + user_id +
-                ", cssurl='" + cssurl + '\'' +
-                ", jsurl='" + jsurl + '\'' +
-                ", htmlurl='" + htmlurl + '\'' +
-                ", thumbnail_url='" + thumbnail_url + '\'' +
-                ", regdate=" + regdate +
-                ", skillname='" + skillname + '\'' +
-                ", description='" + description + '\'' +
-                ", htmlCode=" + htmlCode +
-                ", cssCode=" + cssCode +
-                ", jsCode=" + jsCode +
-                ", mergeCode='" + mergeCode + '\'' +
-                ", bookmark_id=" + bookmark_id +
-                '}';
-    }
+   
 
     public int getBookmark_id() {
         return bookmark_id;
@@ -165,23 +147,24 @@ public class PortfolioDto {
     public void setSkillname(String skillname) {
         this.skillname = skillname;
     }
-
+    
     @Override
     public String toString() {
         return "PortfolioDto{" +
-                "portfolio_id=" + portfolio_id +
-                ", user_id=" + user_id +
-                ", cssurl='" + cssurl + '\'' +
-                ", jsurl='" + jsurl + '\'' +
-                ", htmlurl='" + htmlurl + '\'' +
-                ", thumbnail_url='" + thumbnail_url + '\'' +
-                ", regdate=" + regdate +
-                ", skillname='" + skillname + '\'' +
-                ", description='" +description + '\'' +
-                ", htmlCode=" + htmlCode +
-                ", cssCode=" + cssCode +
-                ", jsCode=" + jsCode +
-                ", mergeCode='" + mergeCode + '\'' +
-                '}';
+                       "portfolio_id=" + portfolio_id +
+                       ", user_id=" + user_id +
+                       ", cssurl='" + cssurl + '\'' +
+                       ", jsurl='" + jsurl + '\'' +
+                       ", htmlurl='" + htmlurl + '\'' +
+                       ", thumbnail_url='" + thumbnail_url + '\'' +
+                       ", regdate=" + regdate +
+                       ", skillname='" + skillname + '\'' +
+                       ", description='" + description + '\'' +
+                       ", htmlCode=" + htmlCode +
+                       ", cssCode=" + cssCode +
+                       ", jsCode=" + jsCode +
+                       ", mergeCode='" + mergeCode + '\'' +
+                       ", bookmark_id=" + bookmark_id +
+                       '}';
     }
 }
