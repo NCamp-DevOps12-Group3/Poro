@@ -17,16 +17,17 @@
     <meta  name="viewport" content="width=device-width, initial-scale=1.0">
     <title>설정</title>
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>
     <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <style>
@@ -364,7 +365,7 @@
                 <h4  style="margin-top: 2%; ">프로필</h4>
                 
                 
-                <form action="#" method="get" id="modify-form" enctype="multipart/form-data">
+                <form action="#" method="post" id="modify-form" enctype="multipart/form-data">
                     <div class="container position-relative"  style=" padding: 0; border-radius: 15px;   margin: 0%; width: 100%;  ">
                         <div class="modal fade" id="modalPic">
                             <div class="modal-dialog">
@@ -397,7 +398,7 @@
                             </div>
                             <div class="d-inline-block" style="background-color: #ddd;">
                                 
-                                <h5 type="text" class="from-control"   style="background-color:
+                                <h5 type="text" class="form-control"   style="background-color:
                                 #ddd; color: black;">${loginUser.nickname}</h5>
                                 <p style="background-color: #ddd; color: black;">${loginUser.name}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.email}</p>
@@ -413,10 +414,9 @@
                         
                         <div class="accordion" id="accordionExample" style="background-color: #ddd;">
                             <div class="accordion-item" style="border: none;" >
-                                <h2 class="accordion-header"  >
-                                    <button class="accordion-button collapsed" style="background-color: #ddd ; border-radius: 0%;border: none;"type="button" data-bs-toggle="collapse" data-bs-target="#changeprofile" aria-expanded="false" aria-controls="#changeprofile">
-                                        <h3 style="background-color: #ddd ; color: black;">프로필 정보 변경하기</h3>
-                                    </button>
+                                <h2 class="accordion-header" >
+                                    <h3 style="background-color: #ddd ; color: black;">프로필 정보 변경하기</h3>
+                                    <button class="accordion-button collapsed" style="background-color: #ddd ; border-radius: 0%;border: none;"type="button" data-bs-toggle="collapse" data-bs-target="#changeprofile" aria-expanded="false" aria-controls="#changeprofile"></button>
                                 </h2>
                                 <div id="changeprofile" class="accordion-collapse collapse "
                                      data-bs-parent="#changeprofile" >
@@ -431,7 +431,7 @@
                                         </div>
                                         <div style="padding: 10px;">
                                             <label for="Nickname" class="form-label" >닉네임</label>
-                                            <input type="text" name="Nickname" id="Nickname" value="${loginUser.Nickname}" class="w-100 form-control" >
+                                            <input type="text" name="Nickname" id="Nickname" value="${loginUser.nickname}" class="w-100 form-control" >
                                             <div class="form-text">변경할 닉네임을 입력해주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
@@ -444,13 +444,11 @@
                                             <input type="text" name="gender" id="gender" value="${loginUser.gender}" class="w-100 form-control" >
                                             <div class="form-text"> 변경할 성별을 입력해 주세요</div>
                                         </div>
-                                        
                                         <div style="padding: 10px;">
                                             <label for="phonenumber" class="form-label" >전화번호</label>
                                             <input type="tel" name="phonenumber" id="phonenumber" value="${loginUser.phonenumber}" class="w-100 form-control" >
                                             <div class="form-text">변경할 전화번호를 입력해 주세요</div>
                                         </div>
-                                        
                                         <div style="padding: 10px;">
                                             <label for="job" class="form-label">상태</label>
                                             <textarea name="job" id="job" class="w-100 form-control">${loginUser.job}</textarea>
@@ -461,7 +459,6 @@
                                             <textarea type="text" name="introduction" id="introduction" class="w-100 form-control">${loginUser.introduction}</textarea>
                                             <div class="form-text">유저 상세페이지 상단에 출력되는 글입니다</div>
                                         </div>
-                                        
                                         <button type="submit" class="btn  w-25" style="margin: 10px; background-color: #ddd; color: black;"> 제출</button>
                                     </div>
                                 
@@ -1002,13 +999,8 @@
 </body>
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>
 <script>
     $(() => {
         document.getElementById('formFile').addEventListener('change', function(event) {

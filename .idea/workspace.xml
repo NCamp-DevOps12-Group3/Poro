@@ -5,24 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/common/FileUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/img/default_profile_Img.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5d13c474-01a1-40e0-926a-ee40ba0ddbcc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5d13c474-01a1-40e0-926a-ee40ba0ddbcc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/FileDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/FileDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappings/User-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappings/User-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sidebar.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/join.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/join.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/settings.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/settings.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/sidebar.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/sidebar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/sidebar.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +74,7 @@
     "project.structure.last.edited": "모듈",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "project.propCompiler",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -171,6 +155,7 @@
       <workItem from="1722328062599" duration="5275000" />
       <workItem from="1722472477326" duration="24268000" />
       <workItem from="1722501484434" duration="1712000" />
+      <workItem from="1722558884024" duration="2817000" />
     </task>
     <servers />
   </component>
