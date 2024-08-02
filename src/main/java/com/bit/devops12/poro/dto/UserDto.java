@@ -16,6 +16,7 @@ public class UserDto {
 	private LocalDateTime moddate;
 	private String introduction;
 	private String site_url;
+	private String profile_image;
 	
 	
 	public int getId() {

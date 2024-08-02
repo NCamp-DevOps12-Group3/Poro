@@ -52,10 +52,12 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
 
+    @Override
     public void savePortfolio(Portfolio portfolio) {
         portfolioMapper.insertPortfolio(portfolio);
     }
 
+    @Override
     public void saveSkillTag(SkillTag skillTag) {
         skillTagMapper.insertSkillTag(skillTag);
     }
