@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57dcf8b-e259-4373-94a8-29536a32d8a0" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/controller/CompanyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dao/CompanyDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/CompanyDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/CompanyPageDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/CompanyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/service/impl/CompanyServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/common/DdayCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/common/testDday.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/PortfolioDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/devops12/poro/dto/PortfolioDto.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +77,9 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "project.propCompiler",
-    "vue.rearranger.settings.migration": "true"
+    "vue.rearranger.settings.migration": "true",
+    "애플리케이션.DdayCalculator.executor": "Run",
+    "애플리케이션.testDday.executor": "Run"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -91,10 +91,19 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.bit.devops12.poro.dto" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\lecture\poro\src\main\java\com\bit\devops12\poro\dto" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\mini\src\main\webapp" />
       <recent name="D:\mini\src\main\webapp\static\img" />
       <recent name="D:\mini\src\main\webapp\static\img\defult_profile_Img" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.bit.devops12.poro.service" />
+      <recent name="com.bit.devops12.poro.service.impl" />
+      <recent name="com.bit.devops12.poro.dao" />
+      <recent name="com.bit.devops12.poro.controller" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -111,7 +120,33 @@
       <visibility group="yarn" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="애플리케이션.testDday">
+    <configuration name="DdayCalculator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.bit.devops12.poro.common.DdayCalculator" />
+      <module name="poro" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bit.devops12.poro.common.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testDday" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.bit.devops12.poro.common.testDday" />
+      <module name="poro" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bit.devops12.poro.common.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="톰캣" type="com.poratu.idea.plugins.tomcat">
       <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
       <predefined_log_file enabled="true" id="Tomcat Access Log" />
@@ -136,6 +171,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="애플리케이션.testDday" />
+        <item itemvalue="애플리케이션.DdayCalculator" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
