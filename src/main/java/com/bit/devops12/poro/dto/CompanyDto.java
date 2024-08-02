@@ -2,9 +2,8 @@ package com.bit.devops12.poro.dto;
 
 import java.time.LocalDateTime;
 
-public class RecruitmentDto {
-    private int recruitment_Id;
-    private int user_id;
+public class CompanyDto {
+    private int recruitment_id;
     private String company_name;
     private String company_icon_url;
     private String recruitment_url;
@@ -15,14 +14,11 @@ public class RecruitmentDto {
     private String location;
     private String career;
     private String education;
-    private String skillname;
-    private int bookmark_id;
 
     @Override
     public String toString() {
-        return "RecruitmentDto{" +
-                "recruitmentId=" + recruitment_Id +
-                ", user_id=" + user_id +
+        return "CompanyDto{" +
+                "recuitment_id=" + recruitment_id +
                 ", company_name='" + company_name + '\'' +
                 ", company_icon_url='" + company_icon_url + '\'' +
                 ", recruitment_url='" + recruitment_url + '\'' +
@@ -33,42 +29,15 @@ public class RecruitmentDto {
                 ", location='" + location + '\'' +
                 ", career='" + career + '\'' +
                 ", education='" + education + '\'' +
-                ", skillname='" + skillname + '\'' +
-                ", bookmark_id=" + bookmark_id +
                 '}';
     }
 
-    public String getSkillname() {
-        return skillname;
+    public int getRecruitment_id() {
+        return recruitment_id;
     }
 
-    public void setSkillname(String skillname) {
-        this.skillname = skillname;
-    }
-
-    public int getBookmark_id() {
-        return bookmark_id;
-    }
-
-    public void setBookmark_id(int bookmark_id) {
-        this.bookmark_id = bookmark_id;
-    }
-
-
-    public int getRecruitment_Id() {
-        return recruitment_Id;
-    }
-
-    public void setRecruitment_Id(int recruitment_Id) {
-        this.recruitment_Id = recruitment_Id;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setRecruitment_id(int recruitment_id) {
+        this.recruitment_id = recruitment_id;
     }
 
     public String getCompany_name() {

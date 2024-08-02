@@ -5,6 +5,7 @@ public class UserFeedsPageDto {
     private Criteria cri;
     private int total;
     private int userid;
+<<<<<<< HEAD
     private String pageType;
 
     @Override
@@ -38,10 +39,13 @@ public class UserFeedsPageDto {
         this.pageType = pageType;
     }
 
+=======
+>>>>>>> e304a2ca27dc06f585b5e38a77df7d643b927e20
     public UserFeedsPageDto(Criteria cri, int total) {
         this.cri = cri;
         this.total = total;
         this.endPage=(int)(Math.ceil(total/1.0/ cri.getAmount()));
+
     }
 
     public int getUserid() {

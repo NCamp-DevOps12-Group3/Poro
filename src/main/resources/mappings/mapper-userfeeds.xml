@@ -15,22 +15,12 @@
         where user_id=#{id}
     </select>
 
-    <select id="getUserBookmarkCoperationToltalCnt" parameterType="int" resultType="int">
-        select count(*)
-        from recruitment_bookmark
-        where user_id=#{id}
-    </select>
-    <select id="getUserBookmarkPortfolioCnt" parameterType="int" resultType="int">
-        select count(*)
-        from portfolio_bookmark
-        where user_id=#{id}
-    </select>
     <select id="getUserPortfolio" parameterType="map" resultType="portfolio">
         SELECT
         p.portfolio_id,
         p.user_id,
         p.thumbnail_url,
-        p.description,
+        p.content,
         p.regdate,
         GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
         GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
@@ -48,7 +38,7 @@
                  left JOIN javascript j
         ON p.portfolio_id = j.portfolio_id
         WHERE p.user_id = #{userid}
-        GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.description, p.regdate
+        GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.content, p.regdate
         LIMIT #{criteria.amount} OFFSET #{criteria.startNum};
     </select>
 
@@ -58,24 +48,13 @@
             #{item}
         </foreach>
     </delete>
-    <delete id="deleteCoperationBookmark" parameterType="list">
-        delete from recruitment_bookmark where bookmark_id in
-        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-    <delete id="deleteOtherPortfolioBookmark" parameterType="list">
-        delete from portfolio_bookmark where bookmark_id in
-        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
+
     <select id="getUserPopularPortfolio" parameterType="int" resultType="portfolio">
         SELECT
             sub.portfolio_id,
             sub.user_id,
             sub.thumbnail_url,
-            sub.description,
+            sub.content,
             sub.regdate,
             sub.skillname,
             sub.htmlurl,
@@ -86,7 +65,7 @@
                  p.portfolio_id,
                  p.user_id,
                  p.thumbnail_url,
-                 p.description,
+                 p.content,
                  p.regdate,
                  GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
                  GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
@@ -99,6 +78,7 @@
                       JOIN css c ON p.portfolio_id = c.portfolio_id
                       JOIN javascript j ON p.portfolio_id = j.portfolio_id
              WHERE p.user_id = #{userid}
+<<<<<<< HEAD
              GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.description, p.regdate) sub
                 JOIN portfolio_like pl
                     ON sub.portfolio_id = pl.portfolio_id
@@ -207,4 +187,11 @@
         and p.user_id = #{id}
     </select>
 
+=======
+             GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.content, p.regdate) sub
+                JOIN portfolio_like pl ON sub.portfolio_id = pl.portfolio_id
+        ORDER BY pl.likecount DESC
+            LIMIT 5;
+    </select>
+>>>>>>> e304a2ca27dc06f585b5e38a77df7d643b927e20
 </mapper>

@@ -11,31 +11,37 @@
 
 
 
-<html>
+<!DOCTYPE html>
+<html lang="en" >
+
 <head>
     <meta charset="UTF-8">
     <meta  name="viewport" content="width=device-width, initial-scale=1.0">
     <title>설정</title>
     
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    
-    <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
-    
-    <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>
-    <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
-    <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
-<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">--%>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/darkmode.css">
+    <link rel="stylesheet" href="css/modal-main.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             
             
         }
+        
+        
+        
+        
+        
         
         a{
             
@@ -45,13 +51,59 @@
         
         
         h3{
-            margin-bottom: 0px;
+            margin-bottom: 0;
         }
         .col-9{
             padding-right: 10%;
-            padding-right: 0%;
+            padding-right: 0;
         }
-       
+        .sidebar {
+            position: fixed;
+            width: 15vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            border-right: 1px solid #dbdbdb;
+        }
+        
+        .sidebar-icon {
+            padding: 0px 0px 2vh;
+            margin-left: 2vw;
+        }
+        
+        .sidebar-icon .sidebar-icon-text {
+            font-size: 2em;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+        
+        .sidebar a {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px 20px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+        
+        .sidebar img {
+            width: 30px;
+            height: auto;
+        }
+        
+        .sidebar-list div {
+            display: inline-block;
+            margin-left: 10px;
+            
+        }
+        
+        .sidebar i {
+            font-size: 1.5em;
+        }
         .content {
             padding: 20px;
             margin-left:20vw;
@@ -68,8 +120,8 @@
             display:  inline-block;
             margin-left:15vw;
             border-right: 1px solid #dbdbdb;
-            box-shadow: 1px 0px 10px 1px #eeeeee;
-            z-index: 100;
+            box-shadow: 1px 0 10px 1px #eeeeee;
+            z-index: 1;
             
         }
         .pobox a {
@@ -162,8 +214,9 @@
         }
         img{
             border-radius: 50%;
-            width: 25vh;
-            height: 25vh ;
+
+            width: 30%;
+            height: 30% ;
         }
         #website{
             border-radius: 7px;
@@ -192,12 +245,12 @@
                 
             }
             .pobox{
-                position: fixed;
+                
                 height: 100vh;
                 background: #f8f9fa;
                 width: 190px;
                 display:  inline-block;
-                
+                z-index: 1;
                 border-left:none;
             }
             .boardt{
@@ -211,11 +264,11 @@
         }
         @media screen and (max-width: 1025px) {
             .col-3{
-                padding-right: 0%;
+                padding-right: 0;
                 
             }
             .col-9{
-                padding-left: 0%;
+                padding-left: 0;
                 
             }
             .col-9 h4{
@@ -226,7 +279,7 @@
             
             
             .scrollspy{
-                padding: 20px 0px;
+                padding: 20px 0;
             }
             .sidebar {
                 height: 100vh;
@@ -237,7 +290,7 @@
                 border-right: none;
             }
             .boardt{
-                margin-left: 0%;
+                margin-left: 0;
                 box-shadow: none;
                 border-left: none;
                 
@@ -251,8 +304,7 @@
                 
             }
             .scrollspy{
-                padding: 0px 20px;
-                padding-top: 30px;
+                padding: 30px 20px 0;
             }
             button{
                 margin-right: 10px;
@@ -262,9 +314,7 @@
             .col-3{
                 width: 20%;
             }
-            .col-9{
             
-            }
             .sidebar {
                 display: none;
             }
@@ -296,15 +346,15 @@
     
     </style>
 </head>
-<body style="overflow-x: hidden">
+<body style="overflow-x: hidden; z-index: 1">
 <div class="row">
     <div class="col-3">
-        <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"></jsp:include>
+        <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"/>
         
         <!--업로드 모달-->
         <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true" >
             <div class="modal-dialog">
-                <div class="modal-content" style="border: 0.7px solid rgb(201, 201, 201);padding: 0px;  border-radius: 15px;">
+                <div class="modal-content" style="border: 1px solid rgb(201, 201, 201);padding: 0;  border-radius: 15px;">
                     <div class="modal-header" style="  border-radius: 14px;">
                         <h5 class="modal-title" id="uploadModalLabel">포트폴리오 업로드</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -360,20 +410,23 @@
     <div class="col-9" data-bs-spy="scroll">
         <div class="boardt" data-bs-spy="scroll" >
             <div data-bs-spy="scroll" data-bs-target="#setting-list" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy_gap-2" tabindex="0"><br><br>
-                <div id="list-profile"></div>
-                
-                <h4  style="margin-top: 2%; ">프로필</h4>
                 
                 
+               
+                
+                
+
+                <!-- <form action="#" method="get" id="modify-form">
+                    <div class="container position-relative"  style=" padding: 0; border-radius: 15px;   margin: 0%; width: 100%;  "> -->
                 <form action="#" method="post" id="modify-form" enctype="multipart/form-data">
-                    <div class="container position-relative"  style=" padding: 0; border-radius: 15px;   margin: 0%; width: 100%;  ">
+                    <div class="container position-relative" style="border-radius: 15px;">
                         <div class="modal fade" id="modalPic">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-head">
                                         <h3 class="text-lg-center m-3">사진변경</h3>
                                     </div>
-                                    <div class="modal-body h-75" >
+                                    <!-- <div class="modal-body h-75" >
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">변경할 프로필 사진</label>
                                             <input class="form-control" type="file" id="formFile" >
@@ -383,70 +436,86 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn " style=" color: white; background-color:#0D6EFD; " data-bs-dismiss="modal">
                                             닫기
+                                        </button> -->
+                                    <div class="modal-body h-75">
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">변경할 프로필 사진</label>
+                                            <input class="form-control" type="file" id="formFile" name="profileImage">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" style="color: white; background-color:#0D6EFD;" data-bs-dismiss="modal">
+                                            닫기
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <header class=" w-auto h-auto box d-flex align-items-center justify-content-around " style="background-color: #ddd; padding: 0; margin: 0; border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                            <div class="d-inline-block " style="border-radius: 16px; margin-left: 10px; margin-top: 20px; margin-bottom: 20px; background-color: #ddd;">
-                                
-                                <div id="imagePreview" style="background-color: #ddd;">
-                                    <img id="profile-Pic" class="profile-img" alt="aa"
-                                         src="${loginUser.profile_image}" style="background-color: #ddd;">
+                        
+                        
+                        <h4   style="margin-top: 2%; ">프로필</h4>
+                        
+                        <header class="w-auto h-auto box d-flex align-items-center justify-content-around"
+                                style="background-color: #ddd; padding-bottom: 20px; margin: 0; border-top-left-radius:
+                                 15px; border-top-right-radius: 15px;">
+                            
+                            <div id="list-profile" class="d-inline-block" style="border-radius: 16px; margin-left:
+                            10px;background-color: #ddd; ">
+                                <div id="imagePreview" style="background-color: #ddd; max-width: 200px">
+                                    <img id="profile-Pic" class="profile-img" alt="${loginUser.profile_image}"
+                                         src="${loginUser.profile_image}" style="background-color: #ddd; min-width: 100px">
                                 </div>
                             </div>
-                            <div class="d-inline-block" style="background-color: #ddd;">
+                            <div class="d-inline-block" style="background-color: #ddd; margin-right: 20px">
                                 
-                                <h5 type="text" class="form-control"   style="background-color:
-                                #ddd; color: black;">${loginUser.nickname}</h5>
+                                <h5 style="background-color: #ddd; color: black; margin-top:
+                                        30px">${loginUser.nickname}</h5>
                                 <p style="background-color: #ddd; color: black;">${loginUser.name}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.email}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.gender}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.phonenumber}</p>
-                                <p style="background-color: #ddd; color: black;">${loginUser.introduction}</p>
-                            
-                            </div>
-                            <div class="d-inline-block " style="background-color: #ddd; margin-right: 20px; " >
                                 <p style="background-color: #ddd; color: black;">${loginUser.role}</p>
+                                <p style="background-color: #ddd; color: black;">${loginUser.site_url}</p>
+                                
+                            </div>
+                            <div class="d-inline-block" style="background-color: #ddd; margin-right: 20px;">
+                               <p style="background-color: #ddd; color: black;
+                               ">${loginUser.introduction}</p>
                             </div>
                         </header>
                         
                         <div class="accordion" id="accordionExample" style="background-color: #ddd;">
                             <div class="accordion-item" style="border: none;" >
-                                <h2 class="accordion-header" >
-                                    <h3 style="background-color: #ddd ; color: black;">프로필 정보 변경하기</h3>
-                                    <button class="accordion-button collapsed" style="background-color: #ddd ; border-radius: 0%;border: none;"type="button" data-bs-toggle="collapse" data-bs-target="#changeprofile" aria-expanded="false" aria-controls="#changeprofile"></button>
+                                <h2 class="accordion-header"  id="headingOne">
+                                    <button class=" accordion-button collapsed" style="background-color: #ddd;
+                                    border-radius: 0; border: none;" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#changeProfile" aria-expanded="false" aria-labelledby="headingOne" aria-controls="changeProfile">프로필 정보 변경하기</button>
                                 </h2>
-                                <div id="changeprofile" class="accordion-collapse collapse "
-                                     data-bs-parent="#changeprofile" >
-                                    <div class="accordion-body" >
+                                <div id="changeProfile" class="accordion-collapse collapse" data-bs-parent="accordionExample">
+                                    <div class="accordion-body">
                                         <div style="padding: 10px;">
-                                            <button type="button" style="width: 100px; padding-top: 12px;
-                                            padding-bottom: 12px; border-radius: 10px; border: 1px solid #ddd; "
-                                                    class="btn  " data-bs-toggle="modal" data-bs-target="#modalPic"
-                                            id="Pic">
+                                            <button type="button" style="width: 100px; padding-top: 12px; padding-bottom: 12px; border-radius: 10px; border: 1px solid #ddd;" class="btn" data-bs-toggle="modal" data-bs-target="#modalPic" id="Pic">
                                                 사진 변경
                                             </button>
                                         </div>
                                         <div style="padding: 10px;">
-                                            <label for="Nickname" class="form-label" >닉네임</label>
-                                            <input type="text" name="Nickname" id="Nickname" value="${loginUser.nickname}" class="w-100 form-control" >
+                                            <label for="Nickname" class="form-label">닉네임</label>
+                                            <input type="text" name="Nickname" id="Nickname" value="${loginUser.nickname}" class="w-100 form-control">
                                             <div class="form-text">변경할 닉네임을 입력해주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
-                                            <label for="name" class="form-label" >이름</label>
-                                            <input type="text" name="name" id="name" value="${loginUser.name}" class="w-100 form-control" >
+                                            <label for="name" class="form-label">이름</label>
+                                            <input type="text" name="name" id="name" value="${loginUser.name}" class="w-100 form-control">
                                             <div class="form-text">변경할 이름을 입력해 주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
-                                            <label for="gender" class="form-label" >성별</label>
-                                            <input type="text" name="gender" id="gender" value="${loginUser.gender}" class="w-100 form-control" >
-                                            <div class="form-text"> 변경할 성별을 입력해 주세요</div>
+                                            <label for="gender" class="form-label">성별</label>
+                                            <input type="text" name="gender" id="gender" value="${loginUser.gender}" class="w-100 form-control">
+                                            <div class="form-text">변경할 성별을 입력해 주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
-                                            <label for="phonenumber" class="form-label" >전화번호</label>
-                                            <input type="tel" name="phonenumber" id="phonenumber" value="${loginUser.phonenumber}" class="w-100 form-control" >
+                                            <label for="phonenumber" class="form-label">전화번호</label>
+                                            <input type="tel" name="phonenumber" id="phonenumber" value="${loginUser.phonenumber}" class="w-100 form-control">
                                             <div class="form-text">변경할 전화번호를 입력해 주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
@@ -459,6 +528,85 @@
                                             <textarea type="text" name="introduction" id="introduction" class="w-100 form-control">${loginUser.introduction}</textarea>
                                             <div class="form-text">유저 상세페이지 상단에 출력되는 글입니다</div>
                                         </div>
+                                        <div style="padding: 10px;">
+                                        <button type="submit" class="btn w-25" style="margin: 10px; background-color: #ddd; color: black;">제출
+                                        </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <header class=" w-auto h-auto box d-flex align-items-center justify-content-around " style="background-color: #ddd; padding: 0; margin: 0; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <div class="d-inline-block " style="border-radius: 16px; margin-left: 10px; margin-top: 20px; margin-bottom: 20px; background-color: #ddd;">
+                                
+                                <div id="imagePreview">
+                                    <img src="img/cat1.jpg" alt="" style="background-color: #ddd;"> <%--<img id="img${file.id}" class="profile-img" alt="${file.fileoriginname}" onclick="(${})"> --%>
+                                </div>
+                            </div>
+                            <div class="d-inline-block" style="background-color: #ddd;">
+                                
+                                <h5 type="text" class="from-control" id="name" name="name"style="background-color: #ddd; color: black;">${loginMember.Nickname}</h5>
+                                <p style="background-color: #ddd; color: black;">${loginMember.name}</p>
+                                <p style="background-color: #ddd; color: black;">${loginMember.email}</p>
+                                <p style="background-color: #ddd; color: black;">${loginMember.gender}</p>
+                                <p style="background-color: #ddd; color: black;">${loginMember.tel}</p>
+                                <p style="background-color: #ddd; color: black;">${loginMember.introduction}</p>
+                            
+                            </div>
+                            <div class="d-inline-block " style="background-color: #ddd; margin-right: 20px; " >
+                                <p style="background-color: #ddd; color: black;">${loginMember.status}</p>
+                            </div>
+                        
+                        
+                        </header>
+                        
+                        <div class="accordion" id="accordionExample" style="background-color: #ddd;">
+                            <div class="accordion-item" style="border: none;" >
+                                <h2 class="accordion-header"  >
+                                    <button class="accordion-button collapsed" style="background-color: #ddd ; border-radius: 0%;border: none;"type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="#collapse">
+                                        <h3 style="background-color: #ddd ; color: black;">프로필 정보 변경하기</h3>
+                                    </button>
+                                </h2>
+                                <div id="collapse" class="accordion-collapse collapse " data-bs-parent="#accordionExample" >
+                                    <div class="accordion-body" >
+                                        <div style="padding: 10px;">
+                                            <button type="button" style="width: 100px; padding-top: 12px; padding-bottom: 12px; border-radius: 10px; border: 1px solid #ddd; " class="btn  " data-bs-toggle="modal" data-bs-target="#modalPic">
+                                                사진 변경
+                                            </button>
+                                        </div>
+                                        <div style="padding: 10px;">
+                                            <label for="Nickname" class="form-label" >닉네임</label>
+                                            <input type="text" name="Nickname" id="Nickname" value="${loginMember.Nickname}" class="w-100 form-control" row="2">
+                                            <div class="form-text">변경할 닉네임을 입력해주세요</div>
+                                        </div>
+                                        <div style="padding: 10px;">
+                                            <label for="username" class="form-label" >이름</label>
+                                            <input type="text" name="name" id="username" value="${loginMember.name}" class="w-100 form-control" row="2">
+                                            <div class="form-text">변경할 이름을 입력해 주세요</div>
+                                        </div>
+                                        <div style="padding: 10px;">
+                                            <label for="gender" class="form-label" >성별</label>
+                                            <input type="text" name="gender" id="gender" value="${loginMember.gender}" class="w-100 form-control" row="2">
+                                            <div class="form-text"> 변경할 성별을 입력해 주세요</div>
+                                        </div>
+                                        
+                                        <div style="padding: 10px;">
+                                            <label for="tel" class="form-label" >전화번호</label>
+                                            <input type="tel" name="tel" id="tel" value="${loginMember.tel}" class="w-100 form-control" row="2">
+                                            <div class="form-text">변경할 전화번호를 입력해 주세요</div>
+                                        </div>
+                                        
+                                        <div style="padding: 10px;">
+                                            <label for="status" class="form-label">상태</label>
+                                            <textarea name="status" id="status" class="w-100 form-control">${loginMember.status}</textarea>
+                                            <div class="form-text">변경할 직업을 입력해주세요</div>
+                                        </div>
+                                        <div style="padding: 10px;">
+                                            <label for="introduction" class="form-label">소개</label>
+                                            <textarea type="text" name="introduction" id="introduction" class="w-100 form-control">${loginMember.introduction}</textarea>
+                                            <div class="form-text">유저 상세페이지 상단에 출력되는 글입니다</div>
+                                        </div>
+                                        
                                         <button type="submit" class="btn  w-25" style="margin: 10px; background-color: #ddd; color: black;"> 제출</button>
                                     </div>
                                 
@@ -466,9 +614,11 @@
                             </div>
                         </div>
                     </div>
-                </form><br><br><br><br><br><br><br><br>
+                </form>
                 
-                <h4 id="list-myhistory" style="margin-top: 0px;">내 활동</h4>
+                <br><br><br><br><br><br><br><br>
+                
+                <h4 id="list-history" style="margin-top: 0;">내 활동</h4>
                 <div style="border: 1px solid rgb(201, 201, 201);padding: 20px;  border-radius: 7px; ">
                     <div class="container">
                         <table class="table table-hover text-center">
@@ -482,10 +632,12 @@
                             </tr>
                             </thead>
                             <tbody class="table-group-divider">
+                           
                             <c:forEach items="${myhistory}" var="historylog">
                                 <tr class="board-tr" onclick="location.href='/board/update-cnt.do?id=${historylog.id}'">
                                     <td>${historylog.id}</td>
                                     <c:choose>
+                                        
                                         <c:when test="${historylog.type != comment}">
                                             <td>${historylog.title}</td>
                                         </c:when>
@@ -514,12 +666,11 @@
                 <br><br><br><br><br><br><br><br>
                 
                 
-                <h4 id="list-locksandsecurity" style="margin-top: 0px;">잠금과 보안</h4>
+                <h4 id="list-locksandsecurity" style="margin-top: 0;">잠금과 보안</h4>
                 <div style="border: 1px solid rgb(201, 201, 201);padding: 20px;  border-radius: 7px; ">
                     <div style="margin: 20px auto;">
                         <h5>비밀번호 변경</h5>
-                        <p>사용자님의 개인정보보호와 안전한 사이트사용을 위해 3개월마다  비밀번호 변경을 권장하고있습니다 <br>비밀번호 가 사용된지 3개월이지났다면 변경을 권장하는
-                            바입니다  </p><br>
+                        <p>사용자님의 개인정보보호와 안전한 사이트사용을 위해 3개월마다  비밀번호 변경을 권장하고있습니다 <br>비밀번호 가 사용된지 3개월이지났다면 변경을 권장하는 바입니다  </p>
                         <h5>비밀번호 변경 시 유의사항</h5><br>
                         <ul>
                             <li>이동전화/주민번호/생일 등의 개인정보와 관련 없는 번호로 변경하시기 바랍니다. </li><br>
@@ -550,14 +701,14 @@
                         <div class="modal fade" id="staticpassswordBackdrop"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content" >
-                                    <div class="modal-header" style=" margin: 0px; text-align: center; justify-content: center;">
+                                    <div class="modal-header" style=" margin: 0; text-align: center; justify-content: center;">
                                         <h1 class="modal-title fs-5" id="staticBackdropLabel">비밀번호 변경</h1>
                                     
                                     </div>
                                     <div class="modal-body">
                                         <h3>비밀번호를 변경 하시겠습니까?</h3>
                                     </div>
-                                    <div class="modal-footer" style=" margin: 0px; text-align: center; justify-content: center;">
+                                    <div class="modal-footer" style=" margin: 0; text-align: center; justify-content: center;">
                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color:#0D6EFD;">취소</button>
                                         <a href="passwordchangesChk.html" style="color: white;"><button type="button" style="background-color:#DB3545;" class="btn btn-danger"  id="passwordchange">
                                             비밀번호 변경
@@ -583,7 +734,7 @@
                         <ul>
                             <li>회원정보 삭제
                                 <ul>
-                                    <li>회원 탈퇴와 함께  PORO  에 등록된 모든 개인정보는 삭제, 폐기 처리되며 복구되지 않습니다.</li>
+                                    <li>회원 탈퇴와 함께  브랜드 이름  에 등록된 모든 개인정보는 삭제, 폐기 처리되며 복구되지 않습니다.</li>
                                     <li>회원탈퇴 시 동일 아이디(이메일)로 재가입하실 수 없습니다.</li>
                                     <li><b>단, 상법 및 '전자상거래 등에서 소비자 보호에 관한 법률' 등 관련 법령의 규정에 의하여 다음과 같이 ‘거래 관련 관리의무 관계 확인’ 등을 이유로 일정 기간 보관됩니다.</b>
                                         <ul>
@@ -607,7 +758,7 @@
                         </ul>
                         
                         
-                        <button type="button" class="btn  " style="background-color:#DB3545; color: white; border-radius: 10px;"data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button type="button" class="btn  " style="background-color:#DB3545; color: white; border-radius: 10px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             계정 삭제
                         </button>
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -647,50 +798,50 @@
                     <div style="border: 1px solid rgb(201, 201, 201);padding: 20px;  border-radius: 7px;">
                         <p style="margin: 10px;">
                             저희가 명시적으로 별도의 약관(본 약관이 아님)이 적용된다고 밝히지 않는 한
-                            본 이용 약관(또는 '약관')이 회원님의 PORO  이용에 적용되며
-                            아래 설명된 PORO  서비스('서비스')에 대한 정보를 제공합니다. <br>
-                            회원님이 PORO  계정을 만들거나 PORO 을 이용하는 경우,
-                            회원님은 본 약관에 동의하는 것으로 간주됩니다. PORO  서비스 약관은
+                            본 이용 약관(또는 '약관')이 회원님의 브랜드 이름  이용에 적용되며
+                            아래 설명된 브랜드 이름  서비스('서비스')에 대한 정보를 제공합니다. <br>
+                            회원님이 브랜드 이름  계정을 만들거나 브랜드 이름 을 이용하는 경우,
+                            회원님은 본 약관에 동의하는 것으로 간주됩니다. 브랜드 이름  서비스 약관은
                             이 서비스에 적용되지 않습니다.
                         
                         </p>
                         <div class="accordion" id="accordion2" >
                             <div class="accordion-item" style="margin: 10px;">
                                 <h2 class="accordion-header"  >
-                                    <button class="accordion-button collapsed" style="background-color: #ddd;"type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="#collapse">
+                                    <button class="accordion-button collapsed" style="background-color: #ddd;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="#collapse">
                                         <h3 style="background-color: rgba(0, 0, 0, 0) ; color: black;"> 이용약관</h3>
                                     </button>
                                 </h2>
-                                <div id="collapse" class="accordion-collapse collapse " data-bs-parent="#accordion2" >
+                                <div id="collapse1" class="accordion-collapse collapse " data-bs-parent="#accordion2" >
                                     <div class="accordion-body" >
                                         <p>
-                                        <h4>PORO 에 오신 것을 환영합니다!</h4>
+                                        <h4>브랜드 이름 에 오신 것을 환영합니다!</h4>
                                         <br>
                                         
                                         
-                                        PORO  서비스는 PORO  Platforms, Inc.에서 회원님에게 제공하는 PORO  제품 중 하나입니다. 따라서 본 이용 약관은 회원님과 PORO  Platforms, Inc. 사이의 계약에 해당됩니다.<br><br>
-                                        <h4><b>PORO  서비스</b></h4>
-                                        저희는 회원님에게 PORO  서비스를 제공하는 것에 동의합니다.
-                                        서비스에는 저희가 PORO 의 사명을 실현하기 위해 제공하는 모든 PORO  제품, 기능, 앱, 서비스, 기술, 소프트웨어가 포함됩니다.
-                                        PORO 은 회원님이 사랑하는 사람들과 사항들을 더 가까이 접할 기회를 마련하는 것을 사명으로 삼습니다.
+                                        브랜드 이름  서비스는 브랜드 이름  Platforms, Inc.에서 회원님에게 제공하는 브랜드 이름  제품 중 하나입니다. 따라서 본 이용 약관은 회원님과 브랜드 이름  Platforms, Inc. 사이의 계약에 해당됩니다.<br><br>
+                                        <h4><b>브랜드 이름  서비스</b></h4>
+                                        저희는 회원님에게 브랜드 이름  서비스를 제공하는 것에 동의합니다.
+                                        서비스에는 저희가 브랜드 이름 의 사명을 실현하기 위해 제공하는 모든 브랜드 이름  제품, 기능, 앱, 서비스, 기술, 소프트웨어가 포함됩니다.
+                                        브랜드 이름 은 회원님이 사랑하는 사람들과 사항들을 더 가까이 접할 기회를 마련하는 것을 사명으로 삼습니다.
                                         서비스는 다음과 같은 부분으로 구성됩니다.<br><br>
                                         <ul>
                                             
                                             
                                             <li>
                                                 <b>창작, 연결, 커뮤니케이션, 발견, 공유를 위한 맞춤화된 기회를 제공합니다.</b>
-                                                사람들은 다양합니다. 따라서 저희는 회원님이 PORO  안팎에서
+                                                사람들은 다양합니다. 따라서 저희는 회원님이 브랜드 이름  안팎에서
                                                 창작하고, 공유하고, 인지도를 높이고, 사람들과 소통하는 데 도움이 되는 여러 가지 유형의 계정과 기능을 제공합니다.
                                                 저희는 또한 회원님이 실제로 관심을 가지는 경험을 공유함으로써 관계를 강화하길 원합니다.
                                                 따라서 저희는 회원님 및 다른 사람들이 관심 있는 사람과 사항을 파악하는 시스템을 구축하고, 파악한 정보를 이용하여 회원님이 중요한 경험을
                                                 생성하고, 발견하며, 이에 참여하고, 이를 공유하도록 돕습니다. 그 일환으로 회원님 및 다른 사람들이
-                                                PORO  안팎에서 하는 활동에 기초하여 회원님이 관심을 가질 만한 콘텐츠, 기능, 혜택, 계정을 더 잘 보여드리고 회원님에게 PORO 을 경험하는 방법을 제안하기도 합니다.
+                                                브랜드 이름  안팎에서 하는 활동에 기초하여 회원님이 관심을 가질 만한 콘텐츠, 기능, 혜택, 계정을 더 잘 보여드리고 회원님에게 브랜드 이름 을 경험하는 방법을 제안하기도 합니다.
                                             </li>
-                                            <br><br>
+                                            
                                             
                                             <li>
                                                 <b>긍정적이고 포괄적이며 안전한 환경을 조성합니다.</b>
-                                                저희는 저희 커뮤니티 회원들이 도움을 필요로 한다고 생각하는 경우를 포함하여 회원들의 경험을 긍정적이고 폭넓게 만들도록 도구를 개발 및 사용하고, 자원을 제공합니다. 또한 저희는 저희 약관 및 정책의 남용 및 위반과 유해하고 사기적인 행위를 방지하기 위한 팀과 시스템을 갖추고 있습니다. 저희는 저희 플랫폼의 보안을 유지하기 위해 저희가 보유한 모든 정보(회원님의 정보 포함)를 이용합니다. 또한 저희는 오용 또는 유해한 콘텐츠에 관한 정보를 다른 PORO  Companies 또는 사법당국과 공유할 수 있습니다. 개인정보처리방침에서 자세히 알아보세요.
+                                                저희는 저희 커뮤니티 회원들이 도움을 필요로 한다고 생각하는 경우를 포함하여 회원들의 경험을 긍정적이고 폭넓게 만들도록 도구를 개발 및 사용하고, 자원을 제공합니다. 또한 저희는 저희 약관 및 정책의 남용 및 위반과 유해하고 사기적인 행위를 방지하기 위한 팀과 시스템을 갖추고 있습니다. 저희는 저희 플랫폼의 보안을 유지하기 위해 저희가 보유한 모든 정보(회원님의 정보 포함)를 이용합니다. 또한 저희는 오용 또는 유해한 콘텐츠에 관한 정보를 다른 브랜드 이름  Companies 또는 사법당국과 공유할 수 있습니다. 개인정보처리방침에서 자세히 알아보세요.
                                                 성장하고 있는 저희 커뮤니티에 지속적으로 서비스를 제공하는 데 도움이 되는 기술을 개발하고 사용합니다. <br><br>
                                             </li>
                                             
@@ -702,69 +853,69 @@
                                             
                                             
                                             <br> <br><li>
-                                            <b>PORO  Company 제품 전반에 걸쳐 일관되고 원활한 경험을 제공합니다.</b><br>
+                                            <b>브랜드 이름  Company 제품 전반에 걸쳐 일관되고 원활한 경험을 제공합니다.</b><br>
                                             
                                             
-                                            PORO 은 PORO  Companies에 포함된 제품으로서, PORO  Companies는 보다 우수하고 안전하며 보안이 강화된 서비스를 제공하기 위해 기술, 시스템, 인사이트, 정보를 공유합니다.
-                                            그 정보에는 저희가 보유하는 회원님에 대한 정보가 포함되며, 자세한 내용은 개인정보처리방침에서 알아보세요. 또한 저희는 회원님이 사용하는 여러 PORO  Company 제품과 상호
-                                            작용하는 방법을 제공하며, 회원님이 선택에 따라 PORO  Company 제품 전반에서 일관적이고 원활한 경험을 얻을 수 있도록 하는 시스템을 설계했습니다.
+                                            브랜드 이름 은 브랜드 이름  Companies에 포함된 제품으로서, 브랜드 이름  Companies는 보다 우수하고 안전하며 보안이 강화된 서비스를 제공하기 위해 기술, 시스템, 인사이트, 정보를 공유합니다.
+                                            그 정보에는 저희가 보유하는 회원님에 대한 정보가 포함되며, 자세한 내용은 개인정보처리방침에서 알아보세요. 또한 저희는 회원님이 사용하는 여러 브랜드 이름  Company 제품과 상호
+                                            작용하는 방법을 제공하며, 회원님이 선택에 따라 브랜드 이름  Company 제품 전반에서 일관적이고 원활한 경험을 얻을 수 있도록 하는 시스템을 설계했습니다.
                                             <br> <br></li>
                                             <br>
                                             
                                             <li>
                                                 <b>저희 서비스 접근에 대한 보장.</b><br>
                                                 
-                                                글로벌 서비스를 운영하기 위해 저희는 회원님의 거주 국가 이외 지역을 비롯하여 전 세계에 있는 시스템에 정보를 저장하고 이전해야 합니다. 서비스를 제공하기 위해서는 본 글로벌 인프라의 사용이 필수적입니다. 해당 인프라는 PORO  Platforms, Inc., PORO  Platforms Ireland Limited 또는 그 계열사가 소유하거나 운영할 수 있습니다.<br><br>
+                                                글로벌 서비스를 운영하기 위해 저희는 회원님의 거주 국가 이외 지역을 비롯하여 전 세계에 있는 시스템에 정보를 저장하고 이전해야 합니다. 서비스를 제공하기 위해서는 본 글로벌 인프라의 사용이 필수적입니다. 해당 인프라는 브랜드 이름  Platforms, Inc., 브랜드 이름  Platforms Ireland Limited 또는 그 계열사가 소유하거나 운영할 수 있습니다.<br><br>
                                                 <b> 회원님이 관심 있는 방식으로 회원님과 브랜드, 제품, 서비스를 연결합니다.</b><br>
                                             </li>
-                                            저희는 회원님에게 의미 있다고 생각되는 광고, 제안, 기타 홍보 콘텐츠를 보여드리기 위해 PORO  및 다른 PORO  Company 제품의 정보 외에도 제3자의 정보를 이용합니다. 그리고 저희는 해당 콘텐츠를 회원님의 PORO 에서의 다른 경험만큼 관련성 있게 만들기 위해 노력합니다.<br><br>
+                                            저희는 회원님에게 의미 있다고 생각되는 광고, 제안, 기타 홍보 콘텐츠를 보여드리기 위해 브랜드 이름  및 다른 브랜드 이름  Company 제품의 정보 외에도 제3자의 정보를 이용합니다. 그리고 저희는 해당 콘텐츠를 회원님의 브랜드 이름 에서의 다른 경험만큼 관련성 있게 만들기 위해 노력합니다.<br><br>
                                             <b>연구 및 혁신.</b><br>
                                             저희는 보유하고 있는 정보를 이용하여 저희 서비스를 연구하고, 다른 사람들과 협력하여 저희 서비스를 보다 개선하고 저희 커뮤니티의 복지에 기여하기 위한 연구를 수행합니다.<br><br>
                                         
                                         </ul>
-                                        <h4><b>PORO  서비스의 재정 조달 방식</b></h4><br>
-                                        PORO 의 사용료를 지불하지 않는 대신, 본 약관이 적용되는 서비스를 사용함으로써, 회원님은 비즈니스 및 단체들이 홍보를 위해 저희에게 비용을 지불한 광고를 PORO  Company 제품 내외부에서 보게 될 수 있다는 것을 인정합니다. 저희는 회원님에게 회원님과 관련성이 높은 광고를 보여드리기 위해 회원님의 활동 및 관심사에 대한 정보 등 회원님의 개인정보를 활용합니다. <br><br>
+                                        <h4><b>브랜드 이름  서비스의 재정 조달 방식</b></h4><br>
+                                        브랜드 이름 의 사용료를 지불하지 않는 대신, 본 약관이 적용되는 서비스를 사용함으로써, 회원님은 비즈니스 및 단체들이 홍보를 위해 저희에게 비용을 지불한 광고를 브랜드 이름  Company 제품 내외부에서 보게 될 수 있다는 것을 인정합니다. 저희는 회원님에게 회원님과 관련성이 높은 광고를 보여드리기 위해 회원님의 활동 및 관심사에 대한 정보 등 회원님의 개인정보를 활용합니다. <br><br>
                                         저희는 회원님에게 회원님과 관련성 있고 유용한 광고를 노출하되, 광고주에게 회원님의 신원을 알리지는 않습니다. 저희는 회원님의 개인정보를 판매하지 않습니다. 저희는 광고주가 저희에게 비즈니스 목표, 광고를 노출하고자 하는 대상의 유형 등을 알릴 수 있도록 허용합니다. 저희는 그 후 관심이 있을 만한 사람에게 해당 광고를 노출합니다.
                                         
                                         <br><br>
-                                        저희는 또한 사람들이 PORO  내부와 외부에서 광고주의 콘텐츠와 어떻게 상호작용하고 있는지 광고주들이 이해할 수 있도록 광고주들에게 광고의 성과 보고서를 제공합니다.
+                                        저희는 또한 사람들이 브랜드 이름  내부와 외부에서 광고주의 콘텐츠와 어떻게 상호작용하고 있는지 광고주들이 이해할 수 있도록 광고주들에게 광고의 성과 보고서를 제공합니다.
                                         예를 들어 광고주가 광고의 타겟을 더 잘 이해할 수 있도록 저희는 일반적 인구 통계 정보 및 관심사 정보를 광고주에게 제공할 수 있습니다.
                                         저희는 회원님이 구체적으로 허락하지 않는 한 회원님을 직접적으로 식별할 수 있는 정보(이름 또는 이메일 주소와 같이 그 정보만으로 회원님에게 연락을 취하는 데 이용될 수 있거나
                                         회원님을 식별할 수 있는 정보)를 공유하지 않습니다. <br><br>
-                                        여기에서 PORO  광고의 작동 방식에 대해 자세히 알아보세요.
-                                        콘텐츠에 언급되어 있는 비즈니스 파트너와의 상업적 관계를 기반으로 제품 또는 서비스를 홍보하는 계정의 소유자가 게시한 브랜디드 콘텐츠가 PORO 에 표시될 수 있습니다. 이와 관련해서는 여기에서 자세히 알아보세요.
+                                        여기에서 브랜드 이름  광고의 작동 방식에 대해 자세히 알아보세요.
+                                        콘텐츠에 언급되어 있는 비즈니스 파트너와의 상업적 관계를 기반으로 제품 또는 서비스를 홍보하는 계정의 소유자가 게시한 브랜디드 콘텐츠가 브랜드 이름 에 표시될 수 있습니다. 이와 관련해서는 여기에서 자세히 알아보세요.
                                         <br><br>
                                         <h4><b>개인정보처리방침</b></h4>
                                         저희 서비스를 제공하기 위해서 회원님의 정보를 수집하고 이용해야 합니다.
-                                        개인정보처리방침은 여러 PORO  제품에서 저희가 정보를 수집, 이용하고 공유하는 방법에 대해 설명합니다.
-                                        또한 PORO  개인정보 보호 및 보안 설정을 포함해 회원님이 회원님의 정보를 관리할 수 있는 여러 방법에 대해 설명합니다.
-                                        PORO 을 사용하려면 개인정보처리방침에 동의해야 합니다. <br><br>
+                                        개인정보처리방침은 여러 브랜드 이름  제품에서 저희가 정보를 수집, 이용하고 공유하는 방법에 대해 설명합니다.
+                                        또한 브랜드 이름  개인정보 보호 및 보안 설정을 포함해 회원님이 회원님의 정보를 관리할 수 있는 여러 방법에 대해 설명합니다.
+                                        브랜드 이름 을 사용하려면 개인정보처리방침에 동의해야 합니다. <br><br>
                                         
                                         <h4><b>회원님의 약속</b></h4>
                                         서비스 제공에 대한 저희의 약속에 상응하여 회원님은 다음과 같은 약속을 해주셔야 합니다. <br><br>
-                                        <b>PORO 을 이용할 수 있는 주체</b>. 저희는 PORO  서비스가 가능한 개방적이고 포괄적인 서비스가 되기를 원하지만,
+                                        <b>브랜드 이름 을 이용할 수 있는 주체</b>. 저희는 브랜드 이름  서비스가 가능한 개방적이고 포괄적인 서비스가 되기를 원하지만,
                                         또한 본 서비스가 안전하고, 보안성을 갖추며, 법을 준수하는 서비스가 되기를 원합니다.
-                                        따라서 회원님이 PORO  커뮤니티에 참여하려면 몇 가지 제한 사항을 준수해야 합니다. <br><br>
+                                        따라서 회원님이 브랜드 이름  커뮤니티에 참여하려면 몇 가지 제한 사항을 준수해야 합니다. <br><br>
                                         
                                         <li>만 14세 이상이어야 합니다.</li><br>
                                         
-                                        <li>관련 법률에 따라 PORO  서비스를 받는 것이 일부라도 금지된 사람 또는 관련 제재 대상 명단에 있어 결제 관련 PORO  서비스를 이용하는 것이 금지된 사람이 아니어야 합니다.</li><br>
+                                        <li>관련 법률에 따라 브랜드 이름  서비스를 받는 것이 일부라도 금지된 사람 또는 관련 제재 대상 명단에 있어 결제 관련 브랜드 이름  서비스를 이용하는 것이 금지된 사람이 아니어야 합니다.</li><br>
                                         
-                                        <li>과거에 저희가 회원님의 계정을 법률 또는 PORO  정책 위반을 이유로 하여 비활성화한 적이 없어야 합니다.</li><br>
+                                        <li>과거에 저희가 회원님의 계정을 법률 또는 브랜드 이름  정책 위반을 이유로 하여 비활성화한 적이 없어야 합니다.</li><br>
                                         <li>유죄 확정판결을 받은 성범죄자가 아니어야 합니다.</li><br><br>
                                         
-                                        <b>PORO 을 사용할 수 없는 경우.</b> 광범위한 커뮤니티에 안전하고 개방적인 PORO  서비스가 제공되기 위해서는 우리 모두가 각자의 본분을 다해야 합니다. <br><br>
+                                        <b>브랜드 이름 을 사용할 수 없는 경우.</b> 광범위한 커뮤니티에 안전하고 개방적인 브랜드 이름  서비스가 제공되기 위해서는 우리 모두가 각자의 본분을 다해야 합니다. <br><br>
                                         
                                         <li>
                                             <b>다른 사람을 사칭하거나 부정확한 정보를 제공하면 안 됩니다.</b>
-                                            PORO 에서 회원님의 신원을 공개할 필요는 없지만, 회원님은 저희에게 정확한 최신 정보(등록 정보 포함)를 제공해야 하며 개인정보를 제공해야 할 수도 있습니다.
+                                            브랜드 이름 에서 회원님의 신원을 공개할 필요는 없지만, 회원님은 저희에게 정확한 최신 정보(등록 정보 포함)를 제공해야 하며 개인정보를 제공해야 할 수도 있습니다.
                                             또한 본인이 아닌 다른 사람이나 단체를 사칭해서는 안 되며, 다른 사람의 명시적인 허락 없이 다른 사람의 이름으로 계정을 만들 수 없습니다.
                                         </li><br>
                                         <li><b>불법적이거나, 오해의 소지가 있거나, 사기적인 행위 또는 불법적이거나 허가받지 않은 목적을 위한 어떠한 행위도 하면 안 됩니다.</b></li><br>
                                         
                                         <li>
                                             <b>
-                                                특히 회원님은 PORO  커뮤니티 가이드라인, PORO  플랫폼 이용 약관 및 개발자 정책, 음악 가이드라인을 포함하여 본 약관 또는 저희 정책을 위반할 수 없으며,
+                                                특히 회원님은 브랜드 이름  커뮤니티 가이드라인, 브랜드 이름  플랫폼 이용 약관 및 개발자 정책, 음악 가이드라인을 포함하여 본 약관 또는 저희 정책을 위반할 수 없으며,
                                                 다른 사람들이 이를 위반하도록 돕거나 조장해서도 안 됩니다.
                                             </b>
                                             브랜디드 콘텐츠를 게시하는 경우 회원님은 저희의 브랜디드 콘텐츠 정책을 준수해야 하며, 이에 따라 저희의 브랜디드 콘텐츠 도구를 사용해야 합니다.
@@ -785,7 +936,7 @@
                                         <li>
                                             <b>회원님은 저희 또는 저희 서비스를 통해 확보한 계정이나 정보를 판매하거나, 라이선스를 부여하거나, 구매해서는 안 됩니다.</b>
                                             여기에는 회원님 계정의 일부(사용자 이름 포함) 또는 전부에 대한 구매, 판매 또는 양도가 포함되며,
-                                            다른 사용자의 로그인 정보나 배지를 요청, 수집 또는 이용하는 행위 및 PORO  사용자 이름, 비밀번호, 부적절한 액세스 토큰에 대한 요청 또는 수집 행위가 포함됩니다.
+                                            다른 사용자의 로그인 정보나 배지를 요청, 수집 또는 이용하는 행위 및 브랜드 이름  사용자 이름, 비밀번호, 부적절한 액세스 토큰에 대한 요청 또는 수집 행위가 포함됩니다.
                                         </li><br>
                                         
                                         <li>
@@ -821,7 +972,7 @@
                                             이러한 라이선스는 저희 서비스에 접속하고 이를 이용하는 회원님 및 다른 사람들에게 저희 서비스 이용을 가능하게 하기 위한 것입니다.
                                             회원님은 회원님의 콘텐츠를 개별적으로 삭제하거나 계정 삭제를 통해 한 번에 모두 삭제할 수 있습니다.
                                             저희의 정보 이용 방법과 회원님의 콘텐츠를 관리하거나 삭제하는 방법에 관한 자세한 내용을 확인하시려면,
-                                            개인정보처리방침을 살펴보시고 PORO  고객 센터를 방문하세요.
+                                            개인정보처리방침을 살펴보시고 브랜드 이름  고객 센터를 방문하세요.
                                         </li><br>
                                         
                                         
@@ -831,7 +982,7 @@
                                             회원님은 저희에게 회원님의 사용자 이름, 프로필 사진 및 회원님의 활동(예: '좋아요')
                                             또는 관계(예: '팔로우')에 관한 정보를 Mea 제품 전반에 표시되는 계정, 광고, 제안 및 회원님이
                                             팔로우하거나 참여하는 기타 홍보 콘텐츠와 함께 또는 이와 관련하여 표시할 수 있는 권한을 무상으로 부여합니다.
-                                            예를 들어, 저희는 회원님이 PORO 에 유료로 광고를 게재하는 브랜드의 홍보 게시물에 좋아요를 눌렀다는 점을 표시할 수 있습니다.
+                                            예를 들어, 저희는 회원님이 브랜드 이름 에 유료로 광고를 게재하는 브랜드의 홍보 게시물에 좋아요를 눌렀다는 점을 표시할 수 있습니다.
                                             다른 콘텐츠에서의 행동 및 다른 계정에 대한 팔로우와 마찬가지로, 홍보 콘텐츠에서의 행동 및 홍보 계정에 대한 팔로우도
                                             해당 콘텐츠나 팔로우를 볼 수 있는 권한이 있는 사람들에게만 표시됩니다. 저희는 회원님의 광고 설정 또한 존중합니다.
                                             여기에서 회원님의 광고 설정에 대해 자세히 알아보실 수 있습니다.
@@ -862,11 +1013,11 @@
                                         
                                         <h4><b>콘텐츠 삭제 및 계정 비활성화 또는 해지</b></h4>
                                         <li>
-                                            회원님이 서비스에서 공유하는 콘텐츠나 정보가 본 이용 약관, 저희 정책(저희 PORO  커뮤니티 가이드라인 포함)에 위배된다고 판단되거나 법에 따라 삭제해야 할 경우,
+                                            회원님이 서비스에서 공유하는 콘텐츠나 정보가 본 이용 약관, 저희 정책(저희 브랜드 이름  커뮤니티 가이드라인 포함)에 위배된다고 판단되거나 법에 따라 삭제해야 할 경우,
                                             저희는 이를 삭제할 수 있습니다. 저희는 저희 커뮤니티 또는 서비스를 보호하기 위해 또는 회원님이 저희에게 위험 또는 법적 문제를 일으키거나
-                                            , 본 약관 또는 저희 정책(저희 PORO  커뮤니티 가이드라인 포함)을 위반하거나, 다른 사람의 지식재산권을 반복적으로 침해하거나,
+                                            , 본 약관 또는 저희 정책(저희 브랜드 이름  커뮤니티 가이드라인 포함)을 위반하거나, 다른 사람의 지식재산권을 반복적으로 침해하거나,
                                             법률에 따라 허용되거나 요구되는 경우에 회원님에게 서비스 전부 또는 일부를 제공하는 것을 즉시 중단하거나 거부할 수 있습니다
-                                            (회원님의 PORO  제품 및 PORO  Company 제품 액세스 해지 또는 비활성화 포함). 저희에게 법적으로 불리하거나
+                                            (회원님의 브랜드 이름  제품 및 브랜드 이름  Company 제품 액세스 해지 또는 비활성화 포함). 저희에게 법적으로 불리하거나
                                             규제적 영향을 끼치는 상황을 피하거나 줄이기 위해 필요하다고 합리적으로 판단되면, 저희는 서비스를 해지 또는 변경하거나,
                                             서비스에서 공유된 콘텐츠 또는 정보를 삭제 또는 차단하거나, 서비스 전부 또는 일부를 제공하는 것을 중단할 수 있습니다.
                                             회원님의 계정이 오류로 인해 해지되었다고 생각되는 경우 또는 회원님의 계정을 비활성화하거나 영구 삭제하고 싶은 경우에는
@@ -875,7 +1026,7 @@
                                             사용자에게 표시되지 않지만 계속해서 본 이용 약관 및 개인정보처리방침의 적용을 받습니다. 콘텐츠가 삭제된 후에는 백업과 재난 복구 시스템에서
                                             삭제하는 데 최대 90일이 더 걸릴 수 있습니다.
                                         </li><br>
-                                        <ui>
+                                        <ul>
                                             <li>다음과 같은 경우에는 콘텐츠는 계정 삭제 또는 콘텐츠 삭제 프로세스가 시작된 후 90일 이내에 삭제되지 않습니다.
                                                 <ul>
                                                     <li>다른 사람이 이 라이선스에 따라 콘텐츠를 이용하였고 아직 삭제하지 않은 경우(이 경우 콘텐츠가 삭제될 때까지 해당 라이선스가 계속 적용됨) 또는</li><br>
@@ -895,7 +1046,7 @@
                                                 </ul>
                                             </li>
                                             <li>회원님이 계정을 삭제하거나 비활성화하면 본 약관은 회원님과 저희의 계약과 마찬가지로 해지되나, 본 조항 및 아래 조항('계약 및 상호 의견이 합치되지 않는 경우')은 계정이 해지, 비활성화 또는 삭제된 후에도 여전히 적용됩니다.</li>
-                                        </ui>
+                                        </ul>
                                         <br><br>
                                         
                                         
@@ -905,7 +1056,7 @@
                                         
                                         <ul>
                                             <li>
-                                                서비스를 통한 회원님의 음악 사용 역시 저희 음악 가이드라인의 적용을 받으며, 회원님의 저희 API 사용에는 저희의 PORO  플랫폼 약관 및 개발자 정책이 적용됩니다.
+                                                서비스를 통한 회원님의 음악 사용 역시 저희 음악 가이드라인의 적용을 받으며, 회원님의 저희 API 사용에는 저희의 브랜드 이름  플랫폼 약관 및 개발자 정책이 적용됩니다.
                                                 회원님이 기타 특정 기능 또는 관련 서비스를 이용하는 경우, 회원님은 추가 약관에 대해 동의할 기회를 제공받으며, 추가 약관은 저희와 회원님 간의 계약의 일부를 구성합니다.
                                                 예를 들어, 회원님이 결제 기능을 사용하는 경우, 회원님은 커뮤니티 결제 약관에 동의해야 합니다. 추가 약관이 본 계약과 상충될 경우 추가 약관이 우선합니다.
                                             </li><br>
@@ -965,7 +1116,7 @@
                                         소송 사유 또는 분쟁('청구')에 적용되고, 회원님은 관할권이 있는 국가의 관할 법원에서 해당 청구를 해결할 수 있습니다. 다른 모든 경우에
                                         회원님은 해당 청구가 미국 캘리포니아 북부 지방 법원 또는 샌머테이오 카운티에 소재한 주 법원에서만 해결되어야 하며, 해당 청구의 소송 목적에 대해
                                         이러한 법원 중 한 곳의 속인적 관할권을 따르고, 법 조항의 상충 여부와 관계없이 본 이용 약관 및 모든 청구에 캘리포니아 주법이 적용된다는 것에 동의합니다.
-                                        앞선 내용을 침해하지 않는 범위에서, 회원님이 저희 제품에 대해 악용, 방해 또는 무단 사용을 시도하는 경우 PORO  Platforms Inc.는 단독 재량에 따라 회원님이
+                                        앞선 내용을 침해하지 않는 범위에서, 회원님이 저희 제품에 대해 악용, 방해 또는 무단 사용을 시도하는 경우 브랜드 이름  Platforms Inc.는 단독 재량에 따라 회원님이
                                         거주하며 청구의 관할권이 있는 국가에서 회원님에 대한 관련 청구를 제출할 수 있음에 회원님은 동의합니다. <br><br>
                                         
                                         <b>요청하지 않은 자료.</b><br><br>
@@ -974,7 +1125,7 @@
                                         
                                         <h4><b>본 약관 개정</b></h4><br>
                                         
-                                        저희는 PORO  서비스 및 정책을 변경할 수 있고, PORO  서비스 및 정책이 정확하게 반영되도록 하기 위해 본 약관을 변경해야 할 경우가 있습니다. 법적으로 달리 요구되지 않는 한 저희는 본 약관을 변경하기 전에 회원님에게 통지하여, 약관의 효력이 발생하기 최소 30일 전에 검토할 기회를 제공합니다. 변경 발효일 이후에도 회원님이 계속 PORO  서비스를 이용하실 경우, 회원님은 개정된 약관의 적용을 받게 됩니다. 본 약관 또는 개정된 약관에 동의하지 않을 경우에는 여기서 회원님의 계정을 삭제하면 됩니다.
+                                        저희는 브랜드 이름  서비스 및 정책을 변경할 수 있고, 브랜드 이름  서비스 및 정책이 정확하게 반영되도록 하기 위해 본 약관을 변경해야 할 경우가 있습니다. 법적으로 달리 요구되지 않는 한 저희는 본 약관을 변경하기 전에 회원님에게 통지하여, 약관의 효력이 발생하기 최소 30일 전에 검토할 기회를 제공합니다. 변경 발효일 이후에도 회원님이 계속 브랜드 이름  서비스를 이용하실 경우, 회원님은 개정된 약관의 적용을 받게 됩니다. 본 약관 또는 개정된 약관에 동의하지 않을 경우에는 여기서 회원님의 계정을 삭제하면 됩니다.
                                         <br><br>시행일: 2022년 7월 26일</p>
                                     
                                     </div>
@@ -982,11 +1133,11 @@
                             </div>
                         </div>
                         <h6 style="margin: 10px; line-height: 40px;" >
-                            PORO 은 사람들이 자유롭게 자신을 표현하고 서로
+                            브랜드 이름 은 사람들이 자유롭게 자신을 표현하고 서로
                             영감을 얻을 수 있는 공간입니다. 계속해서 안전하고
-                            믿을 수 있는 PORO 을 만들어 갈 수 있도록 함께 도와주세요.
+                            믿을 수 있는 브랜드 이름 을 만들어 갈 수 있도록 함께 도와주세요.
                             본인 소유의 사진과 동영상만 게시할 수 있으며
-                            항상 법률을 준수해야 합니다. 다른 PORO  사용자를 존중하고
+                            항상 법률을 준수해야 합니다. 다른 브랜드 이름  사용자를 존중하고
                             스팸을 보내거나 나체 이미지를 게시하는 행동은 삼가세요.</h6>
                     
                     </div>
@@ -996,11 +1147,23 @@
     </div>
 </div>
 
+
+
+
 </body>
 
 
-
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script> -->
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/darkmode.js"></script>
+<script src="js/modal-main.js"></script>
 <script>
     $(() => {
         document.getElementById('formFile').addEventListener('change', function(event) {
@@ -1023,13 +1186,8 @@
             }
         });
         
-        $('#imagePreview').on('click',  ()=> {
-            $('#Pic').click();
-        });
-        
-        
         // Load dark mode state
-        var isDarkMode = loadDarkModeState();
+        let isDarkMode = loadDarkModeState();
         applyDarkMode(isDarkMode);
         
         $('#darkModeToggle').on('click', function () {

@@ -4,7 +4,6 @@ package com.bit.devops12.poro.dao;
 import com.bit.devops12.poro.dto.Criteria;
 import com.bit.devops12.poro.dto.PortfolioDto;
 import com.bit.devops12.poro.dto.ProfileDto;
-import com.bit.devops12.poro.dto.RecruitmentDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,6 +31,7 @@ public class UserFeedsDao {
     }
 
     public void deletePortfolio(List<Integer> deleteList) {
+        System.out.println(deleteList);
         mybatis.delete("UserFeedsDao.deleteUserPortfolio",deleteList);
     }
 
@@ -39,6 +39,7 @@ public class UserFeedsDao {
         List<PortfolioDto> userPortfolio = mybatis.selectList("UserFeedsDao.getUserPopularPortfolio",id);
         return mybatis.selectList("UserFeedsDao.getUserPopularPortfolio",id);
     }
+<<<<<<< HEAD
 
     public List<RecruitmentDto> getUserBookmarkCoperation(Map<String,Object> map) {
         return mybatis.selectList("UserFeedsDao.getUserBookmarkCoperation",map);
@@ -108,4 +109,6 @@ public class UserFeedsDao {
     public List<Object> getbookmarkInfo(Map<String, Object> map) {
         return mybatis.selectList("UserFeedsDao.getbookmarkInfo",map);
     }
+=======
+>>>>>>> e304a2ca27dc06f585b5e38a77df7d643b927e20
 }
