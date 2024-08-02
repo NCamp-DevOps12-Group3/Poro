@@ -10,6 +10,15 @@ public class ProfileDto {
     private String status;
     private String job;
     private String siteurl;
+    private int portfolioCnt;
+
+    public int getPortfolioCnt() {
+        return portfolioCnt;
+    }
+
+    public void setPortfolioCnt(int portfolioCnt) {
+        this.portfolioCnt = portfolioCnt;
+    }
 
     public String getProfile_image() {
         return profile_image;

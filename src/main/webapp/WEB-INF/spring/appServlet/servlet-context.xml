@@ -40,11 +40,11 @@
     </bean>
 
     <!--Spring에서는 bean 엘리먼트 말고도 annotation으로도 bean 객체를 생성해서 등록할 수 있는데
-    @Component, @Controller, @service, @Repository 등으로도 bean 객체를 생성해서 등록할 수 있다.
+    @Component, @Controller, @Service, @Repository 등으로도 bean 객체를 생성해서 등록할 수 있다.
     어노테이션들을 읽어서 bean 객체를 생성하고 등록하는 설정
     context:component-scan 이설정은 기본적으로 @Coponent 어노테이션을 읽어서 bean객체를 생성하는데
-    @Controller, @service, @Repository가 @Component를 포함하고 있기 때문에 context:component-scan에서 읽어서 bean 객체를 생성한다.
-    base-packge 속성으로 @Component, @Controller, @service, @Repository 어노테이션들이 붙어있는 클래스를 찾을 패키지 지정-->
+    @Controller, @Service, @Repository가 @Component를 포함하고 있기 때문에 context:component-scan에서 읽어서 bean 객체를 생성한다.
+    base-packge 속성으로 @Component, @Controller, @Service, @Repository 어노테이션들이 붙어있는 클래스를 찾을 패키지 지정-->
     <!--@Controller이 붙은 객체들은 요청이 올때마다 생성돼서 사용되므로 servlet-context.xml에서
         요청이 올때마다 생성될 수 있게 설정한다.-->
     <context:component-scan base-package="com.bit.devops12.poro.controller"/>

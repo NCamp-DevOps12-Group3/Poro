@@ -19,6 +19,35 @@ public class PortfolioDto {
     private List<String> cssCode;
     private List<String> jsCode;
     private String mergeCode;
+    private int bookmark_id;
+
+    @Override
+    public String toString() {
+        return "PortfolioDto{" +
+                "portfolio_id=" + portfolio_id +
+                ", user_id=" + user_id +
+                ", cssurl='" + cssurl + '\'' +
+                ", jsurl='" + jsurl + '\'' +
+                ", htmlurl='" + htmlurl + '\'' +
+                ", thumbnail_url='" + thumbnail_url + '\'' +
+                ", regdate=" + regdate +
+                ", skillname='" + skillname + '\'' +
+                ", description='" + description + '\'' +
+                ", htmlCode=" + htmlCode +
+                ", cssCode=" + cssCode +
+                ", jsCode=" + jsCode +
+                ", mergeCode='" + mergeCode + '\'' +
+                ", bookmark_id=" + bookmark_id +
+                '}';
+    }
+
+    public int getBookmark_id() {
+        return bookmark_id;
+    }
+
+    public void setBookmark_id(int bookmark_id) {
+        this.bookmark_id = bookmark_id;
+    }
 
     public String getMergeCode() {
         return mergeCode;
