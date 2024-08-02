@@ -50,43 +50,43 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.poro [clean].executor": "Run",
-    "Maven.poro [compile].executor": "Run",
-    "Maven.poro [install].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Smart Tomcat.Poro.executor": "Run",
-    "Smart Tomcat.Tomcat: Poro.executor": "Run",
-    "Smart Tomcat.poro.executor": "Run",
-    "Smart Tomcat.구동.executor": "Run",
-    "Smart Tomcat.이름이 지정되지 않았습니다.executor": "Run",
-    "Smart Tomcat.톰캣.executor": "Run",
-    "git-widget-placeholder": "youngwoo",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/lecture/poro/src/main/java/com/bit/devops12/poro/dto",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "모듈",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "vue.rearranger.settings.migration": "true",
-    "애플리케이션.DdayCalculator.executor": "Run",
-    "애플리케이션.testDday.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.poro [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.poro [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.poro [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Smart Tomcat.Poro.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.Tomcat: Poro.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.poro.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.구동.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.이름이 지정되지 않았습니다.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.톰캣.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;youngwoo&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/lecture/poro/src/main/java/com/bit/devops12/poro/dto&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;모듈&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;애플리케이션.DdayCalculator.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.testDday.executor&quot;: &quot;Run&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.bit.devops12.poro.dto" />
@@ -171,6 +171,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Smart Tomcat.톰캣" />
+      <item itemvalue="애플리케이션.DdayCalculator" />
+      <item itemvalue="애플리케이션.testDday" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="애플리케이션.testDday" />
