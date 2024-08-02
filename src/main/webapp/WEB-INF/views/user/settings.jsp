@@ -390,26 +390,28 @@
                                 style="background-color: #ddd; padding-bottom: 20px; margin: 0; border-top-left-radius:
                                  15px; border-top-right-radius: 15px;">
                             
-                            <div id="list-profile" class="d-inline-block" style="border-radius: 16px; margin-left: 10px;background-color: #ddd;">
-                                <div id="imagePreview" style="background-color: #ddd;">
-                                    <img id="profile-Pic" class="profile-img" alt="${loginUser.profile_image}" src="${loginUser.profile_image}" style="background-color: #ddd;">
+                            <div id="list-profile" class="d-inline-block" style="border-radius: 16px; margin-left:
+                            10px;background-color: #ddd; ">
+                                <div id="imagePreview" style="background-color: #ddd; max-width: 200px">
+                                    <img id="profile-Pic" class="profile-img" alt="${loginUser.profile_image}"
+                                         src="${loginUser.profile_image}" style="background-color: #ddd; min-width: 100px">
                                 </div>
                             </div>
                             <div class="d-inline-block" style="background-color: #ddd; margin-right: 20px">
                                 
-                                <h5
-                                        style="background-color: #ddd; color: black; margin-top:
+                                <h5 style="background-color: #ddd; color: black; margin-top:
                                         30px">${loginUser.nickname}</h5>
                                 <p style="background-color: #ddd; color: black;">${loginUser.name}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.email}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.gender}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.phonenumber}</p>
-                                <p style="background-color: #ddd; color: black;">${loginUser.introduction}</p>
+                                <p style="background-color: #ddd; color: black;">${loginUser.role}</p>
                                 <p style="background-color: #ddd; color: black;">${loginUser.site_url}</p>
                                 
                             </div>
                             <div class="d-inline-block" style="background-color: #ddd; margin-right: 20px;">
-                                <p style="background-color: #ddd; color: black;">${loginUser.role}</p>
+                               <p style="background-color: #ddd; color: black;
+                               ">${loginUser.introduction}</p>
                             </div>
                         </header>
                         
