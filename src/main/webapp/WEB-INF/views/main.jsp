@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/add-main.css">
     <style>
+
+        .content {
+            padding: 20px;
+            margin-left: 30vw;
+            height: 100vh;
+        }
         .content-item {
             background-color: white;
             padding: 20px;
@@ -62,6 +68,18 @@
         .reply-btn{
             cursor : pointer;
         }
+
+        .hidden{
+            display: none;
+        }
+
+        .modal-comment-like-logo-wrapper{
+            cursor : pointer;
+        }
+
+        .modal-portfolio-like-logo-wrapper{
+            cursor : pointer;
+        }
     </style>
 </head>
 <body>
@@ -76,43 +94,10 @@
                 <div class="base-sector-personal-title">
                     <div class="portfolio-container-wrapper" , id="portfolioContainerWrapper">
                         <div class="portfolio-item" id="portfolioContainer">
-                            <form id="page-form" action="/user/main.do" method="post">
+                            <form id="page-form" action="/main/main.do" method="post">
                                 <input type="hidden" name="pageNum" value="${page.mainCri.pageNum}">
                                 <input type="hidden" name="amount" value="${page.mainCri.amount}">
                                 <input type="hidden" name="endPage" value="${page.endPage}">
-                                <c:forEach items="${portfolioList}" var="portfolio">
-                                    <div class="content-item-wrapper" style="border-bottom: 1px solid gainsboro;">
-                                        <div class="content-item-header" style="padding: 5px; display: flex; align-items: center; padding-bottom: 10px; margin-top: 5px;">
-                                            <div class="content-item-header-user-logo" style="background-image: url('/static/img/cat1.jpg'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
-                                            <div class="content-item-header-main" style="display: flex; flex-direction: column; flex-grow: 1;">
-                                                <div class="content-item-header-userid" style="font-size: 14px; margin-left: 10px;">
-                                                    <strong>cat1</strong> <strong style="color: gray;">1주전</strong>
-                                                </div>
-                                                <div class="content-item-header-content" style="font-size: 14px; margin-left: 10px;">
-                                                    description1
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="content-item" style="background-image: url('${portfolio.portfolioDto.thumbnail_url}'); background-size: cover; border-radius: 5px;"></div>
-                                        <div class="content-item-footer" style="padding-top: 10px; display: flex; flex-direction: column;">
-                                            <div class="content-item-footer-logos" style="margin: 1px;">
-                                                <!-- SVG icons -->
-                                            </div>
-                                            <div class="content-item-footer-like" style="font-size: 0.8rem; margin: 1px;">
-                                                <strong>좋아요 3만개</strong>
-                                            </div>
-                                            <div class="content-item-footer-user" style="font-size: 0.8rem; margin: 1px;">
-                                                <strong>cat1: description1</strong>
-                                            </div>
-                                            <div class="content-item-footer-comment" style="font-size: 0.8rem; color: gray; margin: 1px;">
-                                                <strong>댓글 3만개 모두 보기</strong>
-                                            </div>
-                                            <div class="content-item-footer-postcomment" style="font-size: 0.8rem; color: gray; margin: 1px; margin-bottom: 10px;">
-                                                <strong>댓글 달기</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
                             </form>
                         </div>
                     </div>
@@ -337,7 +322,7 @@
                             </div>
 
                             <!--코멘트 메인-->
-                            <div class="modal-comment-main" id="modalCommentMain">
+                            <div class="modal-comment-main-box" id="modalCommentMain">
                                 <!-- 여기에 코멘트 추가-->
                             </div>
 
@@ -346,13 +331,21 @@
 
                                 <!--좋아요-->
                                 <div class="modal-likeCnt" id="modalLikeCnt">
-                                    <div class="modal-like-logo" id="modalLikeLogo"> <svg width="24" height="24"
-                                                                                          viewBox="0 0 50 50">
-                                        <path
-                                                d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"
-                                                stroke="black" stroke-width="2" fill="none"
-                                                transform="translate(1, 0)" />
-                                    </svg></div>
+
+                                    <div class="mocal-portfolio-like-logo" style="display:flex">
+                                        <div class="modal-portfolio-like-logo-wrapper" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                                class="bi bi-suit-heart portfolio-like-logo" viewBox="0 0 16 16">
+                                                <path
+                                                    d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                                class="bi bi-suit-heart-fill portfolio-like-logo hidden" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                            </svg>
+                                        </div>
+                                    </div>
 
                                     <!--현재 좋아요 수-->
                                     <div class="modal-likeCnt-text" id="modalLikeCntText">
@@ -581,20 +574,13 @@
             let replymode = false;
             let comment_id = 0;
             let curr_reply_box = null;
+            let curr_comment_box = null;
 
             const iframe = document.getElementById('modalPortfolioIframe');
 
             const modalLikeCntText = document.getElementById('modalLikeCntText');
             // 현재의 좋아요 수를 댓글창에 표시
             modalLikeCntText.innerHTML = `<p> 좋아요 \${obj.portfolio.likeCount}</p>`;
-            // 좋아요 하트 클릭시 색이 빨강으로 바뀌고 좋아요 수 증가
-            document.querySelector('.modal-like-logo svg').addEventListener('click', function (e) {
-                if (this.querySelector('path').classList.toggle('filled')) {
-                    modalLikeCntText.innerHTML = `<p> 좋아요 \${parseInt(obj.portfolio.likeCount)+1}</p>`;
-                } else {
-                    modalLikeCntText.innerHTML = `<p> 좋아요 \${parseInt(obj.portfolio.likeCount)}</p>`;
-                }
-            });
 
             if (iframe) {
                 iframe.srcdoc = `\${obj.portfolio.mergeCode}`;
@@ -602,6 +588,7 @@
 
             const modalCommentMain = document.getElementById('modalCommentMain');
             const modalCommentInput = document.getElementById('modalCommentInput');
+            const modalCommentContent = document.getElementById('modalCommentContent');
 
             const modalOverlay = document.getElementById('modalPortfolioOverlay');
             const modalCommentSection = document.getElementById('modalCommentSection');
@@ -637,24 +624,31 @@
                                     <div class="modal-comment-user-logo"
                                         style="background-image: url('/static/img/cat1.jpg');"></div>
                                 </a>
-
-                                <div class="modal-comment-main">
-                                    <div class="modal-comment-main-userid">
-                                        <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>cat\${comment.user_id}</strong>
+                                <div class="modal-comment-wrapper" style="display : flex; width: 75%;">
+                                    <div class="modal-comment-main">
+                                        <div class="modal-comment-main-userid">
+                                            <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>cat\${comment.user_id}</strong>
+                                            </div>
+                                            <div style="margin-left:5px;">\${comment.content}</div>
                                         </div>
-                                        <div style="margin-left:5px;">\${comment.content}</div>
+                                        <div class="modal-comment-main-content">
+                                            <div style="color: gray;">1주</div>
+                                            <div style="color: gray; margin-left : 10px">좋아요 1만개</div>
+                                            <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
+                                        </div>
                                     </div>
-                                    <div class="modal-comment-main-content">
-                                        <div style="color: gray;">1주</div>
-                                        <div style="color: gray; margin-left : 10px">좋아요 1만개</div>
-                                        <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
-                                    </div>
-                                    <div class="modal-comment-like-logo" style="display : flex; align-items : center">
-                                        <svg xmlns=" http://www.w3.org/2000/svg" width="12" height="12"
-                                            fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"
-                                            style="margin-right : 3px;">
+                                </div>
+                                <div class="modal-comment-like-logo" style="display : flex; align-items : center">
+                                    <div class="modal-comment-like-logo-wrapper">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                            class="bi bi-suit-heart comment-like-logo" viewBox="0 0 16 16">
                                             <path
                                                 d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                            class="bi bi-suit-heart-fill comment-like-logo hidden" viewBox="0 0 16 16">
+                                            <path
+                                                d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
                                         </svg>
                                     </div>
                                 </div>
@@ -677,7 +671,9 @@
                 renderComments(obj.commentList, modalCommentMain);
 
                 // 코멘트창 메인핸들러 (모달 여닫을 시 이벤트리스너 초기화를 위해 익명함수가 아닌 실명함수 사용)
-                function modalCommentMainHandler(event){
+                function modalCommentContentHandler(event){
+
+                    console.log(event.target);
                     // 클릭된 요소가 reply-view인지 확인합니다.
                     if (event.target.classList.contains('reply-view')) {
                         const replyBox = event.target.closest('.comment-box').querySelector('.reply-box');
@@ -687,10 +683,12 @@
                     }
 
                     if (event.target.classList.contains('reply-btn')){
-                        curr_reply_box = event.target.closest('.comment-box').querySelector('.reply-box');
+                        curr_comment_box = event.target.closest('.comment-box');
+                        curr_reply_box = curr_comment_box.querySelector('.reply-box');
                         if(!curr_reply_box){
                             curr_reply_box = event.target.closest('.reply-box');
                         }
+
                         console.log(curr_reply_box);
                         replymode = true;
                         const modalCommentInput = document.getElementById('modalCommentInput');
@@ -703,8 +701,22 @@
                         replymode = false;
                         comment_id = 0;
                     }
+
+                    if (event.target.closest('.modal-comment-like-logo-wrapper')){
+                        const heartOutline = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart');
+                        const heartFilled = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
+                        heartOutline.classList.toggle('hidden');
+                        heartFilled.classList.toggle('hidden');
+                    }
+
+                    if (event.target.closest('.modal-portfolio-like-logo-wrapper')){
+                        const heartOutline2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart');
+                        const heartFilled2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
+                        heartOutline2.classList.toggle('hidden');
+                        heartFilled2.classList.toggle('hidden');
+                    }
                 }
-                modalCommentMain.addEventListener('click', modalCommentMainHandler);
+                modalCommentContent.addEventListener('click', modalCommentContentHandler);
 
                 // 댓글 입력 로직 (1. 비동기로 DB에 저장  2.저장 성공시 HTML에 동적 DOM 생성하는 renderCommentToDOM 호출)
                 function addComment(comment, comment_id, portfolio_id){
@@ -743,24 +755,32 @@
                                             <div class="modal-comment-user-logo"
                                                 style="background-image: url(${loginUser.profile_image});"></div>
                                         </a>
-                                        <div class="modal-comment-main">
-                                            <div class="modal-comment-main-userid">
-                                                <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>${loginUser.nickname}</strong></div>
-                                                <div style="margin-left:5px;">\${comment}</div>
-                                            </div>
-                                            <div class="modal-comment-main-content">
-                                                <div style="color: gray;">방금</div>
-                                                <div style="color: gray; margin-left : 10px">좋아요 0개</div>
-                                                <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
+                                        <div class="modal-comment-wrapper" style="display : flex; width: 75%;">
+                                            <div class="modal-comment-main">
+                                                <div class="modal-comment-main-userid">
+                                                    <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>${loginUser.nickname}</strong></div>
+                                                    <div style="margin-left:5px;">\${comment}</div>
+                                                </div>
+                                                <div class="modal-comment-main-content">
+                                                    <div style="color: gray;">방금</div>
+                                                    <div style="color: gray; margin-left : 10px">좋아요 0개</div>
+                                                    <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-comment-like-logo" style="display : flex; align-items : center">
-                                            <svg xmlns=" http://www.w3.org/2000/svg" width="12" height="12"
-                                                fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"
-                                                style="margin-right : 3px;">
-                                                <path
-                                                    d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                                            </svg>
+                                            <div class="modal-comment-like-logo-wrapper">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                                    class="bi bi-suit-heart comment-like-logo" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                                    class="bi bi-suit-heart-fill comment-like-logo hidden" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                                </svg>
+                                            </div>
                                         </div>
                                     </div>
                                 `;
@@ -772,7 +792,16 @@
                         // 기존 댓글 목록에 새 댓글 박스 추가
                         document.getElementById('modalCommentMain').appendChild(commentBox);
                     }else{
-                        curr_reply_box.appendChild(commentBox);
+                        if(curr_reply_box){
+                              curr_reply_box.appendChild(commentBox);
+                        }else{
+                              curr_comment_box.insertAdjacentHTML('beforeend', '<div class="reply-view" style="color : gainsboro;"> ---- 답글 보기 ---- </div>');
+                              const replyBox2 = document.createElement('div');
+                              replyBox2.classList.add('reply-box');
+                              replyBox2.style.display = 'none';
+                              curr_comment_box.appendChild(replyBox2);
+                              replyBox2.appendChild(commentBox);
+                        }
                     }
                 }
                 // 댓글창 이벤트핸들러 (엔터키 입력시 addComment 메소드 실행이 목적)
@@ -798,7 +827,7 @@
                         document.body.style.overflow = ''; // 스크롤 복구
                         modalOverlay.removeEventListener('click', overlayClickHandler); // 이벤트 리스너 제거
                         modalCommentInput.removeEventListener('keypress', createCommentInputHandler);
-                        modalCommentMain.removeEventListener('click', modalCommentMainHandler);
+                        modalCommentContent.removeEventListener('click', modalCommentContentHandler);
                     }
                 }
                 modalOverlay.addEventListener('click', overlayClickHandler);

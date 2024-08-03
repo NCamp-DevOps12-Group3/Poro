@@ -50,6 +50,10 @@ public class MainController {
             Map<String, Object> map = new HashMap<>();
             map.put("portfolioDto", portfolioDto);
             map.put("commentDtoList", buildCommentTree(commentService.getCommentList(portfolioDto)));
+            System.out.println(portfolioDto.getCssurl());
+            System.out.println(portfolioDto.getHtmlurl());
+            System.out.println(portfolioDto.getJsurl());
+            System.out.println(portfolioDto.getThumbnail_url());
 
             portfolioList.add(map);
 
