@@ -3,6 +3,7 @@ package com.bit.devops12.poro.controller;
 import com.bit.devops12.poro.dto.*;
 import com.bit.devops12.poro.service.CommentService;
 import com.bit.devops12.poro.service.PortfolioService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,25 +37,21 @@ public class MainController {
 
         model.addAttribute("page", new MainPageDto(mainCri, total));
 
-        return "main";
+        return "main-tmp";
     }
 
     @PostMapping("/main-ajax.do")
     @ResponseBody
-    public Map<String, Object> userMainAjax(MainCriteria mainCri) {
+    public Map<String, Object> userMainAjax(MainCriteria mainCri, HttpSession session) {
+
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
         List<Map<String, Object>> portfolioList = new ArrayList<>();
 
-        portfolioService.getPortfolioList(mainCri).forEach(portfolioDto -> {
+        portfolioService.getPortfolioList(mainCri, loginUser).forEach(portfolioDto -> {
 
             Map<String, Object> map = new HashMap<>();
             map.put("portfolioDto", portfolioDto);
-            map.put("commentDtoList", buildCommentTree(commentService.getCommentList(portfolioDto)));
-            System.out.println(portfolioDto.getCssurl());
-            System.out.println(portfolioDto.getHtmlurl());
-            System.out.println(portfolioDto.getJsurl());
-            System.out.println(portfolioDto.getThumbnail_url());
-
             portfolioList.add(map);
 
         });
@@ -113,15 +110,19 @@ public class MainController {
 
     @PostMapping("/modal-ajax.do")
     @ResponseBody
-    public Map<String, Object> userModalAjax(@RequestParam("portfolio_id") int portfolio_id) {
+    public Map<String, Object> userModalAjax(@RequestParam("portfolio_id") int portfolio_id, HttpSession session) {
 
-        PortfolioDto portfolioDto = portfolioService.getPortfolioById(portfolio_id);
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
-        List<CommentDto> commentDtoList = commentService.getCommentList(portfolioDto);
+        PortfolioDto portfolioDto = portfolioService.getPortfolioById(portfolio_id, loginUser);
+
+        List<CommentDto> commentDtoList = commentService.getCommentList(portfolioDto, loginUser);
+
+        System.out.println(commentDtoList);
 
         Map<String, Object> response = new HashMap<>();
 
-        response.put("commentList", buildCommentTree(commentService.getCommentList(portfolioDto)));
+        response.put("commentList", buildCommentTree(commentDtoList));
         response.put("portfolio", portfolioDto);
 
         return response;

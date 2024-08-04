@@ -1,6 +1,7 @@
 package com.bit.devops12.poro.dao;
 
 import com.bit.devops12.poro.dto.PortfolioDto;
+import com.bit.devops12.poro.dto.UserDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,7 +34,7 @@ public class PortfolioDao {
         return mybatis.selectOne("PortfolioDao.getPortfolioTotalCnt");
     }
 
-    public PortfolioDto getPortfolioById(int portfolio_id){
+    public PortfolioDto getPortfolioById(int portfolio_id, UserDto loginUser){
         return mybatis.selectOne("PortfolioDao.getPortfolioById", portfolio_id);
     }
 

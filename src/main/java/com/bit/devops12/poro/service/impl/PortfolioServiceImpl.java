@@ -4,6 +4,7 @@ import com.bit.devops12.poro.dao.PortfolioDao;
 import com.bit.devops12.poro.dto.Criteria;
 import com.bit.devops12.poro.dto.MainCriteria;
 import com.bit.devops12.poro.dto.PortfolioDto;
+import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,12 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public List<PortfolioDto> getPortfolioList(MainCriteria mainCri) {
+    public List<PortfolioDto> getPortfolioList(MainCriteria mainCri, UserDto loginUser) {
         mainCri.setStartNum((mainCri.getPageNum() - 1) * mainCri.getAmount());
 
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("mainCri", mainCri);
+        paramMap.put("loginUser", loginUser);
 
         return portfolioDao.getPortfolioList(paramMap);
     }
@@ -40,9 +42,9 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public PortfolioDto getPortfolioById(int portfolio_id) {
+    public PortfolioDto getPortfolioById(int portfolio_id, UserDto loginUser) {
 
-        PortfolioDto portfolioDto = portfolioDao.getPortfolioById(portfolio_id);
+        PortfolioDto portfolioDto = portfolioDao.getPortfolioById(portfolio_id, loginUser);
 
         if (!existFiles(portfolioDto.getThumbnail_url())){
             portfolioDto.setThumbnail_url("/static/img/default.png");

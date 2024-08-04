@@ -24,6 +24,7 @@ public class PortfolioDto {
     private int bookmark_id;
     private int likeCount;
     private int commentCount;
+    private boolean isLiked;
 
     @Override
     public String toString() {
@@ -46,6 +47,7 @@ public class PortfolioDto {
                 ", bookmark_id=" + bookmark_id +
                 ", likeCount=" + likeCount +
                 ", commentCount=" + commentCount +
+                ", isLiked=" + isLiked +
                 '}';
     }
 
@@ -204,5 +206,13 @@ public class PortfolioDto {
 
     public void setSkillname(String skillname) {
         this.skillname = skillname;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 }
