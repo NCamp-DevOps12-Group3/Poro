@@ -181,10 +181,11 @@ function initializeModal(modalId, closeButtonId, stepsClass, fileInputId, previe
     showStep(currentStep);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', (e) => {
     const userType = document.getElementById('user-type').value;
     console.log(userType);
-    const openModalButton = document.getElementById('openModal');
+    e.preventDefault();
+    const openModalButton = document.getElementById('uploadWindowBtn');
 
     openModalButton.addEventListener('click', (event) => {
         event.preventDefault();
