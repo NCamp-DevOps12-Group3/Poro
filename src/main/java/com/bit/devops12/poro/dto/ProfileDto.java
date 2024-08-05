@@ -11,7 +11,6 @@ public class ProfileDto {
     private String status;
     private String job;
     private String siteurl;
-<<<<<<< HEAD
     private int portfolioCnt;
     private String nickname;
     private String role;
@@ -47,8 +46,6 @@ public class ProfileDto {
     public void setPortfolioCnt(int portfolioCnt) {
         this.portfolioCnt = portfolioCnt;
     }
-=======
->>>>>>> e304a2ca27dc06f585b5e38a77df7d643b927e20
 
     public String getProfile_image() {
         return profile_image;
