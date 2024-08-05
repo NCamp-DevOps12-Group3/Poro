@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -55,7 +56,23 @@ public class UserDao {
 	public UserDto login(UserDto userDto) {
 		return mybatis.selectOne("UserDao.login", userDto);
 	}
-
+	
+	public void modify(UserDto userDto){
+		System.out.println("UserDao의 modify 메소드 실행");
+		
+		
+		
+		
+		mybatis.update("UserDao.modify", userDto);
+		
+		
+		
+		
+		
+		System.out.println("UserDao의 modify 메소드 실행 종료");
+	}
+	
+	
 	public List<UserDto> findMembersUsingKeyword(String searchKeyword){
 		System.out.println("UserDao::findMembersUsingKeyword");
 		return mybatis.selectList("UserDao.findMembersUsingKeyword", searchKeyword);

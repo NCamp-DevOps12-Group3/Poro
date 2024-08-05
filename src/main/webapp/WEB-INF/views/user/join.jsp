@@ -211,7 +211,7 @@
 
         const PasswordChkappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
-            wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
+            wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert" role="alert">`,
                 /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
                 /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
             const alerts = PasswordChkAlertholder.querySelectorAll('.alert');

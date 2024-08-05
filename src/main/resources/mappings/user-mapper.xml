@@ -81,6 +81,22 @@
 	</select>
 	
 	
+	<update id="modify" parameterType="user">
+	UPDATE USER
+		SET NICKNAME = #{nickname},
+		    NAME = #{name},
+		    GENDER = #{gender},
+		    PHONENUMBER = #{phonenumber},
+		    JOB = #{job},
+		    INTRODUCTION = #{introduction},
+		    SITE_URL = #{site_url},
+		    MODDATE = #{moddate},
+		    PROFILE_IMAGE = #{profile_image}
+	WHERE USER_ID = #{user_id}
+	</update>
+	
+	
+	
 	
 	
 	

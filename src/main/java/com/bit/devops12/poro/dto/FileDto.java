@@ -9,7 +9,7 @@ public class FileDto {
     private String filetype;
     private String filestatus;
     private String newfilename;
-    
+    private String user_email;
     
     public int getId() {
         return id;
@@ -75,6 +75,14 @@ public class FileDto {
         this.newfilename = newfilename;
     }
     
+    public String getUser_email() {
+        return user_email;
+    }
+    
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
+    }
+    
     @Override
     public String toString() {
         return "FileDto{" +
@@ -86,6 +94,7 @@ public class FileDto {
                        ", filetype='" + filetype + '\'' +
                        ", filestatus='" + filestatus + '\'' +
                        ", newfilename='" + newfilename + '\'' +
+                       ", user_email='" + user_email + '\'' +
                        '}';
     }
 }

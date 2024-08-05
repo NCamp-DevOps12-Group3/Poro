@@ -1,13 +1,19 @@
 package com.bit.devops12.poro.service.impl;
 
+import com.bit.devops12.poro.common.FileUtils;
 import com.bit.devops12.poro.dao.UserDao;
+import com.bit.devops12.poro.dto.FileDto;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -34,15 +40,7 @@ public class UserServiceImpl implements UserService {
 	
 	
 	
-	@Override
-	public List<UserDto> getMembers() {
-		return List.of();
-	}
 	
-	@Override
-	public UserDto getMemberByUsername(UserDto userDto) {
-		return null;
-	}
 	
 	@Override
 	public String emailCheck(String email) {
@@ -130,4 +128,41 @@ public class UserServiceImpl implements UserService {
 		
 		return loginUser;
 	}
+	
+	
+	
+	@Override
+	public void modify(UserDto userDto, MultipartFile uploadFiles) {
+		if (uploadFiles != null && !uploadFiles.isEmpty()) {
+			String attachPath = "C:/devops12/poro/upload/" + userDto.getEmail();
+			System.out.println(attachPath);
+			File directory = new File(attachPath);
+			
+			if (!directory.exists()) {
+				directory.mkdirs();
+			}
+			
+			try {
+				String profileImage = FileUtils.parserFileInfo(uploadFiles, attachPath);
+				System.out.println(profileImage);
+				userDto.setProfile_image(profileImage);
+			} catch (Exception e) {
+				System.err.println("파일 처리 중 오류 발생: " + e.getMessage());
+				// 필요시 추가적인 오류 처리 로직
+			}
+		}
+		
+		userDto.setModdate(LocalDateTime.now());
+		
+		
+		try {
+			userDao.modify(userDto); // userDao.modify가 userDto의 파일 리스트를 처리하는지 확인
+		} catch (Exception e) {
+			System.err.println("사용자 정보 수정 중 오류 발생: " + e.getMessage());
+			// 필요시 추가적인 오류 처리 로직
+		}
+	}
+	
+	
+	
 }

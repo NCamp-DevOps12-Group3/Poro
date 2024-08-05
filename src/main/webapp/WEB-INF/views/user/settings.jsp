@@ -160,8 +160,8 @@
         }
         img{
             border-radius: 50%;
-            width: 30%;
-            height: 30% ;
+            width: 40%;
+            height: 40% ;
         }
         #website{
             border-radius: 7px;
@@ -173,7 +173,9 @@
             border-radius: 7px;
             resize: none;
         }
-        
+        .alert{
+            color: red;
+        }
         @media screen and (max-width: 1400px) {
             
             .sidebar {
@@ -360,7 +362,7 @@
                
                 
                 
-                <form action="#" method="post" id="modify-form" enctype="multipart/form-data">
+                <form action="/user/modify.do" method="post" id="modify-form" enctype="multipart/form-data">
                     <div class="container position-relative" style="border-radius: 15px;">
                         <div class="modal fade" id="modalPic">
                             <div class="modal-dialog">
@@ -370,8 +372,8 @@
                                     </div>
                                     <div class="modal-body h-75">
                                         <div class="mb-3">
-                                            <label for="formFile" class="form-label">변경할 프로필 사진</label>
-                                            <input class="form-control" type="file" id="formFile" name="profileImage">
+                                            <label for="uploadFiles" class="form-label">변경할 프로필 사진</label>
+                                            <input class="form-control" type="file" name="uploadFiles" id="uploadFiles">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -386,18 +388,20 @@
                         
                         <h4   style="margin-top: 2%; ">프로필</h4>
                         
-                        <header class="w-auto h-auto box d-flex align-items-center justify-content-around"
-                                style="background-color: #ddd; padding-bottom: 20px; margin: 0; border-top-left-radius:
+                        <header class="w-auto h-auto  d-flex align-items-center justify-content-center"
+                                style="background-color: #ddd; padding-bottom: 40px; ;
+                                border-top-left-radius:
                                  15px; border-top-right-radius: 15px;">
                             
                             <div id="list-profile" class="d-inline-block" style="border-radius: 16px; margin-left:
                             10px;background-color: #ddd; ">
                                 <div id="imagePreview" style="background-color: #ddd; max-width: 200px">
-                                    <img id="profile-Pic" class="profile-img" alt="${loginUser.profile_image}"
+                                    <img id="changeFilesPreview" class="profile-img" alt="${loginUser.profile_image}"
                                          src="${loginUser.profile_image}" style="background-color: #ddd; min-width: 100px">
+                                    <div id="imgAlertholder" style="padding: 0; margin: 0; color: red; }"></div>
                                 </div>
                             </div>
-                            <div class="d-inline-block" style="background-color: #ddd; margin-right: 20px">
+                            <div class="d-inline-block" style="background-color: #ddd; margin-right: 20px;margin-left: 20px">
                                 
                                 <h5 style="background-color: #ddd; color: black; margin-top:
                                         30px">${loginUser.nickname}</h5>
@@ -429,10 +433,13 @@
                                                 사진 변경
                                             </button>
                                         </div>
+                                        
                                         <div style="padding: 10px;">
                                             <label for="Nickname" class="form-label">닉네임</label>
                                             <input type="text" name="Nickname" id="Nickname" value="${loginUser.nickname}" class="w-100 form-control">
                                             <div class="form-text">변경할 닉네임을 입력해주세요</div>
+                                            <input type="hidden" name="user_id" value="${loginUser.user_id}">
+                                            <input type="hidden" name="email" value="${loginUser.email}">
                                         </div>
                                         <div style="padding: 10px;">
                                             <label for="name" class="form-label">이름</label>
@@ -458,6 +465,11 @@
                                             <label for="introduction" class="form-label">소개</label>
                                             <textarea type="text" name="introduction" id="introduction" class="w-100 form-control">${loginUser.introduction}</textarea>
                                             <div class="form-text">유저 상세페이지 상단에 출력되는 글입니다</div>
+                                        </div>
+                                        <div style="padding: 10px;">
+                                            <label for="gender" class="form-label">외부사이트</label>
+                                            <input type="text" name="site_url" id="site_url" value="${loginUser.site_url}" class="w-100 form-control">
+                                            <div class="form-text">변경할 외부사이트주소를 입력해 주세요</div>
                                         </div>
                                         <div style="padding: 10px;">
                                         <button type="submit" class="btn w-25" style="margin: 10px; background-color: #ddd; color: black;">제출
@@ -564,7 +576,8 @@
                                     </div>
                                     <div class="modal-footer" style=" margin: 0; text-align: center; justify-content: center;">
                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color:#0D6EFD;">취소</button>
-                                        <a href="passwordchangesChk.html" style="color: white;"><button type="button" style="background-color:#DB3545;" class="btn btn-danger"  id="passwordchange">
+                                        <a href="passwordchangesChk.do" style="color: white;"><button type="button"
+                                                                                                    style="background-color:#DB3545;" class="btn btn-danger"  id="passwordchange">
                                             비밀번호 변경
                                         
                                         </button></a>
@@ -1014,29 +1027,76 @@
 
 <script>
     $(() => {
-        document.getElementById('formFile').addEventListener('change', function(event) {
+        
+        
+        
+        
+        const imgAlertholder = document.getElementById('imgAlertholder');
+        const uploadFiles = document.getElementById('uploadFiles');
+        const previewContainer = document.getElementById('imagePreview');
+        
+        // 경고 메시지 추가 함수
+        const appendimgAlert = (message, type) => {
+            const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
+            wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert" role="alert">`,
+                /*div 열고 wrapper 스타일 부트스트랩*/` <div>\${message}</div>`, /*wrapper에들어갈메세지*/'</div>'
+                /*div닫기*/].join(''); /*위내용을 문자열로 바꾸기 */
+            const alerts = imgAlertholder.querySelectorAll('.alert');
+            if (alerts.length >= 1) {imgAlertholder.removeChild(alerts[0]);}
+            imgAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
+            setTimeout(() => { wrapper.remove();}, 10000);
+        };
+        
+        // 파일 선택 변경 이벤트 처리
+        uploadFiles.addEventListener('change', function(event) {
             const input = event.target;
-            const previewContainer = document.getElementById('imagePreview');
-            previewContainer.innerHTML = ''; // 기존 미리보기 내용 지우기
+            const file = input.files[0];
             
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
+            // 파일이 선택되지 않았을 경우 아무 작업도 하지 않음
+            if (!file) {
+                return;
+            }
+            
+            const fileName = file.name.toLowerCase();
+            const validExtensions = /\.(jpg|jpeg|png|gif|svg|bmp)$/;
+            
+            if (validExtensions.test(fileName)) {
                 const reader = new FileReader();
                 
                 reader.onload = function(e) {
                     const imgElement = document.createElement('img');
                     imgElement.src = e.target.result;
-                    imgElement.classList.add('img-fluid', 'mt-2'); // Bootstrap 클래스를 추가하여 스타일 적용
+                    imgElement.classList.add('img-fluid', 'mt-2');
+                    
+                    // 기존 이미지를 제거하고 새 이미지를 추가
+                    previewContainer.innerHTML = '';
                     previewContainer.appendChild(imgElement);
                 };
                 
                 reader.readAsDataURL(file);
+            } else {
+                appendimgAlert("이미지 파일만 선택해주세요", "danger");
+                // 입력 필드 초기화 (파일이 이미지가 아니면 아무 작업도 하지 않음)
+                event.target.value = '';
             }
         });
         
-        $('#imagePreview').on('click',  ()=> {
+        // 페이지 로드 시 기존 이미지가 있는 경우 유지하기 위해 초기화
+        window.addEventListener('load', () => {
+            // 추가적인 로직이 필요하다면 여기에 작성
+        });
+
+
+
+
+$('#imagePreview').on('click',  ()=> {
             $('#Pic').click();
         });
+        
+        
+     
+        
+        
         
         
         // Load dark mode state

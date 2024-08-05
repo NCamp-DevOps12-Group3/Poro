@@ -52,7 +52,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/join.do")
-	public String join(UserDto userDto , MultipartFile uploadFiles) {
+	public String join(UserDto userDto ) {
 		userService.join(userDto);
 		
 		return "user/login";
@@ -87,5 +87,41 @@ public class UserController {
 	@GetMapping("/settings.do")
 	public String settingView() {
 		return "/user/settings";
+	}
+	
+	
+	
+	
+	@PostMapping("/modify.do")
+	public String modify(UserDto userDto, @RequestParam("uploadFiles") MultipartFile uploadFiles, HttpSession session) {
+		userService.modify(userDto,uploadFiles);
+		session.setAttribute("loginUser", userDto);
+		
+		return "redirect:/user/settings.dodo";
+	}
+	
+	@GetMapping("/settings.dodo")
+	public String settings(HttpSession session, Model model) {
+		// 세션에서 수정된 사용자 정보 가져오기
+		UserDto modifiedUser = (UserDto) session.getAttribute("loginUser");
+		
+		if (modifiedUser != null) {
+			// 수정된 사용자 정보를 모델에 추가하여 뷰에서 사용할 수 있게 함
+			model.addAttribute("loginUser", modifiedUser);
+			// 세션에서 수정된 정보 제거 (옵션)
+			session.removeAttribute("loginUser");
+		}
+		
+		return "/user/settings";
+	}
+	
+
+	
+	
+	
+	
+	@GetMapping("/passwordchangesChk.do")
+	public String passwordchangesChkView() {
+		return "/user/passwordchangesChk";
 	}
 }
