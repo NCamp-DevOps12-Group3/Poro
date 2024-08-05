@@ -848,8 +848,5 @@
 
 </script>
 
-
->>>>>>> origin/chunghyun
-
 </body>
 </html>

@@ -20,4 +20,9 @@ public interface PortfolioService {
     void savePortfolio(Portfolio portfolio);
     void saveSkillTag(SkillTag skillTag);
     PortfolioDto getPortfolioById(int portfolio_id, UserDto loginUser);
+
+    void likePortfolio(int portfolio_id, UserDto loginUser);
+    void unLikePortfolio(int portfolio_id, UserDto loginUser);
+
+    void deletePortfolio(int portfolio_id);
 }

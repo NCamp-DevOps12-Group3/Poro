@@ -42,6 +42,8 @@ public class PortfolioServiceImpl implements PortfolioService {
         paramMap.put("mainCri", mainCri);
         paramMap.put("loginUser", loginUser);
 
+        System.out.println(paramMap);
+
         return portfolioDao.getPortfolioList(paramMap);
     }
 
@@ -70,6 +72,22 @@ public class PortfolioServiceImpl implements PortfolioService {
 
         return portfolioDto;
     }
+
+    @Override
+    public void likePortfolio(int portfolio_id, UserDto loginUser) {
+        portfolioDao.likePortfolio(portfolio_id, loginUser);
+    }
+
+    @Override
+    public void unLikePortfolio(int portfolio_id, UserDto loginUser) {
+        portfolioDao.unLikePortfolio(portfolio_id, loginUser);
+    }
+
+    @Override
+    public void deletePortfolio(int portfolio_id) {
+        portfolioDao.deletePortfolio(portfolio_id);
+    }
+
     @Override
     public void savePortfolio(Portfolio portfolio) {
         portfolioMapper.insertPortfolio(portfolio);

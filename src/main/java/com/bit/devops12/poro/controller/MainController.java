@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.controller;
 
+import com.bit.devops12.poro.dao.CommentDao;
 import com.bit.devops12.poro.dto.*;
 import com.bit.devops12.poro.service.CommentService;
 import com.bit.devops12.poro.service.PortfolioService;
@@ -118,7 +119,7 @@ public class MainController {
 
         List<CommentDto> commentDtoList = commentService.getCommentList(portfolioDto, loginUser);
 
-        System.out.println(commentDtoList);
+        System.out.println(portfolioDto);
 
         Map<String, Object> response = new HashMap<>();
 
@@ -127,4 +128,72 @@ public class MainController {
 
         return response;
     }
+
+    @PostMapping("/comment-like-ajax.do")
+    @ResponseBody
+    public Map<String, Object> userCommentLikeAjax(@RequestParam ("comment_id") int comment_id, @RequestParam ("isLiked") boolean isLiked, HttpSession session) {
+
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
+
+        if(!isLiked) {
+            commentService.likeComment(comment_id, loginUser);
+        }else{
+            commentService.unLikeComment(comment_id, loginUser);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+
+        return response;
+    }
+
+    @PostMapping("/portfolio-like-ajax.do")
+    @ResponseBody
+    public Map<String, Object> userPortfolioLikeAjax(@RequestParam ("portfolio_id") int portfolio_id, @RequestParam ("isLiked") boolean isLiked, HttpSession session) {
+
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
+
+
+        if(!isLiked) {
+            portfolioService.likePortfolio(portfolio_id, loginUser);
+        }else{
+            portfolioService.unLikePortfolio(portfolio_id, loginUser);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+
+        return response;
+    }
+
+    @PostMapping("/delete-comment-ajax.do")
+    @ResponseBody
+    public Map<String, Object> userDeleteCommentAjax(@RequestParam ("comment_id") int comment_id, HttpSession session) {
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
+
+        CommentDto commentDto = commentService.getCommentById(comment_id);
+
+        if(commentDto.getUser_id() == loginUser.getUser_id()){
+            commentService.deleteComment(comment_id);
+        }else{
+
+        }
+
+        Map<String, Object> response = new HashMap<>();
+
+        return response;
+    }
+
+    @PostMapping("/delete-portfolio.do")
+    public String userDeletePortfolio(@RequestParam ("portfolio_id") int portfolio_id, HttpSession session) {
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
+
+        PortfolioDto portfolioDto = portfolioService.getPortfolioById(portfolio_id, loginUser);
+
+        if(portfolioDto.getUser_id() == loginUser.getUser_id()){
+            portfolioService.deletePortfolio(portfolio_id);
+        }else{
+
+        }
+        return "main-tmp";
+    }
+
 }
