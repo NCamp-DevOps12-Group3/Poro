@@ -9,11 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 @Controller
 public class PortfolioController {
@@ -36,6 +37,22 @@ public class PortfolioController {
         // zip 파일 저장
         File zipDest = new File(uploadDir + zipFile.getOriginalFilename());
         zipFile.transferTo(zipDest);
+
+        // zip 파일 압축 풀기
+        BufferedInputStream in = new BufferedInputStream(zipFile.getInputStream());
+        ZipInputStream zipInputStream = new ZipInputStream(in);
+        ZipEntry zipEntry = null;
+
+        while((zipEntry = zipInputStream.getNextEntry()) != null){
+            int length = 0;
+            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(uploadDir+zipEntry.getName()));
+            while((length = zipInputStream.read()) != -1){
+                out.write(length);
+            }
+
+            zipInputStream.closeEntry();
+        }
+
 
         // 썸네일 파일 저장
         File thumbnailDest = new File(uploadDir + thumbnailFile.getOriginalFilename());

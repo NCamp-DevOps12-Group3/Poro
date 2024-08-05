@@ -184,8 +184,9 @@ function initializeModal(modalId, closeButtonId, stepsClass, fileInputId, previe
 document.addEventListener('DOMContentLoaded', (e) => {
     const userType = document.getElementById('user-type').value;
     console.log(userType);
-    e.preventDefault();
     const openModalButton = document.getElementById('uploadWindowBtn');
+
+    console.log(openModalButton);
 
     openModalButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -196,3 +197,4 @@ document.addEventListener('DOMContentLoaded', (e) => {
         }
     });
 });
+
