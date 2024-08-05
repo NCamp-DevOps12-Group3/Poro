@@ -53,9 +53,9 @@
             </div>
 
             <div class="d-grid mb-3">
-               
+
                     <button type="button" class="btn btn-dark" id="signUp"> 이메일로 회원가입</button>
-                
+
             </div>
 
         </form>
@@ -147,19 +147,19 @@
 
 
 
-           
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
         });
         $("#signUp").on("click", () => {
             window.location.href="/user/join.do";
         });
- 
+
         // $('#signIn').on('click',(e)=>{
         //    window.location.href='base.html';
         // });
