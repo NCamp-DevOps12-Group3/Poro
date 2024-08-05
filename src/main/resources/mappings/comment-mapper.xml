@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--쿼리문이 Dao 클래스에서 분리되어 온 것이기 때문에 namespace는 관례적으로 Dao 클래스명과 일치시킨다.-->
 <mapper namespace="CommentDao">
-    <select id="getCommentList" resultType="comment" parameterType="portfolio">
+    <select id="getCommentList" resultType="comment" parameterType="map">
         SELECT C.COMMENT_ID,
                C.PORTFOLIO_ID,
                C.USER_ID,
@@ -12,14 +12,23 @@
                C.REGDATE,
                C.MODDATE,
                C.COMMENT_PARENT_ID,
-               COALESCE(CL.LIKECOUNT, 0) AS LIKECOUNT
+               COALESCE(CL.LIKECOUNT, 0) AS LIKECOUNT,
+               CASE
+                    WHEN CLU.USER_ID IS NOT NULL THEN 1
+                    ELSE 0
+               END AS IS_LIKED
         FROM COMMENT C
-                 LEFT JOIN (
+        LEFT JOIN (
             SELECT COMMENT_ID, COUNT(*) AS LIKECOUNT
             FROM COMMENT_LIKE
             GROUP BY COMMENT_ID
         ) CL ON C.COMMENT_ID = CL.COMMENT_ID
-        WHERE C.PORTFOLIO_ID = #{portfolio_id}
+        LEFT JOIN (
+            SELECT COMMENT_ID, USER_ID
+            FROM COMMENT_LIKE
+            WHERE USER_ID = #{loginUser.user_id}
+        ) CLU ON C.COMMENT_ID = CLU.COMMENT_ID
+        WHERE C.PORTFOLIO_ID = #{portfolio.portfolio_id}
     </select>
 
     <insert id="postComment" parameterType="comment">

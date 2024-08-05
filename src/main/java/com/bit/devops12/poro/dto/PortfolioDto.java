@@ -22,8 +22,10 @@ public class PortfolioDto {
     private List<String> jsCode;
     private String mergeCode;
     private int bookmark_id;
+    private int likeCount;
+    private int commentCount;
+    private boolean isLiked;
 
-<<<<<<< HEAD
     @Override
     public String toString() {
         return "PortfolioDto{" +
@@ -34,47 +36,25 @@ public class PortfolioDto {
                 ", htmlurl='" + htmlurl + '\'' +
                 ", thumbnail_url='" + thumbnail_url + '\'' +
                 ", regdate=" + regdate +
+                ", modDate=" + modDate +
                 ", skillname='" + skillname + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", description='" + description + '\'' +
                 ", htmlCode=" + htmlCode +
                 ", cssCode=" + cssCode +
                 ", jsCode=" + jsCode +
                 ", mergeCode='" + mergeCode + '\'' +
                 ", bookmark_id=" + bookmark_id +
+                ", likeCount=" + likeCount +
+                ", commentCount=" + commentCount +
+                ", isLiked=" + isLiked +
                 '}';
-=======
-    public String getMergeCode() {
-        return mergeCode;
-    }
-
-    public void setMergeCode(String mergeCode) {
-        this.mergeCode = mergeCode;
-    }
-
-    public List<String> getHtmlCode() {
-        return htmlCode;
-    }
-
-    public void setHtmlCode(List<String> htmlCode) {
-        this.htmlCode = htmlCode;
-    }
-
-    public List<String> getCssCode() {
-        return cssCode;
-    }
+        }
 
 
-    public void setCssCode(List<String> cssCode) {
-        this.cssCode = cssCode;
-    }
 
-    public List<String> getJsCode() {
-        return jsCode;
-    }
 
-    public void setJsCode(List<String> jsCode) {
-        this.jsCode = jsCode;
-    }
+
 
     public List<String> getCssList(){
         return cssurl != null ? Arrays.stream(cssurl.split(",")).toList() : null;
@@ -86,7 +66,6 @@ public class PortfolioDto {
 
     public List<String> getHtmlList(){
         return htmlurl != null ? Arrays.stream(htmlurl.split(",")).toList() : null;
->>>>>>> e304a2ca27dc06f585b5e38a77df7d643b927e20
     }
 
     public int getPortfolio_id() {
@@ -153,15 +132,6 @@ public class PortfolioDto {
         this.skillname = skillname;
     }
 
-<<<<<<< HEAD
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public List<String> getHtmlCode() {
         return htmlCode;
     }
@@ -193,17 +163,12 @@ public class PortfolioDto {
     public void setMergeCode(String mergeCode) {
         this.mergeCode = mergeCode;
     }
-
-=======
->>>>>>> e304a2ca27dc06f585b5e38a77df7d643b927e20
     public int getBookmark_id() {
         return bookmark_id;
     }
 
     public void setBookmark_id(int bookmark_id) {
         this.bookmark_id = bookmark_id;
-<<<<<<< HEAD
-=======
     }
 
     public LocalDateTime getModDate() {
@@ -228,6 +193,14 @@ public class PortfolioDto {
 
     public void setDescription(String description) {
         this.description = description;
->>>>>>> e304a2ca27dc06f585b5e38a77df7d643b927e20
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 }
+

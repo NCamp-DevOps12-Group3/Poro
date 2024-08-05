@@ -14,6 +14,7 @@ public class CommentDto {
     private int comment_parent_id;
     private List<CommentDto> replies = new ArrayList<>();
     private int likeCount;
+    private boolean isLiked;
 
     @Override
     public String toString() {
@@ -27,6 +28,7 @@ public class CommentDto {
                 ", comment_parent_id=" + comment_parent_id +
                 ", replies=" + replies +
                 ", likeCount=" + likeCount +
+                ", isLiked=" + isLiked +
                 '}';
     }
 
@@ -100,6 +102,14 @@ public class CommentDto {
 
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 
 }

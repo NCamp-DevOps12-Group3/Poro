@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
     //
     // console.log(portfolioList111);
 
-    // 댓글 헤더의 옵션버튼 클릭하면 옵션창이 뜸
-    document.getElementById('modalCommentHeaderOptionBtn').addEventListener('click', function (e) {
-        document.getElementById('modalOptionsOverlay').classList.add('modal-options-active');
-    });
+//    // 댓글 헤더의 옵션버튼 클릭하면 옵션창이 뜸
+//    document.getElementById('modalCommentHeaderOptionBtn').addEventListener('click', function (e) {
+//        document.getElementById('modalOptionsOverlay').classList.add('modal-options-active');
+//    });
 
     let currentPortfolioIndex = null;
 
@@ -225,89 +225,89 @@ document.addEventListener('DOMContentLoaded', function () {
     //     modalOverlay.addEventListener('click', handleOverlayClick); // 리스너 추가
     // }
 
-    // openBtn과 코멘트창이 스크롤시 따라옴
-    document.getElementById('modalPortfolioOverlay').addEventListener('scroll', function (e) {
-        const scrollTop = this.scrollTop;
-        document.getElementById('modalCommentSection').style.top = scrollTop + 'px';
-    });
-
-    // 댓글 헤더의 옵션버튼 클릭하면 옵션창이 뜸
-    document.getElementById('modalCommentHeaderOptionBtn').addEventListener('click', function (e) {
-        document.getElementById('modalOptionsOverlay').classList.add('modal-options-active');
-    });
-
-    // 옵션창 외부 클릭시 옵션창 닫힘
-    document.getElementById('modalOptionsOverlay').addEventListener('click', function (e) {
-        if (e.target === document.getElementById('modalOptions'))
-            document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
-    });
-
-    // 취소 클릭시도 옵션창 닫힘
-    document.getElementById('modalOptionsItemCancle').addEventListener('click', function (e) {
-        document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
-    });
-
-    // 삭제 클릭시 삭제 모달 열림
-    document.getElementById('modalOptionsItemDelete').addEventListener('click', function (event) {
-        document.getElementById('modalDelete').classList.add('modal-delete-active');
-    });
-
-    // 예 클릭시 실제로 삭제되고 모달 전부 꺼짐
-    document.getElementById('modalDeleteBtnYes').addEventListener('click', function (event) {
-        if (currentPortfolioIndex !== null) {
-            const portfolioData = JSON.parse(localStorage.getItem('portfolioData') || '[]');
-            if (portfolioData.length > currentPortfolioIndex) {
-                portfolioData.splice(currentPortfolioIndex, 1);
-                localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
-                alert('포트폴리오가 삭제되었습니다.');
-
-                // 모달 전부 꺼짐
-                document.getElementById('modalPortfolioOverlay').classList.remove('modal-portfolio-overlay-show');
-                document.getElementById('modalCommentSection').classList.remove('modal-comment-section-active');
-                document.getElementById('modalPortfolioIframe').classList.remove('modal-portfolio-iframe-faded');
-                document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
-                document.getElementById('modalDelete').classList.remove('modal-delete-active');
-
-                // 포트폴리오 목록 업데이트
-                loadPortfolios();
-
-                currentPortfolioIndex = null;
-            }
-        }
-    });
-
-    // 아니오 클릭시 옵션창까지 꺼짐
-    document.getElementById('modalDeleteBtnNo').addEventListener('click', function (event) {
-        document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
-        document.getElementById('modalDelete').classList.remove('modal-delete-active');
-    });
-
-    // 신고 클릭시 신고하는 이유 물어봄
-    document.getElementById('modalOptionsItemReport').addEventListener('click', function (event) {
-        console.log('asdsad');
-        window.alert("신고하시는 이유가 무엇인가요?");
-    });
-
-    // 수정 클릭시 수정하는 모달 열기
-    document.getElementById('modalOptionsItemModify').addEventListener('click', function (event) {
-        console.log(currentPortfolioIndex);
-        document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
-        const portfolioData = JSON.parse(localStorage.getItem('portfolioData') || '[]');
-        const portfolio = portfolioData[currentPortfolioIndex];
-        if (portfolio) {
-            // 수정 폼에 기존 포트폴리오 데이터 채우기
-            console.log(currentPortfolioIndex);
-            document.getElementById('modifyPortfolioDescription').value = portfolio.portfolioDescription;
-            document.getElementById('modifyPortfolioTags').value = portfolio.portfolioTags;
-            const thumbnailPreview = document.getElementById('modifyThumbnailPreview');
-            thumbnailPreview.src = portfolio.thumbnailImage;
-            thumbnailPreview.style.display = 'block';
-
-            // 수정 모달 열기
-            const modifyModal = new bootstrap.Modal(document.getElementById('modifyModal'));
-            modifyModal.show();
-        }
-    });
+//    // openBtn과 코멘트창이 스크롤시 따라옴
+//    document.getElementById('modalPortfolioOverlay').addEventListener('scroll', function (e) {
+//        const scrollTop = this.scrollTop;
+//        document.getElementById('modalCommentSection').style.top = scrollTop + 'px';
+//    });
+//
+//    // 댓글 헤더의 옵션버튼 클릭하면 옵션창이 뜸
+//    document.getElementById('modalCommentHeaderOptionBtn').addEventListener('click', function (e) {
+//        document.getElementById('modalOptionsOverlay').classList.add('modal-options-active');
+//    });
+//
+//    // 옵션창 외부 클릭시 옵션창 닫힘
+//    document.getElementById('modalOptionsOverlay').addEventListener('click', function (e) {
+//        if (e.target === document.getElementById('modalOptions'))
+//            document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
+//    });
+//
+//    // 취소 클릭시도 옵션창 닫힘
+//    document.getElementById('modalOptionsItemCancle').addEventListener('click', function (e) {
+//        document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
+//    });
+//
+//    // 삭제 클릭시 삭제 모달 열림
+//    document.getElementById('modalOptionsItemDelete').addEventListener('click', function (event) {
+//        document.getElementById('modalDelete').classList.add('modal-delete-active');
+//    });
+//
+//    // 예 클릭시 실제로 삭제되고 모달 전부 꺼짐
+//    document.getElementById('modalDeleteBtnYes').addEventListener('click', function (event) {
+//        if (currentPortfolioIndex !== null) {
+//            const portfolioData = JSON.parse(localStorage.getItem('portfolioData') || '[]');
+//            if (portfolioData.length > currentPortfolioIndex) {
+//                portfolioData.splice(currentPortfolioIndex, 1);
+//                localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
+//                alert('포트폴리오가 삭제되었습니다.');
+//
+//                // 모달 전부 꺼짐
+//                document.getElementById('modalPortfolioOverlay').classList.remove('modal-portfolio-overlay-show');
+//                document.getElementById('modalCommentSection').classList.remove('modal-comment-section-active');
+//                document.getElementById('modalPortfolioIframe').classList.remove('modal-portfolio-iframe-faded');
+//                document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
+//                document.getElementById('modalDelete').classList.remove('modal-delete-active');
+//
+//                // 포트폴리오 목록 업데이트
+//                loadPortfolios();
+//
+//                currentPortfolioIndex = null;
+//            }
+//        }
+//    });
+//
+//    // 아니오 클릭시 옵션창까지 꺼짐
+//    document.getElementById('modalDeleteBtnNo').addEventListener('click', function (event) {
+//        document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
+//        document.getElementById('modalDelete').classList.remove('modal-delete-active');
+//    });
+//
+//    // 신고 클릭시 신고하는 이유 물어봄
+//    document.getElementById('modalOptionsItemReport').addEventListener('click', function (event) {
+//        console.log('asdsad');
+//        window.alert("신고하시는 이유가 무엇인가요?");
+//    });
+//
+//    // 수정 클릭시 수정하는 모달 열기
+//    document.getElementById('modalOptionsItemModify').addEventListener('click', function (event) {
+//        console.log(currentPortfolioIndex);
+//        document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
+//        const portfolioData = JSON.parse(localStorage.getItem('portfolioData') || '[]');
+//        const portfolio = portfolioData[currentPortfolioIndex];
+//        if (portfolio) {
+//            // 수정 폼에 기존 포트폴리오 데이터 채우기
+//            console.log(currentPortfolioIndex);
+//            document.getElementById('modifyPortfolioDescription').value = portfolio.portfolioDescription;
+//            document.getElementById('modifyPortfolioTags').value = portfolio.portfolioTags;
+//            const thumbnailPreview = document.getElementById('modifyThumbnailPreview');
+//            thumbnailPreview.src = portfolio.thumbnailImage;
+//            thumbnailPreview.style.display = 'block';
+//
+//            // 수정 모달 열기
+//            const modifyModal = new bootstrap.Modal(document.getElementById('modifyModal'));
+//            modifyModal.show();
+//        }
+//    });
 
     // // 썸네일 이미지 변경 시 미리보기 업데이트
     // document.getElementById('modifyThumbnailImage').addEventListener('change', function () {
