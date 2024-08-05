@@ -25,6 +25,7 @@ public class PortfolioDto {
     private int likeCount;
     private int commentCount;
     private boolean isLiked;
+    private boolean bookmarked;
 
     public LocalDateTime getModdate() {
         return moddate;
@@ -83,8 +84,15 @@ public class PortfolioDto {
         return jsurl != null ? Arrays.stream(jsurl.split(",")).toList() : null;
     }
 
-    public List<String> getHtmlList(){
+    public List<String> getHtmlList() {
         return htmlurl != null ? Arrays.stream(htmlurl.split(",")).toList() : null;
+    }
+    public boolean isBookmarked() {
+        return bookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
     }
 
     public int getPortfolio_id() {

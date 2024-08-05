@@ -105,7 +105,26 @@ public class UserFeedsDao {
         return false;
     }
 
-    public List<Object> getbookmarkInfo(Map<String, Object> map) {
-        return mybatis.selectList("UserFeedsDao.getbookmarkInfo",map);
+    public Map<String,Object> getbookmarkInfo(Map<String, Object> map) {
+        Map<String,Object> result=new HashMap<>();
+        map.put("portfolioBookmark", mybatis.selectList("UserFeedsDao.getbookmarkPortfolioInfo",map));
+        map.put("coperationBookmark", mybatis.selectList("UserFeedsDao.getbookmarkCoperationInfo",map));
+        return result;
+    }
+
+    public boolean portfolioBookmarktoggle(Map<String, Object> map) {
+        boolean a=mybatis.selectOne("UserFeedsDao.hasPortfolioBookmark",map);
+        System.out.println(a);
+        if (!a){
+            mybatis.insert("UserFeedsDao.InsertPortfolioBookmark",map);
+        }
+        else {
+            mybatis.delete("UserFeedsDao.DeletePortfolioBookmark",map);
+        }
+        return true;
+    }
+
+    public List<RecruitmentDto> getRecruitmentList(int id) {
+        return mybatis.selectList("UserFeedsDao.getRecruitmentList",id);
     }
 }

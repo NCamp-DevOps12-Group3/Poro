@@ -198,7 +198,7 @@
         values(#{userid},#{id})
     </insert>
 
-    <select id="getbookmarkInfo" parameterType="map" resultType="integer">
+    <select id="getbookmarkPortfolioInfo" parameterType="map" resultType="integer">
         select pb.portfolio_id
         from portfolio_bookmark pb
         join portfolio p
@@ -206,5 +206,52 @@
         where pb.user_id = #{userid}
         and p.user_id = #{id}
     </select>
-
+    <select id="getbookmarkCoperationInfo" parameterType="map" resultType="integer">
+        select pb.RECRUITMENT_ID
+        from recruitment_bookmark pb
+        join recruitment p
+        on pb.RECRUITMENT_ID = p.RECRUITMENT_ID
+        where pb.user_id = #{userid}
+        and p.user_id = #{id}
+    </select>
+    <select id="hasPortfolioBookmark" parameterType="map" resultType="boolean">
+        select
+            case
+                when exists (
+                    select 1 from portfolio_bookmark
+                    where user_id = #{userid} and portfolio_id = #{id}
+                )
+                    then true
+                else false
+                end as hasBookmark
+    </select>
+    <select id="hasCoperationBookmark" parameterType="map" resultType="boolean">
+        select
+            case
+                when exists (
+                    select 1 from recruitment_bookmark
+                    where user_id = #{userid} and RECRUITMENT_ID = #{id}
+                )
+                    then true
+                else false
+                end as hasBookmark
+    </select>
+    <insert id="InsertPortfolioBookmark" parameterType="map">
+        insert into portfolio_bookmark(user_id,portfolio_id)
+        values (#{userid},#{id})
+    </insert>
+    <insert id="InsertCoperationBookmark" parameterType="map">
+        insert into recruitment_bookmark(user_id,RECRUITMENT_ID)
+        values (#{userid},#{id})
+    </insert>
+    <delete id="DeletePortfolioBookmark" parameterType="map">
+        delete from portfolio_bookmark
+        where user_id=#{userid} and portfolio_id=#{id}
+    </delete>
+    <select id="getRecruitmentList" parameterType="int" resultType="coperation">
+        select
+            USER_ID, COMPANY_NAME, COMPANY_ICON_URL, RECRUITMENT_URL, RECRUITMENT_TITLE, DDAY, REGDATE, MODDATE, LOCATION, CAREER, EDUCATION , DDAY
+        from recruitment
+        where USER_ID =#{id}
+    </select>
 </mapper>

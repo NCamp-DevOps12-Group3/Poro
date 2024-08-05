@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- mybatis에서 사용하는 설정 파일 -->
 <configuration>
     <typeAliases>
         <typeAlias type="com.bit.devops12.poro.dto.ProfileDto" alias="profile"/>
@@ -9,7 +10,7 @@
         <typeAlias type="com.bit.devops12.poro.dto.UserDto" alias="user"/>
         <typeAlias type="com.bit.devops12.poro.dto.CompanyDto" alias="company"/>
         <typeAlias type="com.bit.devops12.poro.dto.RecruitmentDto" alias="coperation"/>
-
+        <typeAlias type="com.bit.devops12.poro.dto.UserFeedsMessageDto" alias="message"/>
     </typeAliases>
 
     <mappers>
@@ -18,6 +19,7 @@
         <mapper resource="mappings/portfolio-mapper.xml"/>
         <mapper resource="mappings/comment-mapper.xml"/>
         <mapper resource="mappings/company-mapper.xml"/>
+        <mapper resource="mappings/mapper-message.xml"/>
     </mappers>
 
 </configuration>

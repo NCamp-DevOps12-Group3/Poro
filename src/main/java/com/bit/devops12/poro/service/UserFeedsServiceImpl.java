@@ -1,10 +1,8 @@
 package com.bit.devops12.poro.service;
 
+import com.bit.devops12.poro.dao.MessageDao;
 import com.bit.devops12.poro.dao.UserFeedsDao;
-import com.bit.devops12.poro.dto.Criteria;
-import com.bit.devops12.poro.dto.PortfolioDto;
-import com.bit.devops12.poro.dto.ProfileDto;
-import com.bit.devops12.poro.dto.RecruitmentDto;
+import com.bit.devops12.poro.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,11 @@ import java.util.stream.Collectors;
 public class UserFeedsServiceImpl {
 
     private UserFeedsDao userFeedsDao;
+    private MessageDao messageDao;
     @Autowired
-    public UserFeedsServiceImpl(UserFeedsDao userFeedsDao) {
+    public UserFeedsServiceImpl(UserFeedsDao userFeedsDao, MessageDao messageDao)
+    {
+        this.messageDao=messageDao;
         this.userFeedsDao = userFeedsDao;
     }
 
@@ -158,6 +159,7 @@ public class UserFeedsServiceImpl {
             if (!existFiles(recruitmentDto.getCompany_icon_url())){
                 recruitmentDto.setCompany_icon_url("/static/img/default.png");
             }
+
         });
         return recruitmentDtos;
     }
@@ -267,11 +269,39 @@ public class UserFeedsServiceImpl {
         return  userFeedsDao.follow(map);
     }
 
-    public List<Object> getbookmarkInfo(Integer userid, int id) {
+    public Map<String,Object> getbookmarkInfo(Integer userid, int id) {
         Map<String,Object> map=new HashMap<>();
         map.put("userid",userid);
         map.put("id",id);
         return userFeedsDao.getbookmarkInfo(map);
 
+    }
+
+    public boolean portfolioBookmarktoggle(Integer userid, int id) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("userid",userid);
+        map.put("id",id);
+        return userFeedsDao.portfolioBookmarktoggle(map);
+    }
+
+    public List<RecruitmentDto> getRecruitmentList(int id) {
+        return userFeedsDao.getRecruitmentList(id);
+    }
+
+    public boolean sendMessage(Integer senderId, Integer receiverId, String messageContent) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("senderid",senderId);
+        map.put("receiverid",receiverId);
+        map.put("messagecontent",messageContent);
+        return messageDao.sendMessage(map);
+    }
+
+    public List<UserFeedsMessageDto> getMessages(Integer userId) {
+        return messageDao.getMessages(userId);
+    }
+
+    public String getSenderNickname(int senderId) {
+        ProfileDto profileDto=userFeedsDao.getUserInfo(senderId);
+        return profileDto.getNickname();
     }
 }
