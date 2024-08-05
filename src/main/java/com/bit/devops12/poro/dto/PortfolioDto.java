@@ -13,9 +13,9 @@ public class PortfolioDto {
     private String htmlurl;
     private String thumbnail_url;
     private LocalDateTime regdate;
-    private LocalDateTime modDate;
-    private String skillname;
+    private LocalDateTime moddate;
     private String nickname;
+    private String skillname;
     private String description;
     private List<String> htmlCode;
     private List<String> cssCode;
@@ -36,7 +36,7 @@ public class PortfolioDto {
                 ", htmlurl='" + htmlurl + '\'' +
                 ", thumbnail_url='" + thumbnail_url + '\'' +
                 ", regdate=" + regdate +
-                ", modDate=" + modDate +
+                ", modDate=" + moddate +
                 ", skillname='" + skillname + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", description='" + description + '\'' +
@@ -50,11 +50,6 @@ public class PortfolioDto {
                 ", isLiked=" + isLiked +
                 '}';
         }
-
-
-
-
-
 
     public List<String> getCssList(){
         return cssurl != null ? Arrays.stream(cssurl.split(",")).toList() : null;
@@ -163,6 +158,7 @@ public class PortfolioDto {
     public void setMergeCode(String mergeCode) {
         this.mergeCode = mergeCode;
     }
+
     public int getBookmark_id() {
         return bookmark_id;
     }
@@ -172,11 +168,11 @@ public class PortfolioDto {
     }
 
     public LocalDateTime getModDate() {
-        return modDate;
+        return moddate;
     }
 
     public void setModDate(LocalDateTime modDate) {
-        this.modDate = modDate;
+        this.moddate = modDate;
     }
 
     public String getNickname() {
