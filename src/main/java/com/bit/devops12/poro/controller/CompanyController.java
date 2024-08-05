@@ -1,5 +1,7 @@
 package com.bit.devops12.poro.controller;
 
+import com.bit.devops12.poro.common.DdayCalculator;
+import com.bit.devops12.poro.dto.CompanyDto;
 import com.bit.devops12.poro.dto.CompanyPageDto;
 import com.bit.devops12.poro.dto.Criteria;
 import com.bit.devops12.poro.service.CompanyService;
@@ -36,7 +38,6 @@ public class CompanyController {
 
         model.addAttribute("page", new CompanyPageDto(cri, total));
 
-        System.out.println(companyPageDto.toString());
 
         return "company/mini_project(company)";
     }
