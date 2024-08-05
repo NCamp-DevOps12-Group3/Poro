@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
+@RequestMapping("/userfeeds")
 public class UserFeedsController {
 
     private UserFeedsServiceImpl userFeedsService;
@@ -43,41 +45,56 @@ public class UserFeedsController {
         }
 
 
-        return "redirect:/user-feeds.do?id="+id+"&pageType="+pageType;
+        return "redirect:/userfeeds/user-feeds.do?id="+id+"&pageType="+pageType;
     }
 //    //스크롤이 바닥에 닿았을 때 새로운 포폴 로드에 사용
     @PostMapping("/feed-ajax.do")
     @ResponseBody
-    public Map<String, Object> userFeedsAjax(@RequestParam int id,Criteria criteria,
-                                             @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType,
-                                             HttpSession session) {
+    public ModelAndView userFeedsAjax(@RequestParam int id, Criteria criteria,
+                                      @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType,
+                                      HttpSession session) {
         Map<String,Object> map=new HashMap<>();
-        boolean isOwner=((UserDto)session.getAttribute("loginMember")).getId()==id;
+//        UserDto user= (UserDto) session.getAttribute("loginUser");
+        //int userid=user.getId();
+        int userid=2;
+
+//        boolean isOwner=user.getId()==id;
+        boolean isOwner=false;
         if (pageType.equals("home")) {
             List<PortfolioDto> portfolioList=userFeedsService.getUserPortfolio(id,criteria);
+            Map<String,Object> bookmark=userFeedsService.getbookmarkInfo(userid,id);
+            List<Integer> someList = (List<Integer>) bookmark.get("portfolioBookmark");
             portfolioList.forEach(x->{
+                x.setBookmarked(false);
+                if (someList != null && someList.contains(x.getPortfolio_id())) {
+                    x.setBookmarked(true);
+                }
                 x.setJsCode(List.of());
                 x.setCssCode(List.of());
                 x.setHtmlCode(List.of());
             });
-            map.put("portfolioList",portfolioList);
 
+            map.put("portfolioList",portfolioList);
+            map.put("type","home");
         }
         else if (pageType.equals("coperation")){
             List<RecruitmentDto> recruitmentDtoList=userFeedsService.getUserBookmarkCoperation(id,criteria);
             map.put("recruitmentList",recruitmentDtoList);
+            map.put("type","coperation");
         }
         else if (pageType.equals("otherportfolio")){
             List<PortfolioDto> otherPortfolioList=userFeedsService.getUserBookmarkPortfolio(id,criteria);
             map.put("otherPortfolioList",otherPortfolioList);
+            map.put("type","otherportfolio");
         }
         map.put("isOwner",isOwner);
-        return map;
+        return new ModelAndView("userFeedsDynamic", map);
     }
     //처음 유저페이지 돌입할 때 사용, 클릭한 개체의 유저id에 따라 표출되는 내용이 달라짐, 현재는 로그인 유저 정보 표출
     @GetMapping("/user-feeds.do")
     public String userFeeds(Model model, HttpSession session, @RequestParam(name = "id") int id,
             @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType, Criteria criteria) {
+
         int userid=2;
 //        UserDto user= (UserDto) session.getAttribute("loginUser");
 //        boolean isOwner=user.getId()==id;
@@ -85,11 +102,23 @@ public class UserFeedsController {
         model.addAttribute("isOwner",isOwner);
         int total=0;
         ProfileDto profileDto=userFeedsService.getUserInfo(id);
-        //유저 아이디를 사용하여 포폴 관련테이블에서 테이블 출력에 필요한 정보를 저장
+
         if (pageType.equals("home")) {
             criteria.setAmount(4);
             total=userFeedsService.getUserPortfolioTotalCnt(id);
-            model.addAttribute("portfolio",userFeedsService.getUserPortfolio(id,criteria));
+            List<PortfolioDto> portfolioList=userFeedsService.getUserPortfolio(id,criteria);
+            Map<String,Object> bookmark=userFeedsService.getbookmarkInfo(userid,id);
+            List<Integer> someList = (List<Integer>) bookmark.get("portfolioBookmark");
+            portfolioList.forEach(x->{
+                x.setBookmarked(false);
+                if (someList != null && someList.contains(x.getPortfolio_id())) {
+                    x.setBookmarked(true);
+                }
+                x.setJsCode(List.of());
+                x.setCssCode(List.of());
+                x.setHtmlCode(List.of());
+            });
+            model.addAttribute("portfolio",portfolioList);
         }
         else if (pageType.equals("coperation")){
             criteria.setAmount(12);
@@ -113,14 +142,13 @@ public class UserFeedsController {
 //        int userid=user.getId();
 
         model.addAttribute("follow",userFeedsService.getFollowInfo(userid,id));
-        model.addAttribute("bookmark",userFeedsService.getbookmarkInfo(userid,id));
 
         return "/user/userfeeds";
     }
 
 
 
-    @PostMapping("/user-feeds/unfollow.do")
+    @PostMapping("/unfollow.do")
     @ResponseBody
     public Map<String, Object> unfollow(@RequestParam("id") int id, HttpSession session) {
 //        Integer userId = (Integer) session.getAttribute("userId");
@@ -136,10 +164,10 @@ public class UserFeedsController {
         response.put("success", success);
         return response;
     }
-    @PostMapping("/user-feeds/follow.do")
+    @PostMapping("/follow.do")
     @ResponseBody
     public Map<String, Object> follow(@RequestParam("id") int id, HttpSession session) {
-//        Integer userId = (Integer) session.getAttribute("userId");
+//        Integer userId = (Integer) ((UserDto)session.getAttribute("loginMember")).getUserId();;
         Integer userId = 2;
         Map<String, Object> response = new HashMap<>();
 
@@ -151,6 +179,26 @@ public class UserFeedsController {
         }
 
         boolean success = userFeedsService.follow(userId, id);
+
+        response.put("success", success);
+        return response;
+    }
+
+    @PostMapping("/bookmark.do")
+    @ResponseBody
+    public Map<String, Object> portfolioBookmarktoggle(@RequestParam("id") int id, HttpSession session) {
+//        Integer userId = (Integer) session.getAttribute("userId");
+        Integer userId = 2;
+        Map<String, Object> response = new HashMap<>();
+
+        if (userId == null) {
+
+            response.put("success", false);
+            response.put("message", "로그인이 필요합니다.");
+            return response;
+        }
+
+        boolean success = userFeedsService.portfolioBookmarktoggle(userId, id);
 
         response.put("success", success);
         return response;

@@ -20,6 +20,7 @@ public class PortfolioDto {
     private List<String> jsCode;
     private String mergeCode;
     private int bookmark_id;
+    private boolean bookmarked;
 
     @Override
     public String toString() {
@@ -39,6 +40,14 @@ public class PortfolioDto {
                 ", mergeCode='" + mergeCode + '\'' +
                 ", bookmark_id=" + bookmark_id +
                 '}';
+    }
+
+    public boolean isBookmarked() {
+        return bookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
     }
 
     public int getPortfolio_id() {
