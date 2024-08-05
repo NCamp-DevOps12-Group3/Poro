@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class testDday {
 
     public static void main(String[] args){
-        LocalDateTime regdate = LocalDateTime.of(2024, 7, 2, 9, 48);
+        LocalDateTime regdate = LocalDateTime.of(2024, 8, 3, 7, 38);
 
         DdayCalculator ddayCalculator = new DdayCalculator();
 

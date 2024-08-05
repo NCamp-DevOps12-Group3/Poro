@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.service.impl;
 
+import com.bit.devops12.poro.common.DdayCalculator;
 import com.bit.devops12.poro.dao.CompanyDao;
 import com.bit.devops12.poro.dto.CompanyDto;
 import com.bit.devops12.poro.dto.Criteria;
@@ -24,9 +25,23 @@ public class CompanyServiceImpl implements CompanyService {
     public List<CompanyDto> getCompanyList(Criteria cri){
         cri.setStartNum((cri.getPageNum() - 1) * cri.getAmount());
 
+
         Map<String, Object> paramMap = new HashMap<>();
 
         paramMap.put("cri", cri);
+
+        List<CompanyDto> ddayList = companyDao.getCompanyList(paramMap);
+
+        for(CompanyDto companyDto : ddayList){
+            DdayCalculator ddayCalculator = new DdayCalculator();
+            String ddayResult = ddayCalculator.getDdayCalculator(companyDto.getRegdate());
+            companyDto.setDday(ddayResult);
+            System.out.println(companyDto.toString());
+        }
+
+        paramMap.put("ddayList", ddayList);
+
+
 
         return companyDao.getCompanyList(paramMap);
     }
@@ -35,6 +50,7 @@ public class CompanyServiceImpl implements CompanyService {
     public int getCompanyTotalCnt() {
         return companyDao.getCompanyTotalCnt();
     }
+
 
 
 }

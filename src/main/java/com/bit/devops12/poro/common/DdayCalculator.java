@@ -23,7 +23,7 @@ public class DdayCalculator {
         long totalMonths = ChronoUnit.MONTHS.between(presentTime.toLocalDate(), regdate.toLocalDate());
         long totalYears = ChronoUnit.YEARS.between(presentTime.toLocalDate(), regdate.toLocalDate());
 
-        if (totalYears <= 0 && totalMonths <= 0 && weeks <= 0 && days <= 0 && hour <= 0 && minute <= 0) {
+        if (totalYears <= 0 && totalMonths <= 0 && weeks <= 0 && days <= 0 && hour <= 0 && minute < 0) {
             return null;
         } else if (totalYears == 0 && totalMonths == 0 && weeks == 0 && days == 0 && hour == 0 && minute == 0) {
             // 1분 이내(결과값: 지금)
