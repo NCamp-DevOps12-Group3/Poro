@@ -89,7 +89,7 @@ public class UserController {
 		return "/user/settings";
 	}
 	
-	
+
 	
 	
 	@PostMapping("/modify.do")
@@ -119,6 +119,7 @@ public class UserController {
 	
 	
 	
+
 	
 	@GetMapping("/passwordchangesChk.do")
 	public String passwordchangesChkView() {
