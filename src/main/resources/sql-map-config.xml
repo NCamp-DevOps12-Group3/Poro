@@ -18,7 +18,6 @@
         <mapper resource="mappings/portfolio-mapper.xml"/>
         <mapper resource="mappings/comment-mapper.xml"/>
         <mapper resource="mappings/company-mapper.xml"/>
-
     </mappers>
 
 </configuration>

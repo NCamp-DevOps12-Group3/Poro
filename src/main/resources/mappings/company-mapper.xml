@@ -24,4 +24,6 @@
         SELECT COUNT(*)
             FROM RECRUITMENT
     </select>
+
+
 </mapper>

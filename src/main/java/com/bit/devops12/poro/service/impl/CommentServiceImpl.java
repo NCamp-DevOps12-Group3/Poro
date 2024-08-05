@@ -2,6 +2,7 @@ package com.bit.devops12.poro.service.impl;
 
 import com.bit.devops12.poro.dao.CommentDao;
 import com.bit.devops12.poro.dto.CommentDto;
+import com.bit.devops12.poro.dto.FileDto;
 import com.bit.devops12.poro.dto.PortfolioDto;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.CommentService;
@@ -49,4 +50,5 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(int comment_id) {
         commentDao.deleteComment(comment_id);
     }
+
 }

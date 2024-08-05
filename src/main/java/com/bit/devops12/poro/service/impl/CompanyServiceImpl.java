@@ -4,6 +4,7 @@ import com.bit.devops12.poro.common.DdayCalculator;
 import com.bit.devops12.poro.dao.CompanyDao;
 import com.bit.devops12.poro.dto.CompanyDto;
 import com.bit.devops12.poro.dto.Criteria;
+import com.bit.devops12.poro.dto.FileDto;
 import com.bit.devops12.poro.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
