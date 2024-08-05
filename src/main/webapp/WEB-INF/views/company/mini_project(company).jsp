@@ -155,6 +155,12 @@
         .notification-dropdown {
             transition: background-color 0.3s, border-color 0.3s;
         }
+
+        .colorRed {
+            color: red;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 
@@ -322,7 +328,11 @@
                                     <span class="above"><img src="/static/img/이모티콘/2.png" alt=""></span>
                                 </li>
                             </ul>
-                            <span class="date">${company.dday}</span>
+                            <span class="date <c:choose>
+                                                <c:when test="${company.dday == 'D-Day'}">
+                                                    colorRed
+                                                </c:when>
+                                              </c:choose>">${company.dday}</span>
                         </a>
                     </li>
                 </c:forEach>
@@ -635,6 +645,7 @@
                 showModal(imageUrl);
             });
         </c:forEach>
+
 
         // $('.com1').on('click', function () {
         //     var imageUrl = '/static/img/웹홈페이지 더미/1.png'; // 이미지 URL 설정

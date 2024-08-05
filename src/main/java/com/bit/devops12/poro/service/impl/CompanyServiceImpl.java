@@ -34,13 +34,12 @@ public class CompanyServiceImpl implements CompanyService {
 
         for(CompanyDto companyDto : ddayList){
             DdayCalculator ddayCalculator = new DdayCalculator();
-            String ddayResult = ddayCalculator.getDdayCalculator(companyDto.getRegdate());
+            String ddayResult = ddayCalculator.getDdayRed(companyDto.getRegdate());
             companyDto.setDday(ddayResult);
             System.out.println(companyDto.toString());
         }
 
         paramMap.put("ddayList", ddayList);
-
 
 
         return companyDao.getCompanyList(paramMap);
