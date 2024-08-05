@@ -88,4 +88,16 @@ public class UserController {
 	public String settingView() {
 		return "/user/settings";
 	}
+	
+	@PostMapping("/modify.do")
+	public String modify(UserDto userDto , MultipartFile uploadFiles) {
+		userService.modify(userDto,uploadFiles);
+		return "/user/settings";
+	}
+	
+	
+	@GetMapping("/passwordchangesChk.do")
+	public String passwordchangesChkView() {
+		return "/user/passwordchangesChk";
+	}
 }

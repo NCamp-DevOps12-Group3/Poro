@@ -8,13 +8,15 @@ import java.util.List;
 public interface UserService {
 	void join(UserDto userDto);
 	
-	List<UserDto> getMembers();
 	
-	UserDto getMemberByUsername(UserDto userDto);
 	
 	String emailCheck(String email);
 	String nicknameCheck(String nickname);
 	String nameCheck(String name);
 	
 	UserDto login(UserDto userDto);
+	
+
+	
+	void modify(UserDto userDto, MultipartFile uploadFiles);
 }

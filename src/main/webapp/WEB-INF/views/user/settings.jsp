@@ -360,7 +360,7 @@
                
                 
                 
-                <form action="#" method="post" id="modify-form" enctype="multipart/form-data">
+                <form action="/user/modify.do" method="post" id="modify-form" enctype="multipart/form-data">
                     <div class="container position-relative" style="border-radius: 15px;">
                         <div class="modal fade" id="modalPic">
                             <div class="modal-dialog">
@@ -370,8 +370,8 @@
                                     </div>
                                     <div class="modal-body h-75">
                                         <div class="mb-3">
-                                            <label for="formFile" class="form-label">변경할 프로필 사진</label>
-                                            <input class="form-control" type="file" id="formFile" name="profileImage">
+                                            <label for="uploadFiles" class="form-label">변경할 프로필 사진</label>
+                                            <input class="form-control" type="file" name="uploadFiles" id="uploadFiles">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -393,7 +393,7 @@
                             <div id="list-profile" class="d-inline-block" style="border-radius: 16px; margin-left:
                             10px;background-color: #ddd; ">
                                 <div id="imagePreview" style="background-color: #ddd; max-width: 200px">
-                                    <img id="profile-Pic" class="profile-img" alt="${loginUser.profile_image}"
+                                    <img id="changeFilesPreview" class="profile-img" alt="${loginUser.profile_image}"
                                          src="${loginUser.profile_image}" style="background-color: #ddd; min-width: 100px">
                                 </div>
                             </div>
@@ -564,7 +564,8 @@
                                     </div>
                                     <div class="modal-footer" style=" margin: 0; text-align: center; justify-content: center;">
                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color:#0D6EFD;">취소</button>
-                                        <a href="passwordchangesChk.html" style="color: white;"><button type="button" style="background-color:#DB3545;" class="btn btn-danger"  id="passwordchange">
+                                        <a href="passwordchangesChk.do" style="color: white;"><button type="button"
+                                                                                                    style="background-color:#DB3545;" class="btn btn-danger"  id="passwordchange">
                                             비밀번호 변경
                                         
                                         </button></a>
