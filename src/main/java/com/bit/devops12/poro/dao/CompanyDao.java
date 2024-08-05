@@ -26,4 +26,5 @@ public class CompanyDao {
         return mybatis.selectOne("CompanyDao.getCompanyTotalCnt");
     }
 
+
 }

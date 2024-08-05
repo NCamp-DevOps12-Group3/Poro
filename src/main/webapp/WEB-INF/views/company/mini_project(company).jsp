@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: bitcamp
-  Date: 24. 7. 30.
-  Time: 오후 5:06
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -299,43 +292,42 @@
             </div>
         </div>
 
-        <form id="companyList" action="/company/mini_project(company).do" method="get">
-            <ul class="container">
+        <form id="companyList" action="/company/mini_project(company).do" method="post">
+            <ul class="container company-wrapper">
                 <input type="hidden" name="pageNum" value="${page.cri.pageNum}"/>
                 <input type="hidden" name="amount" value="${page.cri.amount}"/>
                 <input type="hidden" name="endPage" value="${page.endPage}"/>
-                <c:forEach items="${companyList}" var="company">
-                    <li class="item">
-                        <a class="company com${company.recruitment_id}">
-                                <span class="logo">
-                                    <c:choose>
-                                        <c:when test="${company.company_icon_url != null}">
-                                            <img src="${company.company_icon_url}"
-                                                 alt="">
-    <%--                                        alt에 이미지가 로드되지 않을 때 어떤게 들어갈지 설정해야 함 --%>
-    <%--                                        c:otherwise도 고려--%>
-                                        </c:when>
-                                    </c:choose>
-                                </span>
-                            <strong class="tit">${company.recruitment_title}</strong>
-                            <span class="corp">${company.company_name}</span>
-                            <ul class="desc">
-                                <li>
-                                    <span>${company.location}<img src="${pageContext.request.contextPath}/static/img/이모티콘/1.png" alt=""></span>
-                                </li>
-                                <li class="company_local">${company.career}</li>
-                                <li class="company_local">${company.education}
-                                    <span class="above"><img src="/static/img/이모티콘/2.png" alt=""></span>
-                                </li>
-                            </ul>
-                            <span class="date <c:choose>
-                                                <c:when test="${company.dday == 'D-Day'}">
-                                                    colorRed
-                                                </c:when>
-                                              </c:choose>">${company.dday}</span>
-                        </a>
-                    </li>
-                </c:forEach>
+                    <c:forEach items="${companyList}" var="company">
+                        <li class="item">
+                            <a class="company com${company.recruitment_id}">
+                                    <span class="logo">
+                                        <c:choose>
+                                            <c:when test="${company.company_icon_url != null}">
+                                                <img src="${company.company_icon_url}"
+                                                     alt="">
+                                            </c:when>
+                                        </c:choose>
+                                    </span>
+                                <strong class="tit">${company.recruitment_title}</strong>
+                                <span class="corp">${company.company_name}</span>
+                                <ul class="desc">
+                                    <li>
+                                        <span>${company.location}<img src="${pageContext.request.contextPath}/static/img/이모티콘/1.png" alt=""></span>
+                                    </li>
+                                    <li class="company_local">${company.career}</li>
+                                    <li class="company_local">${company.education}
+                                        <span class="above"><img src="/static/img/이모티콘/2.png" alt=""></span>
+                                    </li>
+                                </ul>
+                                <span class="date <c:choose>
+                                                    <c:when test="${company.dday == 'D-Day'}">
+                                                        colorRed
+                                                    </c:when>
+                                                  </c:choose>">${company.dday}</span>
+                            </a>
+                        </li>
+                    </c:forEach>
+<%--                </p>--%>
             </ul>
         </form>
     </div>
@@ -646,18 +638,88 @@
             });
         </c:forEach>
 
+        $.ajax({
+            url: '/company/company-list-ajax.do',
+            type: 'post',
+            data: $("#companyList").serialize(),
+            success: (obj) => {
+                console.log(obj);
+                for (let i = 0; i < obj.companyList.length; i++) {
+                    $('.com${obj.companyList[i].companyDto.recruitment_id}').on('click', function () {
+                        var imageUrl = '${obj.companyList[i].companyDto.recruitment_url}'; // 이미지 URL 설정
+                        showModal(imageUrl);
+                    });
+                }
+            }
+        });
+    });
+</script>
+<script>
+    $(() => {
+        $(window).on("scroll", (e) => {
+           const scrollTop = $(window).scrollTop();
+           const windowHeight = window.innerHeight;
+           const documentHeight = document.documentElement.scrollHeight;
+           const isBottom = documentHeight <= scrollTop + windowHeight;
 
-        // $('.com1').on('click', function () {
-        //     var imageUrl = '/static/img/웹홈페이지 더미/1.png'; // 이미지 URL 설정
-        //     showModal(imageUrl);
-        // });
+           if(isBottom){
+               if($("input[name='pageNum']").val() >= $("input[name='endPage']").val()){
+                   return;
+               } else {
+                   $("input[name='pageNum']").val(parseInt($("input[name='pageNum']").val()) + 1);
+                   $.ajax({
+                       url: '/company/company-list-ajax.do',
+                       type: 'post',
+                       data: $("#companyList").serialize(),
+                       success: (obj) => {
 
-        // $('#CompanyPortFolioModal').on('hidden.bs.modal', function () {
-        //     // 모달이 숨겨질 때 iframe의 src를 초기화
-        //     $('#imageIframe').attr('src', '');
-        // });
+                           let htmlStr = "";
+                           for(let i = 0; i < obj.companyList.length; i++) {
+                               const companyIconUrl = obj.companyList[i].companyDto.company_icon_url; // 회사 아이콘 URL을 가져옵니다.
+
+                               let logoHtml = `<span class="logo">`;
+                               if (companyIconUrl) {
+                                   logoHtml += `<img src="\${companyIconUrl}" alt="">`;
+                               }
+                               logoHtml += `</span>`;
+
+                               htmlStr += `
+                                    <li class="item">
+                                        <a class="company com\${obj.companyList[i].companyDto.recruitment_id}">
+                                                \${logoHtml}
+                                            <strong class="tit">\${obj.companyList[i].companyDto.recruitment_title}</strong>
+                                            <span class="corp">\${obj.companyList[i].companyDto.company_name}</span>
+                                            <ul class="desc">
+                                                <li>
+                                                    <span>\${obj.companyList[i].companyDto.location}<img src="/static/img/이모티콘/1.png" alt=""></span>
+                                                </li>
+                                                <li class="company_local">\${obj.companyList[i].companyDto.career}</li>
+                                                <li class="company_local">\${obj.companyList[i].companyDto.education}
+                                                    <span class="above"><img src="/static/img/이모티콘/2.png" alt=""></span>
+                                                </li>
+                                            </ul>
+                                             <span class="date \${obj.companyList[i].companyDto.dday == 'D-Day' ? 'colorRed' : ''}">\${obj.companyList[i].companyDto.dday}</span>
+                                        </a>
+                                    </li>
+                               `;
+                           }
+
+                           $(".company-wrapper").append(htmlStr);
+
+                       },
+                       error: (err) => {
+                           console.log(err);
+                       }
+                   });
+
+               }
+           }
+        });
+
 
     });
+
+
 </script>
 
 

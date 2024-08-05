@@ -2,6 +2,7 @@ package com.bit.devops12.poro.service.impl;
 
 import com.bit.devops12.poro.dao.CommentDao;
 import com.bit.devops12.poro.dto.CommentDto;
+import com.bit.devops12.poro.dto.FileDto;
 import com.bit.devops12.poro.dto.PortfolioDto;
 import com.bit.devops12.poro.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,5 @@ public class CommentServiceImpl implements CommentService {
     public void postComment(CommentDto commentDto) {
         commentDao.postComment(commentDto);
     }
+
 }
