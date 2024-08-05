@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/user")
@@ -86,5 +87,17 @@ public class UserController {
 	@GetMapping("/settings.do")
 	public String settingView() {
 		return "/user/settings";
+	}
+	
+	@PostMapping("/modify.do")
+	public String modify(UserDto userDto , MultipartFile uploadFiles) {
+		userService.modify(userDto,uploadFiles);
+		return "/user/settings";
+	}
+	
+	
+	@GetMapping("/passwordchangesChk.do")
+	public String passwordchangesChkView() {
+		return "/user/passwordchangesChk";
 	}
 }

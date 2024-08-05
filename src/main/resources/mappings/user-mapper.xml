@@ -62,6 +62,12 @@
 	
 	
 	
+	<update id="modify" parameterType="user">
+	UPDATE USER
+		SET
+
+	</update>
+	
 	
 	
 	

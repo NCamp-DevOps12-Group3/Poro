@@ -1,16 +1,20 @@
 package com.bit.devops12.poro.service.impl;
 
+import com.bit.devops12.poro.common.FileUtils;
 import com.bit.devops12.poro.dao.UserDao;
+import com.bit.devops12.poro.dto.FileDto;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,16 +29,9 @@ public class UserServiceImpl implements UserService {
 	public void join(UserDto userDto) {
 		userDao.join(userDto);
 	}
+
+
 	
-	@Override
-	public List<UserDto> getMembers() {
-		return List.of();
-	}
-	
-	@Override
-	public UserDto getMemberByUsername(UserDto userDto) {
-		return null;
-	}
 	
 	@Override
 	public String emailCheck(String email) {
@@ -120,5 +117,35 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("wrongPassword");
 
 		return loginUser;
+	}
+	
+	@Override
+	public void modify(UserDto userDto, MultipartFile uploadFiles) {
+		List<FileDto> fileDtoList = new ArrayList<>();
+		if(uploadFiles != null) {
+			String attachPath = "C:/tmp/upload/" + userDto.getEmail();
+			
+			File directory = new File(attachPath);
+			
+			if (!directory.exists()) {
+				directory.mkdirs();
+			}
+			
+			
+				if(uploadFiles != null) {
+					FileDto fileDto = FileUtils.parserFileInfo(uploadFiles, attachPath);
+					
+					fileDtoList.add(fileDto);
+				}
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		userDao.modify(userDto, (MultipartFile) fileDtoList);
 	}
 }
