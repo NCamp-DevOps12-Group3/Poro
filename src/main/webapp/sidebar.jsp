@@ -16,9 +16,9 @@
     <!-- Bootstrap Icons CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/add-main.css">
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/add-main.css">--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">
     <style>
         .content {
@@ -231,7 +231,7 @@
     <!-- Custom JavaScript -->
     <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>
+<%--    <script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>--%>
     <script src="${pageContext.request.contextPath}/static/js/sidebar.js"></script>
 </body>
 </html>

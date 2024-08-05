@@ -13,10 +13,7 @@
                C.MODDATE,
                C.COMMENT_PARENT_ID,
                COALESCE(CL.LIKECOUNT, 0) AS LIKECOUNT,
-               CASE
-                    WHEN CLU.USER_ID IS NOT NULL THEN 1
-                    ELSE 0
-               END AS IS_LIKED
+               (CASE WHEN CLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED
         FROM COMMENT C
         LEFT JOIN (
             SELECT COMMENT_ID, COUNT(*) AS LIKECOUNT
@@ -44,5 +41,49 @@
                      #{comment_parent_id}
                  )
     </insert>
+
+    <insert id="likeComment" parameterType="map">
+        INSERT INTO COMMENT_LIKE(
+            USER_ID,
+            COMMENT_ID
+        ) VALUES (
+             #{loginUser.user_id},
+             #{comment_id}
+         )
+    </insert>
+
+    <delete id="unLikeComment" parameterType="map">
+        DELETE FROM COMMENT_LIKE
+        WHERE USER_ID = #{loginUser.user_id}
+          AND COMMENT_ID = #{comment_id}
+    </delete>
+
+    <select id="getCommentById" parameterType="int" resultType="comment">
+        SELECT COMMENT_ID,
+               PORTFOLIO_ID,
+               USER_ID,
+               CONTENT,
+               REGDATE,
+               MODDATE,
+               COMMENT_PARENT_ID
+            FROM COMMENT
+        WHERE COMMENT_ID = #{comment_id}
+    </select>
+
+    <delete id="deleteComment" parameterType="int">
+--         DELETE FROM COMMENT
+--         WHERE COMMENT_ID IN (
+--             SELECT COMMENT_ID
+--             FROM COMMENT
+--             WHERE COMMENT_PARENT_ID = #{comment_id}
+--         );
+--
+--         DELETE FROM COMMENT_LIKES
+--         WHERE COMMENT_ID = #{comment_id};
+
+        DELETE FROM COMMENT
+        WHERE COMMENT_ID = #{comment_id}
+    </delete>
+
 
 </mapper>

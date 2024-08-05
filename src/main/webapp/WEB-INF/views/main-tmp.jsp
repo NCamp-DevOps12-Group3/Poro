@@ -80,6 +80,10 @@
         .modal-portfolio-like-logo-wrapper{
             cursor : pointer;
         }
+
+        .bi-three-dots{
+            cursor : pointer;
+        }
     </style>
 </head>
 <body>
@@ -267,6 +271,7 @@
                 type: 'post',
                 data: $(form).serialize(),
                 success: (obj) => {
+                    console.log(obj);
                     openModal(obj);
                 },
                 error: (err) => {
@@ -285,6 +290,9 @@
 
         if(obj){
 
+            console.log(obj);
+            const portfolioHeartOutlineClass = obj.portfolio.liked ? 'hidden' : '';
+            const portfolioHeartFilledClass = obj.portfolio.liked ? '' : 'hidden';
 
             const modalBox = document.createElement('div');
             modalBox.classList.add('modal-portfolio-overlay');
@@ -330,21 +338,25 @@
 
                                                                <div class="modal-portfolio-like-logo" style="display:flex">
                                                                    <div class="modal-portfolio-like-logo-wrapper" >
-                                                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
-                                                                           class="bi bi-suit-heart portfolio-like-logo" viewBox="0 0 16 16">
-                                                                           <path
-                                                                               d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                                                                       </svg>
-                                                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
-                                                                           class="bi bi-suit-heart-fill portfolio-like-logo hidden" viewBox="0 0 16 16">
-                                                                           <path
-                                                                               d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
-                                                                       </svg>
+                                                                        <form>
+                                                                            <input type="hidden" name="isLiked" value = "\${obj.portfolio.liked}"/>
+                                                                            <input type="hidden" name="portfolio_id" value = "\${obj.portfolio.portfolio_id}"/>
+                                                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                                                               class="bi bi-suit-heart portfolio-like-logo \${portfolioHeartOutlineClass}" viewBox="0 0 16 16">
+                                                                               <path
+                                                                                   d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                                                           </svg>
+                                                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                                                               class="bi bi-suit-heart-fill portfolio-like-logo \${portfolioHeartFilledClass}" viewBox="0 0 16 16">
+                                                                               <path
+                                                                                   d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                                                           </svg>
+                                                                        </form>
                                                                    </div>
                                                                </div>
 
                                                                <div class="modal-likeCnt-text" id="modalLikeCntText">
-                                                                   <!-- js로 현재까지 클릭된 좋아요 수-->
+                                                                   <p> 좋아요 \${obj.portfolio.likeCount}</p>
                                                                </div>
                                                            </div>
 
@@ -361,6 +373,30 @@
                                        </div>
                                    </div>
                                </div>
+
+                                <!-- 옵션 모달 -->
+                                <div class="modal-options-overlay" id="modalOptionsOverlay">
+                                    <div class="modal-options-overlay-bond" id="modalOptionsOverlayBond">
+                                        <div class="modal-options">
+                                            <div class="modal-options-item" id="modalOptionsItemModify" data-bs-toggle="modal"
+                                                 data-bs-target="#modifyModal">게시글 수정</div>
+                                            <div class="modal-options-item" id="modalOptionsItemDelete">게시글 삭제</div>
+                                            <div class="modal-options-item" id="modalOptionsItemReport">신고</div>
+                                            <div class="modal-options-item" id="modalOptionsItemCancle">취소</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 삭제 모달-->
+                                <div class="modal-delete" id="modalDelete">
+                                    <div class="modal-delete-bond" id="modalDeleteBond">
+                                        <div class="modal-delete-alert" id="modalDeleteAlert">정말로 삭제하시겠습니까?</div>
+                                        <div class="modal-deleteBtn-section" id="modalDeleteBtnSection">
+                                            <div class="modal-deleteBtn-yes" id="modalDeleteBtnYes">예</div>
+                                            <div class="modal-deleteBtn-no" id="modalDeleteBtnNo">아니오</div>
+                                        </div>
+                                    </div>
+                                </div>
                            `
 
             modalBox.innerHTML = htmlStr;
@@ -372,10 +408,6 @@
             let curr_comment_box = null;
 
             const iframe = document.getElementById('modalPortfolioIframe');
-
-            const modalLikeCntText = document.getElementById('modalLikeCntText');
-            // 현재의 좋아요 수를 댓글창에 표시
-            modalLikeCntText.innerHTML = `<p> 좋아요 \${obj.portfolio.likeCount}</p>`;
 
             if (iframe) {
                 iframe.srcdoc = `\${obj.portfolio.mergeCode}`;
@@ -408,6 +440,11 @@
                 // 댓글 데이터 로드
                 function renderComments(comments, container) {
                     comments.forEach(comment => {
+
+                        console.log(comment);
+                        const commentHeartOutlineClass = comment.liked ? 'hidden' : '';
+                        const commentHeartFilledClass = comment.liked ? '' : 'hidden';
+
                         const commentBox = document.createElement('div');
                         commentBox.classList.add('comment-box');
                         container.appendChild(commentBox);
@@ -422,29 +459,39 @@
                                 <div class="modal-comment-wrapper" style="display : flex; width: 75%;">
                                     <div class="modal-comment-main">
                                         <div class="modal-comment-main-userid">
-                                            <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>cat\${comment.user_id}</strong>
+                                            <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>\${comment.user_id}</strong>
                                             </div>
                                             <div style="margin-left:5px;">\${comment.content}</div>
                                         </div>
                                         <div class="modal-comment-main-content">
                                             <div style="color: gray;">1주</div>
-                                            <div style="color: gray; margin-left : 10px">좋아요 1만개</div>
+                                            <div style="color: gray; margin-left : 10px">좋아요 \${comment.likeCount}개</div>
                                             <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
+                                            <form>
+                                                <input type="hidden" name="comment_id" value="\${comment.comment_id}"/>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" style="margin-left : 10px;"  viewBox="0 -2 16 16">
+                                                  <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                                </svg>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-comment-like-logo" style="display : flex; align-items : center">
                                     <div class="modal-comment-like-logo-wrapper">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
-                                            class="bi bi-suit-heart comment-like-logo" viewBox="0 0 16 16">
-                                            <path
-                                                d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
-                                            class="bi bi-suit-heart-fill comment-like-logo hidden" viewBox="0 0 16 16">
-                                            <path
-                                                d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
-                                        </svg>
+                                        <form>
+                                            <input type="hidden" name="isLiked" value = "\${comment.liked}"/>
+                                            <input type="hidden" name="comment_id" value = "\${comment.comment_id}"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                                class="bi bi-suit-heart comment-like-logo \${commentHeartOutlineClass}" viewBox="0 0 16 16">
+                                                <path
+                                                    d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                                class="bi bi-suit-heart-fill comment-like-logo \${commentHeartFilledClass}" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                            </svg>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -498,17 +545,64 @@
                     }
 
                     if (event.target.closest('.modal-comment-like-logo-wrapper')){
-                        const heartOutline = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart');
-                        const heartFilled = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
-                        heartOutline.classList.toggle('hidden');
-                        heartFilled.classList.toggle('hidden');
+
+                        const commentLikeForm = event.target.closest('form');
+
+                        console.log(commentLikeForm)
+
+                        $.ajax({
+                            url: '/main/comment-like-ajax.do',
+                            type: 'post',
+                            data: $(commentLikeForm).serialize(),
+                            success: (obj) => {
+                                const heartOutline = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart');
+                                const heartFilled = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
+                                heartOutline.classList.toggle('hidden');
+                                heartFilled.classList.toggle('hidden');
+                            },
+                            error: (err) => {
+                                console.log(err);
+                            }
+                        });
                     }
 
                     if (event.target.closest('.modal-portfolio-like-logo-wrapper')){
-                        const heartOutline2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart');
-                        const heartFilled2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
-                        heartOutline2.classList.toggle('hidden');
-                        heartFilled2.classList.toggle('hidden');
+
+                        const portfolioLikeForm = event.target.closest('form');
+
+                        console.log(portfolioLikeForm);
+
+                        $.ajax({
+                            url: '/main/portfolio-like-ajax.do',
+                            type: 'post',
+                            data: $(portfolioLikeForm).serialize(),
+                            success: (obj) => {
+                                const heartOutline2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart');
+                                const heartFilled2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
+                                heartOutline2.classList.toggle('hidden');
+                                heartFilled2.classList.toggle('hidden');
+                            },
+                            error: (err) => {
+                                console.log(err);
+                            }
+                        });
+                    }
+
+                    if(event.target.closest('.bi-three-dots')){
+                        const deleteCommentForm = event.target.closest('form');
+
+                        console.log(deleteCommentForm);
+
+                        $.ajax({
+                            url: '/main/delete-comment-ajax.do',
+                            type: 'post',
+                            data: $(deleteCommentForm).serialize(),
+                            success: (obj) => {
+                            },
+                            error: (err) => {
+                                console.log(err);
+                            }
+                        });
                     }
                 }
                 modalCommentContent.addEventListener('click', modalCommentContentHandler);
@@ -565,16 +659,20 @@
                                         </div>
                                         <div class="modal-comment-like-logo" style="display : flex; align-items : center">
                                             <div class="modal-comment-like-logo-wrapper">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
-                                                    class="bi bi-suit-heart comment-like-logo" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                                                </svg>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
-                                                    class="bi bi-suit-heart-fill comment-like-logo hidden" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
-                                                </svg>
+                                                <form>
+                                                    <input type="hidden" name="isLiked" value = "\${comment.liked}"/>
+                                                    <input type="hidden" name="comment_id" value = "\${comment.comment_id}"/>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                                        class="bi bi-suit-heart comment-like-logo" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                                    </svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                                        class="bi bi-suit-heart-fill comment-like-logo hidden" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                                    </svg>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -637,12 +735,77 @@
                 document.body.style.overflow = 'hidden';
             }
 
+            // 댓글 헤더의 옵션버튼 클릭하면 옵션창이 뜸
+            document.getElementById('modalCommentHeaderOptionBtn').addEventListener('click', function (e) {
+                document.getElementById('modalOptionsOverlay').classList.add('modal-options-active');
+            });
+
+            // 옵션창 외부 클릭시 옵션창 닫힘
+            document.getElementById('modalOptionsOverlay').addEventListener('click', function (e) {
+                if (e.target === document.getElementById('modalOptions'))
+                    document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
+            });
+
+            // 취소 클릭시도 옵션창 닫힘
+            document.getElementById('modalOptionsItemCancle').addEventListener('click', function (e) {
+                document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
+            });
+
+            // 삭제 클릭시 삭제 모달 열림
+            document.getElementById('modalOptionsItemDelete').addEventListener('click', function (event) {
+                document.getElementById('modalDelete').classList.add('modal-delete-active');
+            });
+
+            // 예 클릭시 실제로 삭제되고 모달 전부 꺼짐
+            document.getElementById('modalDeleteBtnYes').addEventListener('click', function (event) {
+                if (currentPortfolioIndex !== null) {
+                    const portfolioData = JSON.parse(localStorage.getItem('portfolioData') || '[]');
+                    if (portfolioData.length > currentPortfolioIndex) {
+                        portfolioData.splice(currentPortfolioIndex, 1);
+                        localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
+                        alert('포트폴리오가 삭제되었습니다.');
+
+                        // 모달 전부 꺼짐
+                        document.getElementById('modalPortfolioOverlay').classList.remove('modal-portfolio-overlay-show');
+                        document.getElementById('modalCommentSection').classList.remove('modal-comment-section-active');
+                        document.getElementById('modalPortfolioIframe').classList.remove('modal-portfolio-iframe-faded');
+                        document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
+                        document.getElementById('modalDelete').classList.remove('modal-delete-active');
+
+                        // 포트폴리오 목록 업데이트
+                        loadPortfolios();
+
+                        currentPortfolioIndex = null;
+                    }
+                }
+            });
+
+            // 아니오 클릭시 옵션창까지 꺼짐
+            document.getElementById('modalDeleteBtnNo').addEventListener('click', function (event) {
+                document.getElementById('modalOptionsOverlay').classList.remove('modal-options-active');
+                document.getElementById('modalDelete').classList.remove('modal-delete-active');
+            });
+
+            // 신고 클릭시 신고하는 이유 물어봄
+            document.getElementById('modalOptionsItemReport').addEventListener('click', function (event) {
+                console.log('asdsad');
+                window.alert("신고하시는 이유가 무엇인가요?");
+            });
+
+            // iframe 외부 스크롤 이벤트 핸들러 설정
+            window.addEventListener('wheel', function(event) {
+                const iframe = document.getElementById('modalPortfolioIframe');
+                if (iframe) {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    if (iframeDoc) {
+                        iframeDoc.documentElement.scrollTop += event.deltaY;
+                    }
+                }
+            });
         }
     }
 
-
 </script>
-
 
 
 </body>

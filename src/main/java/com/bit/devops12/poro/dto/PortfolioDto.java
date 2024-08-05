@@ -26,6 +26,30 @@ public class PortfolioDto {
     private int commentCount;
     private boolean isLiked;
 
+    public LocalDateTime getModdate() {
+        return moddate;
+    }
+
+    public void setModdate(LocalDateTime moddate) {
+        this.moddate = moddate;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
     @Override
     public String toString() {
         return "PortfolioDto{" +
@@ -36,9 +60,9 @@ public class PortfolioDto {
                 ", htmlurl='" + htmlurl + '\'' +
                 ", thumbnail_url='" + thumbnail_url + '\'' +
                 ", regdate=" + regdate +
-                ", modDate=" + moddate +
-                ", skillname='" + skillname + '\'' +
+                ", moddate=" + moddate +
                 ", nickname='" + nickname + '\'' +
+                ", skillname='" + skillname + '\'' +
                 ", description='" + description + '\'' +
                 ", htmlCode=" + htmlCode +
                 ", cssCode=" + cssCode +
@@ -49,7 +73,7 @@ public class PortfolioDto {
                 ", commentCount=" + commentCount +
                 ", isLiked=" + isLiked +
                 '}';
-        }
+    }
 
     public List<String> getCssList(){
         return cssurl != null ? Arrays.stream(cssurl.split(",")).toList() : null;

@@ -83,8 +83,7 @@
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-=======
+
 <div class="container-content d-flex align-items-start">
     <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"></jsp:include>
 
@@ -848,9 +847,6 @@
 
 
 </script>
-
-
->>>>>>> origin/chunghyun
 
 </body>
 </html>

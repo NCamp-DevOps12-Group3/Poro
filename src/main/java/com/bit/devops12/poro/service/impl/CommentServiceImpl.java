@@ -29,4 +29,24 @@ public class CommentServiceImpl implements CommentService {
     public void postComment(CommentDto commentDto) {
         commentDao.postComment(commentDto);
     }
+
+    @Override
+    public void likeComment(int comment_id, UserDto loginUser) {
+        commentDao.likeComment(comment_id, loginUser);
+    }
+
+    @Override
+    public void unLikeComment(int comment_id, UserDto loginUser) {
+        commentDao.unLikeComment(comment_id, loginUser);
+    }
+
+    @Override
+    public CommentDto getCommentById(int comment_id) {
+        return commentDao.getCommentById(comment_id);
+    }
+
+    @Override
+    public void deleteComment(int comment_id) {
+        commentDao.deleteComment(comment_id);
+    }
 }

@@ -50,8 +50,8 @@
 .modal-comment-section {
     position: absolute;
     top: 0;
-    right: -23vw;
-    width: 23vw;
+    right: -20vw;
+    width: 20vw;
     height: 90vh;
     padding: 0;
     z-index: 2;

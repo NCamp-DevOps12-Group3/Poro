@@ -16,6 +16,14 @@ public class CommentDto {
     private int likeCount;
     private boolean isLiked;
 
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
     @Override
     public String toString() {
         return "CommentDto{" +
@@ -31,6 +39,7 @@ public class CommentDto {
                 ", isLiked=" + isLiked +
                 '}';
     }
+
 
     public List<CommentDto> getReplies() {
         return replies;
@@ -104,12 +113,5 @@ public class CommentDto {
         this.likeCount = likeCount;
     }
 
-    public boolean isLiked() {
-        return isLiked;
-    }
-
-    public void setLiked(boolean liked) {
-        isLiked = liked;
-    }
 
 }

@@ -66,8 +66,10 @@ public class UserController {
 			loginUser.setPassword("");
 			
 			session.setAttribute("loginUser", loginUser);
+
 			System.out.println(loginUser);
-			return "main";
+
+			return "redirect:/main/main.do";
 		} catch (Exception e) {
 			model.addAttribute("loginFailMsg", e.getMessage());
 			
