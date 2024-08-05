@@ -25,7 +25,7 @@
     <style>
         .content {
             padding: 20px;
-            margin-left: 20vw;
+            margin-left: 30vw;
             margin-right: 5vw;
             height: 100vh;
 
@@ -84,7 +84,7 @@
     </style>
 </head>
 <body>
-    <input type="hidden" id="user-type" value="company">
+    <input type="hidden" id="user-type" value="common">
     <div class="sidebar">
         <div class="sidebar-content d-flex flex-column">
             <div class="sidebar-icon">
