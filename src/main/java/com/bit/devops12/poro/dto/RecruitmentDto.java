@@ -9,7 +9,7 @@ public class RecruitmentDto {
     private String company_icon_url;
     private String recruitment_url;
     private String recruitment_title;
-    private LocalDateTime dday;
+    private String dday;
     private LocalDateTime regdate;
     private LocalDateTime moddate;
     private String location;
@@ -103,11 +103,11 @@ public class RecruitmentDto {
         this.recruitment_title = recruitment_title;
     }
 
-    public LocalDateTime getDday() {
+    public String getDday() {
         return dday;
     }
 
-    public void setDday(LocalDateTime dday) {
+    public void setDday(String dday) {
         this.dday = dday;
     }
 

@@ -5,6 +5,8 @@ import com.bit.devops12.poro.dto.*;
 import com.bit.devops12.poro.service.UserFeedsServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -202,5 +204,32 @@ public class UserFeedsController {
 
         response.put("success", success);
         return response;
+    }
+
+    @PostMapping("/sendMessage")
+    public ResponseEntity<?> sendMessage(@RequestParam Integer recipientId, @RequestParam String messageContent,HttpSession session) {
+        // 메시지 전송 로직 구현
+        //        Integer userId = (Integer) session.getAttribute("userId");
+        Integer userId = 2;
+        boolean isSuccess = userFeedsService.sendMessage(userId,recipientId,messageContent);
+        if (isSuccess) {
+            return ResponseEntity.ok().body(Map.of("success", true));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("success", false));
+        }
+    }
+    @GetMapping("/getMessages")
+    public ResponseEntity<?> getMessages(HttpSession session) {
+        //        Integer userId = (Integer) session.getAttribute("userId");
+        Integer userId = 2;
+        List<UserFeedsMessageDto> userFeedsMessageDtoList= userFeedsService.getMessages(userId);
+        if (userFeedsMessageDtoList != null && !userFeedsMessageDtoList.isEmpty()) {
+            userFeedsMessageDtoList.forEach(x->{
+               x.setSender_name(userFeedsService.getSenderNickname(x.getSender_id()));
+            });
+            return ResponseEntity.ok().body(Map.of("success", true, "messages", userFeedsMessageDtoList));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("success", false));
+        }
     }
 }
