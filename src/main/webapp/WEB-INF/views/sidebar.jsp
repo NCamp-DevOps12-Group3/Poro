@@ -80,7 +80,7 @@
     </style>
 </head>
 <body>
-    <input type="hidden" id="user-type" value="company">
+    <input type="hidden" id="user-type" value="common">
     <div class="sidebar">
         <div class="sidebar-content d-flex flex-column">
             <div class="sidebar-icon">
@@ -231,20 +231,20 @@
             <form id="uploadFormCompany" method="post" enctype="multipart/form-data" action="/cupload">
                 <div id="step1Company" class="step-company">
                     <div class="content-center">
-                        <h2>Step 1: 긴 사진 파일을 올려주세요.</h2>
+                        <h2>Step 1: 기업(공고) 소개 사진 파일을 올려주세요.</h2>
                         <input type="file" id="imageFileCompany" name="imageFile" accept="image/*">
                         <img id="imagePreviewCompany" src="#" alt="Image Preview" style="display: none; width: 100%;"/>
                     </div>
                     <button id="toStep2Company" type="button" class="modal-button center-button">다음</button>
                 </div>
                 <div id="step2Company" class="step-company" style="display:none;">
-                    <h2>Step 2: 제목, 설명, 태그 추가</h2><br>
+                    <h2>Step 2: 세부사항 추가</h2><br>
                     <div class="step2-content">
                         <img id="imagePreviewStep2Company" src="#" alt="Image Preview" style="width: 50%;"/>
                         <div class="description-tags">
                             <h3>제목</h3>
                             <textarea id="titleCompany" name="title" placeholder="Enter title" class="modal-textarea"></textarea>
-                            <h3>Dday 날짜</h3>
+                            <h3>공고 마감 날짜</h3>
                             <input type="date" id="ddayCompany" name="dday" class="modal-input">
                         </div>
                     </div>
@@ -252,11 +252,11 @@
                     <button id="toStep3Company" type="button" class="modal-button center-button">다음</button>
                 </div>
                 <div id="step3Company" class="step-company" style="display:none;">
-                    <h2>Step 3: Dday날짜와 위치, 경력, 학력 추가</h2><br>
+                    <h2>Step 3: 세부사항 추가</h2><br>
                     <div class="step3-content">
                         <img id="imagePreviewStep3Company" src="#" alt="Image Preview" style="width: 50%;"/>
                         <div class="additional-info">
-                            <h3>위치</h3>
+                            <h3>근무 위치</h3>
                             <input type="text" id="locationCompany" name="location" placeholder="Enter location" class="modal-input">
                             <h3>경력</h3>
                             <textarea id="experienceCompany" name="experience" placeholder="Enter experience" class="modal-textarea"></textarea>
@@ -288,5 +288,64 @@
     <script src="${pageContext.request.contextPath}/static/js/sidebar.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function slideOutCurrentStep(currentStep, direction) {
+                if (direction === 'left') {
+                    currentStep.classList.add('slide-out-left');
+                } else {
+                    currentStep.classList.add('slide-out-right');
+                }
+            }
+
+            function slideInNextStep(nextStep, direction) {
+                if (direction === 'left') {
+                    nextStep.classList.add('slide-in-left');
+                } else {
+                    nextStep.classList.add('slide-in-right');
+                }
+                nextStep.style.display = 'block';
+            }
+
+            document.querySelectorAll('.modal-button').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var currentStep = this.closest('.step-common');
+                    var nextStep;
+
+                    if (this.id.includes('toStep2')) {
+                        nextStep = currentStep.nextElementSibling;
+                        slideOutCurrentStep(currentStep, 'left');
+                        setTimeout(function () {
+                            currentStep.style.display = 'none';
+                            slideInNextStep(nextStep, 'right');
+                        }, 500);
+                    } else if (this.id.includes('toStep3')) {
+                        nextStep = currentStep.nextElementSibling;
+                        slideOutCurrentStep(currentStep, 'left');
+                        setTimeout(function () {
+                            currentStep.style.display = 'none';
+                            slideInNextStep(nextStep, 'right');
+                        }, 500);
+                    } else if (this.id.includes('backToStep1')) {
+                        nextStep = currentStep.previousElementSibling;
+                        slideOutCurrentStep(currentStep, 'right');
+                        setTimeout(function () {
+                            currentStep.style.display = 'none';
+                            slideInNextStep(nextStep, 'left');
+                        }, 500);
+                    } else if (this.id.includes('backToStep2')) {
+                        nextStep = currentStep.previousElementSibling;
+                        slideOutCurrentStep(currentStep, 'right');
+                        setTimeout(function () {
+                            currentStep.style.display = 'none';
+                            slideInNextStep(nextStep, 'left');
+                        }, 500);
+                    }
+                });
+            });
+        });
+
+
+    </script>
 </body>
 </html>
