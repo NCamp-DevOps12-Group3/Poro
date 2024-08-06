@@ -71,6 +71,8 @@ public class CommentDao {
     public void deleteComment(int comment_id){
         System.out.println("CommentDao의 deleteComment 메소드 실행");
 
+        System.out.println(comment_id);
+
         mybatis.delete("CommentDao.deleteComment", comment_id);
     }
 

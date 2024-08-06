@@ -71,16 +71,6 @@
     </select>
 
     <delete id="deleteComment" parameterType="int">
---         DELETE FROM COMMENT
---         WHERE COMMENT_ID IN (
---             SELECT COMMENT_ID
---             FROM COMMENT
---             WHERE COMMENT_PARENT_ID = #{comment_id}
---         );
---
---         DELETE FROM COMMENT_LIKES
---         WHERE COMMENT_ID = #{comment_id};
-
         DELETE FROM COMMENT
         WHERE COMMENT_ID = #{comment_id}
     </delete>
