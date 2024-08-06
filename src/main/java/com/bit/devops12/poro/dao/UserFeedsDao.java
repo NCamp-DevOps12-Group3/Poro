@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,5 +62,69 @@ public class UserFeedsDao {
 
     public int getUserBookmarkPortfolioCnt(int id) {
         return mybatis.selectOne("UserFeedsDao.getUserBookmarkPortfolioCnt",id);
+    }
+
+    public boolean deleteListIsOwner(int id, List<Integer> portfolioIds) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("portfolioIds", portfolioIds);
+        if ((Integer) mybatis.selectOne("UserFeedsDao.deleteListIsOwner",map)!=0){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean getFollowInfo(int userid, int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userid", userid);
+        map.put("id", id);
+        return mybatis.selectOne("UserFeedsDao.getFollowInfo",map);
+    }
+    public int isfollow(Map<String,Object> map) {
+        return mybatis.selectOne("UserFeedsDao.isfollow",map);
+    }
+    public boolean unfollow(Map<String, Object> map) {
+        int cnt=isfollow(map);
+        if (cnt != 0){
+            mybatis.delete("UserFeedsDao.unfollow",map);
+        }
+        if (isfollow(map) != 0){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean follow(Map<String, Object> map) {
+        if (isfollow(map) != 0){
+            return false;
+        }
+        mybatis.insert("UserFeedsDao.follow",map);
+        if (isfollow(map) != 0){
+            return true;
+        }
+        return false;
+    }
+
+    public Map<String,Object> getbookmarkInfo(Map<String, Object> map) {
+        Map<String,Object> result=new HashMap<>();
+        map.put("portfolioBookmark", mybatis.selectList("UserFeedsDao.getbookmarkPortfolioInfo",map));
+        map.put("coperationBookmark", mybatis.selectList("UserFeedsDao.getbookmarkCoperationInfo",map));
+        return result;
+    }
+
+    public boolean portfolioBookmarktoggle(Map<String, Object> map) {
+        boolean a=mybatis.selectOne("UserFeedsDao.hasPortfolioBookmark",map);
+        System.out.println(a);
+        if (!a){
+            mybatis.insert("UserFeedsDao.InsertPortfolioBookmark",map);
+        }
+        else {
+            mybatis.delete("UserFeedsDao.DeletePortfolioBookmark",map);
+        }
+        return true;
+    }
+
+    public List<RecruitmentDto> getRecruitmentList(int id) {
+        return mybatis.selectList("UserFeedsDao.getRecruitmentList",id);
     }
 }

@@ -35,14 +35,14 @@
     <div class="card"><!-- 회원가입 양식 -->
         <p class="h5 card-title text-center">계정생성</p><!-- 회원가입 양식 텍스트 -->
         <p class="text-center" >이메일로 회원가입 하기</p><!-- 회원가입 양식 텍스트 -->
-        <form  action="/user/join.do" id="join-form" method="post" enctype="multipart/form-data"><!-- 회원가입 양식 폼 -->
+        <form  action="/user/join.do" id="join-form" method="post"><!-- 회원가입 양식 폼 -->
             <div class="mb-3"><!-- 회원가입 양식 입력창 -->
                 <div style="height: 60px; margin-bottom: 70px;">닉네임
                     <input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임 ">
                     <button type="button" class="btn btn-outline-dark" id="nicknameChk">중복확인</button>
                     <div id="nicknameAlertholder"></div>
                 </div>
-                
+
                 
                 <div style="height: 60px; margin-bottom: 70px;">이름
 

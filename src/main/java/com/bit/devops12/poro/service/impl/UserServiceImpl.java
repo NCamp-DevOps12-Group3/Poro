@@ -11,7 +11,9 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -27,19 +29,10 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void join(UserDto userDto) {
-		
-		
-		
-		
-		
-		
-		
 		userDao.join(userDto);
-		
 	}
-	
-	
-	
+
+
 	
 	
 	@Override
@@ -113,19 +106,18 @@ public class UserServiceImpl implements UserService {
 		}
 		return jsonString;
 	}
-	
 	@Override
 	public UserDto login(UserDto userDto) {
 		int emailCheck = userDao.emailCheck(userDto.getEmail());
-		
+
 		if(emailCheck == 0)
 			throw new RuntimeException("emailNotExist");
-		
+
 		UserDto loginUser = userDao.login(userDto);
-		
+
 		if(loginUser == null)
 			throw new RuntimeException("wrongPassword");
-		
+
 		return loginUser;
 	}
 	

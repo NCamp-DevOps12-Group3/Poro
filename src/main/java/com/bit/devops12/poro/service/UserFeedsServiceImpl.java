@@ -1,10 +1,8 @@
 package com.bit.devops12.poro.service;
 
+import com.bit.devops12.poro.dao.MessageDao;
 import com.bit.devops12.poro.dao.UserFeedsDao;
-import com.bit.devops12.poro.dto.Criteria;
-import com.bit.devops12.poro.dto.PortfolioDto;
-import com.bit.devops12.poro.dto.ProfileDto;
-import com.bit.devops12.poro.dto.RecruitmentDto;
+import com.bit.devops12.poro.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,11 @@ import java.util.stream.Collectors;
 public class UserFeedsServiceImpl {
 
     private UserFeedsDao userFeedsDao;
+    private MessageDao messageDao;
     @Autowired
-    public UserFeedsServiceImpl(UserFeedsDao userFeedsDao) {
+    public UserFeedsServiceImpl(UserFeedsDao userFeedsDao, MessageDao messageDao)
+    {
+        this.messageDao=messageDao;
         this.userFeedsDao = userFeedsDao;
     }
 
@@ -114,11 +115,8 @@ public class UserFeedsServiceImpl {
         }
     }
 
-
     public void deletePortfolio(String deleteList) {
-        if (deleteList.equals("")||(deleteList == null)){
-            return;
-        }
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String[] portfolioIdStrings = objectMapper.readValue(deleteList, String[].class);
@@ -126,7 +124,9 @@ public class UserFeedsServiceImpl {
             List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
-
+            if (portfolioIds.size() ==0 ){
+                return;
+            }
             userFeedsDao.deletePortfolio(portfolioIds);
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,6 +145,7 @@ public class UserFeedsServiceImpl {
             portfolioDto.setJsCode(readFiles(Arrays.stream(portfolioDto.getJsurl().split(",")).toList()));
             portfolioDto.setMergeCode(mergeFile(portfolioDto.getHtmlCode(),portfolioDto.getCssCode(),portfolioDto.getJsCode()));
         });
+
         return portfolioDtos;
     }
 
@@ -158,6 +159,7 @@ public class UserFeedsServiceImpl {
             if (!existFiles(recruitmentDto.getCompany_icon_url())){
                 recruitmentDto.setCompany_icon_url("/static/img/default.png");
             }
+
         });
         return recruitmentDtos;
     }
@@ -188,7 +190,9 @@ public class UserFeedsServiceImpl {
             List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
-
+            if (portfolioIds.size() ==0 ){
+                return;
+            }
             userFeedsDao.deleteCoperationBookmark(portfolioIds);
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,7 +212,9 @@ public class UserFeedsServiceImpl {
             List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
-
+            if (portfolioIds.size() ==0 ){
+                return;
+            }
             userFeedsDao.deleteOtherPortfolioBookmark(portfolioIds);
         } catch (Exception e) {
             e.printStackTrace();
@@ -222,5 +228,80 @@ public class UserFeedsServiceImpl {
 
     public int getUserBookmarkPortfolioCnt(int id) {
         return userFeedsDao.getUserBookmarkPortfolioCnt(id);
+    }
+
+    public boolean deleteListIsOwner(int id, String deleteList) {
+        if (deleteList.equals("")||(deleteList == null)){
+            return false;
+        }
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            String[] portfolioIdStrings = objectMapper.readValue(deleteList, String[].class);
+
+            List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+
+            return userFeedsDao.deleteListIsOwner(id,portfolioIds);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 예외 처리 로직 추가
+        }
+        return false;
+    }
+
+    public boolean getFollowInfo(int userid, int id) {
+        return userFeedsDao.getFollowInfo(userid,id);
+    }
+
+    public boolean unfollow(Integer userId, int id) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("userid",userId);
+        map.put("id",id);
+        return userFeedsDao.unfollow(map);
+    }
+
+    public boolean follow(Integer userId, int id) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("userid",userId);
+        map.put("id",id);
+        return  userFeedsDao.follow(map);
+    }
+
+    public Map<String,Object> getbookmarkInfo(Integer userid, int id) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("userid",userid);
+        map.put("id",id);
+        return userFeedsDao.getbookmarkInfo(map);
+
+    }
+
+    public boolean portfolioBookmarktoggle(Integer userid, int id) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("userid",userid);
+        map.put("id",id);
+        return userFeedsDao.portfolioBookmarktoggle(map);
+    }
+
+    public List<RecruitmentDto> getRecruitmentList(int id) {
+        return userFeedsDao.getRecruitmentList(id);
+    }
+
+    public boolean sendMessage(Integer senderId, Integer receiverId, String messageContent) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("senderid",senderId);
+        map.put("receiverid",receiverId);
+        map.put("messagecontent",messageContent);
+        return messageDao.sendMessage(map);
+    }
+
+    public List<UserFeedsMessageDto> getMessages(Integer userId) {
+        return messageDao.getMessages(userId);
+    }
+
+    public String getSenderNickname(int senderId) {
+        ProfileDto profileDto=userFeedsDao.getUserInfo(senderId);
+        return profileDto.getNickname();
     }
 }

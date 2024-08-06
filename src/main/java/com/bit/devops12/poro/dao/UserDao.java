@@ -1,6 +1,5 @@
 package com.bit.devops12.poro.dao;
 
-import com.bit.devops12.poro.dto.FileDto;
 import com.bit.devops12.poro.dto.UserDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +20,7 @@ public class UserDao {
 	
 	public void join(UserDto userDto){
 		System.out.println("UserDao의 join 메소드 실행");
-		
-		
-		
-		
 		mybatis.insert("UserDao.join", userDto);
-		
-		
-		
-		
-		
 		System.out.println("UserDao의 join 메소드 실행 종료");
 	}
 	

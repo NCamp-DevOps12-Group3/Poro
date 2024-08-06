@@ -13,6 +13,8 @@ public class PortfolioDto {
     private String htmlurl;
     private String thumbnail_url;
     private LocalDateTime regdate;
+    private LocalDateTime moddate;
+    private String nickname;
     private String skillname;
     private String description;
     private List<String> htmlCode;
@@ -20,68 +22,77 @@ public class PortfolioDto {
     private List<String> jsCode;
     private String mergeCode;
     private int bookmark_id;
+    private int likeCount;
+    private int commentCount;
+    private boolean isLiked;
+    private boolean bookmarked;
 
-   
-
-    public int getBookmark_id() {
-        return bookmark_id;
+    public LocalDateTime getModdate() {
+        return moddate;
     }
 
-    public void setBookmark_id(int bookmark_id) {
-        this.bookmark_id = bookmark_id;
+    public void setModdate(LocalDateTime moddate) {
+        this.moddate = moddate;
     }
 
-    public String getMergeCode() {
-        return mergeCode;
+    public int getLikeCount() {
+        return likeCount;
     }
 
-    public void setMergeCode(String mergeCode) {
-        this.mergeCode = mergeCode;
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 
-    public List<String> getHtmlCode() {
-        return htmlCode;
+    public int getCommentCount() {
+        return commentCount;
     }
 
-    public void setHtmlCode(List<String> htmlCode) {
-        this.htmlCode = htmlCode;
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
-    public List<String> getCssCode() {
-        return cssCode;
-    }
-
-
-    public void setCssCode(List<String> cssCode) {
-        this.cssCode = cssCode;
-    }
-
-    public List<String> getJsCode() {
-        return jsCode;
-    }
-
-    public void setJsCode(List<String> jsCode) {
-        this.jsCode = jsCode;
+    @Override
+    public String toString() {
+        return "PortfolioDto{" +
+                "portfolio_id=" + portfolio_id +
+                ", user_id=" + user_id +
+                ", cssurl='" + cssurl + '\'' +
+                ", jsurl='" + jsurl + '\'' +
+                ", htmlurl='" + htmlurl + '\'' +
+                ", thumbnail_url='" + thumbnail_url + '\'' +
+                ", regdate=" + regdate +
+                ", moddate=" + moddate +
+                ", nickname='" + nickname + '\'' +
+                ", skillname='" + skillname + '\'' +
+                ", description='" + description + '\'' +
+                ", htmlCode=" + htmlCode +
+                ", cssCode=" + cssCode +
+                ", jsCode=" + jsCode +
+                ", mergeCode='" + mergeCode + '\'' +
+                ", bookmark_id=" + bookmark_id +
+                ", likeCount=" + likeCount +
+                ", commentCount=" + commentCount +
+                ", isLiked=" + isLiked +
+                '}';
     }
 
     public List<String> getCssList(){
-        return Arrays.stream(cssurl.split(",")).toList();
+        return cssurl != null ? Arrays.stream(cssurl.split(",")).toList() : null;
     }
 
     public List<String> getJsList(){
-        return Arrays.stream(jsurl.split(",")).toList();
+        return jsurl != null ? Arrays.stream(jsurl.split(",")).toList() : null;
     }
 
-    public List<String> getHtmlList(){
-        return Arrays.stream(htmlurl.split(",")).toList();
+    public List<String> getHtmlList() {
+        return htmlurl != null ? Arrays.stream(htmlurl.split(",")).toList() : null;
+    }
+    public boolean isBookmarked() {
+        return bookmarked;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
     }
 
     public int getPortfolio_id() {
@@ -147,24 +158,77 @@ public class PortfolioDto {
     public void setSkillname(String skillname) {
         this.skillname = skillname;
     }
-    
-    @Override
-    public String toString() {
-        return "PortfolioDto{" +
-                       "portfolio_id=" + portfolio_id +
-                       ", user_id=" + user_id +
-                       ", cssurl='" + cssurl + '\'' +
-                       ", jsurl='" + jsurl + '\'' +
-                       ", htmlurl='" + htmlurl + '\'' +
-                       ", thumbnail_url='" + thumbnail_url + '\'' +
-                       ", regdate=" + regdate +
-                       ", skillname='" + skillname + '\'' +
-                       ", description='" + description + '\'' +
-                       ", htmlCode=" + htmlCode +
-                       ", cssCode=" + cssCode +
-                       ", jsCode=" + jsCode +
-                       ", mergeCode='" + mergeCode + '\'' +
-                       ", bookmark_id=" + bookmark_id +
-                       '}';
+
+    public List<String> getHtmlCode() {
+        return htmlCode;
+    }
+
+    public void setHtmlCode(List<String> htmlCode) {
+        this.htmlCode = htmlCode;
+    }
+
+    public List<String> getCssCode() {
+        return cssCode;
+    }
+
+    public void setCssCode(List<String> cssCode) {
+        this.cssCode = cssCode;
+    }
+
+    public List<String> getJsCode() {
+        return jsCode;
+    }
+
+    public void setJsCode(List<String> jsCode) {
+        this.jsCode = jsCode;
+    }
+
+    public String getMergeCode() {
+        return mergeCode;
+    }
+
+    public void setMergeCode(String mergeCode) {
+        this.mergeCode = mergeCode;
+    }
+
+    public int getBookmark_id() {
+        return bookmark_id;
+    }
+
+    public void setBookmark_id(int bookmark_id) {
+        this.bookmark_id = bookmark_id;
+    }
+
+    public LocalDateTime getModDate() {
+        return moddate;
+    }
+
+    public void setModDate(LocalDateTime modDate) {
+        this.moddate = modDate;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 }
+

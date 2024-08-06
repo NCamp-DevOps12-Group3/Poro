@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.controller;
 
+import com.bit.devops12.poro.dto.MainCriteria;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -54,7 +55,6 @@ public class UserController {
 	@PostMapping("/join.do")
 	public String join(UserDto userDto ) {
 		userService.join(userDto);
-		
 		return "user/login";
 	}
 	
@@ -66,8 +66,10 @@ public class UserController {
 			loginUser.setPassword("");
 			
 			session.setAttribute("loginUser", loginUser);
+
 			System.out.println(loginUser);
-			return "main";
+
+			return "redirect:/main/main.do";
 		} catch (Exception e) {
 			model.addAttribute("loginFailMsg", e.getMessage());
 			

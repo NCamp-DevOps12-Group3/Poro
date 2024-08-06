@@ -7,6 +7,17 @@ public class UserFeedsPageDto {
     private int userid;
     private String pageType;
 
+    @Override
+    public String toString() {
+        return "UserFeedsPageDto{" +
+                "endPage=" + endPage +
+                ", cri=" + cri +
+                ", total=" + total +
+                ", userid=" + userid +
+                ", pageType='" + pageType + '\'' +
+                '}';
+    }
+
     public String getPageType() {
         return pageType;
     }

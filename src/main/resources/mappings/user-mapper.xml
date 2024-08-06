@@ -13,7 +13,6 @@
 	    EMAIL,
 	    PASSWORD,
 	    ROLE
-	    
 		
 	) VALUE (
 	    #{nickname},
@@ -59,16 +58,16 @@
 			OR U.EMAIL LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 	</select>
-	
+
 	<select id="login" parameterType="user" resultType="user">
 		SELECT USER_ID
-		     , NICKNAME
-		     , PASSWORD
+			 , NICKNAME
+			 , PASSWORD
 			 , NAME
-		     , PHONENUMBER
+			 , PHONENUMBER
 			 , EMAIL
-		     , GENDER
-		     , JOB
+			 , GENDER
+			 , JOB
 			 , ROLE
 			 , INTRODUCTION
 			 , SITE_URL
@@ -79,6 +78,8 @@
 		WHERE EMAIL = #{email}
 		  AND PASSWORD = #{password}
 	</select>
+
+	
 	
 	
 	<update id="modify" parameterType="user">
