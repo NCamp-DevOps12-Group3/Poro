@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.controller;
 
+import com.bit.devops12.poro.common.FileUtils;
 import com.bit.devops12.poro.model.Portfolio;
 import com.bit.devops12.poro.model.SkillTag;
 import com.bit.devops12.poro.service.PortfolioService;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -42,48 +44,36 @@ public class PortfolioController {
         zipFile.transferTo(zipDest);
 
         // zip 파일 압축 풀기
+        FileUtils.unzipFile(zipDest.toPath(), Paths.get(uploadDir));
 
-
-//        BufferedInputStream in = new BufferedInputStream(new FileInputStream(zipDest));
-//        ZipInputStream zipInputStream = new ZipInputStream(in);
-//        ZipEntry zipEntry = null;
-//
-//        while((zipEntry = zipInputStream.getNextEntry()) != null){
-//
-//             String fileName = zipEntry.getName();
-//            File newFile = new File(uploadDir + fileName);
-//            System.out.println(newFile.getAbsolutePath());
-//            FileOutputStream fos = new FileOutputStream(newFile);
-//            byte[] bytes = new byte[1024];
-//            int length = 0;
-//            while ((length = zipInputStream.read(bytes)) >= 0) {
-//                fos.write(bytes, 0, length);
-//            }
-//            fos.close();
-//        }
-//        zipInputStream.closeEntry();
-
-        // 썸네일 파일 저장
+         // 썸네일 파일 저장
         File thumbnailDest = new File(uploadDir + thumbnailFile.getOriginalFilename());
-        thumbnailFile.transferTo(thumbnailDest);
+        String thumbnailPath = thumbnailDest.getPath();
+        System.out.println(thumbnailPath);
+        if(!thumbnailPath.equals(uploadDir+File.separator)){
+            thumbnailFile.transferTo(thumbnailDest);
+        }else{
+            thumbnailPath = "/static/img/1.jpg";
+        }
+
 
 
         // DB에 저장
         Portfolio portfolio = new Portfolio();
         portfolio.setUserId(7);
         portfolio.setPortfolioUrl(zipDest.getAbsolutePath());
-        portfolio.setThumbnailUrl(thumbnailDest.getAbsolutePath());
+        portfolio.setThumbnailUrl(thumbnailPath);
         portfolio.setDescription(description);
         portfolio.setRegdate(LocalDateTime.now());
         portfolio.setModdate(LocalDateTime.now());
-//        portfolioService.savePortfolio(portfolio);
+        portfolioService.savePortfolio(portfolio);
 
         // 태그 저장
         List<String> tagList = Arrays.asList(tags.split("\\s+"));
         for (String tag : tagList) {
             SkillTag skillTag = new SkillTag();
             skillTag.setSkillName(tag);
-//            portfolioService.saveSkillTag(skillTag);
+            portfolioService.saveSkillTag(skillTag);
         }
 
         return "/";
