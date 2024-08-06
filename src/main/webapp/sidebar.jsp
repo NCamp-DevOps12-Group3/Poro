@@ -23,7 +23,7 @@
     <style>
         .content {
             padding: 20px;
-            margin-left: 20vw;
+            margin-left: 30vw;
             margin-right: 5vw;
             height: 100vh;
 

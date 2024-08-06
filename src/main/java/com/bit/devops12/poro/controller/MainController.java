@@ -65,9 +65,12 @@ public class MainController {
     }
 
     private List<CommentDto> buildCommentTree(List<CommentDto> commentDtoList) {
+
         // ID를 키로 하고 CommentDto를 값으로 가지는 맵 생성
         Map<Integer, CommentDto> commentMap = commentDtoList.stream()
                 .collect(Collectors.toMap(CommentDto::getComment_id, comment -> comment));
+
+        System.out.println(commentMap);
 
         // 루트 코멘트들을 저장할 리스트 생성
         List<CommentDto> rootComments = new ArrayList<>();
@@ -99,19 +102,31 @@ public class MainController {
     }
 
     @PostMapping("/comment-ajax.do")
-//    @CrossOrigin(origins = "http://localhost:8090")  // CORS 설정 예시
-    public ResponseEntity<Map<String, Object>> userCommentAjax(@RequestBody CommentDto commentDto) {
+    @ResponseBody
+    public Map<String, Object> userCommentAjax(@RequestBody CommentDto commentDto, HttpSession session) {
+
+
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
+
+        PortfolioDto portfolioDto = portfolioService.getPortfolioById(commentDto.getPortfolio_id(), loginUser);
+
         commentService.postComment(commentDto);
-        // JSON 응답을 반환
+
+        List<CommentDto> commentDtoList = commentService.getCommentList(portfolioDto, loginUser);
+
         Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("comment", commentDto);
-        return ResponseEntity.ok(response);
+
+        response.put("commentList", buildCommentTree(commentDtoList));
+        response.put("portfolio", portfolioDto);
+
+        return response;
     }
 
     @PostMapping("/modal-ajax.do")
     @ResponseBody
     public Map<String, Object> userModalAjax(@RequestParam("portfolio_id") int portfolio_id, HttpSession session) {
+
+        System.out.println(portfolio_id);
 
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
@@ -119,11 +134,13 @@ public class MainController {
 
         List<CommentDto> commentDtoList = commentService.getCommentList(portfolioDto, loginUser);
 
-        System.out.println(portfolioDto);
+        System.out.println(commentDtoList);
 
         Map<String, Object> response = new HashMap<>();
 
         response.put("commentList", buildCommentTree(commentDtoList));
+
+
         response.put("portfolio", portfolioDto);
 
         return response;
@@ -135,9 +152,13 @@ public class MainController {
 
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
+        System.out.println(isLiked);
+
         if(!isLiked) {
+            System.out.println("123");
             commentService.likeComment(comment_id, loginUser);
         }else{
+            System.out.println("456");
             commentService.unLikeComment(comment_id, loginUser);
         }
 
@@ -171,29 +192,36 @@ public class MainController {
 
         CommentDto commentDto = commentService.getCommentById(comment_id);
 
+        PortfolioDto portfolioDto = portfolioService.getPortfolioById(commentDto.getPortfolio_id(), loginUser);
+
         if(commentDto.getUser_id() == loginUser.getUser_id()){
             commentService.deleteComment(comment_id);
-        }else{
-
         }
 
+        List<CommentDto> commentDtoList = commentService.getCommentList(portfolioDto, loginUser);
+
         Map<String, Object> response = new HashMap<>();
+
+        response.put("commentList", buildCommentTree(commentDtoList));
+        response.put("portfolio", portfolioDto);
 
         return response;
     }
 
     @PostMapping("/delete-portfolio.do")
     public String userDeletePortfolio(@RequestParam ("portfolio_id") int portfolio_id, HttpSession session) {
+
+        System.out.println("portfolio_id: " + portfolio_id);
+
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
         PortfolioDto portfolioDto = portfolioService.getPortfolioById(portfolio_id, loginUser);
 
         if(portfolioDto.getUser_id() == loginUser.getUser_id()){
             portfolioService.deletePortfolio(portfolio_id);
-        }else{
-
         }
-        return "main-tmp";
+
+        return "redirect:/main/main.do";
     }
 
 }

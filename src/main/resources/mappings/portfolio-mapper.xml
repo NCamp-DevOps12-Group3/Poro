@@ -125,6 +125,38 @@
           AND PORTFOLIO_ID = #{portfolio_id}
     </delete>
 
+    <!-- 포트폴리오와 연관된 모든 댓글 ID 찾기 -->
+    <select id="selectAllCommentIdsForPortfolio" resultType="int" parameterType="int">
+        SELECT COMMENT_ID
+        FROM COMMENT
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </select>
+
+    <!-- 포트폴리오와 연관된 좋아요 삭제 -->
+    <delete id="deleteLikesForPortfolio" parameterType="int">
+        DELETE FROM PORTFOLIO_LIKE
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </delete>
+
+    <!-- 포트폴리오와 연관된 HTML 삭제 -->
+    <delete id="deleteHtmlForPortfolio" parameterType="int">
+        DELETE FROM HTML
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </delete>
+
+    <!-- 포트폴리오와 연관된 CSS 삭제 -->
+    <delete id="deleteCssForPortfolio" parameterType="int">
+        DELETE FROM CSS
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </delete>
+
+    <!-- 포트폴리오와 연관된 JavaScript 삭제 -->
+    <delete id="deleteJsForPortfolio" parameterType="int">
+        DELETE FROM JAVASCRIPT
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </delete>
+
+    <!-- 포트폴리오 삭제 -->
     <delete id="deletePortfolio" parameterType="int">
         DELETE FROM PORTFOLIO
         WHERE PORTFOLIO_ID = #{portfolio_id};

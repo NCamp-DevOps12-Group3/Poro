@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,9 +72,18 @@ public class CommentDao {
     public void deleteComment(int comment_id){
         System.out.println("CommentDao의 deleteComment 메소드 실행");
 
-        System.out.println(comment_id);
+        // 모든 자식 댓글 ID를 가져오기 (자신 포함)
+        List<Integer> childCommentIds = mybatis.selectList("CommentDao.selectAllChildCommentIds", comment_id);
 
-        mybatis.delete("CommentDao.deleteComment", comment_id);
+        if (childCommentIds != null && !childCommentIds.isEmpty()) {
+            // 모든 자식 댓글에 대한 좋아요 삭제
+            Map<String, Object> params = new HashMap<>();
+            params.put("commentIds", childCommentIds);
+            mybatis.delete("CommentDao.deleteLikesForComments", params);
+
+            // 모든 자식 댓글 삭제
+            mybatis.delete("CommentDao.deleteComments", params);
+        }
     }
 
 }
