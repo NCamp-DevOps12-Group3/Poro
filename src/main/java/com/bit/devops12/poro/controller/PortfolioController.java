@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 @Controller
@@ -39,24 +42,31 @@ public class PortfolioController {
         zipFile.transferTo(zipDest);
 
         // zip 파일 압축 풀기
-        BufferedInputStream in = new BufferedInputStream(zipFile.getInputStream());
-        ZipInputStream zipInputStream = new ZipInputStream(in);
-        ZipEntry zipEntry = null;
 
-        while((zipEntry = zipInputStream.getNextEntry()) != null){
-            int length = 0;
-            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(uploadDir+zipEntry.getName()));
-            while((length = zipInputStream.read()) != -1){
-                out.write(length);
-            }
 
-            zipInputStream.closeEntry();
-        }
-
+//        BufferedInputStream in = new BufferedInputStream(new FileInputStream(zipDest));
+//        ZipInputStream zipInputStream = new ZipInputStream(in);
+//        ZipEntry zipEntry = null;
+//
+//        while((zipEntry = zipInputStream.getNextEntry()) != null){
+//
+//             String fileName = zipEntry.getName();
+//            File newFile = new File(uploadDir + fileName);
+//            System.out.println(newFile.getAbsolutePath());
+//            FileOutputStream fos = new FileOutputStream(newFile);
+//            byte[] bytes = new byte[1024];
+//            int length = 0;
+//            while ((length = zipInputStream.read(bytes)) >= 0) {
+//                fos.write(bytes, 0, length);
+//            }
+//            fos.close();
+//        }
+//        zipInputStream.closeEntry();
 
         // 썸네일 파일 저장
         File thumbnailDest = new File(uploadDir + thumbnailFile.getOriginalFilename());
         thumbnailFile.transferTo(thumbnailDest);
+
 
         // DB에 저장
         Portfolio portfolio = new Portfolio();
@@ -66,16 +76,18 @@ public class PortfolioController {
         portfolio.setDescription(description);
         portfolio.setRegdate(LocalDateTime.now());
         portfolio.setModdate(LocalDateTime.now());
-        portfolioService.savePortfolio(portfolio);
+//        portfolioService.savePortfolio(portfolio);
 
         // 태그 저장
         List<String> tagList = Arrays.asList(tags.split("\\s+"));
         for (String tag : tagList) {
             SkillTag skillTag = new SkillTag();
             skillTag.setSkillName(tag);
-            portfolioService.saveSkillTag(skillTag);
+//            portfolioService.saveSkillTag(skillTag);
         }
 
         return "/";
     }
+
+
 }
