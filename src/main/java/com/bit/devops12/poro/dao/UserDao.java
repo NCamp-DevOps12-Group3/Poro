@@ -24,11 +24,7 @@ public class UserDao {
 		System.out.println("UserDao의 join 메소드 실행 종료");
 	}
 	
-	public List<UserDto> getMembers() {
-		System.out.println("UserDao의 getMembers 메소드 실행");
-		
-		return mybatis.selectList("UserDao.getMembers");
-	}
+	
 	
 	
 	
@@ -69,4 +65,15 @@ public class UserDao {
 		return mybatis.selectList("UserDao.findMembersUsingKeyword", searchKeyword);
 	}
 	
+	public String passwordCheck(String password) {
+		return mybatis.selectOne("UserDao.passwordCheck",password);
+	}
+	
+	public void ChangePassword(UserDto userDto) {
+		mybatis.update("UserDao.changepassword", userDto);
+	}
+	
+	public void deleteAccount(UserDto userDto) {
+		mybatis.delete( "UserDao.deleteAccount", userDto);
+	}
 }

@@ -2,21 +2,18 @@ package com.bit.devops12.poro.service.impl;
 
 import com.bit.devops12.poro.common.FileUtils;
 import com.bit.devops12.poro.dao.UserDao;
-import com.bit.devops12.poro.dto.FileDto;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -126,7 +123,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void modify(UserDto userDto, MultipartFile uploadFiles) {
 		if (uploadFiles != null && !uploadFiles.isEmpty()) {
-			String attachPath = "C:/devops12/poro/upload/" + userDto.getEmail();
+			String attachPath = "/upload/" + userDto.getEmail();
 			System.out.println(attachPath);
 			File directory = new File(attachPath);
 			
@@ -155,6 +152,39 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
+	@Override
+	public   void ChangePassword(UserDto userDto) {
+		userDao.ChangePassword(userDto);
+	}
 	
+	@Override
+	public void deleteAccount(UserDto userDto) {
+		userDao.deleteAccount(userDto);
+	}
+	
+	
+	@Override
+	public String passwordCheck (String password) {
+		String passwordCheck = userDao.passwordCheck(password);
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		Map<String, String> jsonMap = new HashMap<>();
+		
+		if (Objects.equals(passwordCheck, password)) {
+			jsonMap.put("passwordCheckMsg", "passwordOk");
+		} else {
+			jsonMap.put("passwordCheckMsg", "passwordFail");
+		}
+		String jsonString = "";
+		
+		try {
+			// writerWithDefaultPrettyPrinter(): 들여쓰기랑 엔터값이 포함하여 시인성이 높은 형태로 데이터를 써주는 writer
+			jsonString = objectMapper.writerWithDefaultPrettyPrinter()
+					             .writeValueAsString(jsonMap);
+		} catch (JsonProcessingException je) {
+			System.out.println(je.getMessage());
+		}
+		return jsonString;
+	}
 	
 }

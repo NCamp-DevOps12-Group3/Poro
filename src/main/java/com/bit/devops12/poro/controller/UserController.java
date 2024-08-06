@@ -1,6 +1,5 @@
 package com.bit.devops12.poro.controller;
 
-import com.bit.devops12.poro.dto.MainCriteria;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -69,7 +68,8 @@ public class UserController {
 
 			System.out.println(loginUser);
 
-			return "redirect:/main/main.do";
+//			return "redirect:/main/main.do";
+			return "user/settings";
 		} catch (Exception e) {
 			model.addAttribute("loginFailMsg", e.getMessage());
 			
@@ -117,14 +117,34 @@ public class UserController {
 		return "/user/settings";
 	}
 	
-
-	
-	
-	
-
-	
 	@GetMapping("/passwordchangesChk.do")
 	public String passwordchangesChkView() {
 		return "/user/passwordchangesChk";
+	}
+	
+	@PostMapping("/passwordchangesChk.do")
+	@ResponseBody
+	public String passwordchangesChk(UserDto userDto) {
+		System.out.println(userService.passwordCheck(userDto.getPassword()));
+		return userService.passwordCheck(userDto.getPassword());
+	}
+	
+	@GetMapping("/passwordchanges.do")
+	public String PasswordChanges() {
+		return "user/passwordchanges";
+	}
+	
+	@PostMapping("/ChangePassword.do")
+	public String ChangePassword(UserDto userDto,HttpSession session) {
+		userService.ChangePassword(userDto);
+		session.invalidate();
+		return "redirect:login.do";
+	}
+	
+	@PostMapping("/delete-account.do")
+	public String deleteAccount(UserDto userDto, HttpSession session) {
+		userService.deleteAccount(userDto);
+		session.invalidate();
+		return "redirect:login.do";
 	}
 }
