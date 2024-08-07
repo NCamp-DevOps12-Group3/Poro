@@ -419,6 +419,43 @@
         textarea {
             resize: none;
         }
+        .custom-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .custom-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        }
+        .custom-img-container {
+            overflow: hidden;
+            height: 200px;
+        }
+        .custom-img-container img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        .custom-delete-dot {
+            width: 20px;
+            height: 20px;
+        }
+        .custom-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .custom-card-text {
+            margin-bottom: 0.75rem;
+        }
+        .custom-grid-item {
+            margin-bottom: 30px;
+        }
+        .rotate-btn {
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .rotate-btn .bi {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
@@ -445,7 +482,7 @@
                     <p class="d-inline-block" >${profile.name}</p>
                     <i class="bi bi-check-circle-fill d-inline-block mx-1" id="checkImg"></i>
                     <c:if test="${isOwner eq true}">
-                        <a href="#" class=" d-inline-block" style="color: #6c757d">
+                        <a href="/user/settings.do" class=" d-inline-block" style="color: #6c757d">
                             <i class="bi bi-gear d-inline-block" style="text-decoration:none">Setting</i>
                         </a>
                     </c:if>
@@ -468,6 +505,7 @@
                         <a href="#" class="list-group-item">message</a> -->
                         <button type="button" class="list-group-item inactive" id="portfolioDelete">delete</button>
                         <button class="list-group-item message-box">message box</button>
+
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -482,6 +520,7 @@
                                 <button type="button" class="btn btn-primary unfollowBtn d-inline-block" >unfollow</button>
                             </c:otherwise>
                         </c:choose>
+
                         <button class="list-group-item">message</button>
                     </div>
                 </c:otherwise>
@@ -574,38 +613,32 @@
                     </c:if>
                     <c:if test="${page.pageType eq 'coperation'}">
                         <c:forEach items="${coperation}" var="coperation">
-                            <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
-                                <div class="card">
-                                     <div class="img-container">
-                                        <c:choose>
-                                            <c:when test="${coperation.company_icon_url != null}">
-                                                <img src="${coperation.company_icon_url}" alt="${coperation.company_name}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="/static/img/default.png" alt="${coperation.company_name}">
-                                            </c:otherwise>
-                                        </c:choose>
+                            <div class="col-sm-12 col-lg-6 col-xxl-4 custom-grid-item">
+                                <div class="custom-card shadow-sm border-0 rounded-lg overflow-hidden">
+                                    <div class="custom-card-header bg-white border-0">
+                                        <div class="custom-img-container position-relative">
+                                            <c:choose>
+                                                <c:when test="${coperation.company_icon_url != null}">
+                                                    <img src="${coperation.company_icon_url}" alt="${coperation.company_name}" class="img-fluid rounded">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="/static/img/default.png" alt="${coperation.company_name}" class="img-fluid rounded">
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:if test="${isOwner eq true}">
+                                                <input type="checkbox" class="custom-delete-dot delete-dot position-absolute top-0 end-0 m-2" value="${coperation.bookmark_id}">
+                                            </c:if>
+                                        </div>
                                     </div>
-                                    <c:if test="${isOwner eq true}">
-                                        <input type="checkbox" class="delete-dot" value="${coperation.bookmark_id}">
-                                    </c:if>
-                                    <div class="details-container">
-                                        <c:choose>
-                                            <c:when test="${coperation.company_icon_url != null}">
-                                                <img src="${coperation.company_icon_url}" alt="${coperation.company_name}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="/static/img/default.png" alt="${coperation.company_name}">
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <h5>${coperation.company_name}</h5>
-                                        <p>${coperation.skillname}</p>
-                                        <p>${coperation.recruitment_title}</p>
-                                        <p>${coperation.dday}</p>
-                                        <p>${coperation.location}</p>
-                                        <p>${coperation.career}</p>
-                                        <p>${coperation.education}</p>
-                                        <p>
+                                    <div class="custom-card-body p-4">
+                                        <h5 class="custom-card-title">${coperation.company_name}</h5>
+                                        <p class="custom-card-text">${coperation.skillname}</p>
+                                        <p class="custom-card-text">${coperation.recruitment_title}</p>
+                                        <p class="custom-card-text">${coperation.dday}</p>
+                                        <p class="custom-card-text">${coperation.location}</p>
+                                        <p class="custom-card-text">${coperation.career}</p>
+                                        <p class="custom-card-text">${coperation.education}</p>
+                                        <p class="custom-card-text text-muted">
                                             <javatime:format value="${coperation.regdate}" pattern="yyyy-MM-dd"/>
                                         </p>
                                     </div>
@@ -615,44 +648,30 @@
                     </c:if>
                     <c:if test="${page.pageType eq 'otherportfolio'}">
                         <c:forEach items="${otherportfolio}" var="portfolio">
-                            <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
-                                <div class="card">
-                                    <c:if test="${isOwner eq true}">
-                                        <input type="checkbox" class="delete-dot" value="${portfolio.bookmark_id}">
-                                    </c:if>
-                                    <div class="img-container">
-                                        <c:choose>
-                                            <c:when test="${portfolio.thumbnail_url != null}">
-                                                <img src="${portfolio.thumbnail_url}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="/static/img/default.png">
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </div>
-                                    <div class="details-container">
-                                        <c:choose>
-                                            <c:when test="${portfolio.thumbnail_url != null}">
-                                                <img src="${portfolio.thumbnail_url}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="/static/img/default.png">
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <div>
-                                            <p>
-                                                    ${portfolio.user_id}
-                                            </p>
-                                            <p>
-                                                    ${portfolio.skillname}
-                                            </p>
-                                            <p>
-                                                    ${portfolio.description}
-                                            </p>
-                                            <p>
-                                                <javatime:format value="${portfolio.regdate}" pattern="yyyy-MM-dd"/>
-                                            </p>
+                            <div class="col-sm-12 col-lg-6 col-xxl-4 custom-grid-item">
+                                <div class="custom-card shadow-sm border-0 rounded-lg overflow-hidden">
+                                    <div class="custom-card-header bg-white border-0">
+                                        <div class="custom-img-container position-relative">
+                                            <c:choose>
+                                                <c:when test="${portfolio.thumbnail_url != null}">
+                                                    <img src="${portfolio.thumbnail_url}" class="img-fluid rounded">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="/static/img/default.png" class="img-fluid rounded">
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:if test="${isOwner eq true}">
+                                                <input type="checkbox" class="custom-delete-dot delete-dot position-absolute top-0 end-0 m-2" value="${portfolio.bookmark_id}">
+                                            </c:if>
                                         </div>
+                                    </div>
+                                    <div class="custom-card-body p-4">
+                                        <h5 class="custom-card-title">${portfolio.user_id}</h5>
+                                        <p class="custom-card-text">${portfolio.skillname}</p>
+                                        <p class="custom-card-text">${portfolio.description}</p>
+                                        <p class="custom-card-text text-muted">
+                                            <javatime:format value="${portfolio.regdate}" pattern="yyyy-MM-dd"/>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -819,13 +838,13 @@
 
     $(function(){
         // 초기 화면 설정, 자동 배치 위한 설정 부분
-        // var isDarkMode = loadDarkModeState();
-        // applyDarkMode(isDarkMode);
-        // $('#darkModeToggle').on('click', function() {
-        //     isDarkMode = !$('body').hasClass('dark-mode');
-        //     applyDarkMode(isDarkMode);
-        //     saveDarkModeState(isDarkMode);
-        // });
+        var isDarkMode = loadDarkModeState();
+        applyDarkMode(isDarkMode);
+        $('#darkModeToggle').on('click', function() {
+            isDarkMode = !$('body').hasClass('dark-mode');
+            applyDarkMode(isDarkMode);
+            saveDarkModeState(isDarkMode);
+        });
         var msnry;
         var grid = document.querySelector('.grid');
         imagesLoaded(grid, function() {
@@ -958,6 +977,7 @@
                 document.getElementById("toTop").style.display = "none";
             }
         }
+        scrollFunction();
         $('#toTop').on('click',function scrollToTop() {
                 document.documentElement.scrollTop = 0;
             }
