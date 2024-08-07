@@ -38,7 +38,7 @@
         <div class="base-sector" id="baseContentSector">
             <div class="base-sector-personal">
                 <div class="base-sector-personal-title">
-                    <div class="portfolio-container-wrapper" , id="portfolioContainerWrapper">
+                    <div class="portfolio-container-wrapper" id="portfolioContainerWrapper">
                         <div class="portfolio-item" id="portfolioContainer">
                             <form id="page-form" action="/main/main.do" method="post">
                                 <input type="hidden" name="pageNum" value="${page.mainCri.pageNum}">

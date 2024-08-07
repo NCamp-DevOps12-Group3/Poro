@@ -22,13 +22,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <style>
-        .content {
-            padding: 20px;
-            margin-left: 30vw;
-            margin-right: 5vw;
-            height: 100vh;
+        /*.content {*/
+        /*    padding: 20px;*/
+        /*    margin-left: 30vw;*/
+        /*    margin-right: 5vw;*/
+        /*    height: 100vh;*/
 
-        }
+        /*}*/
 
         .base-sector-personal,
         .base-sector-company {
