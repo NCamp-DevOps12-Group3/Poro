@@ -20,7 +20,7 @@ public class RecruitmentController {
     private RecruitmentService recruitmentService;
 
 
-    @PostMapping("/cupload")
+    @PostMapping("/cupload.do")
     public String submitRecruitment(@RequestParam("title") String title,
                                     @RequestParam("dday") String dday,
                                     @RequestParam("location") String location,

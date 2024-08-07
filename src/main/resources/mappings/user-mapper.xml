@@ -120,18 +120,35 @@
 	</delete>
 	
 	<!-- 공지사항 목록을 검색하고 페이징 처리하는 쿼리 -->
-<!--	<select id="historylog" parameterType="user" resultType="boauserrd">-->
-<!--		&lt;!&ndash; 공지사항 목록 조회 쿼리 시작 &ndash;&gt;-->
-<!--		SELECT-->
-<!--		&lt;!&ndash; NOTICE 테이블과 MEMBER 테이블을 JOIN &ndash;&gt;-->
-<!--		FROM-->
-<!--		JOIN  ON-->
-<!--		-->
-<!--		&lt;!&ndash; 공지사항을 ID 기준으로 내림차순 정렬 &ndash;&gt;-->
-<!--		ORDER BY  DESC-->
-<!--		&lt;!&ndash; 페이징 처리를 위한 LIMIT와 OFFSET 설정 &ndash;&gt;-->
-<!--		LIMIT 10-->
-<!--	</select>-->
+	<select id="historylog" parameterType="user" resultType="user">
+		SELECT * FROM (
+			              SELECT
+				              C.USER_ID AS user_id,
+				              C.COMMENT_ID AS commentId,
+				              NULL AS portfolioId,
+				              C.CONTENT AS commentContent,
+				              C.MODDATE AS commentModDate,
+				              NULL AS portfolioModDate
+			              FROM
+				              COMMENT C
+			              WHERE
+				              C.USER_ID = #{user_id}
+			              UNION ALL
+			              SELECT
+				              P.USER_ID AS user_id,
+				              NULL AS commentId,
+				              P.PORTFOLIO_ID AS portfolioId,
+				              NULL AS commentContent,
+				              NULL AS commentModDate,
+				              P.MODDATE AS portfolioModDate
+			              FROM PORTFOLIO P
+			              WHERE
+				              P.USER_ID = #{user_id}
+		              ) AS combinedResults
+		ORDER BY
+			COALESCE(commentModDate, portfolioModDate) DESC
+			LIMIT 10
+	</select>
 	
 	
 </mapper>

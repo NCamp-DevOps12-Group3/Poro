@@ -98,7 +98,7 @@
                     <i class="bi bi-search"></i>
                     <div>검색</div>
                 </a>
-                <a href="userfeeds.html" class="nav-link" data-page="userfeeds.html">
+                <a href="/userfeeds/user-feeds.do" class="nav-link" data-page="userfeeds.html">
                     <i class="bi bi-person-circle"></i>
                     <div>내 프로필</div>
                 </a>
@@ -106,7 +106,7 @@
                     <i class="bi bi-card-list"></i>
                     <div>개인 포트폴리오</div>
                 </a>
-                <a href="mini_project(company).html" class="nav-link" data-page="mini_project(company).html">
+                <a href="/company/test.do" class="nav-link" data-page="mini_project(company).html">
                     <i class="bi bi-building"></i>
                     <div>기업 채용</div>
                 </a>
@@ -182,7 +182,7 @@
     <div id="commonModal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close-button" id="closeCommonModalButton">&times;</span>
-            <form id="uploadFormCommon" enctype="multipart/form-data" action="${pageContext.request.contextPath}/upload" method="post">
+            <form id="uploadFormCommon" enctype="multipart/form-data" action="${pageContext.request.contextPath}/upload.do" method="post">
                 <div id="step1Common" class="step-common">
                     <div class="content-center">
                         <h2>Step 1: 포트폴리오 Zip 파일로 올려주세요.</h2>
@@ -230,7 +230,7 @@
     <div id="companyModal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close-button" id="closeCompanyModalButton">&times;</span>
-            <form id="uploadFormCompany" method="post" enctype="multipart/form-data" action="/cupload">
+            <form id="uploadFormCompany" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/cupload.do">
                 <div id="step1Company" class="step-company">
                     <div class="content-center">
                         <h2>Step 1: 기업(공고) 소개 사진 파일을 올려주세요.</h2>
@@ -291,22 +291,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            function slideOutCurrentStep(currentStep, direction) {
-                if (direction === 'left') {
-                    currentStep.classList.add('slide-out-left');
-                } else {
-                    currentStep.classList.add('slide-out-right');
-                }
-            }
-
-            function slideInNextStep(nextStep, direction) {
-                if (direction === 'left') {
-                    nextStep.classList.add('slide-in-left');
-                } else {
-                    nextStep.classList.add('slide-in-right');
-                }
-                nextStep.style.display = 'block';
-            }
+            // function slideOutCurrentStep(currentStep, direction) {
+            //     if (direction === 'left') {
+            //         currentStep.classList.add('slide-out-left');
+            //     } else {
+            //         currentStep.classList.add('slide-out-right');
+            //     }
+            // }
+            //
+            // function slideInNextStep(nextStep, direction) {
+            //     if (direction === 'left') {
+            //         nextStep.classList.add('slide-in-left');
+            //     } else {
+            //         nextStep.classList.add('slide-in-right');
+            //     }
+            //     nextStep.style.display = 'block';
+            // }
 
             document.querySelectorAll('.modal-button').forEach(function (button) {
                 button.addEventListener('click', function () {

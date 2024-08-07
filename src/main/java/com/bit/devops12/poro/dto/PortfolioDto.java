@@ -36,6 +36,7 @@ public class PortfolioDto {
     private int commentCount;
     private boolean isLiked;
     private boolean bookmarked;
+    private String portfolio_url;
 
     public LocalDateTime getModdate() {
         return moddate;
@@ -241,6 +242,14 @@ public class PortfolioDto {
 
     public void setLiked(boolean liked) {
         isLiked = liked;
+    }
+
+    public String getPortfolio_url() {
+        return portfolio_url;
+    }
+
+    public void setPortfolio_url(String portfolio_url) {
+        this.portfolio_url = portfolio_url;
     }
 }
 

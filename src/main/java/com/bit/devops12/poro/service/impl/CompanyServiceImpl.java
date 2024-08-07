@@ -26,6 +26,7 @@ public class CompanyServiceImpl implements CompanyService {
     public List<CompanyDto> getCompanyList(Criteria cri){
         cri.setStartNum((cri.getPageNum() - 1) * cri.getAmount());
 
+        System.out.println(cri.toString());
 
         Map<String, Object> paramMap = new HashMap<>();
 
@@ -37,7 +38,8 @@ public class CompanyServiceImpl implements CompanyService {
             DdayCalculator ddayCalculator = new DdayCalculator();
             String ddayResult = ddayCalculator.getDdayRed(companyDto.getRegdate());
             companyDto.setDday(ddayResult);
-            System.out.println(companyDto.toString());
+//            System.out.println(companyDto);
+
         }
 
         paramMap.put("ddayList", ddayList);

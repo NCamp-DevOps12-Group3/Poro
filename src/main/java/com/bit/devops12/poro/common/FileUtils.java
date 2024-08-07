@@ -3,6 +3,7 @@ package com.bit.devops12.poro.common;
 import com.bit.devops12.poro.dto.FileDto;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,8 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -46,11 +46,12 @@ public class FileUtils {
 	}
    
 
-    public static void unzipFile(Path sourceZip, Path targetDir) {
+    public static List<Path> unzipFile(Path sourceZip, Path targetDir) {
+        List<Path> unzipFilesPath = new ArrayList<>();
 
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(sourceZip.toFile()))) {
 
-            // list files in zip
+           
             ZipEntry zipEntry = zis.getNextEntry();
             while (zipEntry != null) {
 
@@ -60,6 +61,7 @@ public class FileUtils {
                 }
 
                 Path newPath = zipSlipProtect(zipEntry, targetDir);
+                System.out.println("unzip file Path : " + newPath);
                 if (isDirectory) {
                     Files.createDirectories(newPath);
                 } else {
@@ -70,6 +72,8 @@ public class FileUtils {
                     }
                     // copy files
                     Files.copy(zis, newPath, StandardCopyOption.REPLACE_EXISTING);
+
+                    unzipFilesPath.add(newPath);
                 }
 
                 zipEntry = zis.getNextEntry();
@@ -78,7 +82,10 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return unzipFilesPath;
     }
+
 
     public static Path zipSlipProtect(ZipEntry zipEntry, Path targetDir)
             throws IOException {

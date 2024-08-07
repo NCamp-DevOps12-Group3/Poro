@@ -4,12 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MessageDao">
     <insert id="sendMessage" parameterType="map">
-        insert into message(sender_id,receiver_id,message_content)
-        values (#{senderid},#{receiverid},#{messagecontent})
+        insert into message(sender_id,receiver_id,message_content,title)
+        values (#{senderid},#{receiverid},#{messagecontent},#{title})
     </insert>
     <select id="getMessages" parameterType="int" resultType="message">
-        select sender_id,receiver_id,message_content
+        select message_id,sender_id,receiver_id,message_content,send_date,title
         from message
         where receiver_id = #{userId}
+        order by send_date desc
     </select>
+    <delete id="deleteMessages" parameterType="list">
+        delete from message
+        where message_id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

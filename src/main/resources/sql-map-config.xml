@@ -11,6 +11,9 @@
         <typeAlias type="com.bit.devops12.poro.dto.CompanyDto" alias="company"/>
         <typeAlias type="com.bit.devops12.poro.dto.RecruitmentDto" alias="coperation"/>
         <typeAlias type="com.bit.devops12.poro.dto.UserFeedsMessageDto" alias="message"/>
+        <typeAlias type="com.bit.devops12.poro.dto.HtmlDto" alias="html"/>
+        <typeAlias type="com.bit.devops12.poro.dto.CssDto" alias="css"/>
+        <typeAlias type="com.bit.devops12.poro.dto.JavascriptDto" alias="js"/>
     </typeAliases>
 
     <mappers>
@@ -20,6 +23,9 @@
         <mapper resource="mappings/comment-mapper.xml"/>
         <mapper resource="mappings/company-mapper.xml"/>
         <mapper resource="mappings/mapper-message.xml"/>
+        <mapper resource="mappings/html-mapper.xml"/>
+        <mapper resource="mappings/css-mapper.xml"/>
+        <mapper resource="mappings/js-mapper.xml"/>
     </mappers>
 
 </configuration>
