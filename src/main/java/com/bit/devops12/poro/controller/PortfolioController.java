@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.controller;
 
+import com.bit.devops12.poro.common.FileUtils;
 import com.bit.devops12.poro.model.Portfolio;
 import com.bit.devops12.poro.model.SkillTag;
 import com.bit.devops12.poro.service.PortfolioService;
@@ -10,10 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 @Controller
@@ -39,30 +44,25 @@ public class PortfolioController {
         zipFile.transferTo(zipDest);
 
         // zip 파일 압축 풀기
-        BufferedInputStream in = new BufferedInputStream(zipFile.getInputStream());
-        ZipInputStream zipInputStream = new ZipInputStream(in);
-        ZipEntry zipEntry = null;
+        FileUtils.unzipFile(zipDest.toPath(), Paths.get(uploadDir));
 
-        while((zipEntry = zipInputStream.getNextEntry()) != null){
-            int length = 0;
-            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(uploadDir+zipEntry.getName()));
-            while((length = zipInputStream.read()) != -1){
-                out.write(length);
-            }
-
-            zipInputStream.closeEntry();
+         // 썸네일 파일 저장
+        File thumbnailDest = new File(uploadDir + thumbnailFile.getOriginalFilename());
+        String thumbnailPath = thumbnailDest.getPath();
+        System.out.println(thumbnailPath);
+        if(!thumbnailPath.equals(uploadDir+File.separator)){
+            thumbnailFile.transferTo(thumbnailDest);
+        }else{
+            thumbnailPath = "/static/img/1.jpg";
         }
 
 
-        // 썸네일 파일 저장
-        File thumbnailDest = new File(uploadDir + thumbnailFile.getOriginalFilename());
-        thumbnailFile.transferTo(thumbnailDest);
 
         // DB에 저장
         Portfolio portfolio = new Portfolio();
         portfolio.setUserId(7);
         portfolio.setPortfolioUrl(zipDest.getAbsolutePath());
-        portfolio.setThumbnailUrl(thumbnailDest.getAbsolutePath());
+        portfolio.setThumbnailUrl(thumbnailPath);
         portfolio.setDescription(description);
         portfolio.setRegdate(LocalDateTime.now());
         portfolio.setModdate(LocalDateTime.now());
@@ -78,4 +78,6 @@ public class PortfolioController {
 
         return "/";
     }
+
+
 }

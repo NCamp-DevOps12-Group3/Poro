@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -603,66 +604,13 @@
 <scr1ipt src="${pageContext.request.contextPath}/static/js/mini_project(company).js"></scr1ipt>
 <script>
     $(() => {
-        function showModal(imageUrl) {
-            var iframe = $('#imageIframe');
-
-            // 이미지 로드 완료 시 크기 조절
-            var img = new Image();
-            img.onload = function () {
-                var imgWidth = img.width;
-                var imgHeight = img.height;
-
-                iframe.css({
-                    width: imgWidth + 'px',
-                    height: imgHeight + 'px'
-                });
-
-                $('#CompanyPortFolioModal .modal-content').css({
-                    width: imgWidth + 'px',
-                    height: imgHeight + 'px'
-                });
-
-                $('#CompanyPortFolioModal').modal('show');
-
-                // 이미지가 로드된 후에 iframe의 src 설정
-                iframe.attr('src', imageUrl);
-            };
-            img.src = imageUrl;
-        }
-
-        <c:forEach items="${companyList}" var="company">
-            $('.com${company.recruitment_id}').on('click', function () {
-                var imageUrl = '${company.recruitment_url}'; // 이미지 URL 설정
-                console.log('image URL: ', imageUrl);
-                showModal(imageUrl);
-            });
-        </c:forEach>
-
-        $.ajax({
-            url: '/company/company-list-ajax.do',
-            type: 'post',
-            data: $("#companyList").serialize(),
-            success: (obj) => {
-                console.log(obj);
-                for (let i = 0; i < obj.companyList.length; i++) {
-                    $('.com${obj.companyList[i].companyDto.recruitment_id}').on('click', function () {
-                        var imageUrl = '${obj.companyList[i].companyDto.recruitment_url}'; // 이미지 URL 설정
-                        showModal(imageUrl);
-                    });
-                }
-            }
-        });
-    });
-</script>
-<script>
-    $(() => {
         $(window).on("scroll", (e) => {
            const scrollTop = $(window).scrollTop();
            const windowHeight = window.innerHeight;
            const documentHeight = document.documentElement.scrollHeight;
            const isBottom = documentHeight <= scrollTop + windowHeight;
 
-           if(isBottom){
+            if(isBottom){
                if($("input[name='pageNum']").val() >= $("input[name='endPage']").val()){
                    return;
                } else {
@@ -672,7 +620,6 @@
                        type: 'post',
                        data: $("#companyList").serialize(),
                        success: (obj) => {
-
                            let htmlStr = "";
                            for(let i = 0; i < obj.companyList.length; i++) {
                                const companyIconUrl = obj.companyList[i].companyDto.company_icon_url; // 회사 아이콘 URL을 가져옵니다.
@@ -702,9 +649,12 @@
                                         </a>
                                     </li>
                                `;
+
+
                            }
 
                            $(".company-wrapper").append(htmlStr);
+
 
                        },
                        error: (err) => {
@@ -712,14 +662,61 @@
                        }
                    });
 
+
+
                }
            }
         });
 
 
     });
+</script>
+
+<script>
+    $(() => {
+        function showModal(imageUrl) {
+            var iframe = $('#imageIframe');
+
+            // 이미지 로드 완료 시 크기 조절
+            var img = new Image();
+            img.onload = function () {
+                var imgWidth = img.width;
+                var imgHeight = img.height;
+
+                iframe.css({
+                    width: imgWidth + 'px',
+                    height: imgHeight + 'px'
+                });
+
+                $('#CompanyPortFolioModal .modal-content').css({
+                    width: imgWidth + 'px',
+                    height: imgHeight + 'px'
+                });
+
+                $('#CompanyPortFolioModal').modal('show');
+
+                // 이미지가 로드된 후에 iframe의 src 설정
+                iframe.attr('src', imageUrl);
+            };
+            img.src = imageUrl;
+        }
+        // 수정중
+        var companyList = JSON.parse('${fn:escapeXml(companyListJson)}');
+
+        console.log('companyList:', companyList);
+
+        <c:forEach items="${companyList}" var="company">
+            $('.com${company.recruitment_id}').on('click', function () {
+                var imageUrl = '${company.recruitment_url}'; // 이미지 URL 설정
+                console.log('image URL: ', imageUrl);
+                showModal(imageUrl);
+
+                console.log(companyList);
+            });
+        </c:forEach>
 
 
+    });
 </script>
 
 

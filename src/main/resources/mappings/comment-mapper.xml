@@ -13,7 +13,8 @@
                C.MODDATE,
                C.COMMENT_PARENT_ID,
                COALESCE(CL.LIKECOUNT, 0) AS LIKECOUNT,
-               (CASE WHEN CLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED
+               (CASE WHEN CLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED,
+               U.NICKNAME
         FROM COMMENT C
         LEFT JOIN (
             SELECT COMMENT_ID, COUNT(*) AS LIKECOUNT
@@ -25,6 +26,7 @@
             FROM COMMENT_LIKE
             WHERE USER_ID = #{loginUser.user_id}
         ) CLU ON C.COMMENT_ID = CLU.COMMENT_ID
+        JOIN USER U ON C.USER_ID = U.USER_ID
         WHERE C.PORTFOLIO_ID = #{portfolio.portfolio_id}
     </select>
 
@@ -59,31 +61,49 @@
     </delete>
 
     <select id="getCommentById" parameterType="int" resultType="comment">
-        SELECT COMMENT_ID,
-               PORTFOLIO_ID,
-               USER_ID,
-               CONTENT,
-               REGDATE,
-               MODDATE,
-               COMMENT_PARENT_ID
-            FROM COMMENT
+        SELECT C.COMMENT_ID,
+               C.PORTFOLIO_ID,
+               C.USER_ID,
+               C.CONTENT,
+               C.REGDATE,
+               C.MODDATE,
+               C.COMMENT_PARENT_ID,
+               U.NICKNAME
+        FROM COMMENT C
+        JOIN USER U ON C.USER_ID = U.USER_ID
         WHERE COMMENT_ID = #{comment_id}
     </select>
 
-    <delete id="deleteComment" parameterType="int">
---         DELETE FROM COMMENT
---         WHERE COMMENT_ID IN (
---             SELECT COMMENT_ID
---             FROM COMMENT
---             WHERE COMMENT_PARENT_ID = #{comment_id}
---         );
---
---         DELETE FROM COMMENT_LIKES
---         WHERE COMMENT_ID = #{comment_id};
+    <!-- 재귀적으로 모든 자식 댓글 찾기 (자신 포함)-->
+    <select id="selectAllChildCommentIds" resultType="int" parameterType="int">
+        WITH RECURSIVE SUBCOMMENTS AS (
+            SELECT COMMENT_ID
+            FROM COMMENT
+            WHERE COMMENT_ID = #{comment_id}
+            UNION ALL
+            SELECT C.COMMENT_ID
+            FROM COMMENT C
+                     INNER JOIN SUBCOMMENTS SC ON C.COMMENT_PARENT_ID = SC.COMMENT_ID
+        )
+        SELECT COMMENT_ID FROM SUBCOMMENTS;
+    </select>
 
-        DELETE FROM COMMENT
-        WHERE COMMENT_ID = #{comment_id}
+    <!-- 여러 댓글에 대한 좋아요 삭제 -->
+    <delete id="deleteLikesForComments" parameterType="map">
+        DELETE FROM COMMENT_LIKE
+        WHERE COMMENT_ID IN
+        <foreach item="comment_id" collection="commentIds" open="(" separator="," close=")">
+            #{comment_id}
+        </foreach>
     </delete>
 
+    <!-- 여러 댓글 삭제 -->
+    <delete id="deleteComments" parameterType="map">
+        DELETE FROM COMMENT
+        WHERE COMMENT_ID IN
+        <foreach item="comment_id" collection="commentIds" open="(" separator="," close=")">
+            #{comment_id}
+        </foreach>
+    </delete>
 
 </mapper>
