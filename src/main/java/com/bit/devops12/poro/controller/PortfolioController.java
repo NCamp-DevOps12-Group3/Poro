@@ -34,7 +34,7 @@ public class PortfolioController {
         this.portfolioService = portfolioService;
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/upload.do")
     public String uploadPortfolio(@RequestParam("zipFile") MultipartFile zipFile,
                                   @RequestParam("thumbnailFile") MultipartFile thumbnailFile,
                                   @RequestParam("description") String description,

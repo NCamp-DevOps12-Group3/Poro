@@ -24,4 +24,9 @@ public class MessageDao {
     public List<UserFeedsMessageDto> getMessages(Integer userId) {
         return mybatis.selectList("MessageDao.getMessages", userId);
     }
+
+    public boolean deleteMessages(List<Integer> messageIds) {
+        mybatis.delete("MessageDao.deleteMessages",messageIds);
+        return true;
+    }
 }

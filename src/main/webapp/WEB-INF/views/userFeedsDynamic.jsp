@@ -62,40 +62,34 @@
         </div>
     </c:forEach>
 </c:if>
-<c:if test="${type eq 'coperation'}">
-    <c:forEach items="${coperationList}" var="coperation">
-        <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
-            <div class="card">
-                <div class="img-container">
-                    <c:choose>
-                        <c:when test="${coperation.company_icon_url != null}">
-                            <img src="${coperation.company_icon_url}" alt="${coperation.company_name}">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="/static/img/default.png" alt="${coperation.company_name}">
-                        </c:otherwise>
-                    </c:choose>
+<c:if test="${page.pageType eq 'coperation'}">
+    <c:forEach items="${coperation}" var="coperation">
+        <div class="col-sm-12 col-lg-6 col-xxl-4 custom-grid-item">
+            <div class="custom-card shadow-sm border-0 rounded-lg overflow-hidden">
+                <div class="custom-card-header bg-white border-0">
+                    <div class="custom-img-container position-relative">
+                        <c:choose>
+                            <c:when test="${coperation.company_icon_url != null}">
+                                <img src="${coperation.company_icon_url}" alt="${coperation.company_name}" class="img-fluid rounded">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="/static/img/default.png" alt="${coperation.company_name}" class="img-fluid rounded">
+                            </c:otherwise>
+                        </c:choose>
+                        <c:if test="${isOwner eq true}">
+                            <input type="checkbox" class="custom-delete-dot delete-dot position-absolute top-0 end-0 m-2" value="${coperation.bookmark_id}">
+                        </c:if>
+                    </div>
                 </div>
-                <c:if test="${isOwner eq true}">
-                    <input type="checkbox" class="delete-dot" value="${coperation.bookmark_id}">
-                </c:if>
-                <div class="details-container">
-                    <c:choose>
-                        <c:when test="${coperation.company_icon_url != null}">
-                            <img src="${coperation.company_icon_url}" alt="${coperation.company_name}">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="/static/img/default.png" alt="${coperation.company_name}">
-                        </c:otherwise>
-                    </c:choose>
-                    <h5>${coperation.company_name}</h5>
-                    <p>${coperation.skillname}</p>
-                    <p>${coperation.recruitment_title}</p>
-                    <p>${coperation.dday}</p>
-                    <p>${coperation.location}</p>
-                    <p>${coperation.career}</p>
-                    <p>${coperation.education}</p>
-                    <p>
+                <div class="custom-card-body p-4">
+                    <h5 class="custom-card-title">${coperation.company_name}</h5>
+                    <p class="custom-card-text">${coperation.skillname}</p>
+                    <p class="custom-card-text">${coperation.recruitment_title}</p>
+                    <p class="custom-card-text">${coperation.dday}</p>
+                    <p class="custom-card-text">${coperation.location}</p>
+                    <p class="custom-card-text">${coperation.career}</p>
+                    <p class="custom-card-text">${coperation.education}</p>
+                    <p class="custom-card-text text-muted">
                         <javatime:format value="${coperation.regdate}" pattern="yyyy-MM-dd"/>
                     </p>
                 </div>
@@ -103,46 +97,32 @@
         </div>
     </c:forEach>
 </c:if>
-<c:if test="${type eq 'otherportfolio'}">
-    <c:forEach items="${otherPortfolioList}" var="portfolio">
-        <div class="col-sm-12 col-lg-6 col-xxl-4 grid-item">
-            <div class="card">
-                <c:if test="${isOwner eq true}">
-                    <input type="checkbox" class="delete-dot" value="${portfolio.bookmark_id}">
-                </c:if>
-                <div class="img-container">
-                    <c:choose>
-                        <c:when test="${portfolio.thumbnail_url != null}">
-                            <img src="${portfolio.thumbnail_url}">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="/static/img/default.png">
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-                <div class="details-container">
-                    <c:choose>
-                        <c:when test="${portfolio.thumbnail_url != null}">
-                            <img src="${portfolio.thumbnail_url}">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="/static/img/default.png">
-                        </c:otherwise>
-                    </c:choose>
-                    <div>
-                        <p>
-                                ${portfolio.user_id}
-                        </p>
-                        <p>
-                                ${portfolio.skillname}
-                        </p>
-                        <p>
-                                ${portfolio.description}
-                        </p>
-                        <p>
-                            <javatime:format value="${portfolio.regdate}" pattern="yyyy-MM-dd"/>
-                        </p>
+<c:if test="${page.pageType eq 'otherportfolio'}">
+    <c:forEach items="${otherportfolio}" var="portfolio">
+        <div class="col-sm-12 col-lg-6 col-xxl-4 custom-grid-item">
+            <div class="custom-card shadow-sm border-0 rounded-lg overflow-hidden">
+                <div class="custom-card-header bg-white border-0">
+                    <div class="custom-img-container position-relative">
+                        <c:choose>
+                            <c:when test="${portfolio.thumbnail_url != null}">
+                                <img src="${portfolio.thumbnail_url}" class="img-fluid rounded">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="/static/img/default.png" class="img-fluid rounded">
+                            </c:otherwise>
+                        </c:choose>
+                        <c:if test="${isOwner eq true}">
+                            <input type="checkbox" class="custom-delete-dot delete-dot position-absolute top-0 end-0 m-2" value="${portfolio.bookmark_id}">
+                        </c:if>
                     </div>
+                </div>
+                <div class="custom-card-body p-4">
+                    <h5 class="custom-card-title">${portfolio.user_id}</h5>
+                    <p class="custom-card-text">${portfolio.skillname}</p>
+                    <p class="custom-card-text">${portfolio.description}</p>
+                    <p class="custom-card-text text-muted">
+                        <javatime:format value="${portfolio.regdate}" pattern="yyyy-MM-dd"/>
+                    </p>
                 </div>
             </div>
         </div>
