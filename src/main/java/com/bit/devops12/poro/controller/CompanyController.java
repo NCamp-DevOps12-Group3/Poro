@@ -35,7 +35,13 @@ public class CompanyController {
 
         cri.setAmount(12);
 
-        model.addAttribute("companyList", companyService.getCompanyList(cri));
+        List<CompanyDto> infiniteScrollList = companyService.getCompanyList(cri);
+
+        model.addAttribute("companyList", infiniteScrollList);
+
+//        for(CompanyDto companyDto : infiniteScrollList){
+//            System.out.println("companyDto 값:" + companyDto);
+//        }
 
         int total = companyService.getCompanyTotalCnt();
 
@@ -60,7 +66,6 @@ public class CompanyController {
 
             companyList.add(map);
         });
-
 
         Map<String, Object> returnMap = new HashMap<>();
 
