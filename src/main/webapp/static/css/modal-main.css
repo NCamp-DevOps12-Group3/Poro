@@ -99,7 +99,7 @@
     align-items: center;
     flex-grow: 1;
     font-size: 14px;
-    margin-left: 5%;
+    margin-left: 1vw;
 }
 
 .modal-comment-header-option {
@@ -125,7 +125,7 @@
 .modal-comment-footer {
     display: flex;
     flex-direction: column;
-    height: 15vh;
+    padding-top : 10px;
 }
 
 .modal-leaveComment {
@@ -166,6 +166,7 @@ input[type="text"] {
     font-size: 14px;
     padding-top: 5px;
     padding-bottom: 5px;
+    margin : 0;
 }
 
 p {
@@ -182,7 +183,6 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('img/cat1.jpg');
     height: 40px;
     width: 40px;
     border-radius: 50%;

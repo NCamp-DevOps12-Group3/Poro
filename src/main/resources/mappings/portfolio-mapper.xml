@@ -35,6 +35,7 @@
                P.REGDATE,
                P.MODDATE,
                U.NICKNAME,
+               U.PROFILE_IMAGE,
                H.HTML_URL AS htmlurl,
                J.JAVASCRIPT_URL AS jsurl,
                C.CSS_URL AS cssurl,
@@ -77,6 +78,7 @@
                P.REGDATE,
                P.MODDATE,
                U.NICKNAME,
+               U.PROFILE_IMAGE,
                H.HTML_URL AS htmlurl,
                J.JAVASCRIPT_URL AS jsurl,
                C.CSS_URL AS cssurl,
@@ -119,6 +121,7 @@
              , P.REGDATE
              , P.MODDATE
              , U.NICKNAME
+             , U.PROFILE_IMAGE
              , H.HTML_URL AS htmlurl
              , J.JAVASCRIPT_URL AS jsurl
              , C.CSS_URL AS cssurl

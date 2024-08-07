@@ -162,11 +162,11 @@ public class UserServiceImpl implements UserService {
 		userDao.deleteAccount(userDto);
 	}
 	
-	@Override
-	public UserDto historylog(UserDto userDto) {
-//		userDao.
-		return userDto;
-	}
+//	@Override
+//	public UserDto historylog(UserDto userDto) {
+////		userDao.
+//		return userDto;
+//	}
 	
 	
 	@Override

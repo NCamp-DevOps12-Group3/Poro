@@ -238,7 +238,7 @@
                                       <input type="hidden" name="portfolio_id" value="\${obj.portfolioList[i].portfolioDto.portfolio_id}">
                                    </form>
                                    <div class="content-item-header" style="padding: 5px; display: flex; align-items: center; padding-bottom: 10px; margin-top: 5px;">
-                                       <div class="content-item-header-user-logo" style="background-image: url('/static/img/cat1.jpg'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
+                                       <div class="content-item-header-user-logo" style="background-image: url('\${obj.portfolioList[i].portfolioDto.profile_image}'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
                                            <div class="content-item-header-main" style="display: flex; flex-direction: column; flex-grow: 1;">
                                                <div class="content-item-header-userid" style="font-size: 14px; margin-left: 10px;">
                                                    <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">1주전</strong>
@@ -327,7 +327,7 @@
                                                   <input type="hidden" name="portfolio_id" value="\${obj.portfolioList[i].portfolioDto.portfolio_id}">
                                                 </form>
                                                 <div class="content-item-header" style="padding: 5px; display: flex; align-items: center; padding-bottom: 10px; margin-top: 5px;">
-                                                    <div class="content-item-header-user-logo" style="background-image: url('/static/img/cat1.jpg'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
+                                                    <div class="content-item-header-user-logo" style="background-image: url('\${obj.portfolioList[i].portfolioDto.profile_image}'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
                                                         <div class="content-item-header-main" style="display: flex; flex-direction: column; flex-grow: 1;">
                                                             <div class="content-item-header-userid" style="font-size: 14px; margin-left: 10px;">
                                                                 <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">1주전</strong>
@@ -424,9 +424,15 @@
                                                <div class="modal-comment-section-bond" id="modalCommentSectionBond">
                                                    <div class="modal-comment-content" id="modalCommentContent">
                                                        <div class="modal-comment-header" id="modalCommentHeader">
-                                                           <div class="modal-comment-header-logo" id="modalCommentHeaderLogo"></div>
-                                                           <div class="modal-comment-header-userId"> <strong>cat1</strong>
-                                                           </div>
+                                                           <div class="modal-comment-header-logo" id="modalCommentHeaderLogo">
+                                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                                    <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}'); margin-left : 10px;"></div>
+                                                                </a>
+                                                            </div>
+                                                           <div class="modal-comment-header-userId">
+                                                                 <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                                    <strong>\${obj.portfolio.nickname}</strong></div>
+                                                                </a>
                                                             <div class="modal-comment-header-option" id="modalCommentHeaderOption">
                                                                <div class="modal-comment-header-optionBtn" id="modalCommentHeaderOptionBtn">
                                                                    <svg aria-label="옵션 더 보기" class="x1lliihq x1n2onr6 x5n08af"
@@ -465,7 +471,7 @@
                                                                </div>
 
                                                                <div class="modal-likeCnt-text" id="modalLikeCntText">
-                                                                   <p> 좋아요 \${obj.portfolio.likeCount}</p>
+                                                                   <p style = "margin-bottom: 0px"> 좋아요 \${obj.portfolio.likeCount}개</p>
                                                                </div>
                                                            </div>
 
@@ -555,9 +561,13 @@
                 // 제일 처음은 소개문
                 const commentElement = `
                                         <div class="modal-comment">
-                                            <div class="modal-comment-user-logo" style="background-image: url('/static/img/cat1.jpg');"></div>
+                                            <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}');"></div>
+                                            </a>
                                             <div class="modal-comment-main">
-                                                <div class="modal-comment-main-userid"><strong>cat1</strong></div>
+                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                    <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
+                                                </a>
                                                 <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>
@@ -567,13 +577,18 @@
                 // 댓글 데이터 로드
                 function renderComments(comments, container) {
                     comments.forEach(comment => {
-
+                        console.log(comment);
                         const commentHeartOutlineClass = comment.liked ? 'hidden' : '';
                         const commentHeartFilledClass = comment.liked ? '' : 'hidden';
 
                         const commentBox = document.createElement('div');
                         commentBox.classList.add('comment-box');
                         container.appendChild(commentBox);
+
+                        let feedLink = '';
+                        if (comment.comment_parent_id !== null && comment.comment_parent_id !== 0) {
+                            feedLink = `<a href="/userfeeds/user-feeds.do?id=\${comment.user_id}" style="text-decoration: none; color : black;"><span>@\${comment.parent_nickname}</span></a>`;
+                        }
 
                         const commentElement = `
                             <div class="modal-comment">
@@ -584,16 +599,18 @@
                                                 <input type="hidden" name="likeCount" value="\${comment.likeCount}"/>
                                                 <input type="hidden" name="isLiked" value = "\${comment.liked}"/>
                                 </form>
-                                <a href="">
+                                <a href="/userfeeds/user-feeds.do?id=\${comment.user_id}">
                                     <div class="modal-comment-user-logo"
-                                        style="background-image: url('/static/img/cat1.jpg');"></div>
+                                        style="background-image: url('\${comment.profile_image}');"></div>
                                 </a>
                                 <div class="modal-comment-wrapper" style="display : flex; width: 75%;">
                                     <div class="modal-comment-main">
                                         <div class="modal-comment-main-userid">
-                                            <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>\${comment.user_id}</strong>
+                                            <a href="/userfeeds/user-feeds.do?id=\${comment.user_id}" style="text-decoration: none; color:black">
+                                                <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>\${comment.nickname}</strong>
+                                            </a>
                                             </div>
-                                            <div style="margin-left:5px;">\${comment.content}</div>
+                                            <div style="margin-left:5px;"> \${feedLink} \${comment.content}</div>
                                         </div>
                                         <div class="modal-comment-main-content">
                                             <div style="color: gray;">1주</div>
@@ -637,6 +654,7 @@
                         }
                     });
                 }
+
                 renderComments(obj.commentList, modalCommentMain);
 
                 // 코멘트창 메인핸들러 (모달 여닫을 시 이벤트리스너 초기화를 위해 익명함수가 아닌 실명함수 사용)
@@ -679,12 +697,14 @@
                         const input = commentForm.querySelector('input[name="isLiked"]');
                         const heartOutline = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart');
                         const heartFilled = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
+                        const commentLike = event.target.closest('.modal-comment').querySelector('#commentLike');
 
                         $.ajax({
                             url: '/main/comment-like-ajax.do',
                             type: 'post',
                             data: $(commentForm).serialize(),
                             success: (obj) => {
+                                commentLike.innerHTML = `좋아요 \${obj.comment.likeCount}개`;
                                 input.value = input.value === 'false' ? 'true' : 'false';
                                 heartOutline.classList.toggle('hidden');
                                 heartFilled.classList.toggle('hidden');
@@ -702,12 +722,14 @@
                         const input = modalPortfolioForm.querySelector('input[name="isLiked"]');
                         const heartOutline = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart');
                         const heartFilled = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
+                        const modalLikeCntText = event.target.closest('.modal-portfolio-overlay-bond').querySelector('#modalLikeCntText');
 
                         $.ajax({
                             url: '/main/portfolio-like-ajax.do',
                             type: 'post',
                             data: $(modalPortfolioForm).serialize(),
                             success: (obj) => {
+                                modalLikeCntText.innerHTML = `<p style = "margin-bottom: 0px"> 좋아요 \${obj.portfolio.likeCount}개 </p>`;
                                 input.value = input.value === 'false' ? 'true' : 'false';
                                 heartOutline.classList.toggle('hidden');
                                 heartFilled.classList.toggle('hidden');
@@ -727,7 +749,6 @@
                         // 댓글 작성자와 사용자의 일치여부에 따라 다른 옵션창
                         openCommentOptions( commentUserId , ${loginUser.user_id});
 
-                        const deleteCommentForm = event.target.closest('form');
                         const deleteCommentBtn = document.getElementById('deleteCommentBtn');
                         const reportCommentBtn = document.getElementById('reportCommentBtn');
 
@@ -738,15 +759,19 @@
                             $.ajax({
                                 url: '/main/delete-comment-ajax.do',
                                 type: 'post',
-                                data: $(deleteCommentForm).serialize(),
+                                data: $(commentForm).serialize(),
                                 success: (obj) => {
                                     modalCommentMain.innerHTML='';
                                     // 제일 처음은 소개문
                                     const commentElement = `
                                         <div class="modal-comment">
-                                            <div class="modal-comment-user-logo" style="background-image: url('/static/img/cat1.jpg');"></div>
+                                            <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}');"></div>
+                                            </a>
                                             <div class="modal-comment-main">
-                                                <div class="modal-comment-main-userid"><strong>cat1</strong></div>
+                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                    <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
+                                                </a>
                                                 <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>
@@ -822,9 +847,13 @@
                                     // 제일 처음은 소개문
                                     const commentElement = `
                                         <div class="modal-comment">
-                                            <div class="modal-comment-user-logo" style="background-image: url('/static/img/cat1.jpg');"></div>
+                                            <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}');"></div>
+                                            </a>
                                             <div class="modal-comment-main">
-                                                <div class="modal-comment-main-userid"><strong>cat1</strong></div>
+                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                    <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
+                                                </a>
                                                 <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>

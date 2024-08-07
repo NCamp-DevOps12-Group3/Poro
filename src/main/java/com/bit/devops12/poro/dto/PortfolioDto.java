@@ -15,6 +15,16 @@ public class PortfolioDto {
     private LocalDateTime regdate;
     private LocalDateTime moddate;
     private String nickname;
+    private String profile_image;
+
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
+    }
+
     private String skillname;
     private String description;
     private List<String> htmlCode;
@@ -63,6 +73,7 @@ public class PortfolioDto {
                 ", regdate=" + regdate +
                 ", moddate=" + moddate +
                 ", nickname='" + nickname + '\'' +
+                ", profile_image='" + profile_image + '\'' +
                 ", skillname='" + skillname + '\'' +
                 ", description='" + description + '\'' +
                 ", htmlCode=" + htmlCode +
@@ -73,6 +84,7 @@ public class PortfolioDto {
                 ", likeCount=" + likeCount +
                 ", commentCount=" + commentCount +
                 ", isLiked=" + isLiked +
+                ", bookmarked=" + bookmarked +
                 '}';
     }
 
