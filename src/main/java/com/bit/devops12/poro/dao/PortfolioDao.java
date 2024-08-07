@@ -115,5 +115,9 @@ public class PortfolioDao {
 
         System.out.println(8);
     }
+
+    public PortfolioDto getCurrentPortfolioByUserId(int userId){
+        return mybatis.selectOne("PortfolioDao.getCurrentPortfolioByUserId", userId);
+    }
     
 }

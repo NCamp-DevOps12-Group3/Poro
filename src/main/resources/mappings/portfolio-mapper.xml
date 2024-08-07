@@ -203,5 +203,17 @@
         DELETE FROM PORTFOLIO
         WHERE PORTFOLIO_ID = #{portfolio_id};
     </delete>
-
+    <select id="getCurrentPortfolioByUserId" parameterType="int" resultType="portfolio">
+        SELECT PORTFOLIO_ID
+             , USER_ID
+             , PORTFOLIO_URL
+             , THUMBNAIL_URL
+             , REGDATE
+             , MODDATE
+             , DESCRIPTION
+            FROM PORTFOLIO
+            WHERE USER_ID = #{userId}
+            ORDER BY REGDATE DESC
+            LIMIT 1 OFFSET 0
+    </select>
 </mapper>
