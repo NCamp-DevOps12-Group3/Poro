@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -23,11 +24,7 @@ public class UserDao {
 		System.out.println("UserDao의 join 메소드 실행 종료");
 	}
 	
-	public List<UserDto> getMembers() {
-		System.out.println("UserDao의 getMembers 메소드 실행");
-		
-		return mybatis.selectList("UserDao.getMembers");
-	}
+	
 	
 	
 	
@@ -47,13 +44,13 @@ public class UserDao {
 		return mybatis.selectOne("UserDao.login", userDto);
 	}
 	
-	public void modify(UserDto userDto, MultipartFile formFile){
+	public void modify(UserDto userDto){
 		System.out.println("UserDao의 modify 메소드 실행");
 		
 		
 		
 		
-//		mybatis.update("UserDao.modify", userDto,formFile  );
+		mybatis.update("UserDao.modify", userDto);
 		
 		
 		
@@ -68,4 +65,15 @@ public class UserDao {
 		return mybatis.selectList("UserDao.findMembersUsingKeyword", searchKeyword);
 	}
 	
+	public String passwordCheck(String password) {
+		return mybatis.selectOne("UserDao.passwordCheck",password);
+	}
+	
+	public void ChangePassword(UserDto userDto) {
+		mybatis.update("UserDao.changepassword", userDto);
+	}
+	
+	public void deleteAccount(UserDto userDto) {
+		mybatis.delete( "UserDao.deleteAccount", userDto);
+	}
 }

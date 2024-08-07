@@ -1,6 +1,5 @@
 package com.bit.devops12.poro.controller;
 
-import com.bit.devops12.poro.dto.MainCriteria;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -53,7 +52,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/join.do")
-	public String join(UserDto userDto) {
+	public String join(UserDto userDto ) {
 		userService.join(userDto);
 		return "user/login";
 	}
@@ -69,7 +68,8 @@ public class UserController {
 
 			System.out.println(loginUser);
 
-			return "redirect:/main/main.do";
+//			return "redirect:/main/main.do";
+			return "user/settings";
 		} catch (Exception e) {
 			model.addAttribute("loginFailMsg", e.getMessage());
 			
@@ -91,15 +91,60 @@ public class UserController {
 		return "/user/settings";
 	}
 	
+
+	
+	
 	@PostMapping("/modify.do")
-	public String modify(UserDto userDto , MultipartFile uploadFiles) {
+	public String modify(UserDto userDto, @RequestParam("uploadFiles") MultipartFile uploadFiles, HttpSession session) {
 		userService.modify(userDto,uploadFiles);
-		return "/user/settings";
+		session.setAttribute("loginUser", userDto);
+		
+		return "redirect:/user/settings.dodo";
 	}
 	
+	@GetMapping("/settings.dodo")
+	public String settings(HttpSession session, Model model) {
+		// 세션에서 수정된 사용자 정보 가져오기
+		UserDto modifiedUser = (UserDto) session.getAttribute("loginUser");
+		
+		if (modifiedUser != null) {
+			// 수정된 사용자 정보를 모델에 추가하여 뷰에서 사용할 수 있게 함
+			model.addAttribute("loginUser", modifiedUser);
+			// 세션에서 수정된 정보 제거 (옵션)
+			session.removeAttribute("loginUser");
+		}
+		
+		return "/user/settings";
+	}
 	
 	@GetMapping("/passwordchangesChk.do")
 	public String passwordchangesChkView() {
 		return "/user/passwordchangesChk";
+	}
+	
+	@PostMapping("/passwordchangesChk.do")
+	@ResponseBody
+	public String passwordchangesChk(UserDto userDto) {
+		System.out.println(userService.passwordCheck(userDto.getPassword()));
+		return userService.passwordCheck(userDto.getPassword());
+	}
+	
+	@GetMapping("/passwordchanges.do")
+	public String PasswordChanges() {
+		return "user/passwordchanges";
+	}
+	
+	@PostMapping("/ChangePassword.do")
+	public String ChangePassword(UserDto userDto,HttpSession session) {
+		userService.ChangePassword(userDto);
+		session.invalidate();
+		return "redirect:login.do";
+	}
+	
+	@PostMapping("/delete-account.do")
+	public String deleteAccount(UserDto userDto, HttpSession session) {
+		userService.deleteAccount(userDto);
+		session.invalidate();
+		return "redirect:login.do";
 	}
 }

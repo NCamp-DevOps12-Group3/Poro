@@ -84,13 +84,40 @@
 	
 	<update id="modify" parameterType="user">
 	UPDATE USER
-		SET
-
+		SET NICKNAME = #{nickname},
+		    NAME = #{name},
+		    GENDER = #{gender},
+		    PHONENUMBER = #{phonenumber},
+		    JOB = #{job},
+		    INTRODUCTION = #{introduction},
+		    SITE_URL = #{site_url},
+		    MODDATE = #{moddate},
+		    PROFILE_IMAGE = #{profile_image}
+	WHERE USER_ID = #{user_id}
 	</update>
 	
 	
+	<select id="passwordCheck" parameterType="string" resultType="string">
+		SELECT PASSWORD
+		FROM USER
+		WHERE PASSWORD = #{password}
+	</select>
 	
+	<update id="changepassword" parameterType="user">
+		UPDATE USER
+		SET PASSWORD = #{password}
+		WHERE USER_ID = #{user_id}
+		  AND EMAIL = #{email}
 	
+	</update>
+	
+	<delete id="deleteAccount" parameterType="user">
+		DELETE FROM USER
+		       WHERE USER_ID = #{user_id}
+		       AND EMAIL = #{email}
+		       
+
+	</delete>
 	
 	
 	

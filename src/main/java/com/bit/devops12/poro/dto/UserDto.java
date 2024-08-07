@@ -1,6 +1,7 @@
 package com.bit.devops12.poro.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class UserDto {
 	private int user_id;
@@ -18,7 +19,7 @@ public class UserDto {
 	private String introduction;
 	private String site_url;
 
-
+	
 	public int getUser_id() {
 		return user_id;
 	}
@@ -130,7 +131,6 @@ public class UserDto {
 	public void setSite_url(String site_url) {
 		this.site_url = site_url;
 	}
-
 	@Override
 	public String toString() {
 		return "UserDto{" +

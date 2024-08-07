@@ -5,67 +5,67 @@
   Time: 오후 3:19
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>비밀번호 변경</title>
-    <link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
-    <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
-    <script src="${pageContext.request.contextPath}/static/css/login_join_changepassword.css"></script>
-    <style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>비밀번호 변경</title>
+	<link href="${pageContext.request.contextPath}/static/css/bootstrap.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.js"></script>
+	<link href="${pageContext.request.contextPath}/static/css/login_join_changepassword.css" rel="stylesheet">
+	<style>
         /* 컨테이너 스타일 */
-       
-    
-    
-    
-    
-    </style>
+	
+	
+	
+	
+	
+	</style>
 </head>
 <body>
 <div id="liveAlertPlaceholder" ></div><!-- 경고창 위치 마커-->
 <div class="container">
-    <div class="card">
-        
-        <p class="h5 card-title text-center">비밀번호 변경</p><!-- 회원가입 양식 텍스트 -->
-        <p class="text-center" >새 비밀번호 입력</p><!-- 회원가입 양식 텍스트 -->
-        <form  action="" id="login-form">
-            <div style="height: 60px; margin-bottom: 50px;">비밀번호
-                <input type="password" class="form-control" id="password" name="password" placeholder="특수문자, 숫자, 영문자 조합의 8자리 이상">
-                <div id="PasswordAlertholder"></div>
-            </div>
-            <div style="height: 60px; margin-bottom: 50px;">비밀번호 확인
-                <input type="password" class="form-control" id="passwordChk" name="passwordChk" placeholder="비밀번호 확인 ">
-                <div id="PasswordChkAlertholder"></div>
-            </div>
-            
-            <div class="d-grid mb-3">
-                <button type="button" class="btn btn-dark" id="ChangePassword">비밀번호 변경</button>
-            </div>
-            <div style="text-align: center;">
-                <a href="setting.html" style="color: white;">
-                    <button type="button" class="btn border border-dark" >취소
-                    </button></a>
-            </div>
-        
-        </form>
-    </div>
+	<div class="card">
+		
+		<p class="h5 card-title text-center">비밀번호 변경</p><!-- 회원가입 양식 텍스트 -->
+		<p class="text-center" >새 비밀번호 입력</p><!-- 회원가입 양식 텍스트 -->
+		<form  action="/user/ChangePassword.do" id="ChangePassword-form" method="post">
+			<div style="height: 60px; margin-bottom: 50px;">비밀번호
+				<input type="password" class="form-control" id="password" name="password" placeholder="특수문자, 숫자, 영문자 조합의 8자리 이상">
+				<div id="PasswordAlertholder"></div>
+			</div>
+			<div style="height: 60px; margin-bottom: 50px;">비밀번호 확인
+				<input type="password" class="form-control" id="passwordChk" name="passwordChk" placeholder="비밀번호 확인 ">
+				<div id="PasswordChkAlertholder"></div>
+			</div>
+			<input type="hidden" name="user_id" value="${loginUser.user_id}">
+			<input type="hidden" name="email" value="${loginUser.email}">
+			<div class="d-grid mb-3">
+				<button type="button" class="btn btn-dark" id="ChangePassword">비밀번호 변경</button>
+			</div>
+			<div style="text-align: center;">
+				<button type="submit" class="btn border border-dark" >취소</button>
+			</div>
+		
+		</form>
+	</div>
 </div>
 <script>
     $(()=>{
         const userdata = new Object();
-        
+
         const alertPlaceholder = document.getElementById('liveAlertPlaceholder'); /*경고창 위치 마커 선택*/
         const apassword = document.querySelector("input[name='password']"); /*비밀번호 선택*/
         const apasswordchk = document.querySelector("input[name='passwordChk']"); /*비밀번호 확인 선택*/
         const PasswordAlertholder = document.getElementById('PasswordAlertholder'); /*경고창 위치 마커 선택*/
         const PasswordChkAlertholder = document.getElementById('PasswordChkAlertholder'); /*경고창 위치 마커 선택*/
-        
-        
-        
-        
+
+
+
+
         const PasswordappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
@@ -76,7 +76,7 @@
             PasswordAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
             setTimeout(() => { wrapper.remove();}, 5000);
         }
-        
+
         const PasswordChkappendAlert = (message, type) => {
             const wrapper = document.createElement('div'); /*wrapper선언하고 div만들기*/
             wrapper.innerHTML = [  /*wrapper 의 내용물(String 배열) 넣기*/`<div class="alert " role="alert">`,
@@ -87,9 +87,9 @@
             PasswordChkAlertholder.append(wrapper); /*Alert holder 에 써 넣기*/
             setTimeout(() => { wrapper.remove();}, 5000);
         }
-        
+
         let passwordValidation = false; // 비밀번호 유효성 검사를 위한 변수입니다.
-        
+
         // 비밀번호 입력란에 조건을 만족못하고 포커스를 잃었을 때 발생하는 이벤트입니다.
         apassword.addEventListener("blur", (e) => {
             let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*+=-])(?=.*[0-9]).{8,15}$/;
@@ -107,28 +107,36 @@
             if($("#password").val() !== $("#passwordChk").val()) {
                 PasswordChkappendAlert('비밀번호가 비밀번호확인과 일치하지 않습니다.', 'success');
                 passwordChkValidation = false;
-                
+
                 return;
             }
             passwordChkValidation = true;
         });
-        
-        
-        
-        
-        
+
+
+
+
+
+        $("#email").on("keydown", (e) => {
+            if (typeof e.key !== "undefined") {
+                if (e.key.toLowerCase() === 'enter') {
+                    e.preventDefault();
+                    $("#signIn").click();
+                }
+            }
+        });
+
+
         $("#password").on("keydown", (e) => {
-            if(e.key.toLowerCase() === 'enter') {
-                $("#ChangePassword").click();
+            if (typeof e.key !== "undefined") {
+                if (e.key.toLowerCase() === 'enter') {
+                    e.preventDefault();
+                    $("#signIn").click();
+                }
             }
         });
-        $("#passwordChk").on("keydown", (e) => {
-            if(e.key.toLowerCase() === 'enter') {
-                $("#ChangePassword").click();
-            }
-        });
-        
-        
+
+
         $("#ChangePassword").on("click", (e) => {
             // 비밀번호 미 입력시
             if($("#password").val() === '') {
@@ -148,24 +156,15 @@
                 e.preventDefault();
                 return;
             }
-            const getpassword = document.getElementById("password");
-            userdata.password = getpassword.value;
-            
-            
-            
-            //비밀번호와 서버의 비밀번호 불일치시
-            // if($("#password").val() != "helldive@2") {
-            //         appendAlert('비밀번호가 일치하지 않습니다.', 'success');
-            //         e.preventDefault();
-            //         return;
-            //     }
-            
-            userdata.info = function() {
-                console.log(`비밀번호: ${this.password}`);
-            }
-            userdata.info();
-            
-            window.location.href='setting.html';
+           
+
+
+
+         
+
+
+
+            window.location.href='user/login.do';
         });
     });
 </script>
