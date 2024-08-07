@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
 			}
 			
 			try {
-				String profileImage = FileUtils.parserFileInfo(uploadFiles, attachPath);
+				String profileImage = FileUtils.parserFileInfo(uploadFiles, attachPath).getFileoriginname();
 				System.out.println(profileImage);
 				userDto.setProfile_image(profileImage);
 			} catch (Exception e) {
