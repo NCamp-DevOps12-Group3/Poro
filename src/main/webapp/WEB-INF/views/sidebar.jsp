@@ -18,7 +18,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/add-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
@@ -91,7 +90,7 @@
                 <div class="sidebar-icon-text">Poro</div>
             </div>
             <div class="sidebar-list">
-                <a href="main.html" class="active nav-link" data-page="main.html">
+                <a href="/main/main.do" class="active nav-link" data-page="main.html">
                     <i class="bi bi-house-door"></i>
                     <div>홈</div>
                 </a>
@@ -103,7 +102,7 @@
                     <i class="bi bi-person-circle"></i>
                     <div>내 프로필</div>
                 </a>
-                <a href="mini_project.html" class="nav-link" data-page="mini_project.html">
+                <a href="/main/user-portfolio.do" class="nav-link" data-page="mini_project.html">
                     <i class="bi bi-card-list"></i>
                     <div>개인 포트폴리오</div>
                 </a>
@@ -287,7 +286,6 @@
     <script src="${pageContext.request.contextPath}/static/js/commonScripts.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/companyScripts.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/sidebar.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -67,10 +67,9 @@ public class UserController {
 			session.setAttribute("loginUser", loginUser);
 			
 			System.out.println(loginUser);
-			session.setAttribute("historylog", historylog);
-			System.out.println(historylog);
-//			return "redirect:/main/main.do";
-			return "user/settings";
+
+			return "redirect:/main/main.do";
+//			return "user/settings";
 		} catch (Exception e) {
 			model.addAttribute("loginFailMsg", e.getMessage());
 			

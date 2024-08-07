@@ -29,6 +29,8 @@ public class MainController {
         this.commentService = commentService;
     }
 
+
+
     @GetMapping("/main.do")
     public String userMain(Model model, MainCriteria mainCri) {
 
@@ -224,4 +226,8 @@ public class MainController {
         return "redirect:/main/main.do";
     }
 
+    @GetMapping("/user-portfolio.do")
+    public String userPortfolio(HttpSession session){
+        return "portfolio/mini_project";
+    }
 }
