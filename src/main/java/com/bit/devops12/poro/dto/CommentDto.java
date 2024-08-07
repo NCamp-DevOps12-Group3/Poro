@@ -15,14 +15,7 @@ public class CommentDto {
     private List<CommentDto> replies = new ArrayList<>();
     private int likeCount;
     private boolean isLiked;
-
-    public boolean isLiked() {
-        return isLiked;
-    }
-
-    public void setLiked(boolean liked) {
-        isLiked = liked;
-    }
+    private String nickname;
 
     @Override
     public String toString() {
@@ -37,9 +30,25 @@ public class CommentDto {
                 ", replies=" + replies +
                 ", likeCount=" + likeCount +
                 ", isLiked=" + isLiked +
+                ", nickname='" + nickname + '\'' +
                 '}';
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
 
     public List<CommentDto> getReplies() {
         return replies;
