@@ -106,7 +106,7 @@
                     <i class="bi bi-card-list"></i>
                     <div>개인 포트폴리오</div>
                 </a>
-                <a href="mini_project(company).html" class="nav-link" data-page="mini_project(company).html">
+                <a href="/company/test.do" class="nav-link" data-page="mini_project(company).html">
                     <i class="bi bi-building"></i>
                     <div>기업 채용</div>
                 </a>
