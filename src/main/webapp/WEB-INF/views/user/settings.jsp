@@ -497,7 +497,7 @@
 							</thead>
 							<tbody class="table-group-divider">
 							
-							<c:forEach items="${myhistory}" var="historylog">
+							<c:forEach items="${historylog}" var="historylog">
 								<tr class="board-tr" onclick="location.href='/user/historylog.do?id=${historylog.id}'">
 									<td>${historylog.id}</td>
 									<c:choose>

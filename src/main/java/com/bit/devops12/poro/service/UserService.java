@@ -21,4 +21,6 @@ public interface UserService {
 	void ChangePassword(UserDto userDto);
 	
 	void deleteAccount(UserDto userDto);
+	
+	UserDto historylog(UserDto userDto);
 }
