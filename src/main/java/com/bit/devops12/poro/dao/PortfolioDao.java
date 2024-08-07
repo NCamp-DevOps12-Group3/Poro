@@ -31,6 +31,12 @@ public class PortfolioDao {
         return mybatis.selectList("PortfolioDao.getPortfolioList", paramMap);
     }
 
+    public List<PortfolioDto> getPortfolioListMini(Map<String, Object> paramMap) {
+        System.out.println("PortfolioDao의 getPortfolioListMini 메소드 실행");
+
+        return mybatis.selectList("PortfolioDao.getPortfolioListMini", paramMap);
+    }
+
     public int getPortfolioTotalCnt(){
         return mybatis.selectOne("PortfolioDao.getPortfolioTotalCnt");
     }

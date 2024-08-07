@@ -28,62 +28,6 @@
             height: 50vh;
             position: relative;
         }
-
-        .viewAll {
-            text-decoration: none;
-            /* 밑줄 제거 */
-            color: black;
-            /* 기본 텍스트 색상 설정 */
-        }
-
-        .viewAll:visited {
-            color: black;
-        }
-
-        #recommendItemContent {
-            cursor: pointer;
-        }
-
-        .bookmark-path.filled {
-            fill: red;
-            stroke: none;
-            /* 원하는 색상으로 설정 */
-        }
-
-        .modal-comment.reply{
-            width: 95%;
-            margin: 5px;
-            margin-left: 55px;
-        }
-
-        .reply-box{
-            flex-direction: column;
-            margin-left: 40px;
-        }
-
-        .reply-view{
-            cursor: pointer;
-        }
-
-        .reply-btn{
-            cursor : pointer;
-        }
-
-        .hidden{
-            display: none;
-        }
-
-        .modal-comment-like-logo-wrapper{
-            cursor : pointer;
-        }
-
-        .modal-portfolio-like-logo-wrapper{
-            cursor : pointer;
-        }
-
-        .bi-three-dots{
-            cursor : pointer;
-        }
     </style>
 </head>
 <body>
@@ -286,7 +230,6 @@
             type: 'post',
             data: $("#page-form").serialize(),
             success: (obj) => {
-                console.log("ajax success")
                 let htmlStr = "";
                 for (let i = 0; i < obj.portfolioList.length; i++) {
                     htmlStr += `
@@ -429,14 +372,14 @@
     // 이벤트 위임을 사용하여 .content-item 요소에 클릭 이벤트 설정
     document.getElementById('portfolioContainer').addEventListener('click', function(event) {
         if (event.target.classList.contains('content-item')) {
-            const form = event.target.closest('.content-item-wrapper').querySelector('form');
-            console.log($(form).serialize());
+            console.log(event.target.closest('.content-item-wrapper'));
+            const portfolioForm = event.target.closest('.content-item-wrapper').querySelector('#portfolioForm');
+            console.log(portfolioForm);
             $.ajax({
                 url: '/main/modal-ajax.do',
                 type: 'post',
-                data: $(form).serialize(),
+                data: $(portfolioForm).serialize(),
                 success: (obj) => {
-                    console.log(obj);
                     openModal(obj);
                 },
                 error: (err) => {
@@ -452,9 +395,7 @@
 <script>
 
     function openModal(obj){
-
         if(obj){
-
             let portfolioId = obj.portfolio.portfolio_id;
             const portfolioHeartOutlineClass = obj.portfolio.liked ? 'hidden' : '';
             const portfolioHeartFilledClass = obj.portfolio.liked ? '' : 'hidden';
@@ -465,6 +406,13 @@
 
             let htmlStr = `
                                <div class="modal-portfolio-overlay-bond" id="modalPortfolioOverlayBond">
+                                    <form id="modalPortfolioForm" action="/main/delete-portfolio.do" method="post" style="margin-bottom : 0; margin-right : 10px; display : flex; align-items : center">
+                                        <input type="hidden" name="user_id" value="\${obj.portfolio.user_id}">
+                                        <input type="hidden" name="portfolio_id" value="\${obj.portfolio.portfolio_id}">
+                                        <input type="hidden" name="isLiked" value = "\${obj.portfolio.liked}"/>
+                                        <input type="hidden" name="portfolio_id" value = "\${obj.portfolio.portfolio_id}"/>
+                                        <button type="submit" id="hiddenSubmitBtn" style="display: none;"></button>
+                                    </form>
                                    <div class="modal-portfolio" id="modalPortfolio">
                                        <div class="modal-portfolio-bond" id="modalPortfolioBond">
 
@@ -479,23 +427,18 @@
                                                            <div class="modal-comment-header-logo" id="modalCommentHeaderLogo"></div>
                                                            <div class="modal-comment-header-userId"> <strong>cat1</strong>
                                                            </div>
-                                                           <form id="modalPortfolioForm" action="/main/delete-portfolio.do" method="post" style="margin-bottom : 0; margin-right : 10px; display : flex; align-items : center">
-                                                                <input type="hidden" name="user_id" value="\${obj.portfolio.user_id}">
-                                                                <input type="hidden" name="portfolio_id" value="\${obj.portfolio.portfolio_id}">
-                                                                <button type="submit" id="hiddenSubmitBtn" style="display: none;"></button>
-                                                                <div class="modal-comment-header-option" id="modalCommentHeaderOption">
-                                                                   <div class="modal-comment-header-optionBtn" id="modalCommentHeaderOptionBtn">
-                                                                       <svg aria-label="옵션 더 보기" class="x1lliihq x1n2onr6 x5n08af"
-                                                                            fill="currentColor" height="24" role="img" viewBox="0 0 24 24"
-                                                                            width="24">
-                                                                           <title>옵션 더 보기</title>
-                                                                           <circle cx="12" cy="12" r="1.5"></circle>
-                                                                           <circle cx="6" cy="12" r="1.5"></circle>
-                                                                           <circle cx="18" cy="12" r="1.5"></circle>
-                                                                       </svg>
-                                                                   </div>
-                                                                </div>
-                                                           </form>
+                                                            <div class="modal-comment-header-option" id="modalCommentHeaderOption">
+                                                               <div class="modal-comment-header-optionBtn" id="modalCommentHeaderOptionBtn">
+                                                                   <svg aria-label="옵션 더 보기" class="x1lliihq x1n2onr6 x5n08af"
+                                                                        fill="currentColor" height="24" role="img" viewBox="0 0 24 24"
+                                                                        width="24">
+                                                                       <title>옵션 더 보기</title>
+                                                                       <circle cx="12" cy="12" r="1.5"></circle>
+                                                                       <circle cx="6" cy="12" r="1.5"></circle>
+                                                                       <circle cx="18" cy="12" r="1.5"></circle>
+                                                                   </svg>
+                                                               </div>
+                                                            </div>
                                                        </div>
 
                                                        <div class="modal-comment-main-box" id="modalCommentMain">
@@ -508,9 +451,6 @@
 
                                                                <div class="modal-portfolio-like-logo" style="display:flex">
                                                                    <div class="modal-portfolio-like-logo-wrapper" >
-                                                                        <form>
-                                                                            <input type="hidden" name="isLiked" value = "\${obj.portfolio.liked}"/>
-                                                                            <input type="hidden" name="portfolio_id" value = "\${obj.portfolio.portfolio_id}"/>
                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
                                                                                class="bi bi-suit-heart portfolio-like-logo \${portfolioHeartOutlineClass}" viewBox="0 0 16 16">
                                                                                <path
@@ -521,7 +461,6 @@
                                                                                <path
                                                                                    d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
                                                                            </svg>
-                                                                        </form>
                                                                    </div>
                                                                </div>
 
@@ -533,7 +472,7 @@
                                                            <!--댓글 입력창-->
                                                            <div class="modal-leaveComment" id="modalLeaveComment">
                                                                <input type="text" id="modalCommentInput" class="form-control"
-                                                                      autocomplete="off" placeholder="댓글을 입력하세요..."/>
+                                                                      autocomplete="off" placeholder="댓글을 입력하세요..." value=""/>
                                                            </div>
                                                        </div>
 
@@ -591,7 +530,6 @@
             modalBox.innerHTML = htmlStr;
             document.body.appendChild(modalBox);
 
-            let replymode = false;
             let comment_id = null;
             let curr_reply_box = null;
             let curr_comment_box = null;
@@ -630,7 +568,6 @@
                 function renderComments(comments, container) {
                     comments.forEach(comment => {
 
-                        console.log(comment);
                         const commentHeartOutlineClass = comment.liked ? 'hidden' : '';
                         const commentHeartFilledClass = comment.liked ? '' : 'hidden';
 
@@ -639,12 +576,14 @@
                         container.appendChild(commentBox);
 
                         const commentElement = `
-                            <form id="commentForm">
-                                            <input type="hidden" name="comment_id" value="\${comment.comment_id}"/>
-                                            <input type="hidden" name="nickname" value="\${comment.nickname}"/>
-                                            <input type="hidden" name="user_id" value="\${comment.user_id}"/>
-                                            <input type="hidden" name="likeCount" value="\${comment.likeCount}"/>
                             <div class="modal-comment">
+                                <form id="commentForm">
+                                                <input type="hidden" name="comment_id" value="\${comment.comment_id}"/>
+                                                <input type="hidden" name="nickname" value="\${comment.nickname}"/>
+                                                <input type="hidden" name="user_id" value="\${comment.user_id}"/>
+                                                <input type="hidden" name="likeCount" value="\${comment.likeCount}"/>
+                                                <input type="hidden" name="isLiked" value = "\${comment.liked}"/>
+                                </form>
                                 <a href="">
                                     <div class="modal-comment-user-logo"
                                         style="background-image: url('/static/img/cat1.jpg');"></div>
@@ -660,20 +599,15 @@
                                             <div style="color: gray;">1주</div>
                                             <div style="color: gray; margin-left : 10px" id="commentLike">좋아요 \${comment.likeCount}개</div>
                                             <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
-                                            <form>
-                                                <input type="hidden" name="comment_id" value="\${comment.comment_id}"/>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" style="margin-left : 10px;"  viewBox="0 -2 16 16">
-                                                  <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                                                </svg>
-                                            </form>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" style="margin-left : 10px;"  viewBox="0 -2 16 16">
+                                              <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                            </svg>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-comment-like-logo" style="display : flex; align-items : center">
                                     <div class="modal-comment-like-logo-wrapper">
                                         <form style="margin-bottom : 0; display : flex; align-items : center">
-                                            <input type="hidden" name="isLiked" value = "\${comment.liked}"/>
-                                            <input type="hidden" name="comment_id" value = "\${comment.comment_id}"/>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
                                                 class="bi bi-suit-heart comment-like-logo \${commentHeartOutlineClass}" viewBox="0 0 16 16">
                                                 <path
@@ -718,47 +652,40 @@
 
                     // 클릭된 요소가 답글달기 인지 확인합니다.
                     if (event.target.classList.contains('reply-btn')){
-                        curr_comment_box = event.target.closest('.comment-box');
-                        curr_reply_box = curr_comment_box.querySelector('.reply-box');
+                        let curr_comment_box = event.target.closest('.comment-box');
+                        let curr_reply_box = curr_comment_box.querySelector('.reply-box');
+
                         if(!curr_reply_box){
                             curr_reply_box = event.target.closest('.reply-box');
                         }
 
-                        replymode = true;
                         const modalCommentInput = document.getElementById('modalCommentInput');
                         modalCommentInput.focus();
-                        const commentForm = event.target.closest('.comment-box').querySelector('form');
+
+                        const commentForm = event.target.closest('.modal-comment').querySelector('#commentForm');
                         comment_id = commentForm.querySelector('input[name="comment_id"]').value;
+
                     }
 
                     // 클릭된 요소가 댓글창인지 확인합니다.
                     if (event.target.classList.contains('form-control')){
-                        replymode = false;
-                        comment_id = 0;
+                        comment_id = null;
                     }
 
                     // 클릭된 요소가 댓글 좋아요 인지 확인합니다.
                     if (event.target.closest('.modal-comment-like-logo-wrapper')) {
 
-                        const commentLikeForm = event.target.closest('form');
-                        const input = commentLikeForm.querySelector('input[name="isLiked"]');
-                        const commentLike = event.target.closest('.modal-comment').querySelector('#commentLike');
-                        let commentLikeVal = commentLike.closest('form').querySelector('input[name="likeCount"]').value;
-
+                        const commentForm = event.target.closest('.modal-comment').querySelector('#commentForm');
+                        const input = commentForm.querySelector('input[name="isLiked"]');
+                        const heartOutline = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart');
+                        const heartFilled = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
 
                         $.ajax({
                             url: '/main/comment-like-ajax.do',
                             type: 'post',
-                            data: $(commentLikeForm).serialize(),
+                            data: $(commentForm).serialize(),
                             success: (obj) => {
-                                if(input.value){
-                                    commentLike.innerHTML = `좋아요 \${parseInt(commentLikeVal)+1}개`;
-                                }else{
-                                    commentLike.innerHTML = `좋아요 \${parseInt(commentLikeVal)-2}개`;
-                                }
                                 input.value = input.value === 'false' ? 'true' : 'false';
-                                const heartOutline = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart');
-                                const heartFilled = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
                                 heartOutline.classList.toggle('hidden');
                                 heartFilled.classList.toggle('hidden');
                             },
@@ -771,19 +698,19 @@
                     // 클릭된 요소가 게시글 좋아요인지 확인합니다.
                     if (event.target.closest('.modal-portfolio-like-logo-wrapper')){
 
-                        const portfolioLikeForm = event.target.closest('form');
-                        const input = portfolioLikeForm.querySelector('input[name="isLiked"]');
+                        const modalPortfolioForm = event.target.closest('.modal-portfolio-overlay-bond').querySelector('#modalPortfolioForm');
+                        const input = modalPortfolioForm.querySelector('input[name="isLiked"]');
+                        const heartOutline = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart');
+                        const heartFilled = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
 
                         $.ajax({
                             url: '/main/portfolio-like-ajax.do',
                             type: 'post',
-                            data: $(portfolioLikeForm).serialize(),
+                            data: $(modalPortfolioForm).serialize(),
                             success: (obj) => {
                                 input.value = input.value === 'false' ? 'true' : 'false';
-                                const heartOutline2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart');
-                                const heartFilled2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
-                                heartOutline2.classList.toggle('hidden');
-                                heartFilled2.classList.toggle('hidden');
+                                heartOutline.classList.toggle('hidden');
+                                heartFilled.classList.toggle('hidden');
                             },
                             error: (err) => {
                                 console.log(err);
@@ -794,7 +721,8 @@
                     // 클릭된 요소가 댓글 옵션창 인지 확인합니다.
                     if(event.target.closest('.bi-three-dots')){
 
-                        const commentUserId = event.target.closest('#commentForm').querySelector('input[name="user_id"]').value;
+                        const commentForm = event.target.closest('.modal-comment').querySelector('#commentForm');
+                        const commentUserId = commentForm.querySelector('input[name="user_id"]').value;
 
                         // 댓글 작성자와 사용자의 일치여부에 따라 다른 옵션창
                         openCommentOptions( commentUserId , ${loginUser.user_id});
@@ -842,8 +770,7 @@
                     // 클릭된 요소가 게시글 옵션창 인지 확인합니다.
                     if(event.target.closest('.modal-comment-header-optionBtn')){
 
-                        const modalPortfolioForm = event.target.closest('#modalPortfolioForm');
-
+                        const modalPortfolioForm = event.target.closest('.modal-portfolio-overlay-bond').querySelector('#modalPortfolioForm');
                         const portfolioUserId = modalPortfolioForm.querySelector('input[name="user_id"]').value;
 
                         // 게시글 작성자와 사용자의 일치여부에 따라 다른 옵션창

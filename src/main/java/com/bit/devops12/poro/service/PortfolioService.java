@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.service;
 import com.bit.devops12.poro.dto.MainCriteria;
+import com.bit.devops12.poro.dto.MiniProjectCriteria;
 import com.bit.devops12.poro.dto.PortfolioDto;
 import com.bit.devops12.poro.mapper.PortfolioMapper;
 import com.bit.devops12.poro.mapper.SkillTagMapper;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public interface PortfolioService {
     List<PortfolioDto> getPortfolioList(MainCriteria mainCri, UserDto loginUser);
+    List<PortfolioDto> getPortfolioListMini(MiniProjectCriteria miniProjectCri, UserDto loginUser);
 
     int getPortfolioTotalCnt();
 //    PortfolioDto getPortfolioById(int portfolio_id);
