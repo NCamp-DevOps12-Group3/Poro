@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
 			}
 			
 			try {
-				String profileImage = FileUtils.parserFileInfo(uploadFiles, attachPath).getFileoriginname();
+				String profileImage = FileUtils.parserFileInfo(uploadFiles, attachPath);
 				System.out.println(profileImage);
 				userDto.setProfile_image(profileImage);
 			} catch (Exception e) {
@@ -160,6 +160,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteAccount(UserDto userDto) {
 		userDao.deleteAccount(userDto);
+	}
+	
+	@Override
+	public UserDto historylog(UserDto userDto) {
+		userDao.
 	}
 	
 	
