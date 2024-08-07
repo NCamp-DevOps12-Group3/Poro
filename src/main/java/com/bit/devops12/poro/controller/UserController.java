@@ -61,12 +61,12 @@ public class UserController {
 	public String login(UserDto userDto, Model model, HttpSession session) {
 		try {
 			UserDto loginUser = userService.login(userDto);
-			UserDto historylog = userService.historylog(userDto);
+//			UserDto historylog = userService.historylog(userDto);
 			loginUser.setPassword("");
 			
 			session.setAttribute("loginUser", loginUser);
-			session.setAttribute("historylog", historylog);
-			System.out.println(loginUser);
+//			session.setAttribute("historylog", historylog);
+//			System.out.println(loginUser);
 
 			return "redirect:/main/main.do";
 //			return "user/settings";
