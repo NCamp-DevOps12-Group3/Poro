@@ -43,7 +43,7 @@ public class UserController {
 		System.out.println(userService.nicknameCheck(userDto.getNickname()));
 		return userService.nicknameCheck(userDto.getNickname());
 	}
-	
+
 	@PostMapping("/nameCheck.do")
 	@ResponseBody
 	public String nameCheck(UserDto userDto) {

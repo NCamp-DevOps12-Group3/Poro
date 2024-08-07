@@ -120,7 +120,7 @@
 	</delete>
 	
 	<!-- 공지사항 목록을 검색하고 페이징 처리하는 쿼리 -->
-	<select id="historylog" parameterType="user" resultType="boauserrd">
+	<select id="historylog" parameterType="user" resultType="user">
 		<!-- 공지사항 목록 조회 쿼리 시작 -->
 		SELECT
 		<!-- NOTICE 테이블과 MEMBER 테이블을 JOIN -->

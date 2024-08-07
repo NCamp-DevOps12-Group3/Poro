@@ -1,14 +1,11 @@
 package com.bit.devops12.poro.service.impl;
 
 import com.bit.devops12.poro.dao.PortfolioDao;
-import com.bit.devops12.poro.dto.Criteria;
-import com.bit.devops12.poro.dto.MainCriteria;
-import com.bit.devops12.poro.dto.PortfolioDto;
+import com.bit.devops12.poro.dto.*;
 import com.bit.devops12.poro.mapper.PortfolioMapper;
 import com.bit.devops12.poro.mapper.SkillTagMapper;
 import com.bit.devops12.poro.model.Portfolio;
 import com.bit.devops12.poro.model.SkillTag;
-import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +42,19 @@ public class PortfolioServiceImpl implements PortfolioService {
         System.out.println(paramMap);
 
         return portfolioDao.getPortfolioList(paramMap);
+    }
+
+    @Override
+    public List<PortfolioDto> getPortfolioListMini(MiniProjectCriteria miniProjectCri, UserDto loginUser) {
+        miniProjectCri.setStartNum((miniProjectCri.getPageNum() - 1) * miniProjectCri.getAmount());
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("miniProjectCri", miniProjectCri);
+        paramMap.put("loginUser", loginUser);
+
+        System.out.println(paramMap);
+
+        return portfolioDao.getPortfolioListMini(paramMap);
     }
 
     @Override

@@ -455,4 +455,61 @@ p {
     cursor: pointer;
     border-bottom: 1px #ccc solid;
     box-sizing: border-box
+
+}
+
+.viewAll {
+    text-decoration: none;
+    /* 밑줄 제거 */
+    color: black;
+    /* 기본 텍스트 색상 설정 */
+}
+
+.viewAll:visited {
+    color: black;
+}
+
+#recommendItemContent {
+    cursor: pointer;
+}
+
+.bookmark-path.filled {
+    fill: red;
+    stroke: none;
+    /* 원하는 색상으로 설정 */
+}
+
+.modal-comment.reply{
+    width: 95%;
+    margin: 5px;
+    margin-left: 55px;
+}
+
+.reply-box{
+    flex-direction: column;
+    margin-left: 40px;
+}
+
+.reply-view{
+    cursor: pointer;
+}
+
+.reply-btn{
+    cursor : pointer;
+}
+
+.hidden{
+    display: none;
+}
+
+.modal-comment-like-logo-wrapper{
+    cursor : pointer;
+}
+
+.modal-portfolio-like-logo-wrapper{
+    cursor : pointer;
+}
+
+.bi-three-dots{
+    cursor : pointer;
 }

@@ -72,8 +72,6 @@ public class MainController {
         Map<Integer, CommentDto> commentMap = commentDtoList.stream()
                 .collect(Collectors.toMap(CommentDto::getComment_id, comment -> comment));
 
-        System.out.println(commentMap);
-
         // 루트 코멘트들을 저장할 리스트 생성
         List<CommentDto> rootComments = new ArrayList<>();
 
@@ -136,8 +134,6 @@ public class MainController {
 
         List<CommentDto> commentDtoList = commentService.getCommentList(portfolioDto, loginUser);
 
-        System.out.println(commentDtoList);
-
         Map<String, Object> response = new HashMap<>();
 
         response.put("commentList", buildCommentTree(commentDtoList));
@@ -153,8 +149,6 @@ public class MainController {
     public Map<String, Object> userCommentLikeAjax(@RequestParam ("comment_id") int comment_id, @RequestParam ("isLiked") boolean isLiked, HttpSession session) {
 
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
-
-        System.out.println(isLiked);
 
         if(!isLiked) {
             System.out.println("123");
@@ -213,8 +207,6 @@ public class MainController {
     @PostMapping("/delete-portfolio.do")
     public String userDeletePortfolio(@RequestParam ("portfolio_id") int portfolio_id, HttpSession session) {
 
-        System.out.println("portfolio_id: " + portfolio_id);
-
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
         PortfolioDto portfolioDto = portfolioService.getPortfolioById(portfolio_id, loginUser);
@@ -228,6 +220,6 @@ public class MainController {
 
     @GetMapping("/user-portfolio.do")
     public String userPortfolio(HttpSession session){
-        return "portfolio/mini_project";
+        return "redirect:/mini/mini_project.do";
     }
 }
