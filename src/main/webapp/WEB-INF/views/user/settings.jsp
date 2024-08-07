@@ -489,31 +489,37 @@
 						<table class="table table-hover text-center">
 							<thead>
 							<tr>
-								<th>번호</th>
+								
 								<th>제목</th>
-								<th>작성자</th>
-								<th>등록일</th>
+								
+								<th>수정일</th>
 							</tr>
 							</thead>
 							<tbody class="table-group-divider">
 							
 							<c:forEach items="${historylog}" var="historylog">
-								<tr class="board-tr" onclick="location.href='/user/historylog.do?id=${historylog.id}'">
-									<td>${historylog.id}</td>
+								<tr class="board-tr" onclick="">
+									
 									<c:choose>
-										
-										<c:when test="${historylog.type != comment}">
-											<td>${historylog.title}</td>
+										<c:when test="${historylog.content != null}">
+											<td>${historylog.content}</td>
 										</c:when>
 										<c:otherwise>
-											<td>${historylog.comment}</td>
+											<td>포트폴리오 업로드</td>
 										</c:otherwise>
 									</c:choose>
-									<td>${historylog.nickname}</td>
-									<td>
-										<javatime:format value="${historylog.regdate}" pattern="yyyy-MM-dd"/>
-									</td>
-								
+									<c:choose>
+										<c:when test="${historylog.content != null}">
+											<td>
+												<javatime:format value="${historylog.regdate}" pattern="yyyy-MM-dd"/>
+											</td>										</c:when>
+										<c:otherwise>
+											<td>
+												<javatime:format value="${historylog.regdate}" pattern="yyyy-MM-dd"/>
+											</td>
+										</c:otherwise>
+									
+									</c:choose>
 								</tr>
 							</c:forEach>
 							</tbody>

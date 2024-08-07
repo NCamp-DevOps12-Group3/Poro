@@ -4,9 +4,7 @@ import com.bit.devops12.poro.dto.UserDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -75,5 +73,9 @@ public class UserDao {
 	
 	public void deleteAccount(UserDto userDto) {
 		mybatis.delete( "UserDao.deleteAccount", userDto);
+	}
+	
+	public List<UserDto> historylog(UserDto user_id) {
+		return mybatis.selectList("UserDao.historylog", user_id);
 	}
 }

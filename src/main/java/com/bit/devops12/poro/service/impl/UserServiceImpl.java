@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.io.File;
 import java.time.LocalDateTime;
@@ -163,9 +164,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public UserDto historylog(UserDto userDto) {
-//		userDao.
-		return userDto;
+	public List<UserDto> historylog(UserDto user_id) {
+		return userDao.historylog(user_id);
 	}
 	
 	
