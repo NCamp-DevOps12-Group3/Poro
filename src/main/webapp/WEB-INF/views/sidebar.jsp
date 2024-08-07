@@ -133,7 +133,7 @@
                     <i class="bi bi-brightness-low"></i>
                     <div>화면 모드</div>
                 </a>
-                <a href="setting.html" class="nav-link" data-page="setting.html">
+                <a href="/user/settings.do" class="nav-link" data-page="/settings.do">
                     <i class="bi bi-gear"></i>
                     <div>설정</div>
                 </a>

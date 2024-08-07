@@ -24,5 +24,5 @@ public interface UserService {
 	
 	void deleteAccount(UserDto userDto);
 	
-	List<UserDto> historylog(UserDto user_id);
+	List<UserDto> historylog(UserDto userDto);
 }

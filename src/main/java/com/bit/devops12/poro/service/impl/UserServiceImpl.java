@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void modify(UserDto userDto, MultipartFile uploadFiles) {
 		if (uploadFiles != null && !uploadFiles.isEmpty()) {
-			String attachPath = "/upload/" + userDto.getEmail();
+			String attachPath = "C:/devops12/poro/upload/" + userDto.getEmail() + "/";
 			System.out.println(attachPath);
 			File directory = new File(attachPath);
 			
@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
 			}
 			
 			try {
-				String profileImage = FileUtils.parserFileInfo(uploadFiles, attachPath);
+				String profileImage = FileUtils.parserFileInfo(uploadFiles, attachPath, userDto.getEmail());
 				System.out.println(profileImage);
 				userDto.setProfile_image(profileImage);
 			} catch (Exception e) {
@@ -164,9 +164,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<UserDto> historylog(UserDto user_id) {
-		return userDao.historylog(user_id);
+	public List<UserDto> historylog(UserDto userDto) {
+		List<UserDto> historyloglist = userDao.historylog(userDto);
+		
+		return historyloglist;
 	}
+	
+	
 	
 	
 	@Override

@@ -9,6 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -58,15 +62,17 @@ public class UserController {
 	}
 	
 	@PostMapping("/login.do")
-	public String login(UserDto userDto, Model model, HttpSession session) {
+	public String login( UserDto userDto, Model model, HttpSession session) {
 		try {
 			UserDto loginUser = userService.login(userDto);
-			UserDto historylog = (UserDto) userService.historylog(userDto);
+			
 			loginUser.setPassword("");
 			
 			session.setAttribute("loginUser", loginUser);
-			
+			userDto.setPassword("");
+			session.setAttribute("userDto", userDto);
 			System.out.println(loginUser);
+			
 
 			return "redirect:/main/main.do";
 //			return "user/settings";
@@ -87,7 +93,20 @@ public class UserController {
 	}
 	
 	@GetMapping("/settings.do")
-	public String settingView() {
+	public String settingView(HttpSession session, Model model) {
+		UserDto userDto = (UserDto) session.getAttribute("loginUser");
+		// userService에서 사용자의 역사 로그를 가져옴
+		// historylog 메서드는 사용자 DTO를 인자로 받아서 해당 사용자의 역사 로그를 반환
+		// 사용자 DTO를 기반으로 historylog를 호출하고 결과를 처리
+		List<UserDto> historylog = userService.historylog(userDto);
+		UserDto sessionn = (UserDto) session.getAttribute("loginUser");
+		System.out.println(sessionn);
+		System.out.println(historylog);
+		// 조회된 역사 로그를 모델에 추가
+		model.addAttribute("historylog", historylog);
+		
+		// '/user/settings' 뷰를 반환
+		// 이 뷰는 사용자의 설정 페이지를 렌더링하는 템플릿 파일
 		return "/user/settings";
 	}
 	
@@ -108,6 +127,17 @@ public class UserController {
 		UserDto modifiedUser = (UserDto) session.getAttribute("loginUser");
 		
 		if (modifiedUser != null) {
+			System.out.println(modifiedUser);
+			modifiedUser = (UserDto) session.getAttribute("loginUser");
+			// userService에서 사용자의 역사 로그를 가져옴
+			// historylog 메서드는 사용자 DTO를 인자로 받아서 해당 사용자의 역사 로그를 반환
+			// 사용자 DTO를 기반으로 historylog를 호출하고 결과를 처리
+			List<UserDto> historylog = userService.historylog(modifiedUser);
+			UserDto sessionn = (UserDto) session.getAttribute("loginUser");
+			System.out.println(sessionn);
+			System.out.println(historylog);
+			// 조회된 역사 로그를 모델에 추가
+			model.addAttribute("historylog", historylog);
 			// 수정된 사용자 정보를 모델에 추가하여 뷰에서 사용할 수 있게 함
 			model.addAttribute("loginUser", modifiedUser);
 			// 세션에서 수정된 정보 제거 (옵션)

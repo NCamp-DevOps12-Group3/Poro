@@ -1,9 +1,11 @@
 package com.bit.devops12.poro.dto;
 
+import org.apache.ibatis.session.ResultHandler;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class UserDto {
+public class UserDto  {
 	private int user_id;
 	private String nickname;
 	private String name;
