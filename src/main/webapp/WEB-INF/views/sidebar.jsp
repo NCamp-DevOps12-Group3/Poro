@@ -291,22 +291,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            function slideOutCurrentStep(currentStep, direction) {
-                if (direction === 'left') {
-                    currentStep.classList.add('slide-out-left');
-                } else {
-                    currentStep.classList.add('slide-out-right');
-                }
-            }
-
-            function slideInNextStep(nextStep, direction) {
-                if (direction === 'left') {
-                    nextStep.classList.add('slide-in-left');
-                } else {
-                    nextStep.classList.add('slide-in-right');
-                }
-                nextStep.style.display = 'block';
-            }
+            // function slideOutCurrentStep(currentStep, direction) {
+            //     if (direction === 'left') {
+            //         currentStep.classList.add('slide-out-left');
+            //     } else {
+            //         currentStep.classList.add('slide-out-right');
+            //     }
+            // }
+            //
+            // function slideInNextStep(nextStep, direction) {
+            //     if (direction === 'left') {
+            //         nextStep.classList.add('slide-in-left');
+            //     } else {
+            //         nextStep.classList.add('slide-in-right');
+            //     }
+            //     nextStep.style.display = 'block';
+            // }
 
             document.querySelectorAll('.modal-button').forEach(function (button) {
                 button.addEventListener('click', function () {

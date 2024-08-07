@@ -2,6 +2,7 @@ package com.bit.devops12.poro.controller;
 
 import com.bit.devops12.poro.common.FileUtils;
 import com.bit.devops12.poro.dto.PortfolioDto;
+import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.model.Portfolio;
 import com.bit.devops12.poro.model.SkillTag;
 import com.bit.devops12.poro.service.PortfolioService;
@@ -39,10 +40,18 @@ public class PortfolioController {
                                   @RequestParam("description") String description,
                                   @RequestParam("tags") String tags,
                                   HttpSession session) throws IOException {
-        int userId = 7;
+        int userId = ((UserDto) session.getAttribute("loginUser")).getUser_id();
 
         // 파일 저장 경로 설정
-        String uploadDir = "C:/tmp/upload/";
+        String uploadDir = "C:/devops12/poro/upload/";
+
+        File directory = new File(uploadDir);
+
+        // 업로드 폴더가 존재하지 않으면 폴더 생성
+        if(!directory.exists()) {
+            // 하위폴더도 생성하려면 mkdirs 메소드를 호출한다.
+            directory.mkdirs();
+        }
 
         // zip 파일 저장
         File zipDest = new File(uploadDir + zipFile.getOriginalFilename());
@@ -69,9 +78,9 @@ public class PortfolioController {
         List<Path> jsFileList = new ArrayList<>();
 
         for(Path path : unzipFilesPath) {
-            if(path.endsWith(".html")) htmlFileList.add(path);
-            else if(path.endsWith(".css")) cssFileList.add(path);
-            else if(path.endsWith(".js")) jsFileList.add(path);
+            if(path.toString().endsWith("html")) htmlFileList.add(path);
+            else if(path.toString().endsWith("css")) cssFileList.add(path);
+            else if(path.toString().endsWith("js")) jsFileList.add(path);
         }
 
         unzipFilesMap.put("html", htmlFileList);

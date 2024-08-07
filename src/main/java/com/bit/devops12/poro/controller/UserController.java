@@ -61,9 +61,9 @@ public class UserController {
 	public String login(UserDto userDto, Model model, HttpSession session) {
 		try {
 			UserDto loginUser = userService.login(userDto);
-			UserDto historylog = (UserDto) userService.historylog(userDto);
+//			UserDto historylog = (UserDto) userService.historylog(userDto);
 			loginUser.setPassword("");
-			
+
 			session.setAttribute("loginUser", loginUser);
 			
 			System.out.println(loginUser);
@@ -72,7 +72,7 @@ public class UserController {
 //			return "user/settings";
 		} catch (Exception e) {
 			model.addAttribute("loginFailMsg", e.getMessage());
-			
+			System.out.println("fail to login");
 			return "user/login";
 		}
 	}
