@@ -14,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mini_project(company).css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">
 
@@ -22,7 +22,7 @@
 
         .content {
             padding: 20px;
-            margin-left: 10vw;
+            margin-left: 20vw;
             margin-right:5vw;
             height: 100vh;
 
@@ -172,8 +172,99 @@
 </div>
 
 <div class="container-content d-flex">
+    <div class="sidebar">
+        <div class="sidebar-content d-flex flex-column">
+            <div class="sidebar-icon">
+                <div class="sidebar-icon-text">Poro</div>
+            </div>
+            <div class="sidebar-list">
+                <a href="main.html" class="active nav-link" data-page="main.html">
+                    <i class="bi bi-house-door"></i>
+                    <div>홈</div>
+                </a>
+                <a href="" class="nav-link" data-page="search.html" id="sidebar-content-search-btn">
+                    <i class="bi bi-search"></i>
+                    <div>검색</div>
+                </a>
+                <a href="userfeeds.html" class="nav-link" data-page="userfeeds.html">
+                    <i class="bi bi-person-circle"></i>
+                    <div>내 프로필</div>
+                </a>
+                <a href="mini_project.html" class="nav-link" data-page="mini_project.html">
+                    <i class="bi bi-card-list"></i>
+                    <div>개인 포트폴리오</div>
+                </a>
+                <a href="mini_project(company).html" class="nav-link" data-page="mini_project(company).html">
+                    <i class="bi bi-building"></i>
+                    <div>기업 채용</div>
+                </a>
+                <a class="nav-link" id="uploadWindowBtn">
+                    <i class="bi bi-upload"></i>
+                    <div>업로드</div>
+                </a>
+                <a class="nav-link btn-secondary alarm-dropdown" data-bs-toggle="dropdown" id="notificationIcon">
+                    <i class="bi bi-bell"></i>
+                    <div>알림</div>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item notification-item" href="#">
+                        <div>알람1</div>
+                    </a></li>
+                    <li><a class="dropdown-item notification-item" href="#">
+                        <div>알람2</div>
+                    </a></li>
+                    <li><a class="dropdown-item notification-item" href="#">
+                        <div>알람3</div>
+                    </a></li>
+                </ul>
+                <a href="#" id="darkModeToggle">
+                    <i class="bi bi-brightness-low"></i>
+                    <div>화면 모드</div>
+                </a>
+                <a href="setting.html" class="nav-link" data-page="setting.html">
+                    <i class="bi bi-gear"></i>
+                    <div>설정</div>
+                </a>
+            </div>
+            <div class="sidebar-list-etc">
+                <a href="#" class="nav-link" data-page="setting.html">
+                    <i class="bi bi-list"></i>
+                    <div>더보기</div>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar-content-search">
+            <div class="sidebar-content-search-top d-flex flex-column justify-content-center">
+                <div class="sidebar-content-search-title h2">검색</div>
 
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar.jsp"></jsp:include>
+            </div>
+            <div class="sidebar-content-search-body">
+                <div class="sidebar-content-searchbar-area sidebar-content-body-outline">
+                    <form class="d-flex justify-content-center" action="#" method="post">
+                        <div class="form-control sidebar-content-search-bar d-flex align-items-center">
+                            <div class="sidebar-content-search-bar-icon"><i class="bi bi-search"></i></div>
+                            <input type="text" placeholder="검색" id="sidebar-search-input"
+                                   class="no-border-input sidebar-search-input">
+                        </div>
+                    </form>
+                </div>
+                <div class="search-recent-body">
+                    <div class="search-item-profile d-flex flex-column justify-content-start">
+
+
+                    </div>
+                    <div class="search-recent-body-list-empty">
+                        <div class="search-recent-body-list-title d-flex align-items-center">
+                            <span class="h5">최근 검색 항목</span>
+                        </div>
+                        <div class="search-recent-body-list d-flex justify-content-center align-items-center">
+                            <span class="search-recent-body-list-empty-text">최근 검색 내역 없음</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="content d-flex flex-column justify-content-start" id="main-content">
         <div class="top-line-list d-flex justify-content-end">
