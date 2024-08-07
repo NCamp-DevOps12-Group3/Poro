@@ -120,6 +120,7 @@ public class UserFeedsController {
             List<PortfolioDto> portfolioList=userFeedsService.getUserPortfolio(id,criteria);
             Map<String,Object> bookmark=userFeedsService.getbookmarkInfo(userid,id);
             List<Integer> someList = (List<Integer>) bookmark.get("portfolioBookmark");
+
             portfolioList.forEach(x->{
                 x.setBookmarked(false);
                 if (someList != null && someList.contains(x.getPortfolio_id())) {
@@ -257,7 +258,7 @@ public class UserFeedsController {
     }
     @PostMapping("/deleteMessage.do")
     public ResponseEntity<?> deleteMessage(HttpSession session, @RequestParam("messageIds") List<Integer> messageIds) {
-        messageIds.forEach(System.out::println);
+
         boolean isSuccess = userFeedsService.deleteMessages(messageIds);
         if (isSuccess) {
             return ResponseEntity.ok().body(Map.of("success", true));

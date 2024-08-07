@@ -274,7 +274,8 @@ public class UserFeedsServiceImpl {
         Map<String,Object> map=new HashMap<>();
         map.put("userid",userid);
         map.put("id",id);
-        return userFeedsDao.getbookmarkInfo(map);
+        Map<String,Object> result=userFeedsDao.getbookmarkInfo(map);
+        return result;
 
     }
 
