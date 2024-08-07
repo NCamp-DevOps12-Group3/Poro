@@ -90,7 +90,7 @@
                 <div class="sidebar-icon-text">Poro</div>
             </div>
             <div class="sidebar-list">
-                <a href="main.html" class="active nav-link" data-page="main.html">
+                <a href="/main/main.do" class="active nav-link" data-page="main.html">
                     <i class="bi bi-house-door"></i>
                     <div>홈</div>
                 </a>

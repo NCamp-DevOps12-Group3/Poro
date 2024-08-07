@@ -164,7 +164,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserDto historylog(UserDto userDto) {
-		userDao.
+//		userDao.
+		return userDto;
 	}
 	
 	
