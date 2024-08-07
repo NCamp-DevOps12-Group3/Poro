@@ -1,7 +1,6 @@
 package com.bit.devops12.poro.dao;
 
 
-import com.bit.devops12.poro.dto.Criteria;
 import com.bit.devops12.poro.dto.PortfolioDto;
 import com.bit.devops12.poro.dto.ProfileDto;
 import com.bit.devops12.poro.dto.RecruitmentDto;
@@ -105,16 +104,17 @@ public class UserFeedsDao {
         return false;
     }
 
-    public Map<String,Object> getbookmarkInfo(Map<String, Object> map) {
+    public Map<String, Object> getbookmarkInfo(Map<String, Object> map) {
         Map<String,Object> result=new HashMap<>();
-        map.put("portfolioBookmark", mybatis.selectList("UserFeedsDao.getbookmarkPortfolioInfo",map));
-        map.put("coperationBookmark", mybatis.selectList("UserFeedsDao.getbookmarkCoperationInfo",map));
+        result.put("portfolioBookmark", mybatis.selectList("UserFeedsDao.getbookmarkPortfolioInfo",map));
+
+        result.put("coperationBookmark", mybatis.selectList("UserFeedsDao.getbookmarkCoperationInfo",map));
         return result;
     }
 
     public boolean portfolioBookmarktoggle(Map<String, Object> map) {
         boolean a=mybatis.selectOne("UserFeedsDao.hasPortfolioBookmark",map);
-        System.out.println(a);
+
         if (!a){
             mybatis.insert("UserFeedsDao.InsertPortfolioBookmark",map);
         }
