@@ -1,14 +1,11 @@
 package com.bit.devops12.poro.service;
 import com.bit.devops12.poro.dto.MainCriteria;
 import com.bit.devops12.poro.dto.PortfolioDto;
-import com.bit.devops12.poro.mapper.PortfolioMapper;
-import com.bit.devops12.poro.mapper.SkillTagMapper;
 import com.bit.devops12.poro.model.Portfolio;
 import com.bit.devops12.poro.model.SkillTag;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.bit.devops12.poro.dto.UserDto;
 
+import java.nio.file.Path;
 import java.util.List;
 
 
@@ -25,4 +22,8 @@ public interface PortfolioService {
     void unLikePortfolio(int portfolio_id, UserDto loginUser);
 
     void deletePortfolio(int portfolio_id);
+    void saveHtml(int portfolio_id, List<Path> htmlPath);
+    void saveCss(int portfolio_id, List<Path> cssPath);
+    void saveJs(int portfolio_id, List<Path> jsPath);
+    PortfolioDto getCurrentPortfolioByUserId(int userId);
 }

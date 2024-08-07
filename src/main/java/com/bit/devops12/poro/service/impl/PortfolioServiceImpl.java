@@ -1,19 +1,20 @@
 package com.bit.devops12.poro.service.impl;
 
+import com.bit.devops12.poro.dao.CssDao;
+import com.bit.devops12.poro.dao.HtmlDao;
+import com.bit.devops12.poro.dao.JavascriptDao;
 import com.bit.devops12.poro.dao.PortfolioDao;
-import com.bit.devops12.poro.dto.Criteria;
-import com.bit.devops12.poro.dto.MainCriteria;
-import com.bit.devops12.poro.dto.PortfolioDto;
+import com.bit.devops12.poro.dto.*;
 import com.bit.devops12.poro.mapper.PortfolioMapper;
 import com.bit.devops12.poro.mapper.SkillTagMapper;
 import com.bit.devops12.poro.model.Portfolio;
 import com.bit.devops12.poro.model.SkillTag;
-import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -23,13 +24,19 @@ import java.util.stream.Collectors;
 public class PortfolioServiceImpl implements PortfolioService {
 
     private PortfolioDao portfolioDao;
+    private HtmlDao htmlDao;
+    private CssDao cssDao;
+    private JavascriptDao javascriptDao;
 
     private PortfolioMapper portfolioMapper;
     private SkillTagMapper skillTagMapper;
 
     @Autowired
-    public PortfolioServiceImpl(PortfolioDao portfolioDao, PortfolioMapper portfolioMapper, SkillTagMapper skillTagMapper) {
+    public PortfolioServiceImpl(PortfolioDao portfolioDao, HtmlDao htmldao, CssDao cssdao, JavascriptDao javascriptDao, PortfolioMapper portfolioMapper, SkillTagMapper skillTagMapper) {
         this.portfolioDao = portfolioDao;
+        this.htmlDao = htmldao;
+        this.cssDao = cssdao;
+        this.javascriptDao = javascriptDao;
         this.portfolioMapper = portfolioMapper;
         this.skillTagMapper = skillTagMapper;
     }
@@ -157,4 +164,39 @@ public class PortfolioServiceImpl implements PortfolioService {
 //                .replaceAll("\"", "&quot;")
 //                .replaceAll("'", "&#39;");
 //    }
+
+    @Override
+    public void saveHtml(int portfolio_id, List<Path> htmlPath) {
+        for(Path path : htmlPath){
+            HtmlDto htmlDto = new HtmlDto();
+            htmlDto.setPortfolio_id(portfolio_id);
+            htmlDto.setHtml_url(path.toString());
+            htmlDao.insertHtml(htmlDto);
+        }
+    }
+
+    @Override
+    public void saveCss(int portfolio_id, List<Path> cssPath) {
+        for(Path path : cssPath){
+            CssDto cssDto = new CssDto();
+            cssDto.setPortfolio_id(portfolio_id);
+            cssDto.setCss_url(path.toString());
+            cssDao.insertCss(cssDto);
+        }
+    }
+
+    @Override
+    public void saveJs(int portfolio_id, List<Path> jsPath) {
+        for(Path path : jsPath){
+            JavascriptDto jsDto = new JavascriptDto();
+            jsDto.setPortfolio_id(portfolio_id);
+            jsDto.setJavascript_url(path.toString());
+            javascriptDao.insertJavascript(jsDto);
+        }
+    }
+
+    @Override
+    public PortfolioDto getCurrentPortfolioByUserId(int userId){
+        return portfolioDao.getCurrentPortfolioByUserId(userId);
+    }
 }
