@@ -361,29 +361,70 @@
             background-color: white;
             margin-bottom: 10%;
         }
-        .modal-body {
+        #storedMessagesModal .modal-body {
             display: flex;
             max-height: 70vh;
             overflow-y: auto;
         }
 
-        .message-list-container {
+        #storedMessagesModal .message-list-container {
             flex: 1;
             margin-right: 20px;
             overflow-y: auto;
         }
 
-        .message-content-container {
+        #storedMessagesModal .message-content-container {
             flex: 2;
             display: none;
             overflow-y: auto;
+        }
+        #messageModal .modal-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: calc(100% - 120px); /* modal-header와 modal-footer의 높이를 제외한 높이 설정 */
+        }
+
+        #messageModal .modal-body textarea {
+            flex: 1;
+            resize: none; /* 크기 조절 불가 */
+        }
+
+        #messageModal .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        #messageModal .modal-footer .btn {
+            width: 100px; /* 버튼의 너비 설정 */
+        }
+
+        #messageModal .text-danger {
+            margin-top: 5px;
+            display: none;
+        }
+        #sendMessageTitle {
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ced4da;
+            transition: border-color 0.2s;
+        }
+        #sendMessageTitle:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+        textarea {
+            resize: none;
         }
     </style>
 </head>
 <body>
 <button type="button" id="toTop">↑</button>
 <div class="container-fluid  d-flex">
-    <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"/>
+    <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"></jsp:include>
     <div class="container d-inline-block w-100">
         <button class="btn-toggle btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProfile" id="profileInfoBtn">
             profile
@@ -403,10 +444,11 @@
                 <div class="mouse-Cursor mb-3" id="profileName">
                     <p class="d-inline-block" >${profile.name}</p>
                     <i class="bi bi-check-circle-fill d-inline-block mx-1" id="checkImg"></i>
-                    <a href="#" class=" d-inline-block" style="color: #6c757d">
-                        <i class="bi bi-gear d-inline-block" style="text-decoration:none">Setting</i>
-                        <!-- <button type="button" id="profileEdit">edit</button> -->
-                    </a>
+                    <c:if test="${isOwner eq true}">
+                        <a href="#" class=" d-inline-block" style="color: #6c757d">
+                            <i class="bi bi-gear d-inline-block" style="text-decoration:none">Setting</i>
+                        </a>
+                    </c:if>
                 </div>
                 <div class="mb-3">
                     <p class="d-inline-block">${profile.portfolioCnt}</p>
@@ -700,9 +742,14 @@
             </div>
             <div class="modal-body">
                 <form id="messageForm">
+                    <div>
+                        <label for="sendMessageTitle" class="form-label">title</label>
+                        <input type="text" id="sendMessageTitle" maxlength="25">
+                    </div>
                     <div class="mb-3">
                         <label for="messageContent" class="form-label">Message</label>
-                        <textarea class="form-control" id="messageContent" rows="4"  required></textarea>
+                        <textarea class="form-control overflow-y-hidden" id="messageContent" rows="4" required></textarea>
+                        <div id="error-message" class="text-danger">메시지는 4줄을 넘을 수 없습니다.</div>
                     </div>
                     <input type="hidden" id="recipientId" value="${profile.user_id}">
                 </form>
@@ -723,17 +770,29 @@
             </div>
             <div class="modal-body d-flex" style="max-height: 70vh; overflow-y: auto;">
                 <div class="message-list-container" style="flex: 1; margin-right: 20px;">
-                    <ul class="list-group" id="messageList">
-                        <!-- 메시지 목록이 여기에 동적으로 추가됩니다. -->
-                    </ul>
+                    <form action="/userfeeds/deleteMessage.do" id="deleteMessagesModalForm">
+                        <ul class="list-group" id="messageList">
+                            <!-- 메시지 목록이 여기에 동적으로 추가됩니다. -->
+                        </ul>
+                    </form>
                 </div>
                 <div class="message-content-container" style="flex: 2; display: none;">
                     <h6>Message Content</h6>
                     <p id="messageText"></p>
+                    <form id="replyMessageForm">
+                        <input type="hidden" id="messageTextId">
+                        <input type="hidden" id="messageTitle">
+                        <div class="mb-3">
+                            <label class="my-3 form-label" from="reply-message"/>
+                            <textarea id="reply-message"  class="overflow-y-hidden form-control" style="width: 100%" rows="4"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary my-3" id="replyMessageButton">Reply</button>
+                    </form>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-dark message-delete-list-btn">delete</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="storedMessagesModalClose">Close</button>
             </div>
         </div>
     </div>
@@ -829,6 +888,7 @@
             const documentHeight=document.documentElement.scrollHeight;
             //스크롤이 바닥에 닿았는지 확인
             const isBottom=documentHeight<=scollTop+windowHeight;
+            console.log(isBottom)
             if (isBottom){
                 //현재 페이지가 마지막 페이지인가?
                 if($("input[name='pageNum']").val()>=$("input[name='endPage']").val()){
@@ -1010,6 +1070,7 @@
         }
 
         function load(){
+            console.log("load portfolio")
             $.ajax({
                 url:'/userfeeds/feed-ajax.do',
                 type:'post',
@@ -1079,14 +1140,16 @@
         $(document).on('click','#sendMessageButton' ,function() {
             const messageContent = $('#messageContent').val().trim();
             const recipientId = $('#recipientId').val();
+            const messageTitle=$('#sendMessageTitle').val().trim();
             if (messageContent) {
                 // 메시지 전송 AJAX 요청
                 $.ajax({
-                    url: '/userfeeds/sendMessage',
+                    url: '/userfeeds/sendMessage.do',
                     type: 'POST',
                     data: {
                         recipientId: recipientId,
-                        messageContent: messageContent
+                        messageContent: messageContent,
+                        title:messageTitle
                     },
                     success: function(response) {
                         if (response.success) {
@@ -1106,6 +1169,7 @@
                 alert('Please enter a message');
             }
         });
+
         $(document).on('click', '.bookmark-icon', function(evt){
             const portfolioId = $(this).attr('value');
             const $this=$(this);
@@ -1138,21 +1202,61 @@
                 }
             });
         });
+        function padZero(num) {
+            return num.toString().padStart(2, '0');
+        }
+        $(document).on('click','.message-delete-list-btn',function (){
+            $.ajax({
+                url: '/userfeeds/deleteMessage.do',
+                type: 'post',
+                data:$("#deleteMessagesModalForm").serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        $("#storedMessagesModalClose").click();
+                        setTimeout(function(){
+                            $(".message-box").click();
+                        }, 500);
+                        alert('success to delete messages')
+                    } else {
+                        alert('Failed to delete messages');
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                    alert('An error occurred while deleting the messages');
+                }
+            });
+        });
         $(document).on('click', '.message-box', function() {
             $.ajax({
-                url: '/userfeeds/getMessages',
+                url: '/userfeeds/getMessages.do',
                 type: 'GET',
                 success: function(response) {
                     if (response.success) {
                         const messages = response.messages;
                         const messageList = $('#messageList');
+
                         messageList.empty();
                         messages.forEach(message => {
+                            const dateArray = message.send_date;
+                            const formattedDate = dateArray[0]+"-"+(dateArray[1])+"-"+dateArray[2]+"  "+dateArray[3]+":"+dateArray[4];
+                            const title =message.title+"    " + message.sender_name+" "+formattedDate;
                             const listItem = $('<li>')
                                 .addClass('list-group-item mouseHover')
-                                .text(message.sender_name)
-                                .attr('data-message', message.message_content);
+                                .text(title)
+                                .attr('data-message', message.message_content)
+                                .attr('data-message-id', message.message_id)
+                                .attr('data-message-sender-id',message.sender_id)
+                                .attr('data-message-title',message.title)
+                            const checkBox = $('<input>')
+                                .attr('type', 'checkbox')
+                                .attr('name', 'messageIds')
+                                .attr('value', message.message_id)
+                                .addClass('form-check-input');
+                            const checkBoxWrapper = $('<div>').addClass('form-check').append(checkBox);
+                            listItem.append(checkBoxWrapper);
                             messageList.append(listItem);
+
                         });
                     } else {
                         alert('Failed to load messages');
@@ -1170,9 +1274,63 @@
         $(document).on('click', '#messageList .list-group-item', function() {
             const messageContent = $(this).attr('data-message');
             $('#messageText').text(messageContent);
+            $('#messageTitle').val($(this).attr("data-message-title"));
+            $("#messageTextId").val($(this).attr("data-message-sender-id"));
             $('.message-content-container').show();
         });
+
+        const messageContent = document.getElementById('messageContent');
+        const errorMessage = document.getElementById('error-message');
+
+        messageContent.addEventListener('input', function() {
+            const lines = messageContent.value.split('\n').length;
+            if (lines > 4) {
+                errorMessage.style.display = 'block';
+                messageContent.value = messageContent.value.split('\n').slice(0, 4).join('\n');
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        });
+        $(document).on('click', '#replyToggleIcon', function() {
+            $('#reply-message').toggleClass('collapse');
+            $('#replyMessageButton').toggle();
+            $(this).toggleClass('bi-chevron-down bi-chevron-up');
+        });
+
+        $(document).on('click', '#replyMessageButton', function() {
+            const messageContent = $('#reply-message').val().trim();
+            const recipientId = $('#messageTextId').val();
+            const messageTitle = $('#messageTitle').val();
+            const title = (messageTitle ? messageTitle.trim() : "No Title") + "의 회신입니다.";
+            if (messageContent) {
+                $.ajax({
+                    url: '/userfeeds/sendMessage.do',
+                    type: 'POST',
+                    data: {
+                        recipientId: recipientId,
+                        messageContent: messageContent,
+                        title:title
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Message sent successfully');
+                            $('#reply-message').val(''); // 메시지 내용 초기화
+                            $('#replyToggleIcon').click(); // 텍스트 영역 접기
+                        } else {
+                            alert('Failed to send message');
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        alert('An error occurred while sending the message');
+                    }
+                });
+            } else {
+                alert('Please enter a message');
+            }
+        });
     });
+
 </script>
 <script>
 

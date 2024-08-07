@@ -5,6 +5,7 @@ import com.bit.devops12.poro.dao.UserFeedsDao;
 import com.bit.devops12.poro.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -288,11 +289,12 @@ public class UserFeedsServiceImpl {
         return userFeedsDao.getRecruitmentList(id);
     }
 
-    public boolean sendMessage(Integer senderId, Integer receiverId, String messageContent) {
+    public boolean sendMessage(Integer senderId, Integer receiverId, String messageContent, String title) {
         Map<String,Object> map=new HashMap<>();
         map.put("senderid",senderId);
         map.put("receiverid",receiverId);
         map.put("messagecontent",messageContent);
+        map.put("title",title);
         return messageDao.sendMessage(map);
     }
 
@@ -303,5 +305,15 @@ public class UserFeedsServiceImpl {
     public String getSenderNickname(int senderId) {
         ProfileDto profileDto=userFeedsDao.getUserInfo(senderId);
         return profileDto.getNickname();
+    }
+    public boolean isLogin(HttpSession session) {
+        if (session.getAttribute("loginUser")==null || session.getAttribute("loginUser").equals("")){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deleteMessages(List<Integer> messageIds) {
+        return messageDao.deleteMessages(messageIds);
     }
 }

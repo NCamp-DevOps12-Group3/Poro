@@ -30,11 +30,14 @@ public class UserFeedsController {
     @RequestMapping("/feed-form.do")
     public String feedForm(Model model,HttpSession session,@RequestParam(name = "deleteList") String deleteList,@RequestParam(name = "id") int id,
                            @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType) {
-//        UserDto user= (UserDto) session.getAttribute("loginUser");
-//        boolean isOwner=user.getId()==id;
-        boolean isOwner=true;
-//        boolean deleteListIsOwner=userFeedsService.deleteListIsOwner(user.getId(),deleteList);
-        boolean deleteListIsOwner=true;
+        if (!userFeedsService.isLogin(session)){
+            return "redirect:/userfeeds/user-feeds.do?id="+id+"&pageType="+pageType;
+        }
+        UserDto user= (UserDto) session.getAttribute("loginUser");
+        boolean isOwner=user.getUser_id()==id;
+
+        boolean deleteListIsOwner=userFeedsService.deleteListIsOwner(user.getUser_id(),deleteList);
+
         if (isOwner && deleteListIsOwner){
             if (pageType.equals("home")) {
                 userFeedsService.deletePortfolio(deleteList);
@@ -57,12 +60,15 @@ public class UserFeedsController {
                                       @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType,
                                       HttpSession session) {
         Map<String,Object> map=new HashMap<>();
-//        UserDto user= (UserDto) session.getAttribute("loginUser");
-        //int userid=user.getId();
-        int userid=2;
-
-//        boolean isOwner=user.getId()==id;
         boolean isOwner=false;
+        int userid=-1;
+        if (userFeedsService.isLogin(session)){
+            UserDto user= (UserDto) session.getAttribute("loginUser");
+            userid=user.getUser_id();
+            isOwner=user.getUser_id()==id;
+        }
+
+
         if (pageType.equals("home")) {
             List<PortfolioDto> portfolioList=userFeedsService.getUserPortfolio(id,criteria);
             Map<String,Object> bookmark=userFeedsService.getbookmarkInfo(userid,id);
@@ -97,11 +103,13 @@ public class UserFeedsController {
     @GetMapping("/user-feeds.do")
     public String userFeeds(Model model, HttpSession session, @RequestParam(name = "id") int id,
             @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType, Criteria criteria) {
-
-        int userid=2;
-//        UserDto user= (UserDto) session.getAttribute("loginUser");
-//        boolean isOwner=user.getId()==id;
-        boolean isOwner=userid==id;//테스트 용 추후 삭제 필요
+        boolean isOwner=false;
+        int userid=-1;
+        if (userFeedsService.isLogin(session)){
+            UserDto user= (UserDto) session.getAttribute("loginUser");
+            userid=user.getUser_id();
+            isOwner=userid==id;
+        }
         model.addAttribute("isOwner",isOwner);
         int total=0;
         ProfileDto profileDto=userFeedsService.getUserInfo(id);
@@ -142,7 +150,6 @@ public class UserFeedsController {
         model.addAttribute("page",userFeedsPageDto);
         model.addAttribute("popularPortfolio",userFeedsService.getUserPopularPortfolio(id));
 
-//        int userid=user.getId();
 
         model.addAttribute("follow",userFeedsService.getFollowInfo(userid,id));
 
@@ -154,34 +161,40 @@ public class UserFeedsController {
     @PostMapping("/unfollow.do")
     @ResponseBody
     public Map<String, Object> unfollow(@RequestParam("id") int id, HttpSession session) {
-//        Integer userId = (Integer) session.getAttribute("userId");
-        Integer userId = 2;
+        int userid=-1;
+        if (userFeedsService.isLogin(session)){
+            UserDto user= (UserDto) session.getAttribute("loginUser");
+            userid=user.getUser_id();
+        }
         Map<String, Object> response = new HashMap<>();
-        if (userId == null) {
+        if (userid == -1) {
             response.put("success", false);
             response.put("message", "로그인이 필요합니다.");
             return response;
         }
 
-        boolean success = userFeedsService.unfollow(userId, id);
+        boolean success = userFeedsService.unfollow(userid, id);
         response.put("success", success);
         return response;
     }
     @PostMapping("/follow.do")
     @ResponseBody
     public Map<String, Object> follow(@RequestParam("id") int id, HttpSession session) {
-//        Integer userId = (Integer) ((UserDto)session.getAttribute("loginMember")).getUserId();;
-        Integer userId = 2;
+        int userid=-1;
+        if (userFeedsService.isLogin(session)){
+            UserDto user= (UserDto) session.getAttribute("loginUser");
+            userid=user.getUser_id();
+        }
         Map<String, Object> response = new HashMap<>();
 
-        if (userId == null) {
+        if (userid == -1) {
 
             response.put("success", false);
             response.put("message", "로그인이 필요합니다.");
             return response;
         }
 
-        boolean success = userFeedsService.follow(userId, id);
+        boolean success = userFeedsService.follow(userid, id);
 
         response.put("success", success);
         return response;
@@ -190,40 +203,49 @@ public class UserFeedsController {
     @PostMapping("/bookmark.do")
     @ResponseBody
     public Map<String, Object> portfolioBookmarktoggle(@RequestParam("id") int id, HttpSession session) {
-//        Integer userId = (Integer) session.getAttribute("userId");
-        Integer userId = 2;
+        int userid=-1;
+        if (userFeedsService.isLogin(session)){
+            UserDto user= (UserDto) session.getAttribute("loginUser");
+            userid=user.getUser_id();
+        }
         Map<String, Object> response = new HashMap<>();
 
-        if (userId == null) {
+        if (userid == -1) {
 
             response.put("success", false);
             response.put("message", "로그인이 필요합니다.");
             return response;
         }
 
-        boolean success = userFeedsService.portfolioBookmarktoggle(userId, id);
+        boolean success = userFeedsService.portfolioBookmarktoggle(userid, id);
 
         response.put("success", success);
         return response;
     }
 
-    @PostMapping("/sendMessage")
-    public ResponseEntity<?> sendMessage(@RequestParam Integer recipientId, @RequestParam String messageContent,HttpSession session) {
+    @PostMapping("/sendMessage.do")
+    public ResponseEntity<?> sendMessage(@RequestParam Integer recipientId, @RequestParam String messageContent,@RequestParam String title,HttpSession session) {
         // 메시지 전송 로직 구현
-        //        Integer userId = (Integer) session.getAttribute("userId");
-        Integer userId = 2;
-        boolean isSuccess = userFeedsService.sendMessage(userId,recipientId,messageContent);
+        int userid=-1;
+        if (userFeedsService.isLogin(session)){
+            UserDto user= (UserDto) session.getAttribute("loginUser");
+            userid=user.getUser_id();
+        }
+        boolean isSuccess = userFeedsService.sendMessage(userid,recipientId,messageContent,title);
         if (isSuccess) {
             return ResponseEntity.ok().body(Map.of("success", true));
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("success", false));
         }
     }
-    @GetMapping("/getMessages")
+    @GetMapping("/getMessages.do")
     public ResponseEntity<?> getMessages(HttpSession session) {
-        //        Integer userId = (Integer) session.getAttribute("userId");
-        Integer userId = 2;
-        List<UserFeedsMessageDto> userFeedsMessageDtoList= userFeedsService.getMessages(userId);
+        int userid=-1;
+        if (userFeedsService.isLogin(session)){
+            UserDto user= (UserDto) session.getAttribute("loginUser");
+            userid=user.getUser_id();
+        }
+        List<UserFeedsMessageDto> userFeedsMessageDtoList= userFeedsService.getMessages(userid);
         if (userFeedsMessageDtoList != null && !userFeedsMessageDtoList.isEmpty()) {
             userFeedsMessageDtoList.forEach(x->{
                x.setSender_name(userFeedsService.getSenderNickname(x.getSender_id()));
@@ -233,4 +255,16 @@ public class UserFeedsController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("success", false));
         }
     }
+    @PostMapping("/deleteMessage.do")
+    public ResponseEntity<?> deleteMessage(HttpSession session, @RequestParam("messageIds") List<Integer> messageIds) {
+        messageIds.forEach(System.out::println);
+        boolean isSuccess = userFeedsService.deleteMessages(messageIds);
+        if (isSuccess) {
+            return ResponseEntity.ok().body(Map.of("success", true));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("success", false));
+        }
+
+    }
+
 }
