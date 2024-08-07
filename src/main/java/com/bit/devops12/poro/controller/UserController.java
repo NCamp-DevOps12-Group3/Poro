@@ -68,8 +68,8 @@ public class UserController {
 
 			System.out.println(loginUser);
 
-//			return "redirect:/main/main.do";
-			return "user/settings";
+			return "redirect:/main/main.do";
+//			return "user/settings";
 		} catch (Exception e) {
 			model.addAttribute("loginFailMsg", e.getMessage());
 			

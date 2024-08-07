@@ -88,7 +88,7 @@
 </head>
 <body>
 <div class="container-content d-flex align-items-start">
-    <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"></jsp:include>
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar.jsp"></jsp:include>
 
     <div class="content d-flex flex-column" id="main-content">
         <div class="base-sector" id="baseContentSector">
