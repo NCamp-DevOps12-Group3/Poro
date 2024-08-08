@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--쿼리문이 Dao 클래스에서 분리되어 온 것이기 때문에 namespace는 관례적으로 Dao 클래스명과 일치시킨다.-->
+<mapper namespace="CommentDao">
+    <select id="getCommentList" resultType="comment" parameterType="map">
+        SELECT C.COMMENT_ID,
+               C.PORTFOLIO_ID,
+               C.USER_ID,
+               C.CONTENT,
+               C.REGDATE,
+               C.MODDATE,
+               C.COMMENT_PARENT_ID,
+               COALESCE(CL.LIKECOUNT, 0) AS LIKECOUNT,
+               (CASE WHEN CLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED,
+               U.NICKNAME,
+               U.PROFILE_IMAGE,
+               PU.NICKNAME AS PARENT_NICKNAME
+        FROM COMMENT C
+        LEFT JOIN (
+            SELECT COMMENT_ID, COUNT(*) AS LIKECOUNT
+            FROM COMMENT_LIKE
+            GROUP BY COMMENT_ID
+        ) CL ON C.COMMENT_ID = CL.COMMENT_ID
+        LEFT JOIN (
+            SELECT COMMENT_ID, USER_ID
+            FROM COMMENT_LIKE
+            WHERE USER_ID = #{loginUser.user_id}
+        ) CLU ON C.COMMENT_ID = CLU.COMMENT_ID
+        JOIN USER U ON C.USER_ID = U.USER_ID
+        LEFT JOIN COMMENT PC ON C.COMMENT_PARENT_ID = PC.COMMENT_ID
+        LEFT JOIN USER PU ON PC.USER_ID = PU.USER_ID
+        WHERE C.PORTFOLIO_ID = #{portfolio.portfolio_id}
+    </select>
+
+    <insert id="postComment" parameterType="comment">
+        INSERT INTO COMMENT(
+            PORTFOLIO_ID,
+            CONTENT,
+            USER_ID,
+            COMMENT_PARENT_ID
+        ) VALUES (
+                     #{portfolio_id},
+                     #{content},
+                     #{user_id},
+                     #{comment_parent_id}
+                 )
+    </insert>
+
+    <insert id="likeComment" parameterType="map">
+        INSERT INTO COMMENT_LIKE(
+            USER_ID,
+            COMMENT_ID
+        ) VALUES (
+             #{loginUser.user_id},
+             #{comment_id}
+         )
+    </insert>
+
+    <delete id="unLikeComment" parameterType="map">
+        DELETE FROM COMMENT_LIKE
+        WHERE USER_ID = #{loginUser.user_id}
+          AND COMMENT_ID = #{comment_id}
+    </delete>
+
+    <select id="getCommentById" parameterType="int" resultType="comment">
+        SELECT C.COMMENT_ID,
+               C.PORTFOLIO_ID,
+               C.USER_ID,
+               C.CONTENT,
+               C.REGDATE,
+               C.MODDATE,
+               C.COMMENT_PARENT_ID,
+               U.NICKNAME,
+               U.PROFILE_IMAGE,
+               COALESCE(CL.LIKECOUNT, 0) AS LIKECOUNT
+        FROM COMMENT C
+        JOIN USER U ON C.USER_ID = U.USER_ID
+        LEFT JOIN (
+            SELECT COMMENT_ID, COUNT(*) AS LIKECOUNT
+            FROM COMMENT_LIKE
+            GROUP BY COMMENT_ID
+        ) CL ON C.COMMENT_ID = CL.COMMENT_ID
+        WHERE C.COMMENT_ID = #{comment_id}
+    </select>
+
+    <!-- 재귀적으로 모든 자식 댓글 찾기 (자신 포함)-->
+    <select id="selectAllChildCommentIds" resultType="int" parameterType="int">
+        WITH RECURSIVE SUBCOMMENTS AS (
+            SELECT COMMENT_ID
+            FROM COMMENT
+            WHERE COMMENT_ID = #{comment_id}
+            UNION ALL
+            SELECT C.COMMENT_ID
+            FROM COMMENT C
+                     INNER JOIN SUBCOMMENTS SC ON C.COMMENT_PARENT_ID = SC.COMMENT_ID
+        )
+        SELECT COMMENT_ID FROM SUBCOMMENTS;
+    </select>
+
+    <!-- 여러 댓글에 대한 좋아요 삭제 -->
+    <delete id="deleteLikesForComments" parameterType="map">
+        DELETE FROM COMMENT_LIKE
+        WHERE COMMENT_ID IN
+        <foreach item="comment_id" collection="commentIds" open="(" separator="," close=")">
+            #{comment_id}
+        </foreach>
+    </delete>
+
+    <!-- 여러 댓글 삭제 -->
+    <delete id="deleteComments" parameterType="map">
+        DELETE FROM COMMENT
+        WHERE COMMENT_ID IN
+        <foreach item="comment_id" collection="commentIds" open="(" separator="," close=")">
+            #{comment_id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,6 +1,7 @@
 package com.bit.devops12.poro.dto;
 
 public class ProfileDto {
+    private int user_id;
     private String profile_image;
     private String name;
     private String introduction;
@@ -10,6 +11,41 @@ public class ProfileDto {
     private String status;
     private String job;
     private String siteurl;
+    private int portfolioCnt;
+    private String nickname;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getPortfolioCnt() {
+        return portfolioCnt;
+    }
+
+    public void setPortfolioCnt(int portfolioCnt) {
+        this.portfolioCnt = portfolioCnt;
+    }
 
     public String getProfile_image() {
         return profile_image;

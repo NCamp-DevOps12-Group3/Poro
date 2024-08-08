@@ -13,63 +13,117 @@ public class PortfolioDto {
     private String htmlurl;
     private String thumbnail_url;
     private LocalDateTime regdate;
+    private LocalDateTime moddate;
+    private String nickname;
+    private String profile_image;
+
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
+    }
+
     private String skillname;
-    private String content;
+    private String description;
     private List<String> htmlCode;
     private List<String> cssCode;
     private List<String> jsCode;
     private String mergeCode;
+    private int bookmark_id;
+    private int likeCount;
+    private int commentCount;
+    private boolean isLiked;
+    private boolean bookmarked;
+    private String portfolio_url;
+    private String PORTFOLIO_URL;
+    private boolean correct_PORTFOLIO_URL;
 
-    public String getMergeCode() {
-        return mergeCode;
+    public boolean isCorrect_PORTFOLIO_URL() {
+        return correct_PORTFOLIO_URL;
     }
 
-    public void setMergeCode(String mergeCode) {
-        this.mergeCode = mergeCode;
+    public void setCorrect_PORTFOLIO_URL(boolean correct_PORTFOLIO_URL) {
+        this.correct_PORTFOLIO_URL = correct_PORTFOLIO_URL;
     }
 
-    public List<String> getHtmlCode() {
-        return htmlCode;
+    public String getPORTFOLIO_URL() {
+        return PORTFOLIO_URL;
     }
 
-    public void setHtmlCode(List<String> htmlCode) {
-        this.htmlCode = htmlCode;
+    public void setPORTFOLIO_URL(String PORTFOLIO_URL) {
+        this.PORTFOLIO_URL = PORTFOLIO_URL;
     }
 
-    public List<String> getCssCode() {
-        return cssCode;
+    public LocalDateTime getModdate() {
+        return moddate;
     }
 
-
-    public void setCssCode(List<String> cssCode) {
-        this.cssCode = cssCode;
+    public void setModdate(LocalDateTime moddate) {
+        this.moddate = moddate;
     }
 
-    public List<String> getJsCode() {
-        return jsCode;
+    public int getLikeCount() {
+        return likeCount;
     }
 
-    public void setJsCode(List<String> jsCode) {
-        this.jsCode = jsCode;
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    @Override
+    public String toString() {
+        return "PortfolioDto{" +
+                "portfolio_id=" + portfolio_id +
+                ", user_id=" + user_id +
+                ", cssurl='" + cssurl + '\'' +
+                ", jsurl='" + jsurl + '\'' +
+                ", htmlurl='" + htmlurl + '\'' +
+                ", thumbnail_url='" + thumbnail_url + '\'' +
+                ", regdate=" + regdate +
+                ", moddate=" + moddate +
+                ", nickname='" + nickname + '\'' +
+                ", profile_image='" + profile_image + '\'' +
+                ", skillname='" + skillname + '\'' +
+                ", description='" + description + '\'' +
+                ", htmlCode=" + htmlCode +
+                ", cssCode=" + cssCode +
+                ", jsCode=" + jsCode +
+                ", mergeCode='" + mergeCode + '\'' +
+                ", bookmark_id=" + bookmark_id +
+                ", likeCount=" + likeCount +
+                ", commentCount=" + commentCount +
+                ", isLiked=" + isLiked +
+                ", bookmarked=" + bookmarked +
+                '}';
     }
 
     public List<String> getCssList(){
-        return Arrays.stream(cssurl.split(",")).toList();
+        return cssurl != null ? Arrays.stream(cssurl.split(",")).toList() : null;
     }
 
     public List<String> getJsList(){
-        return Arrays.stream(jsurl.split(",")).toList();
+        return jsurl != null ? Arrays.stream(jsurl.split(",")).toList() : null;
     }
 
-    public List<String> getHtmlList(){
-        return Arrays.stream(htmlurl.split(",")).toList();
+    public List<String> getHtmlList() {
+        return htmlurl != null ? Arrays.stream(htmlurl.split(",")).toList() : null;
     }
-    public String getContent() {
-        return content;
+    public boolean isBookmarked() {
+        return bookmarked;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
     }
 
     public int getPortfolio_id() {
@@ -135,4 +189,85 @@ public class PortfolioDto {
     public void setSkillname(String skillname) {
         this.skillname = skillname;
     }
+
+    public List<String> getHtmlCode() {
+        return htmlCode;
+    }
+
+    public void setHtmlCode(List<String> htmlCode) {
+        this.htmlCode = htmlCode;
+    }
+
+    public List<String> getCssCode() {
+        return cssCode;
+    }
+
+    public void setCssCode(List<String> cssCode) {
+        this.cssCode = cssCode;
+    }
+
+    public List<String> getJsCode() {
+        return jsCode;
+    }
+
+    public void setJsCode(List<String> jsCode) {
+        this.jsCode = jsCode;
+    }
+
+    public String getMergeCode() {
+        return mergeCode;
+    }
+
+    public void setMergeCode(String mergeCode) {
+        this.mergeCode = mergeCode;
+    }
+
+    public int getBookmark_id() {
+        return bookmark_id;
+    }
+
+    public void setBookmark_id(int bookmark_id) {
+        this.bookmark_id = bookmark_id;
+    }
+
+    public LocalDateTime getModDate() {
+        return moddate;
+    }
+
+    public void setModDate(LocalDateTime modDate) {
+        this.moddate = modDate;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public String getPortfolio_url() {
+        return portfolio_url;
+    }
+
+    public void setPortfolio_url(String portfolio_url) {
+        this.portfolio_url = portfolio_url;
+    }
 }
+

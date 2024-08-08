@@ -1,0 +1,52 @@
+package com.bit.devops12.poro.dto;
+
+public class MiniProjectCriteria {
+    // 현재 페이지 번호
+    private int pageNum;
+    // 한 페이지에 표시할 게시물의 개수
+    private int amount;
+    // 시작 게시글 번호
+    private int startNum;
+
+    public MiniProjectCriteria() {
+        this(1, 12);
+    }
+
+    public MiniProjectCriteria(int pageNum, int amount) {
+        this.pageNum = pageNum;
+        this.amount = amount;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getStartNum() {
+        return startNum;
+    }
+
+    public void setStartNum(int startNum) {
+        this.startNum = startNum;
+    }
+
+    @Override
+    public String toString() {
+        return "MiniProjectCriteria{" +
+                "pageNum=" + pageNum +
+                ", amount=" + amount +
+                ", startNum=" + startNum +
+                '}';
+    }
+}

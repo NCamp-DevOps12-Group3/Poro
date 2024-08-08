@@ -1,26 +1,31 @@
 package com.bit.devops12.poro.service;
-
-import com.bit.devops12.poro.mapper.PortfolioMapper;
-import com.bit.devops12.poro.mapper.SkillTagMapper;
+import com.bit.devops12.poro.dto.MainCriteria;
+import com.bit.devops12.poro.dto.MiniProjectCriteria;
+import com.bit.devops12.poro.dto.PortfolioDto;
 import com.bit.devops12.poro.model.Portfolio;
 import com.bit.devops12.poro.model.SkillTag;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.bit.devops12.poro.dto.UserDto;
 
-@Service
-public class PortfolioService {
+import java.nio.file.Path;
+import java.util.List;
 
-    @Autowired
-    private PortfolioMapper portfolioMapper;
 
-    @Autowired
-    private SkillTagMapper skillTagMapper;
+public interface PortfolioService {
+    List<PortfolioDto> getPortfolioList(MainCriteria mainCri, UserDto loginUser);
+    List<PortfolioDto> getPortfolioListMini(MiniProjectCriteria miniProjectCri, UserDto loginUser);
 
-    public void savePortfolio(Portfolio portfolio) {
-        portfolioMapper.insertPortfolio(portfolio);
-    }
+    int getPortfolioTotalCnt();
+//    PortfolioDto getPortfolioById(int portfolio_id);
+    void savePortfolio(Portfolio portfolio);
+    void saveSkillTag(SkillTag skillTag);
+    PortfolioDto getPortfolioById(int portfolio_id, UserDto loginUser);
 
-    public void saveSkillTag(SkillTag skillTag) {
-        skillTagMapper.insertSkillTag(skillTag);
-    }
+    void likePortfolio(int portfolio_id, UserDto loginUser);
+    void unLikePortfolio(int portfolio_id, UserDto loginUser);
+
+    void deletePortfolio(int portfolio_id);
+    void saveHtml(int portfolio_id, List<Path> htmlPath);
+    void saveCss(int portfolio_id, List<Path> cssPath);
+    void saveJs(int portfolio_id, List<Path> jsPath);
+    PortfolioDto getCurrentPortfolioByUserId(int userId);
 }

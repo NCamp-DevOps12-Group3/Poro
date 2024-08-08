@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.mapper.RecruitmentMapper">
+<mapper namespace="com.bit.devops12.poro.mapper.RecruitmentMapper">
     <insert id="insertRecruitment" parameterType="com.bit.devops12.poro.model.Recruitment">
         INSERT INTO recruitment
         (USER_ID, COMPANY_NAME, COMPANY_ICON_URL, RECRUITMENT_URL, RECRUITMENT_TITLE, DDAY, REGDATE, MODDATE, LOCATION, CAREER, EDUCATION)

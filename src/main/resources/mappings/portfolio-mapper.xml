@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PortfolioDao">
+    <select id="searchPortfolioByKeyword" parameterType="string" resultType="portfolio">
+        SELECT P.PORTFOLIO_ID
+             , P.USER_ID
+             , P.PORTFOLIO_URL
+             , P.THUMBNAIL_URL
+             , P.DESCRIPTION
+             , GROUP_CONCAT(DISTINCT ST.SKILLNAME) AS SKILLNAME
+            FROM PORTFOLIO P
+        INNER JOIN PORTFOLIO_SKILL PS
+                ON PS.PORTFOLIO_ID = P.PORTFOLIO_ID
+        INNER JOIN SKILLTAG ST
+                ON PS.HASHTAG_ID IN (
+                    SELECT HASHTAGID
+                        FROM SKILLTAG
+                        WHERE SKILLNAME LIKE CONCAT('%', #{searchKeyword}, '%')
+                        )
+            GROUP BY P.PORTFOLIO_ID
+                   , P.USER_ID
+                   , P.PORTFOLIO_URL
+                   , P.THUMBNAIL_URL
+                   , P.DESCRIPTION
+    </select>
+
+    <select id="getPortfolioList" parameterType="map" resultType="portfolio">
+        SELECT P.PORTFOLIO_ID,
+               P.USER_ID,
+               P.PORTFOLIO_URL,
+               P.THUMBNAIL_URL,
+               P.DESCRIPTION,
+               P.REGDATE,
+               P.MODDATE,
+               U.NICKNAME,
+               U.PROFILE_IMAGE,
+               H.HTML_URL AS htmlurl,
+               J.JAVASCRIPT_URL AS jsurl,
+               C.CSS_URL AS cssurl,
+               COALESCE(PL.LIKECOUNT, 0) AS LIKECOUNT,
+               COALESCE(CM.COMMENTCOUNT, 0) AS COMMENTCOUNT,
+               (CASE WHEN PLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED
+               FROM PORTFOLIO P
+               JOIN USER U
+                  ON P.USER_ID = U.USER_ID
+               JOIN HTML H
+                  ON P.PORTFOLIO_ID = H.PORTFOLIO_ID
+               JOIN JAVASCRIPT J
+                  ON P.PORTFOLIO_ID = J.PORTFOLIO_ID
+               JOIN CSS C
+                  ON P.PORTFOLIO_ID = C.PORTFOLIO_ID
+               LEFT JOIN (
+                    SELECT PORTFOLIO_ID, COUNT(*) AS LIKECOUNT
+                    FROM PORTFOLIO_LIKE
+                    GROUP BY PORTFOLIO_ID
+                    ) PL ON P.PORTFOLIO_ID = PL.PORTFOLIO_ID
+               LEFT JOIN (
+                    SELECT PORTFOLIO_ID, COUNT(*) AS COMMENTCOUNT
+                    FROM COMMENT
+                    GROUP BY PORTFOLIO_ID
+                    ) CM ON P.PORTFOLIO_ID = CM.PORTFOLIO_ID
+               LEFT JOIN (
+                    SELECT PORTFOLIO_ID, USER_ID
+                    FROM PORTFOLIO_LIKE
+                    WHERE USER_ID = #{loginUser.user_id}
+               ) PLU ON P.PORTFOLIO_ID = PLU.PORTFOLIO_ID
+               LIMIT #{mainCri.amount} OFFSET #{mainCri.startNum}
+    </select>
+
+    <select id="getPortfolioListMini" parameterType="map" resultType="portfolio">
+        SELECT P.PORTFOLIO_ID,
+               P.USER_ID,
+               P.PORTFOLIO_URL,
+               P.THUMBNAIL_URL,
+               P.DESCRIPTION,
+               P.REGDATE,
+               P.MODDATE,
+               U.NICKNAME,
+               U.PROFILE_IMAGE,
+               H.HTML_URL AS htmlurl,
+               J.JAVASCRIPT_URL AS jsurl,
+               C.CSS_URL AS cssurl,
+               COALESCE(PL.LIKECOUNT, 0) AS LIKECOUNT,
+               COALESCE(CM.COMMENTCOUNT, 0) AS COMMENTCOUNT,
+               (CASE WHEN PLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED
+        FROM PORTFOLIO P
+                 JOIN USER U
+                      ON P.USER_ID = U.USER_ID
+                 JOIN HTML H
+                      ON P.PORTFOLIO_ID = H.PORTFOLIO_ID
+                 JOIN JAVASCRIPT J
+                      ON P.PORTFOLIO_ID = J.PORTFOLIO_ID
+                 JOIN CSS C
+                      ON P.PORTFOLIO_ID = C.PORTFOLIO_ID
+                 LEFT JOIN (
+            SELECT PORTFOLIO_ID, COUNT(*) AS LIKECOUNT
+            FROM PORTFOLIO_LIKE
+            GROUP BY PORTFOLIO_ID
+        ) PL ON P.PORTFOLIO_ID = PL.PORTFOLIO_ID
+                 LEFT JOIN (
+            SELECT PORTFOLIO_ID, COUNT(*) AS COMMENTCOUNT
+            FROM COMMENT
+            GROUP BY PORTFOLIO_ID
+        ) CM ON P.PORTFOLIO_ID = CM.PORTFOLIO_ID
+                 LEFT JOIN (
+            SELECT PORTFOLIO_ID, USER_ID
+            FROM PORTFOLIO_LIKE
+            WHERE USER_ID = #{loginUser.user_id}
+        ) PLU ON P.PORTFOLIO_ID = PLU.PORTFOLIO_ID
+            LIMIT #{miniProjectCri.amount} OFFSET #{miniProjectCri.startNum}
+    </select>
+
+    <select id="getPortfolioById" parameterType="map" resultType="portfolio">
+        SELECT P.PORTFOLIO_ID
+             , P.USER_ID
+             , P.PORTFOLIO_URL
+             , P.THUMBNAIL_URL
+             , P.DESCRIPTION
+             , P.REGDATE
+             , P.MODDATE
+             , U.NICKNAME
+             , U.PROFILE_IMAGE
+             , H.HTML_URL AS htmlurl
+             , J.JAVASCRIPT_URL AS jsurl
+             , C.CSS_URL AS cssurl
+             , COALESCE(PL.LIKECOUNT, 0) AS LIKECOUNT
+             , (CASE WHEN PLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED
+         FROM PORTFOLIO P
+         JOIN USER U
+              ON P.USER_ID = U.USER_ID
+         JOIN HTML H
+              ON P.PORTFOLIO_ID = H.PORTFOLIO_ID
+         JOIN JAVASCRIPT J
+              ON P.PORTFOLIO_ID = J.PORTFOLIO_ID
+         JOIN CSS C
+              ON P.PORTFOLIO_ID = C.PORTFOLIO_ID
+         LEFT JOIN (
+             SELECT PORTFOLIO_ID, COUNT(*) AS LIKECOUNT
+             FROM PORTFOLIO_LIKE
+             GROUP BY PORTFOLIO_ID
+         ) PL ON P.PORTFOLIO_ID = PL.PORTFOLIO_ID
+         LEFT JOIN (
+            SELECT PORTFOLIO_ID, USER_ID
+            FROM PORTFOLIO_LIKE
+            WHERE USER_ID = #{loginUser.user_id}
+        ) PLU ON P.PORTFOLIO_ID = PLU.PORTFOLIO_ID
+        WHERE P.PORTFOLIO_ID = #{portfolio_id}
+    </select>
+
+    <select id="getPortfolioTotalCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM PORTFOLIO
+    </select>
+
+    <insert id="likePortfolio" parameterType="map">
+        INSERT INTO PORTFOLIO_LIKE(
+            USER_ID,
+            PORTFOLIO_ID
+        ) VALUES (
+                 #{loginUser.user_id},
+                 #{portfolio_id}
+             )
+    </insert>
+
+    <delete id="unLikePortfolio" parameterType="map">
+        DELETE FROM PORTFOLIO_LIKE
+        WHERE USER_ID = #{loginUser.user_id}
+          AND PORTFOLIO_ID = #{portfolio_id}
+    </delete>
+
+    <!-- 포트폴리오와 연관된 모든 댓글 ID 찾기 -->
+    <select id="selectAllCommentIdsForPortfolio" resultType="int" parameterType="int">
+        SELECT COMMENT_ID
+        FROM COMMENT
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </select>
+
+    <!-- 포트폴리오와 연관된 좋아요 삭제 -->
+    <delete id="deleteLikesForPortfolio" parameterType="int">
+        DELETE FROM PORTFOLIO_LIKE
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </delete>
+
+    <!-- 포트폴리오와 연관된 HTML 삭제 -->
+    <delete id="deleteHtmlForPortfolio" parameterType="int">
+        DELETE FROM HTML
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </delete>
+
+    <!-- 포트폴리오와 연관된 CSS 삭제 -->
+    <delete id="deleteCssForPortfolio" parameterType="int">
+        DELETE FROM CSS
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </delete>
+
+    <!-- 포트폴리오와 연관된 JavaScript 삭제 -->
+    <delete id="deleteJsForPortfolio" parameterType="int">
+        DELETE FROM JAVASCRIPT
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </delete>
+
+    <!-- 포트폴리오 삭제 -->
+    <delete id="deletePortfolio" parameterType="int">
+        DELETE FROM PORTFOLIO
+        WHERE PORTFOLIO_ID = #{portfolio_id};
+    </delete>
+    <select id="getCurrentPortfolioByUserId" parameterType="int" resultType="portfolio">
+        SELECT PORTFOLIO_ID
+             , USER_ID
+             , PORTFOLIO_URL
+             , THUMBNAIL_URL
+             , REGDATE
+             , MODDATE
+             , DESCRIPTION
+            FROM PORTFOLIO
+            WHERE USER_ID = #{userId}
+            ORDER BY REGDATE DESC
+            LIMIT 1 OFFSET 0
+    </select>
+</mapper>

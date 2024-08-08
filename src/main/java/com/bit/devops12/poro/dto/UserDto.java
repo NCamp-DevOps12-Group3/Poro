@@ -1,9 +1,12 @@
 package com.bit.devops12.poro.dto;
 
-import java.time.LocalDateTime;
+import org.apache.ibatis.session.ResultHandler;
 
-public class UserDto {
-	private int id;
+import java.time.LocalDateTime;
+import java.util.List;
+
+public class UserDto  {
+	private int user_id;
 	private String nickname;
 	private String name;
 	private String gender;
@@ -12,16 +15,23 @@ public class UserDto {
 	private String email;
 	private String password;
 	private String role;
+	private String profile_image;
 	private LocalDateTime regdate;
 	private LocalDateTime moddate;
+	private String introduction;
+	private String site_url;
+	private int portfolio_id;
+	private int comment_id;
+	private String commentContent;
+	private LocalDateTime commentModDate;
+	private LocalDateTime portfolioModDate;
 	
-	
-	public int getId() {
-		return id;
+	public int getUser_id() {
+		return user_id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 	
 	public String getNickname() {
@@ -88,6 +98,14 @@ public class UserDto {
 		this.role = role;
 	}
 	
+	public String getProfile_image() {
+		return profile_image;
+	}
+	
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+	
 	public LocalDateTime getRegdate() {
 		return regdate;
 	}
@@ -104,10 +122,67 @@ public class UserDto {
 		this.moddate = moddate;
 	}
 	
+	public String getIntroduction() {
+		return introduction;
+	}
+	
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+	
+	public String getSite_url() {
+		return site_url;
+	}
+	
+	public void setSite_url(String site_url) {
+		this.site_url = site_url;
+	}
+	
+	public int getPortfolio_id() {
+		return portfolio_id;
+	}
+	
+	public void setPortfolio_id(int portfolio_id) {
+		this.portfolio_id = portfolio_id;
+	}
+	
+	public int getComment_id() {
+		return comment_id;
+	}
+	
+	public void setComment_id(int comment_id) {
+		this.comment_id = comment_id;
+	}
+	
+	public String getCommentContent() {
+		return commentContent;
+	}
+	
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+	
+	public LocalDateTime getCommentModDate() {
+		return commentModDate;
+	}
+	
+	public void setCommentModDate(LocalDateTime commentModDate) {
+		this.commentModDate = commentModDate;
+	}
+	
+	public LocalDateTime getPortfolioModDate() {
+		return portfolioModDate;
+	}
+	
+	public void setPortfolioModDate(LocalDateTime portfolioModDate) {
+		this.portfolioModDate = portfolioModDate;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "UserDto{" +
-				       "id=" + id +
+				       "user_id=" + user_id +
 				       ", nickname='" + nickname + '\'' +
 				       ", name='" + name + '\'' +
 				       ", gender='" + gender + '\'' +
@@ -116,8 +191,16 @@ public class UserDto {
 				       ", email='" + email + '\'' +
 				       ", password='" + password + '\'' +
 				       ", role='" + role + '\'' +
+				       ", profile_image='" + profile_image + '\'' +
 				       ", regdate=" + regdate +
 				       ", moddate=" + moddate +
+				       ", introduction='" + introduction + '\'' +
+				       ", site_url='" + site_url + '\'' +
+				       ", portfolio_id=" + portfolio_id +
+				       ", comment_id=" + comment_id +
+				       ", commentContent='" + commentContent + '\'' +
+				       ", commentModDate=" + commentModDate +
+				       ", portfolioModDate=" + portfolioModDate +
 				       '}';
 	}
 }
