@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 
 
@@ -486,45 +486,60 @@
 				<h4 id="list-history" style="margin-top: 0;">내 활동</h4>
 				<div style="border: 1px solid rgb(201, 201, 201);padding: 20px;  border-radius: 7px; ">
 					<div class="container">
-						<table class="table table-hover text-center">
+						<table class="table table-hover text-center" style="justify-content: center">
 							<thead>
-							<tr>
-								
-								<th>제목</th>
-								
-								<th>수정일</th>
+							<tr style="justify-content: center">
+								<th style="width: auto">활동 내용</th>
+								<th style="width: auto">활동 유형</th>
+								<th style="width: auto">활동일</th>
 							</tr>
 							</thead>
 							<tbody class="table-group-divider">
-							
 							<c:forEach items="${historylog}" var="historylog">
 								<tr class="board-tr" onclick="">
-									
 									<c:choose>
-										<c:when test="${historylog.content != null}">
-											<td>${historylog.content}</td>
+										<c:when test="${historylog.portfolio_id ==0 && historylog.comment_id==0}">
+											<td style="width: auto">기록없음</td>
+											<td style="width: auto">기록없음</td>
+											<td style="width: auto">기록없음</td>
 										</c:when>
 										<c:otherwise>
-											<td>포트폴리오 업로드</td>
+											<c:choose>
+												<c:when test="${historylog.commentModDate != null}">
+													<td style="width: auto">${historylog.commentContent}</td>
+												</c:when>
+												<c:otherwise>
+													<td style="width: auto">${historylog.portfolioContent}</td>
+												</c:otherwise>
+											</c:choose>
+											<c:choose>
+												<c:when test="${historylog.commentModDate != null}">
+													<td style="width: auto">댓글</td>
+												</c:when>
+												<c:otherwise>
+													<td style="width: auto">포트폴리오 업로드</td>
+												</c:otherwise>
+											</c:choose>
+											<c:choose>
+												<c:when test="${historylog.commentModDate != null}">
+													<td style="width: auto">
+														<javatime:format value="${historylog.commentModDate}" pattern="yyyy-MM-dd"/>
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td style="width: auto">
+														<javatime:format value="${historylog.portfolioModDate}" pattern="yyyy-MM-dd"/>
+													</td>
+												</c:otherwise>
+											</c:choose>
 										</c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${historylog.content != null}">
-											<td>
-												<javatime:format value="${historylog.regdate}" pattern="yyyy-MM-dd"/>
-											</td>										</c:when>
-										<c:otherwise>
-											<td>
-												<javatime:format value="${historylog.regdate}" pattern="yyyy-MM-dd"/>
-											</td>
-										</c:otherwise>
-									
 									</c:choose>
 								</tr>
 							</c:forEach>
 							</tbody>
 						</table>
 					</div>
+				
 				</div>
 				
 				

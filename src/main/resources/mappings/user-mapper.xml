@@ -129,24 +129,20 @@
 				              C.CONTENT AS commentContent,
 				              C.MODDATE AS commentModDate,
 				              NULL AS portfolioModDate
-			              FROM
-				              COMMENT C
-			              WHERE
-				              C.USER_ID = #{user_id}
+			              FROM COMMENT C
+			              WHERE C.USER_ID = #{user_id}
 			              UNION ALL
 			              SELECT
 				              P.USER_ID AS user_id,
 				              NULL AS commentId,
 				              P.PORTFOLIO_ID AS portfolioId,
+				              P.PORTFOLIO_URL AS portfolioContent,
 				              NULL AS commentContent,
-				              NULL AS commentModDate,
 				              P.MODDATE AS portfolioModDate
 			              FROM PORTFOLIO P
-			              WHERE
-				              P.USER_ID = #{user_id}
+			              WHERE P.USER_ID = #{user_id}
 		              ) AS combinedResults
-		ORDER BY
-			COALESCE(commentModDate, portfolioModDate) DESC
+		ORDER BY COALESCE(commentModDate, portfolioModDate) DESC
 			LIMIT 10
 	</select>
 	

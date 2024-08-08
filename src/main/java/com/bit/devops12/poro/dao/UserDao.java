@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public class UserDao {
+	
 	private SqlSessionTemplate mybatis;
 	
 	@Autowired
@@ -75,7 +76,7 @@ public class UserDao {
 		mybatis.delete( "UserDao.deleteAccount", userDto);
 	}
 	
-	public List<UserDto> historylog(UserDto user_id) {
-		return mybatis.selectList("UserDao.historylog", user_id);
+	public List<UserDto> historylog(UserDto userDto) {
+		return mybatis.selectList("UserDao.historylog",userDto );
 	}
 }
