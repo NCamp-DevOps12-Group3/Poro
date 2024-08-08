@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.service.impl;
 
+import com.bit.devops12.poro.common.DdayCalculator;
 import com.bit.devops12.poro.dao.CssDao;
 import com.bit.devops12.poro.dao.HtmlDao;
 import com.bit.devops12.poro.dao.JavascriptDao;
@@ -51,7 +52,14 @@ public class PortfolioServiceImpl implements PortfolioService {
 
         System.out.println(paramMap);
 
-        return portfolioDao.getPortfolioList(paramMap);
+        List<PortfolioDto> portfolioDtoList = portfolioDao.getPortfolioList(paramMap);
+
+        for(PortfolioDto portfolioDto : portfolioDtoList){
+            DdayCalculator ddayCalculator = new DdayCalculator();
+            String regdateStr = ddayCalculator.getDdayCalculator(portfolioDto.getRegdate());
+            portfolioDto.setRegdateStr(regdateStr);
+        }
+        return portfolioDtoList;
     }
 
     @Override

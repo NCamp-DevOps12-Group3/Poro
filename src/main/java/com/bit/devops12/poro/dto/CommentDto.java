@@ -18,6 +18,15 @@ public class CommentDto {
     private String nickname;
     private String parent_nickname;
     private String profile_image;
+    private String regdateStr;
+
+    public String getRegdateStr() {
+        return regdateStr;
+    }
+
+    public void setRegdateStr(String regdateStr) {
+        this.regdateStr = regdateStr;
+    }
 
     @Override
     public String toString() {

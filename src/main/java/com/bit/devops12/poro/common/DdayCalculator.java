@@ -30,20 +30,20 @@ public class DdayCalculator {
             resultDday = "지금";
         } else if (totalYears == 0 && totalMonths == 0 && weeks == 0 && days == 0 && hour == 0 && minute >= 0) {
             // 1시간 이내(결과값: 00분)
-            resultDday = minute + "분전";
+            resultDday = minute + "분 전";
         } else if (totalYears == 0 && totalMonths == 0 && weeks == 0 && days == 0 && hour >= 0) {
             // 1일 이내(결과값: 00시간전)
-            resultDday = hour + "시간전";
+            resultDday = hour + "시간 전";
         } else if (totalYears == 0 && totalMonths == 0 && weeks == 0 && days >= 0) {
             // 1주 이내(결과값: 00일전)
-            resultDday = days + "일전";
+            resultDday = days + "일 전";
         } else if (totalYears == 0 && totalMonths == 0 && weeks >= 0) {
             // 1달 이내(결과값: 00주전)
-            resultDday = weeks + "주전";
+            resultDday = weeks + "주 전";
         } else if (totalYears == 0 && totalMonths >= 0) {
-            resultDday = totalMonths + "달전";
+            resultDday = totalMonths + "달 전";
         } else if (totalYears >= 0) {
-            resultDday = totalYears + "년전";
+            resultDday = totalYears + "년 전";
         }
 
         return resultDday;

@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.service.impl;
 
+import com.bit.devops12.poro.common.DdayCalculator;
 import com.bit.devops12.poro.dao.CommentDao;
 import com.bit.devops12.poro.dto.CommentDto;
 import com.bit.devops12.poro.dto.FileDto;
@@ -23,7 +24,16 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentDto> getCommentList(PortfolioDto portfolioDto, UserDto loginUser) {
-        return commentDao.getCommentList(portfolioDto, loginUser);
+
+        List<CommentDto> commentDtoList = commentDao.getCommentList(portfolioDto, loginUser);
+
+        for(CommentDto commentDto : commentDtoList){
+            DdayCalculator ddayCalculator = new DdayCalculator();
+            String regdateStr = ddayCalculator.getDdayCalculator(commentDto.getRegdate());
+            commentDto.setRegdateStr(regdateStr);
+        }
+
+        return commentDtoList;
     }
 
     @Override

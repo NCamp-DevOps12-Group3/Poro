@@ -16,6 +16,15 @@ public class PortfolioDto {
     private LocalDateTime moddate;
     private String nickname;
     private String profile_image;
+    private String regdateStr;
+
+    public String getRegdateStr() {
+        return regdateStr;
+    }
+
+    public void setRegdateStr(String regdateStr) {
+        this.regdateStr = regdateStr;
+    }
 
     public String getProfile_image() {
         return profile_image;

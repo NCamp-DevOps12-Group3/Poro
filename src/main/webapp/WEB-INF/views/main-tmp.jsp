@@ -241,7 +241,7 @@
                                        <div class="content-item-header-user-logo" style="background-image: url('\${obj.portfolioList[i].portfolioDto.profile_image}'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
                                            <div class="content-item-header-main" style="display: flex; flex-direction: column; flex-grow: 1;">
                                                <div class="content-item-header-userid" style="font-size: 14px; margin-left: 10px;">
-                                                   <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">1주전</strong>
+                                                   <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">\${obj.portfolioList[i].portfolioDto.regdateStr}</strong>
                                                </div>
                                                <div class="content-item-header-content" style="font-size: 14px; margin-left: 10px;">
                                                    \${obj.portfolioList[i].portfolioDto.description}
@@ -330,7 +330,7 @@
                                                     <div class="content-item-header-user-logo" style="background-image: url('\${obj.portfolioList[i].portfolioDto.profile_image}'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
                                                         <div class="content-item-header-main" style="display: flex; flex-direction: column; flex-grow: 1;">
                                                             <div class="content-item-header-userid" style="font-size: 14px; margin-left: 10px;">
-                                                                <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">1주전</strong>
+                                                                <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">\${obj.portfolioList[i].portfolioDto.regdateStr}</strong>
                                                             </div>
                                                             <div class="content-item-header-content" style="font-size: 14px; margin-left: 10px;">
                                                                 \${obj.portfolioList[i].portfolioDto.description}
@@ -417,7 +417,10 @@
                                        <div class="modal-portfolio-bond" id="modalPortfolioBond">
 
                                            <!-- iframe을 사용하여 콘텐츠 로드 -->
-                                           <iframe class="modal-portfolio-iframe" id="modalPortfolioIframe"></iframe>
+                                           <div id="iframeContainer">
+                                                <img id="loadingImage" src="${pageContext.request.contextPath}/static/img/loading.gif" alt="Loading..." style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+                                                <iframe id="modalPortfolioIframe" style="display: none; width: 100%; height: 100%;"></iframe>
+                                            </div>
 
                                            <!--코멘트-->
                                            <div class="modal-comment-section" id="modalCommentSection">
@@ -540,30 +543,78 @@
             let curr_reply_box = null;
             let curr_comment_box = null;
 
+            const iframeContainer = document.getElementById('iframeContainer');
+            const loadingImage = document.getElementById('loadingImage');
             const iframe = document.getElementById('modalPortfolioIframe');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-            if(iframe) {
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            async function loadPortfolio(obj) {
+                try {
+                    // 로딩 이미지 표시
+                    loadingImage.style.display = 'block';
+                    iframe.style.display = 'none';
 
-                fetch(obj.portfolio.htmlurl)
-                    .then(response => response.text()) // 응답을 텍스트로 변환
-                    .then(html => {
-                        // iframe의 내부 문서 객체를 업데이트
-                        iframeDoc.open();
-                        iframeDoc.write(html);
-                        iframeDoc.close();
+                    const response = await fetch(obj.portfolio.htmlurl);
+                    const html = await response.text();
 
-                        const link = iframeDoc.createElement('link');
-                        link.rel = 'stylesheet';
-                        link.href = obj.portfolio.cssurl;
-                        iframeDoc.head.appendChild(link);
+                    // iframe의 내부 문서 객체를 초기화하고 HTML 콘텐츠 작성
+                    iframeDoc.open();
+                    iframeDoc.write(html);
+                    iframeDoc.close();
 
-                        const script = iframeDoc.createElement('script');
-                        script.src = obj.portfolio.jsurl;
-                        iframeDoc.body.appendChild(script);
+                    // CSS 파일 추가
+                    const link = iframeDoc.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = obj.portfolio.cssurl;
+                    iframeDoc.head.appendChild(link);
 
+                    const linkLoadPromise = new Promise((resolve, reject) => {
+                        link.onload = resolve;
+                        link.onerror = reject;
                     });
 
+                    // JavaScript 파일 추가
+                    const script = iframeDoc.createElement('script');
+                    script.src = obj.portfolio.jsurl;
+                    iframeDoc.body.appendChild(script);
+
+                    const scriptLoadPromise = new Promise((resolve, reject) => {
+                        script.onload = resolve;
+                        script.onerror = reject;
+                    });
+
+                    // 모든 리소스가 로드될 때까지 기다림
+                    await Promise.all([linkLoadPromise, scriptLoadPromise]);
+
+                    // 로딩 이미지 숨기고 iframe 표시
+                    loadingImage.style.display = 'none';
+                    iframe.style.display = 'block';
+                    console.log("All resources loaded successfully.");
+
+                } catch (error) {
+                    console.error("Failed to load resources:", error);
+                    // 오류 발생 시 로딩 이미지 숨기고 iframe을 다시 보이도록 설정
+                    loadingImage.style.display = 'none';
+                    iframe.style.display = 'block';
+                }
+                // iframe 내의 스크롤바 숨기기
+                const style = iframeDoc.createElement('style');
+                style.textContent = `
+                    body {
+                        overflow: auto;
+                    }
+                    ::-webkit-scrollbar {
+                        display: none;
+                    }
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                `;
+                iframeDoc.head.appendChild(style);
+
+            }
+
+            if (iframe) {
+                loadPortfolio(obj);
             }
 
 
@@ -634,7 +685,8 @@
                                             <div style="margin-left:5px;"> \${feedLink} \${comment.content}</div>
                                         </div>
                                         <div class="modal-comment-main-content">
-                                            <div style="color: gray;">1주</div>
+                                        <div class="modal-comment-main-content">
+                                            <div style="color: gray;"> \${comment.regdateStr}</div>
                                             <div style="color: gray; margin-left : 10px" id="commentLike">좋아요 \${comment.likeCount}개</div>
                                             <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" style="margin-left : 10px;"  viewBox="0 -2 16 16">
@@ -984,7 +1036,6 @@
     }
 
 </script>
-
 
 </body>
 </html>
