@@ -179,6 +179,11 @@ public class UserFeedsController {
 
         model.addAttribute("follow",userFeedsService.getFollowInfo(userid,id));
 
+        UserDto loginUser = null;
+        if(session != null && session.getAttribute("loginUser") != null){
+            loginUser = (UserDto) session.getAttribute("loginUser");
+            model.addAttribute("role", loginUser.getRole());
+        }
         return "/user/userfeeds";
     }
     public boolean isURLAccessible(String urlString) {

@@ -71,7 +71,6 @@ public class UserController {
 			userDto.setPassword("");
 			session.setAttribute("userDto", userDto);
 			System.out.println(loginUser);
-			
 
 			return "redirect:/main/main.do";
 //			return "user/settings";
@@ -98,12 +97,12 @@ public class UserController {
 		// historylog 메서드는 사용자 DTO를 인자로 받아서 해당 사용자의 역사 로그를 반환
 		// 사용자 DTO를 기반으로 historylog를 호출하고 결과를 처리
 		List<UserDto> historylog = userService.historylog(userDto);
-		UserDto sessionn = (UserDto) session.getAttribute("loginUser");
-		System.out.println(sessionn);
 		System.out.println(historylog);
 		// 조회된 역사 로그를 모델에 추가
 		model.addAttribute("historylog", historylog);
-		
+		UserDto loginUser = null;
+
+		model.addAttribute("role", userDto.getRole());
 		// '/user/settings' 뷰를 반환
 		// 이 뷰는 사용자의 설정 페이지를 렌더링하는 템플릿 파일
 		return "/user/settings";

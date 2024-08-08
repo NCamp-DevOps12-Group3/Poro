@@ -1,4 +1,5 @@
 
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
@@ -19,6 +20,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/add-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
+    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <style>
@@ -83,7 +86,7 @@
     </style>
 </head>
 <body>
-    <input type="hidden" id="user-type" value="common">
+    <input type="hidden" id="user-type" value="${role}">
     <div class="sidebar">
         <div class="sidebar-content d-flex flex-column">
             <div class="sidebar-icon">
@@ -287,6 +290,7 @@
     <script src="${pageContext.request.contextPath}/static/js/companyScripts.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/sidebar.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>

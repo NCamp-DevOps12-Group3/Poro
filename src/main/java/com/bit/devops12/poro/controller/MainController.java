@@ -32,13 +32,20 @@ public class MainController {
 
 
     @GetMapping("/main.do")
-    public String userMain(Model model, MainCriteria mainCri) {
+    public String userMain(Model model, MainCriteria mainCri, HttpSession httpSession) {
+
 
         mainCri.setAmount(2);
 
         int total = portfolioService.getPortfolioTotalCnt();
 
         model.addAttribute("page", new MainPageDto(mainCri, total));
+
+        UserDto loginUser = null;
+        if(httpSession != null && httpSession.getAttribute("loginUser") != null){
+            loginUser = (UserDto) httpSession.getAttribute("loginUser");
+            model.addAttribute("role", loginUser.getRole());
+        }
 
         return "main-tmp";
     }

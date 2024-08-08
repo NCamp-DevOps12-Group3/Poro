@@ -30,14 +30,18 @@ public class MiniProjectController {
     }
 
     @GetMapping("/mini_project.do")
-    public String userMain(Model model, MiniProjectCriteria miniProjectCri) {
+    public String userMain(Model model, MiniProjectCriteria miniProjectCri, HttpSession httpSession) {
 
         miniProjectCri.setAmount(12);
 
         int total = portfolioService.getPortfolioTotalCnt();
 
         model.addAttribute("page", new MiniProjectPageDto(miniProjectCri, total));
-
+        UserDto loginUser = null;
+        if(httpSession != null && httpSession.getAttribute("loginUser") != null){
+            loginUser = (UserDto) httpSession.getAttribute("loginUser");
+            model.addAttribute("role", loginUser.getRole());
+        }
         return "/portfolio/mini_project";
     }
 
