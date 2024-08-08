@@ -72,7 +72,8 @@ public class RecruitmentController {
         Recruitment recruitment = new Recruitment();
         recruitment.setUserId(user.getUser_id());
         recruitment.setCompanyName(user.getNickname());
-        recruitment.setCompanyIconUrl("/static/img/default-company.png");
+//        recruitment.setCompanyIconUrl("/static/img/default-company.png");
+        recruitment.setCompanyIconUrl(user.getProfile_image());
         recruitment.setRecruitmentTitle(title);
         recruitment.setDday(ddayLocalDate);
         recruitment.setLocation(location);
