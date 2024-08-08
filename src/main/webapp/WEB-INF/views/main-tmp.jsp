@@ -12,6 +12,7 @@
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/add-main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mini_project(company).css">
     <style>
 
         .content {
@@ -39,6 +40,18 @@
         input:focus {
             outline: none; /* 기본 포커스 스타일 제거 */
         }
+
+        .modal-body{
+            padding: 0 !important;
+        }
+
+        .modal-backdrop{
+            position: static !important;
+        }
+        
+        .recommend-item-content{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -65,172 +78,62 @@
     </div>
 
     <div class="recommend d-flex flex-column"
-         style="display: flex; flex-direction: column; margin-top: 12vh; margin-left : 5vw;">
+         style="display: flex; flex-direction: column; margin-top: 12vh; margin-left : 5vw;" id="recommendContainer">
 
         <div class="recomment-description" style="display : flex; font-size: 0.8rem; margin:10px;
                         justify-content:space-between; width:15vw;">
             <strong>회원님을 위한 추천공고</strong>
-            <a href="mini_project(company).html" class="viewAll"><strong>모두보기</strong></a>
+            <a href="/company/test.do" class="viewAll"><strong>모두보기</strong></a>
         </div>
 
-        <div class="recommend-item" style="display:flex; align-items: center; margin-top : 5px;">
-            <a href="userfeeds.html">
-                <div class="recommend-item-logo" style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/6.png'); background-size:cover;
-                        width:3vw; height:2vh; margin : 10px; ">
-                </div>
-            </a>
-            <div class=" recommend-item-content" style="display:flex; flex-direction : column; padding-left :2px;"
-                 id="recommendItemContent">
-                <div class="recommend-item-content-tit"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    웹개발자(PHP/JAVA/프론트) 경력
-                </div>
-                <div class="recommend-item-content-corp"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/1.png') ; width:15px; height : 15px;
-                            background-size : cover; margin-right : 3px;"></div>
-                    서울전체 외 / 2년.초대졸
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/2.png') ; width:10px; height : 10px;
-                            background-size : cover; margin-left : 3px;"></div>
-                </div>
-            </div>
-            <div class="recommend-item-bookmark" style="margin:10px; cursor: pointer;">
-                <svg xmlns= "http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                     class="bi bi-bookmark" viewBox="0 0 16 16">
-                    <path
-                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                </svg>
+    </div>
 
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                     class="bi bi-bookmark-fill" viewBox="0 0 16 16" style="display:none;">
-                    <path
-                            d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
-                </svg>
-
-            </div>
-        </div>
-
-        <div class="recommend-item" style="display:flex; align-items: center; margin-top : 5px;">
-            <div class="recommend-item-logo" style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/7.png'); background-size:cover;
-                    width:3vw; height:2vh; margin : 10px; ">
-            </div>
-            <div class=" recommend-item-content" style="display:flex; flex-direction : column; padding-left :2px;">
-                <div class="recommend-item-content-tit"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    웹개발자(PHP/JAVA/프론트) 경력
+    <div class="modal fade" id="CompanyPortFolioModal" tabindex="-1" aria-labelledby="CompanyPortFolioModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content2">
+                <div class="modal-body">
+                    <iframe id="imageIframe"></iframe>
                 </div>
-                <div class="recommend-item-content-corp"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/1.png') ; width:15px; height : 15px;
-                            background-size : cover; margin-right : 3px;"></div>
-                    서울전체 외 / 2년.초대졸
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/2.png') ; width:10px; height : 10px;
-                            background-size : cover; margin-left : 3px;"></div>
-                </div>
-            </div>
-            <div class="recommend-item-bookmark" style="margin:10px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="bi bi-bookmark"
-                     viewBox="0 0 16 16">
-                    <path
-                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                </svg>
-            </div>
-        </div>
-
-        <div class="recommend-item" style="display:flex; align-items: center; margin-top : 5px;">
-            <div class="recommend-item-logo-wrapper"
-                 style="width:3vw; height:2vh; display:flex; justify-content:center; margin:10px;">
-                <div class="recommend-item-logo" style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/8.png'); background-size:cover;
-                        background-repeat: no-repeat; width:100%; height:100%;">
-                </div>
-            </div>
-            <div class=" recommend-item-content" style="display:flex; flex-direction : column; padding-left :2px;">
-                <div class="recommend-item-content-tit"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    웹개발자(PHP/JAVA/프론트) 경력
-                </div>
-                <div class="recommend-item-content-corp"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/1.png') ; width:15px; height : 15px;
-                            background-size : cover; margin-right : 3px;"></div>
-                    서울전체 외 / 2년.초대졸
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/2.png') ; width:10px; height : 10px;
-                            background-size : cover; margin-left : 3px;"></div>
-                </div>
-            </div>
-            <div class="recommend-item-bookmark" style="margin:10px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                     class="bi bi-bookmark" viewBox="0 0 16 16">
-                    <path
-                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                </svg>
-            </div>
-        </div>
-
-        <div class="recommend-item" style="display:flex; align-items: center; margin-top : 5px;">
-            <div class="recommend-item-logo-wrapper"
-                 style="width:3vw; height:2vh; display:flex; justify-content:center; margin:10px;">
-                <div class="recommend-item-logo" style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/9.png'); background-size:cover;
-                        background-repeat: no-repeat; width:100%; height:100%;">
-                </div>
-            </div>
-            <div class=" recommend-item-content" style="display:flex; flex-direction : column; padding-left :2px;">
-                <div class="recommend-item-content-tit"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    웹개발자(PHP/JAVA/프론트) 경력
-                </div>
-                <div class="recommend-item-content-corp"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/1.png') ; width:15px; height : 15px;
-                            background-size : cover; margin-right : 3px;"></div>
-                    서울전체 외 / 2년.초대졸
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/2.png') ; width:10px; height : 10px;
-                            background-size : cover; margin-left : 3px;"></div>
-                </div>
-            </div>
-            <div class="recommend-item-bookmark" style="margin:10px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                     class="bi bi-bookmark" viewBox="0 0 16 16">
-                    <path
-                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                </svg>
-            </div>
-        </div>
-
-        <div class="recommend-item" style="display:flex; align-items: center; margin-top : 5px;">
-            <div class="recommend-item-logo-wrapper"
-                 style="width:3vw; height:2vh; display:flex; justify-content:center; margin:10px;">
-                <div class="recommend-item-logo" style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/11.png'); background-size:cover;
-                        background-repeat: no-repeat; width:100%; height:100%;">
-                </div>
-            </div>
-            <div class=" recommend-item-content" style="display:flex; flex-direction : column; padding-left :2px;">
-                <div class="recommend-item-content-tit"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    웹개발자(PHP/JAVA/프론트) 경력
-                </div>
-                <div class="recommend-item-content-corp"
-                     style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/1.png') ; width:15px; height : 15px;
-                            background-size : cover; margin-right : 3px;"></div>
-                    서울전체 외 / 2년.초대졸
-                    <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/2.png') ; width:10px; height : 10px;
-                            background-size : cover; margin-left : 3px;"></div>
-                </div>
-            </div>
-            <div class="recommend-item-bookmark" style="margin:10px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                     class="bi bi-bookmark" viewBox="0 0 16 16">
-                    <path
-                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                </svg>
             </div>
         </div>
     </div>
 
-
 </div>
 
+<script>
+    function showModal(imageUrl) {
+        var iframe = $('#imageIframe');
+        // 이미지 로드 완료 시 크기 조절
+        var img = new Image();
+        img.onload = function () {
+            var imgWidth = img.width;
+            var imgHeight = img.height;
+
+            iframe.css({
+                width: imgWidth + 'px',
+                height: imgHeight + 'px'
+            });
+
+            $('#CompanyPortFolioModal .modal-content2').css({
+                width: imgWidth + 'px',
+                height: imgHeight + 'px'
+            });
+
+            $('#CompanyPortFolioModal').modal('show');
+
+            // 이미지가 로드된 후에 iframe의 src 설정
+            iframe.attr('src', imageUrl);
+
+            $('#CompanyPortFolioModal').on('hidden.bs.modal', function () {
+                // 모달이 숨겨질 때 iframe의 src를 초기화
+                $('#imageIframe').attr('src', '');
+            });
+
+        };
+        img.src = imageUrl;
+    }
+</script>
 
 
 <script>
@@ -299,6 +202,51 @@
                 }
                 $("#portfolioContainer").append(htmlStr);
 
+                let htmlStr2 = "";
+                for (let i = 0; i < obj.companyList.length; i++) {
+                    htmlStr2 += `
+                                <div class="recommend-item" style="display:flex; align-items: center; margin-top : 5px;">
+                                    <form id="recruitmentForm">
+                                        <input type="hidden" name="imageUrl" value="\${obj.companyList[i].recruitment_url}">
+                                    </form>
+                                    <div class="recommend-item-logo-wrapper"
+                                         style="width:3vw; height:2vh; display:flex; justify-content:center; margin:10px;">
+                                            <a class="recommend-item-logo" style="background-image : url('\${obj.companyList[i].company_icon_url}'); background-size:cover;
+                                                    background-repeat: no-repeat; width:100%; height:100%;"  href="/userfeeds/user-feeds.do?id=\${obj.companyList[i].user_id}">
+                                            </a>
+                                    </div>
+                                    <div class=" recommend-item-content" style="display:flex; flex-direction : column; padding-left :2px;">
+                                        <div class="recommend-item-content-tit"
+                                             style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
+                                            \${obj.companyList[i].career}
+                                        </div>
+                                        <div class="recommend-item-content-corp"
+                                             style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
+                                            <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/1.png') ; width:15px; height : 15px;
+                                                    background-size : cover; margin-right : 3px;"></div>
+                                            \${obj.companyList[i].location} / \${obj.companyList[i].education} / <span style="color:gray; margin-left : 5px; font-weight : bold;">\${obj.companyList[i].dday} </span>
+                                            <div style="background-image : url('${pageContext.request.contextPath}/static/img/이모티콘/2.png') ; width:10px; height : 10px;
+                                                    background-size : cover; margin-left : 3px;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="recommend-item-bookmark" style="margin:10px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                             class="bi bi-bookmark" viewBox="0 0 16 16">
+                                            <path
+                                                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                `;
+                }
+                $("#recommendContainer").append(htmlStr2);
+
+                document.querySelectorAll('.recommend-item-content').forEach((item) => {
+                    item.addEventListener('click', () => {
+                        const recruitmentForm = item.closest('.recommend-item').querySelector('#recruitmentForm');
+                        showModal(recruitmentForm.querySelector('input').value);
+                    });
+                });
             },
             error: (err) => {
                 console.log(err);
@@ -625,9 +573,19 @@
                     const response = await fetch(obj.portfolio.htmlurl);
                     const html = await response.text();
 
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    doc.querySelectorAll('img').forEach(img => {
+                        img.remove();
+                    });
+
+                    // 필요에 따라 doc을 다시 문자열로 변환
+                    const updatedHtml = new XMLSerializer().serializeToString(doc);
+
                     // iframe의 내부 문서 객체를 초기화하고 HTML 콘텐츠 작성
                     iframeDoc.open();
-                    iframeDoc.write(html);
+                    iframeDoc.write(updatedHtml);
                     iframeDoc.close();
 
                     // CSS 파일 추가
@@ -1104,6 +1062,5 @@
     }
 
 </script>
-
 </body>
 </html>

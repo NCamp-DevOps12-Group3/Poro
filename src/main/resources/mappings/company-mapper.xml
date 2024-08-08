@@ -5,6 +5,7 @@
 <mapper namespace="CompanyDao">
     <select id="getCompanyList" parameterType="map" resultType="company">
         SELECT C.RECRUITMENT_ID
+              , C.USER_ID
               , C.COMPANY_NAME
               , C.COMPANY_ICON_URL
               , C.RECRUITMENT_URL
