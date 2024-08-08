@@ -155,6 +155,14 @@
             font-weight: bold;
         }
 
+        .modal-body{
+            padding: 0 !important;
+        }
+
+        .modal-backdrop{
+            position: static !important;
+        }
+
     </style>
 </head>
 
@@ -163,7 +171,7 @@
 <div class="modal fade" id="CompanyPortFolioModal" tabindex="-1" aria-labelledby="CompanyPortFolioModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content2">
             <div class="modal-body">
                 <iframe id="imageIframe" frameborder="0"></iframe>
             </div>
@@ -228,7 +236,6 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
-
 <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/sidebar.js"></script>
 <script>
@@ -281,7 +288,7 @@
                     height: imgHeight + 'px'
                 });
 
-                $('#CompanyPortFolioModal .modal-content').css({
+                $('#CompanyPortFolioModal .modal-content2').css({
                     width: imgWidth + 'px',
                     height: imgHeight + 'px'
                 });
@@ -347,9 +354,7 @@
 
                             $('.company-wrapper').on('click', '.company', function () {
                                 const recruitmentId = $(this).attr('class').match(/com(\d+)/)[1]; // 클릭한 회사의 ID 추출
-                                console.log(recruitmentId);
                                 const company = obj.companyList.find(c => c.companyDto.recruitment_id == recruitmentId); // 해당 회사 정보 찾기
-                                console.log(company);
                                 // 회사 정보가 존재하는지 확인
                                 if (company && company.companyDto) {
                                     const imageUrl = company.companyDto.recruitment_url; // 이미지 URL 설정
@@ -392,7 +397,7 @@
                     height: imgHeight + 'px'
                 });
 
-                $('#CompanyPortFolioModal .modal-content').css({
+                $('#CompanyPortFolioModal .modal-content2').css({
                     width: imgWidth + 'px',
                     height: imgHeight + 'px'
                 });

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -44,6 +45,7 @@ public class UserFeedsServiceImpl {
             if (!existFiles(portfolioDto.getThumbnail_url())){
                 portfolioDto.setThumbnail_url("/static/img/default.png");
             }
+
             List<String> htmlUrls = portfolioDto.getHtmlurl() != null ? Arrays.stream(portfolioDto.getHtmlurl().split(",")).toList() : Collections.emptyList();
             List<String> cssUrls = portfolioDto.getCssurl() != null ? Arrays.stream(portfolioDto.getCssurl().split(",")).toList() : Collections.emptyList();
             List<String> jsUrls = portfolioDto.getJsurl() != null ? Arrays.stream(portfolioDto.getJsurl().split(",")).toList() : Collections.emptyList();
@@ -108,10 +110,15 @@ public class UserFeedsServiceImpl {
         }
     }
     private boolean existFiles(String filePaths) {
-        String realPath = "C:/devops12/poro" + filePaths;
-        if (Files.exists(Paths.get(realPath))) {
-            return true;
-        } else {
+        try {
+            String realPath = "C:/devops12/poro" + filePaths;
+            if (Files.exists(Paths.get(realPath))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        catch (Exception e) {
             return false;
         }
     }
@@ -141,12 +148,16 @@ public class UserFeedsServiceImpl {
                 portfolioDto.setThumbnail_url("/static/img/default.png");
             }
 
-            portfolioDto.setHtmlCode(readFiles(Arrays.stream(portfolioDto.getHtmlurl().split(",")).toList()));
-            portfolioDto.setCssCode(readFiles(Arrays.stream(portfolioDto.getCssurl().split(",")).toList()));
-            portfolioDto.setJsCode(readFiles(Arrays.stream(portfolioDto.getJsurl().split(",")).toList()));
+            List<String> htmlUrls = portfolioDto.getHtmlurl() != null ? Arrays.stream(portfolioDto.getHtmlurl().split(",")).toList() : Collections.emptyList();
+            List<String> cssUrls = portfolioDto.getCssurl() != null ? Arrays.stream(portfolioDto.getCssurl().split(",")).toList() : Collections.emptyList();
+            List<String> jsUrls = portfolioDto.getJsurl() != null ? Arrays.stream(portfolioDto.getJsurl().split(",")).toList() : Collections.emptyList();
+
+
+            portfolioDto.setHtmlCode(readFiles(htmlUrls));
+            portfolioDto.setCssCode(readFiles(cssUrls));
+            portfolioDto.setJsCode(readFiles(jsUrls));
             portfolioDto.setMergeCode(mergeFile(portfolioDto.getHtmlCode(),portfolioDto.getCssCode(),portfolioDto.getJsCode()));
         });
-
         return portfolioDtos;
     }
 

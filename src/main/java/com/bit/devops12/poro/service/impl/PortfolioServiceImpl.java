@@ -1,5 +1,6 @@
 package com.bit.devops12.poro.service.impl;
 
+import com.bit.devops12.poro.common.DdayCalculator;
 import com.bit.devops12.poro.dao.CssDao;
 import com.bit.devops12.poro.dao.HtmlDao;
 import com.bit.devops12.poro.dao.JavascriptDao;
@@ -51,7 +52,14 @@ public class PortfolioServiceImpl implements PortfolioService {
 
         System.out.println(paramMap);
 
-        return portfolioDao.getPortfolioList(paramMap);
+        List<PortfolioDto> portfolioDtoList = portfolioDao.getPortfolioList(paramMap);
+
+        for(PortfolioDto portfolioDto : portfolioDtoList){
+            DdayCalculator ddayCalculator = new DdayCalculator();
+            String regdateStr = ddayCalculator.getDdayCalculator(portfolioDto.getRegdate());
+            portfolioDto.setRegdateStr(regdateStr);
+        }
+        return portfolioDtoList;
     }
 
     @Override
@@ -179,31 +187,33 @@ public class PortfolioServiceImpl implements PortfolioService {
 //    }
 
     @Override
-    public void saveHtml(int portfolio_id, List<Path> htmlPath) {
-        for(Path path : htmlPath){
+    public void saveHtml(int portfolio_id, List<String> htmlPath) {
+        for(String path : htmlPath){
+
             HtmlDto htmlDto = new HtmlDto();
             htmlDto.setPortfolio_id(portfolio_id);
-            htmlDto.setHtml_url(path.toString());
+            htmlDto.setHtml_url(path);
+
             htmlDao.insertHtml(htmlDto);
         }
     }
 
     @Override
-    public void saveCss(int portfolio_id, List<Path> cssPath) {
-        for(Path path : cssPath){
+    public void saveCss(int portfolio_id, List<String> cssPath) {
+        for(String path : cssPath){
             CssDto cssDto = new CssDto();
             cssDto.setPortfolio_id(portfolio_id);
-            cssDto.setCss_url(path.toString());
+            cssDto.setCss_url(path);
             cssDao.insertCss(cssDto);
         }
     }
 
     @Override
-    public void saveJs(int portfolio_id, List<Path> jsPath) {
-        for(Path path : jsPath){
+    public void saveJs(int portfolio_id, List<String> jsPath) {
+        for(String path : jsPath){
             JavascriptDto jsDto = new JavascriptDto();
             jsDto.setPortfolio_id(portfolio_id);
-            jsDto.setJavascript_url(path.toString());
+            jsDto.setJavascript_url(path);
             javascriptDao.insertJavascript(jsDto);
         }
     }

@@ -16,6 +16,15 @@ public class PortfolioDto {
     private LocalDateTime moddate;
     private String nickname;
     private String profile_image;
+    private String regdateStr;
+
+    public String getRegdateStr() {
+        return regdateStr;
+    }
+
+    public void setRegdateStr(String regdateStr) {
+        this.regdateStr = regdateStr;
+    }
 
     public String getProfile_image() {
         return profile_image;
@@ -37,6 +46,24 @@ public class PortfolioDto {
     private boolean isLiked;
     private boolean bookmarked;
     private String portfolio_url;
+    private String PORTFOLIO_URL;
+    private boolean correct_PORTFOLIO_URL;
+
+    public boolean isCorrect_PORTFOLIO_URL() {
+        return correct_PORTFOLIO_URL;
+    }
+
+    public void setCorrect_PORTFOLIO_URL(boolean correct_PORTFOLIO_URL) {
+        this.correct_PORTFOLIO_URL = correct_PORTFOLIO_URL;
+    }
+
+    public String getPORTFOLIO_URL() {
+        return PORTFOLIO_URL;
+    }
+
+    public void setPORTFOLIO_URL(String PORTFOLIO_URL) {
+        this.PORTFOLIO_URL = PORTFOLIO_URL;
+    }
 
     public LocalDateTime getModdate() {
         return moddate;

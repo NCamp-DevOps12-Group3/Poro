@@ -12,7 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -101,15 +105,20 @@ public class UserFeedsController {
     }
     //처음 유저페이지 돌입할 때 사용, 클릭한 개체의 유저id에 따라 표출되는 내용이 달라짐, 현재는 로그인 유저 정보 표출
     @GetMapping("/user-feeds.do")
-    public String userFeeds(Model model, HttpSession session, @RequestParam(name = "id") int id,
+    public String userFeeds(Model model, HttpSession session, @RequestParam(name = "id",required = false) Integer id,
             @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType, Criteria criteria) {
+
         boolean isOwner=false;
         int userid=-1;
         if (userFeedsService.isLogin(session)){
             UserDto user= (UserDto) session.getAttribute("loginUser");
             userid=user.getUser_id();
+            if (id==null){
+                id=userid;
+            }
             isOwner=userid==id;
         }
+
         model.addAttribute("isOwner",isOwner);
         int total=0;
         ProfileDto profileDto=userFeedsService.getUserInfo(id);
@@ -126,6 +135,13 @@ public class UserFeedsController {
                 if (someList != null && someList.contains(x.getPortfolio_id())) {
                     x.setBookmarked(true);
                 }
+
+//                if (isURLAccessible(x.getPORTFOLIO_URL())){
+//                    x.setCorrect_PORTFOLIO_URL(true);
+//                }
+//                else {
+                    x.setCorrect_PORTFOLIO_URL(false);
+//                }
                 x.setJsCode(List.of());
                 x.setCssCode(List.of());
                 x.setHtmlCode(List.of());
@@ -149,14 +165,42 @@ public class UserFeedsController {
 
         model.addAttribute("profile",profileDto);
         model.addAttribute("page",userFeedsPageDto);
-        model.addAttribute("popularPortfolio",userFeedsService.getUserPopularPortfolio(id));
+        List<PortfolioDto> portfolioList=userFeedsService.getUserPopularPortfolio(id);
+        portfolioList.forEach(x->{
+//            if (isURLAccessible(x.getPORTFOLIO_URL())){
+//                x.setCorrect_PORTFOLIO_URL(false);
+//            }
+//            else {
+                x.setCorrect_PORTFOLIO_URL(true);
+//            }
+        });
+        model.addAttribute("popularPortfolio",portfolioList);
 
 
         model.addAttribute("follow",userFeedsService.getFollowInfo(userid,id));
 
         return "/user/userfeeds";
     }
+    public boolean isURLAccessible(String urlString) {
+        try {
+            // 프로토콜이 누락된 경우 기본 프로토콜 추가
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000); // 연결 타임아웃 설정 (밀리초)
+            connection.setReadTimeout(5000); // 읽기 타임아웃 설정 (밀리초)
+            connection.connect();
 
+            int responseCode = connection.getResponseCode();
+            return responseCode == 200; // HTTP OK 응답 코드 확인
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return false; // 잘못된 URL 형식일 경우 false 반환
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // 예외 발생 시 false 반환
+        }
+    }
 
 
     @PostMapping("/unfollow.do")
