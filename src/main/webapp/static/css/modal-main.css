@@ -205,6 +205,26 @@ p {
     display: none;
 }
 
+.modal-portfolio-iframe::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-portfolio-bond::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-portfolio::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-portfolio-overlay::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-portfolio-overlay-bond::-webkit-scrollbar {
+    display: none;
+}
+
 .modal-comment-main-userid {
     font-size: 14px;
     display: flex;
