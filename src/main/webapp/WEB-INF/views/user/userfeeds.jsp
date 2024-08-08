@@ -584,17 +584,27 @@
                                         </c:otherwise>
                                     </c:choose>
                                     <div>
-                                    <c:choose>
-                                        <c:when test="${portfolio.thumbnail_url != null}">
-                                            <img src="${portfolio.thumbnail_url}" class="card-img-top" alt="." id="${portfolio.portfolio_id}">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="/static/img/default.png" alt="" class="card-img-top" id="${portfolio.portfolio_id}">
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <iframe  class="card-iframe ratio ratio-1x1" style="display:none" id="${portfolio.portfolio_id}iframe"
-                                             srcdoc="${portfolio.mergeCode}">
-                                    </iframe>
+                                        <c:choose>
+                                            <c:when test="${portfolio.thumbnail_url != null}">
+                                                <img src="${portfolio.thumbnail_url}" class="card-img-top" alt="." id="${portfolio.portfolio_id}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="/static/img/default.png" alt="" class="card-img-top" id="${portfolio.portfolio_id}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${portfolio.correct_PORTFOLIO_URL}">
+                                                <iframe  class="card-iframe ratio ratio-1x1" style="display:none" id="${portfolio.portfolio_id}iframe"
+                                                         src="${portfolio.PORTFOLIO_URL}">
+                                                </iframe>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <iframe  class="card-iframe ratio ratio-1x1" style="display:none" id="${portfolio.portfolio_id}iframe"
+                                                         srcdoc="${portfolio.mergeCode}">
+                                                </iframe>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text">
@@ -691,7 +701,18 @@
                             <div class="swiper-wrapper">
                                 <c:forEach items="${popularPortfolio}" var="porfol">
                                     <div class="swiper-slide">
-                                        <iframe srcdoc="${porfol.mergeCode}"></iframe>
+                                        <c:choose>
+                                        <c:when test="${porfol.correct_PORTFOLIO_URL}">
+                                            <iframe
+                                                     src="${porfol.PORTFOLIO_URL}">
+                                            </iframe>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <iframe
+                                                     srcdoc="${porfol.mergeCode}">
+                                            </iframe>
+                                        </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -838,13 +859,13 @@
 
     $(function(){
         // 초기 화면 설정, 자동 배치 위한 설정 부분
-        var isDarkMode = loadDarkModeState();
-        applyDarkMode(isDarkMode);
-        $('#darkModeToggle').on('click', function() {
-            isDarkMode = !$('body').hasClass('dark-mode');
-            applyDarkMode(isDarkMode);
-            saveDarkModeState(isDarkMode);
-        });
+        // var isDarkMode = loadDarkModeState();
+        // applyDarkMode(isDarkMode);
+        // $('#darkModeToggle').on('click', function() {
+        //     isDarkMode = !$('body').hasClass('dark-mode');
+        //     applyDarkMode(isDarkMode);
+        //     saveDarkModeState(isDarkMode);
+        // });
         var msnry;
         var grid = document.querySelector('.grid');
         imagesLoaded(grid, function() {

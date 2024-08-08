@@ -37,6 +37,24 @@ public class PortfolioDto {
     private boolean isLiked;
     private boolean bookmarked;
     private String portfolio_url;
+    private String PORTFOLIO_URL;
+    private boolean correct_PORTFOLIO_URL;
+
+    public boolean isCorrect_PORTFOLIO_URL() {
+        return correct_PORTFOLIO_URL;
+    }
+
+    public void setCorrect_PORTFOLIO_URL(boolean correct_PORTFOLIO_URL) {
+        this.correct_PORTFOLIO_URL = correct_PORTFOLIO_URL;
+    }
+
+    public String getPORTFOLIO_URL() {
+        return PORTFOLIO_URL;
+    }
+
+    public void setPORTFOLIO_URL(String PORTFOLIO_URL) {
+        this.PORTFOLIO_URL = PORTFOLIO_URL;
+    }
 
     public LocalDateTime getModdate() {
         return moddate;
