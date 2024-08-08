@@ -73,25 +73,9 @@ function initializeModal(modalId, closeButtonId, stepsClass, fileInputId, previe
                             if (fileMap['index.html']) {
                                 const iframeDoc = previewIframe.contentDocument || previewIframe.contentWindow.document;
 
-                                // iframeDoc.write('<!DOCTYPE html><html><head><base href="/" /></head><body></body></html>');
-
-
                                 const base = iframeDoc.createElement('base');
                                 base.href = fileMap['index.html'];
                                 iframeDoc.head.appendChild(base);
-
-                                Object.keys(fileMap).forEach((path) => {
-                                    if (path.endsWith('.css')) {
-                                        const link = iframeDoc.createElement('link');
-                                        link.rel = 'stylesheet';
-                                        link.href = fileMap[path];
-                                        iframeDoc.head.appendChild(link);
-                                    } else if (path.endsWith('.js')) {
-                                        const script = iframeDoc.createElement('script');
-                                        script.src = fileMap[path];
-                                        iframeDoc.body.appendChild(script);
-                                    }
-                                });
 
                                 fetch(fileMap['index.html']).then(response => response.text()).then(html => {
                                     const parser = new DOMParser();
@@ -102,31 +86,28 @@ function initializeModal(modalId, closeButtonId, stepsClass, fileInputId, previe
                                             img.setAttribute('src', fileMap[src]);
                                         }
                                     });
-                                    // iframeDoc.body.innerHTML = doc.documentElement.innerHTML;
+
                                     iframeDoc.open();
                                     iframeDoc.write(html);
                                     iframeDoc.close();
 
+                                    Object.keys(fileMap).forEach((path) => {
+                                        if (path.endsWith('.css')) {
+                                            const link = iframeDoc.createElement('link');
+                                            link.rel = 'stylesheet';
+                                            link.href = fileMap[path];
+                                            iframeDoc.head.appendChild(link);
+                                        } else if (path.endsWith('.js')) {
+                                            const script = iframeDoc.createElement('script');
+                                            script.src = fileMap[path];
+                                            iframeDoc.body.appendChild(script);
+                                        }
+                                    });
+
                                     // step3 iframe 업데이트
                                     const iframeDocStep3 = previewStep3Iframe.contentDocument || previewStep3Iframe.contentWindow.document;
 
-                                    // iframeDocStep3.write('<!DOCTYPE html><html><head><base href="/" /></head><body></body></html>');
-
-
                                     iframeDocStep3.head.appendChild(base.cloneNode());
-
-                                    Object.keys(fileMap).forEach((path) => {
-                                        if (path.endsWith('.css')) {
-                                            const link = iframeDocStep3.createElement('link');
-                                            link.rel = 'stylesheet';
-                                            link.href = fileMap[path];
-                                            iframeDocStep3.head.appendChild(link);
-                                        } else if (path.endsWith('.js')) {
-                                            const script = iframeDocStep3.createElement('script');
-                                            script.src = fileMap[path];
-                                            iframeDocStep3.body.appendChild(script);
-                                        }
-                                    });
 
                                     fetch(fileMap['index.html']).then(response => response.text()).then(html => {
                                         const parser = new DOMParser();
@@ -141,6 +122,19 @@ function initializeModal(modalId, closeButtonId, stepsClass, fileInputId, previe
                                         iframeDocStep3.open();
                                         iframeDocStep3.write(html);
                                         iframeDocStep3.close();
+
+                                        Object.keys(fileMap).forEach((path) => {
+                                            if (path.endsWith('.css')) {
+                                                const link = iframeDocStep3.createElement('link');
+                                                link.rel = 'stylesheet';
+                                                link.href = fileMap[path];
+                                                iframeDocStep3.head.appendChild(link);
+                                            } else if (path.endsWith('.js')) {
+                                                const script = iframeDocStep3.createElement('script');
+                                                script.src = fileMap[path];
+                                                iframeDocStep3.body.appendChild(script);
+                                            }
+                                        });
                                     });
                                 });
                             } else {
