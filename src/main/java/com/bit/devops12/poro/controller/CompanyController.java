@@ -2,11 +2,9 @@
 package com.bit.devops12.poro.controller;
 
 import com.bit.devops12.poro.common.DdayCalculator;
-import com.bit.devops12.poro.dto.CompanyDto;
-import com.bit.devops12.poro.dto.CompanyPageDto;
-import com.bit.devops12.poro.dto.Criteria;
-import com.bit.devops12.poro.dto.FileDto;
+import com.bit.devops12.poro.dto.*;
 import com.bit.devops12.poro.service.CompanyService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -32,7 +30,7 @@ public class CompanyController {
     }
 
     @GetMapping("/test.do")
-    public String companyListView(Model model, Criteria cri){
+    public String companyListView(Model model, Criteria cri, HttpSession session){
 
         cri.setAmount(12);
 
@@ -49,7 +47,11 @@ public class CompanyController {
         CompanyPageDto companyPageDto = new CompanyPageDto(cri, total);
 
         model.addAttribute("page", new CompanyPageDto(cri, total));
-
+        UserDto loginUser = null;
+        if(session != null && session.getAttribute("loginUser") != null){
+            loginUser = (UserDto) session.getAttribute("loginUser");
+            model.addAttribute("role", loginUser.getRole());
+        }
 
         return "company/mini_project(company)";
     }

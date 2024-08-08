@@ -196,9 +196,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     openModalButton.addEventListener('click', (event) => {
         event.preventDefault();
-        if (userType === 'common') {
+        if (userType === 'COMMON') {
             document.getElementById('commonModal').style.display = 'block';
-        } else if (userType === 'company') {
+        } else if (userType === 'COMPANY') {
             document.getElementById('companyModal').style.display = 'block';
         }
     });

@@ -1,4 +1,5 @@
 
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
@@ -83,7 +84,7 @@
     </style>
 </head>
 <body>
-    <input type="hidden" id="user-type" value="common">
+    <input type="hidden" id="user-type" value="${role}">
     <div class="sidebar">
         <div class="sidebar-content d-flex flex-column">
             <div class="sidebar-icon">
