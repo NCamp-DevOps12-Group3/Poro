@@ -294,7 +294,7 @@
 <body style="overflow-x: hidden; z-index: 1">
 <div class="row">
 	<div class="col-3">
-		<jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"/>
+		<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar.jsp"/>
 		
 		<!--업로드 모달-->
 		<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true" >
