@@ -197,7 +197,8 @@
                                         <c:choose>
                                             <c:when test="${company.company_icon_url != null}">
                                                 <img src="${company.company_icon_url}"
-                                                     alt="">
+                                                     alt=""
+                                                     style="height:38px;">
                                             </c:when>
                                         </c:choose>
                                     </span>
@@ -324,7 +325,7 @@
                                 let logoHtml = `<span class="logo">`;
 
                                 if (companyIconUrl) {
-                                    logoHtml += `<img src="\${companyIconUrl}" alt="">`;
+                                    logoHtml += `<img src="\${companyIconUrl}" alt="" style="height:38px;">`;
                                 }
                                 logoHtml += `</span>`;
 

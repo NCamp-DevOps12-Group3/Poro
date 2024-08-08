@@ -168,7 +168,7 @@
         select count(*)
         from portfolio
         where portfolio_id in
-        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        <foreach item="item" index="index" collection="portfolioIds" open="(" separator="," close=")">
             #{item}
         </foreach>
         and user_id != #{id}

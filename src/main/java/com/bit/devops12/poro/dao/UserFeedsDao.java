@@ -67,6 +67,7 @@ public class UserFeedsDao {
         Map<String,Object> map = new HashMap<>();
         map.put("id", id);
         map.put("portfolioIds", portfolioIds);
+        System.out.println(portfolioIds);
         if ((Integer) mybatis.selectOne("UserFeedsDao.deleteListIsOwner",map)!=0){
             return false;
         }

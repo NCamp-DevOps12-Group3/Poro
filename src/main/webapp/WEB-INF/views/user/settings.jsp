@@ -17,18 +17,27 @@
 	<title>설정</title>
 	
 	<style>
-        
+        .modal-content{
+	        z-index: 9999;
+        }
+        .modal-backdrop {
+            z-index: 0 !important;
+        }
         a.list-group-item.active {
-            background-color: #ddd;
-            border-top: 2px solid black;
-            border-left: 2px solid black;
-            border-bottom: 2px solid black;
-            border-right: 2px solid black;
-            color: black;
-            font-weight: bolder;
-            text-transform: uppercase;
-            font-size: larger;
-
+            display: flex;
+            flex-direction: column;
+            height: 70px;
+            width: auto;
+            background: #f3f3f3;
+            text-align: center;
+            line-height: 60px;
+            padding: 30px;
+            position: relative;
+            border-color:#dee2e6;
+            margin-left: 5%;
+            margin-right: 5%;
+            color: #606060;
+			
         }
         .accordion-button {
             
@@ -107,8 +116,10 @@
             margin-left: 5%;
             margin-right: 5%;
             color: #606060;
+	        
+	        
         }
-
+        
         /* 수정 */
         .boardt {
             margin-left: 10%;
@@ -391,7 +402,8 @@
 		<div class="pobox">
 			
 			<div id="#setting-list" class=" list-group">
-				<a class="p-1 rounded list-group-item list-group-item-action mt-4 "  href="#list-profile">프로필</a><br>
+				<a id="list-profileh" class="p-1 rounded list-group-item list-group-item-action mt-4 "
+				   href="#list-profile">프로필</a><br>
 				<a class="p-1 rounded list-group-item list-group-item-action "  href="#list-history">내 활동</a>                       <br>
 				<a class="p-1 rounded list-group-item list-group-item-action "  href="#list-locksandsecurity">잠금과 보안</a>                       <br>
 				<a class="p-1 rounded list-group-item list-group-item-action "  href="#list-account">계정</a><br>
@@ -413,10 +425,10 @@
 				<div class="boardt">
 				
 				<form action="/user/modify.do" method="post" id="modify-form" enctype="multipart/form-data">
-					<div class="container " style="border-radius: 15px; padding-left: 0">
+					<div  id="list-profile" class="container " style="border-radius: 15px; padding-left: 0">
 						
 						
-						<h4 id="list-profile" style="margin-top: 2%;">프로필</h4>
+						<h4 style="margin-top: 2%;">프로필</h4>
 						
 						<header class="w-auto h-auto box d-flex align-items-center justify-content-around"
 						        style="background-color: #ddd; padding-bottom: 20px; margin: 0; border-top-left-radius:
@@ -1313,6 +1325,77 @@
         $('#uploadWindowBtn').on('click', function () {
             $('#uploadModal').modal('show');
         });
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 요소가 화면에 보이는지 확인하는 함수
+            function checkVisible(element, check = 'visible') {
+                // 요소의 위치 및 크기를 가져옴
+                const rect = element.getBoundingClientRect();
+                // 뷰포트 높이를 가져옴
+                const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+                // 요소가 화면에 보이는지 확인
+                if (check === 'visible') {
+                    return (
+                        rect.top >= 0 &&               // 요소의 상단이 뷰포트 상단 이상인지
+                        rect.bottom <= viewportHeight  // 요소의 하단이 뷰포트 하단 이하인지
+                    );
+                }
+
+                return false;
+            }
+
+            // 스크롤 시 실행될 함수
+            const onScroll = function() {
+                // id="list-profile" 요소를 가져옴
+                const profileElement = document.getElementById('list-profile');
+                // 해당 요소로 이동하는 a 요소를 가져옴
+                const linkElement = document.querySelector('a[href="#list-profile"]');
+
+                // 요소와 링크가 존재하는지 확인
+                if (profileElement && linkElement) {
+                    // 요소가 화면에 보이는지 확인
+                    const isVisible = checkVisible(profileElement, 'visible');
+
+                    // 요소가 보이면 a 요소에 스타일을 추가
+                    if (isVisible) {
+                        linkElement.style.backgroundColor = '#ddd';
+                        linkElement.style.borderTop = '2px solid black';
+                        linkElement.style.borderLeft = '2px solid black';
+                        linkElement.style.borderBottom = '2px solid black';
+                        linkElement.style.borderRight = '2px solid black';
+                        linkElement.style.color = 'black';
+                        linkElement.style.fontWeight = 'bolder';
+                        linkElement.style.textTransform = 'uppercase';
+                        linkElement.style.fontSize = 'larger';
+                    }
+                    // 요소가 보이지 않으면 a 요소의 스타일을 제거
+                    else {
+                        linkElement.style.backgroundColor = '';
+                        linkElement.style.borderTop = '';
+                        linkElement.style.borderLeft = '';
+                        linkElement.style.borderBottom = '';
+                        linkElement.style.borderRight = '';
+                        linkElement.style.color = '';
+                        linkElement.style.fontWeight = '';
+                        linkElement.style.textTransform = '';
+                        linkElement.style.fontSize = '';
+                    }
+                }
+            };
+
+            // 스크롤 이벤트가 발생할 때 onScroll 함수 실행
+            window.addEventListener('scroll', onScroll);
+
+            // 페이지 로드 시 초기 상태 체크
+            onScroll();
+        });
+
+
     });
 </script>
 </body>

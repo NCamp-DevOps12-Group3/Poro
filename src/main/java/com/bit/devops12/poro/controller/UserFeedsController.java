@@ -40,9 +40,9 @@ public class UserFeedsController {
         UserDto user= (UserDto) session.getAttribute("loginUser");
         boolean isOwner=user.getUser_id()==id;
 
-        boolean deleteListIsOwner=userFeedsService.deleteListIsOwner(user.getUser_id(),deleteList);
+//        boolean deleteListIsOwner=userFeedsService.deleteListIsOwner(user.getUser_id(),deleteList);
 
-        if (isOwner && deleteListIsOwner){
+        if (isOwner){
             if (pageType.equals("home")) {
                 userFeedsService.deletePortfolio(deleteList);
             }
@@ -50,6 +50,7 @@ public class UserFeedsController {
                 userFeedsService.deleteCoperationBookmark(deleteList);
             }
             else if (pageType.equals("otherportfolio")){
+                System.out.println("otherportfolio");
                 userFeedsService.deleteOtherPortfolioBookmark(deleteList);
             }
         }
