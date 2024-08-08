@@ -40,20 +40,33 @@ public class PortfolioController {
                                   @RequestParam("description") String description,
                                   @RequestParam("tags") String tags,
                                   HttpSession session) throws IOException {
-        int userId = ((UserDto) session.getAttribute("loginUser")).getUser_id();
+        UserDto user = (UserDto) session.getAttribute("loginUser");
+        int userId = user.getUser_id();
+
+        String defaultPath = "C:/devops12/poro";
 
         // 파일 저장 경로 설정
-        String uploadDir = "C:/devops12/poro/upload/";
+        String uploadDir = defaultPath + "/upload/"+user.getEmail() + "/portfolio/";
 
         File directory = new File(uploadDir);
 
-        // 업로드 폴더가 존재하지 않으면 폴더 생성
+//        // 업로드 폴더가 존재하지 않으면 폴더 생성
+        if(!directory.exists()) {
+            // 하위폴더도 생성하려면 mkdirs 메소드를 호출한다.
+            directory.mkdirs();
+        }
+        int pos = Objects.requireNonNull(directory.listFiles()).length;
+        System.out.println(pos);
+
+        uploadDir += (pos + 1) + "/";
+        directory = new File(uploadDir);
         if(!directory.exists()) {
             // 하위폴더도 생성하려면 mkdirs 메소드를 호출한다.
             directory.mkdirs();
         }
 
         // zip 파일 저장
+        System.out.println("before save uploadDir : " + uploadDir);
         File zipDest = new File(uploadDir + zipFile.getOriginalFilename());
         zipFile.transferTo(zipDest);
 
@@ -65,32 +78,37 @@ public class PortfolioController {
         String thumbnailPath = thumbnailDest.getPath();
         System.out.println("thumbnail Path : " + thumbnailPath);
         System.out.println("upload Path : " + uploadDir);
-        if(!thumbnailPath.equals("C:\\tmp\\upload")){
+        if(!thumbnailFile.isEmpty()){
             thumbnailFile.transferTo(thumbnailDest);
+            thumbnailPath = (uploadDir+thumbnailFile.getOriginalFilename()).replace(defaultPath, "");
         }else{
-            thumbnailPath = "/static/img/1.jpg";
+            thumbnailPath = "/static/img/default-portfolio.png";
         }
 
         // 압축푼 파일 경로
-        Map<String, List<Path>> unzipFilesMap = new HashMap<>();
-        List<Path> htmlFileList = new ArrayList<>();
-        List<Path> cssFileList = new ArrayList<>();
-        List<Path> jsFileList = new ArrayList<>();
+        Map<String, List<String>> unzipFilesMap = new HashMap<>();
+        List<String> htmlPathList = new ArrayList<>();
+        List<String> cssPathList = new ArrayList<>();
+        List<String> jsPathList = new ArrayList<>();
 
         for(Path path : unzipFilesPath) {
-            if(path.toString().endsWith("html")) htmlFileList.add(path);
-            else if(path.toString().endsWith("css")) cssFileList.add(path);
-            else if(path.toString().endsWith("js")) jsFileList.add(path);
+            System.out.println("path : " + path.getFileName());
+            if(path.toString().endsWith("html"))
+                htmlPathList.add((uploadDir+path.getFileName()).replace(defaultPath, ""));
+            else if(path.toString().endsWith("css"))
+                cssPathList.add((uploadDir+path.getFileName()).replace(defaultPath, ""));
+            else if(path.toString().endsWith("js"))
+                jsPathList.add((uploadDir+path.getFileName()).replace(defaultPath, ""));
         }
 
-        unzipFilesMap.put("html", htmlFileList);
-        unzipFilesMap.put("css", cssFileList);
-        unzipFilesMap.put("js", jsFileList);
+        unzipFilesMap.put("html", htmlPathList);
+        unzipFilesMap.put("css", cssPathList);
+        unzipFilesMap.put("js", jsPathList);
 
         // DB에 저장
         Portfolio portfolio = new Portfolio();
         portfolio.setUserId(userId);
-        portfolio.setPortfolioUrl(zipDest.getAbsolutePath());
+        portfolio.setPortfolioUrl((uploadDir + zipFile.getOriginalFilename()).replace(defaultPath, ""));
         portfolio.setThumbnailUrl(thumbnailPath);
         portfolio.setDescription(description);
         portfolio.setRegdate(LocalDateTime.now());
@@ -99,9 +117,9 @@ public class PortfolioController {
 
         PortfolioDto currPortfolio = portfolioService.getCurrentPortfolioByUserId(userId);
 
-        portfolioService.saveHtml(currPortfolio.getPortfolio_id(), htmlFileList);
-        portfolioService.saveCss(currPortfolio.getPortfolio_id(), cssFileList);
-        portfolioService.saveJs(currPortfolio.getPortfolio_id(), jsFileList);
+        portfolioService.saveHtml(currPortfolio.getPortfolio_id(), htmlPathList);
+        portfolioService.saveCss(currPortfolio.getPortfolio_id(), cssPathList);
+        portfolioService.saveJs(currPortfolio.getPortfolio_id(), jsPathList);
 
 
         // 태그 저장
@@ -112,7 +130,7 @@ public class PortfolioController {
             portfolioService.saveSkillTag(skillTag);
         }
 
-        return "/";
+        return "redirect:/main/main.do";
     }
 
 
