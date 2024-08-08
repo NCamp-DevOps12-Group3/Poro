@@ -2,6 +2,7 @@ package com.bit.devops12.poro.service.impl;
 
 import com.bit.devops12.poro.common.FileUtils;
 import com.bit.devops12.poro.dao.UserDao;
+import com.bit.devops12.poro.dto.ProfileDto;
 import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -124,7 +125,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void modify(UserDto userDto, MultipartFile uploadFiles) {
 		if (uploadFiles != null && !uploadFiles.isEmpty()) {
-			String attachPath = "C:/devops12/poro/upload/" + userDto.getEmail() + "/";
+			String attachPath = "C:/devops12/poro/upload/" + userDto.getEmail() + "/" + "Profile"+"/";
 			System.out.println(attachPath);
 			File directory = new File(attachPath);
 			

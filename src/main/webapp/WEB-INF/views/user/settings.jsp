@@ -498,7 +498,7 @@
 							<c:forEach items="${historylog}" var="historylog">
 								<tr class="board-tr" onclick="">
 									<c:choose>
-										<c:when test="${historylog.portfolio_id ==0 && historylog.comment_id==0}">
+										<c:when test="${historylog.portfolio_id ==0 && historylog.comment_id== 0}">
 											<td style="width: auto">기록없음</td>
 											<td style="width: auto">기록없음</td>
 											<td style="width: auto">기록없음</td>
