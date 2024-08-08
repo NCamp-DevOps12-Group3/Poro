@@ -52,6 +52,14 @@
         .recommend-item-content{
             cursor: pointer;
         }
+
+        .mainPortfolio-like-logo{
+            cursor: pointer;
+        }
+
+        .bi-chat{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -144,13 +152,15 @@
             type: 'post',
             data: $("#page-form").serialize(),
             success: (obj) => {
+
                 let htmlStr = "";
                 for (let i = 0; i < obj.portfolioList.length; i++) {
+
+                    const portfolioHeartOutlineClass = obj.portfolioList[i].portfolioDto.liked ? 'hidden' : '';
+                    const portfolioHeartFilledClass = obj.portfolioList[i].portfolioDto.liked ? '' : 'hidden';
+
                     htmlStr += `
                                <div class="content-item-wrapper" style="border-bottom: 1px solid gainsboro;">
-                                   <form id="portfolioForm">
-                                      <input type="hidden" name="portfolio_id" value="\${obj.portfolioList[i].portfolioDto.portfolio_id}">
-                                   </form>
                                    <div class="content-item-header" style="padding: 5px; display: flex; align-items: center; padding-bottom: 10px; margin-top: 5px;">
                                        <div class="content-item-header-user-logo" style="background-image: url('\${obj.portfolioList[i].portfolioDto.profile_image}'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
                                            <div class="content-item-header-main" style="display: flex; flex-direction: column; flex-grow: 1;">
@@ -165,11 +175,19 @@
                                    <div class="content-item" style="background-image: url('\${obj.portfolioList[i].portfolioDto.thumbnail_url}'); background-size: cover; border-radius: 5px;"></div>
                                    <div class="content-item-footer" style="padding-top: 10px; display: flex; flex-direction: column;">
                                        <div class="content-item-footer-logos" style="margin: 1px;">
-                                           <svg xmlns=" http://www.w3.org/2000/svg" width="24" height="24"
-                                           fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"
-                                           style="margin-right : 3px;">
-                                           <path
-                                               d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                            <form id="portfolioForm">
+                                              <input type="hidden" name="portfolio_id" value="\${obj.portfolioList[i].portfolioDto.portfolio_id}"/>
+                                              <input type="hidden" name="isLiked" value="\${obj.portfolioList[i].portfolioDto.liked}"/>
+                                           </form>
+                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                               class="bi bi-suit-heart mainPortfolio-like-logo \${portfolioHeartOutlineClass}" viewBox="0 0 16 16">
+                                               <path
+                                                   d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                           </svg>
+                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                               class="bi bi-suit-heart-fill mainPortfolio-like-logo \${portfolioHeartFilledClass}" viewBox="0 0 16 16">
+                                               <path
+                                                   d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
                                            </svg>
                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                fill="currentColor" class="bi bi-chat" viewBox="0 1 16 16"
@@ -215,7 +233,7 @@
                                                     background-repeat: no-repeat; width:100%; height:100%;"  href="/userfeeds/user-feeds.do?id=\${obj.companyList[i].user_id}">
                                             </a>
                                     </div>
-                                    <div class=" recommend-item-content" style="display:flex; flex-direction : column; padding-left :2px;">
+                                    <div class=" recommend-item-content" style="display:flex; flex-direction : column; padding-left :2px; flex-grow : 1">
                                         <div class="recommend-item-content-tit"
                                              style="font-size:0.8rem; color:gray; display:flex; align-items:center;">
                                             \${obj.companyList[i].career}
@@ -247,6 +265,43 @@
                         showModal(recruitmentForm.querySelector('input').value);
                     });
                 });
+
+                document.querySelector('.content-item-footer-logos').addEventListener('click', (event) => {
+                    const item = event.target.closest('.mainPortfolio-like-logo');
+                    if (item) {
+                        const contentItemWrapper = item.closest('.content-item-footer-logos');
+                        const PortfolioForm = contentItemWrapper.querySelector('#portfolioForm');
+                        const input = PortfolioForm.querySelector('input[name="isLiked"]');
+                        const heartOutline = contentItemWrapper.querySelector('.bi-suit-heart');
+                        const heartFilled = contentItemWrapper.querySelector('.bi-suit-heart-fill');
+                        const likeContent = item.closest('.content-item-footer').querySelector('.content-item-footer-like');
+
+                        console.log(PortfolioForm);
+
+                        $.ajax({
+                            url: '/main/portfolio-like-ajax.do',
+                            type: 'post',
+                            data: $(PortfolioForm).serialize(),
+                            success: (obj) => {
+                                input.value = input.value === 'false' ? 'true' : 'false';
+                                heartOutline.classList.toggle('hidden');
+                                heartFilled.classList.toggle('hidden');
+                                likeContent.innerHTML = `<strong>좋아요 \${obj.portfolio.likeCount}개</strong>`;
+                            },
+                            error: (err) => {
+                                console.log(err);
+                            }
+                        });
+                    }
+                });
+
+                document.querySelectorAll('.bi-chat').forEach((item) => {
+                    item.addEventListener('click', () => {
+                        const writeBtn = item.closest('.content-item-footer').querySelector('.write-comments');
+                        writeBtn.click();
+                    })
+                });
+
             },
             error: (err) => {
                 console.log(err);
@@ -282,6 +337,10 @@
                             console.log("ajax success")
                             let htmlStr = "";
                             for (let i = 0; i < obj.portfolioList.length; i++) {
+
+                                const portfolioHeartOutlineClass = obj.portfolioList[i].portfolioDto.liked ? 'hidden' : '';
+                                const portfolioHeartFilledClass = obj.portfolioList[i].portfolioDto.liked ? '' : 'hidden';
+
                                 htmlStr += `
                                             <div class="content-item-wrapper" style="border-bottom: 1px solid gainsboro;">
                                                 <form id="portfolioForm">
@@ -301,11 +360,19 @@
                                                 <div class="content-item" style="background-image: url('\${obj.portfolioList[i].portfolioDto.thumbnail_url}'); background-size: cover; border-radius: 5px;"></div>
                                                 <div class="content-item-footer" style="padding-top: 10px; display: flex; flex-direction: column;">
                                                     <div class="content-item-footer-logos" style="margin: 1px;">
-                                                         <svg xmlns=" http://www.w3.org/2000/svg" width="24" height="24"
-                                                           fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"
-                                                           style="margin-right : 3px;">
-                                                           <path
-                                                               d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                                          <form id="portfolioForm">
+                                                              <input type="hidden" name="portfolio_id" value="\${obj.portfolioList[i].portfolioDto.portfolio_id}"/>
+                                                              <input type="hidden" name="isLiked" value="\${obj.portfolioList[i].portfolioDto.liked}"/>
+                                                           </form>
+                                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                                               class="bi bi-suit-heart mainPortfolio-like-logo \${portfolioHeartOutlineClass}" viewBox="0 0 16 16">
+                                                               <path
+                                                                   d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                                           </svg>
+                                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                                               class="bi bi-suit-heart-fill mainPortfolio-like-logo \${portfolioHeartFilledClass}" viewBox="0 0 16 16">
+                                                               <path
+                                                                   d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
                                                            </svg>
                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                                fill="currentColor" class="bi bi-chat" viewBox="0 1 16 16"
@@ -337,6 +404,44 @@
                                             `;
                             }
                             $("#portfolioContainer").append(htmlStr);
+
+                            document.querySelectorAll('.mainPortfolio-like-logo').forEach((item) => {
+                                item.addEventListener('click', () => {
+                                    const PortfolioForm = item.closest('.content-item-footer-logos').querySelector('#portfolioForm');
+                                    const input = PortfolioForm.querySelector('input[name="isLiked"]');
+
+                                    const heartOutline = item.closest('.content-item-footer-logos').querySelector('.bi-suit-heart');
+                                    const heartFilled = item.closest('.content-item-footer-logos').querySelector('.bi-suit-heart-fill');
+
+                                    const likeContent = item.closest('.content-item-footer').querySelector('.content-item-footer-like');
+
+                                    console.log(PortfolioForm);
+
+                                    $.ajax({
+                                        url: '/main/portfolio-like-ajax.do',
+                                        type: 'post',
+                                        data: $(PortfolioForm).serialize(),
+                                        success: (obj) => {
+                                            input.value = input.value === 'false' ? 'true' : 'false';
+                                            heartOutline.classList.toggle('hidden');
+                                            heartFilled.classList.toggle('hidden');
+                                            likeContent.innerHTML = `<strong>좋아요 \${obj.portfolio.likeCount}개</strong>`
+                                        },
+                                        error: (err) => {
+                                            console.log(err);
+                                        }
+                                    });
+                                })
+                            });
+
+                            document.querySelectorAll('.bi-chat').forEach((item) => {
+                                item.addEventListener('click', () => {
+                                    const writeBtn = item.closest('.content-item-footer').querySelector('.write-comments');
+                                    writeBtn.click();
+                                })
+                            });
+
+
                         },
                         error: (err) => {
                             console.log(err);
@@ -372,6 +477,7 @@
             const mainCommentInput = mainLeaveComment.querySelector('input');
             mainCommentInput.focus();
             const portfolioForm = event.target.closest('.content-item-wrapper').querySelector('#portfolioForm');
+            const viewAllComments = event.target.closest('.content-item-footer').querySelector('.view-all-comments');
 
             mainCommentInput.addEventListener("keydown", function(e){
                 if (e.key.toLowerCase() === "enter") {
@@ -390,6 +496,7 @@
                             contentType: 'application/json',
                             success: (obj) => {
                                 mainCommentInput.value='';
+                                viewAllComments.innerHTML = `댓글 \${obj.portfolio.commentCount}개 모두 보기`
                             },
                             error: (err) => {
                                 console.log(err);
@@ -667,7 +774,7 @@
                                                 <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
                                                     <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
                                                 </a>
-                                                <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
+                                                <div class="modal-comment-main-content" style="margin-left:15px">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>
                                         `;
@@ -702,7 +809,7 @@
                                     <div class="modal-comment-user-logo"
                                         style="background-image: url('\${comment.profile_image}');"></div>
                                 </a>
-                                <div class="modal-comment-wrapper" style="display : flex; width: 75%;">
+                                <div class="modal-comment-wrapper" style="display : flex; width: 75%; flex-grow: 1;">
                                     <div class="modal-comment-main">
                                         <div class="modal-comment-main-userid">
                                             <a href="/userfeeds/user-feeds.do?id=\${comment.user_id}" style="text-decoration: none; color:black">
@@ -714,15 +821,15 @@
                                         <div class="modal-comment-main-content">
                                         <div class="modal-comment-main-content">
                                             <div style="color: gray;"> \${comment.regdateStr}</div>
-                                            <div style="color: gray; margin-left : 10px" id="commentLike">좋아요 \${comment.likeCount}개</div>
-                                            <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
+                                            <div style="color: gray; margin-left : 5px" id="commentLike">좋아요 \${comment.likeCount}개</div>
+                                            <div class="reply-btn" style="color: gray; margin-left : 5px">답글 달기</div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" style="margin-left : 10px;"  viewBox="0 -2 16 16">
                                               <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-comment-like-logo" style="display : flex; align-items : center">
+                                <div class="modal-comment-like-logo" style="display : flex; align-items : center; justify-content : center; min-width: 2vw;">
                                     <div class="modal-comment-like-logo-wrapper">
                                         <form style="margin-bottom : 0; display : flex; align-items : center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
@@ -872,7 +979,7 @@
                                                 <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
                                                     <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
                                                 </a>
-                                                <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
+                                                <div class="modal-comment-main-content" style="margin-left:15px">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>
                                         `;
@@ -954,7 +1061,7 @@
                                                 <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
                                                     <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
                                                 </a>
-                                                <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
+                                                <div class="modal-comment-main-content" style="margin-left:15px">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>
                                         `;

@@ -129,9 +129,9 @@ public class MainController {
 
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
-        PortfolioDto portfolioDto = portfolioService.getPortfolioById(commentDto.getPortfolio_id(), loginUser);
-
         commentService.postComment(commentDto);
+
+        PortfolioDto portfolioDto = portfolioService.getPortfolioById(commentDto.getPortfolio_id(), loginUser);
 
         List<CommentDto> commentDtoList = commentService.getCommentList(portfolioDto, loginUser);
 
