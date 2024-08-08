@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -109,10 +110,15 @@ public class UserFeedsServiceImpl {
         }
     }
     private boolean existFiles(String filePaths) {
-        String realPath = "C:/devops12/poro" + filePaths;
-        if (Files.exists(Paths.get(realPath))) {
-            return true;
-        } else {
+        try {
+            String realPath = "C:/devops12/poro" + filePaths;
+            if (Files.exists(Paths.get(realPath))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        catch (Exception e) {
             return false;
         }
     }
