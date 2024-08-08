@@ -23,6 +23,7 @@ public class UserDto  {
 	private int portfolio_id;
 	private int comment_id;
 	private String commentContent;
+	private String portfolioContent;
 	private LocalDateTime commentModDate;
 	private LocalDateTime portfolioModDate;
 	
@@ -162,6 +163,14 @@ public class UserDto  {
 		this.commentContent = commentContent;
 	}
 	
+	public String getPortfolioContent() {
+		return portfolioContent;
+	}
+	
+	public void setPortfolioContent(String portfolioContent) {
+		this.portfolioContent = portfolioContent;
+	}
+	
 	public LocalDateTime getCommentModDate() {
 		return commentModDate;
 	}
@@ -177,7 +186,6 @@ public class UserDto  {
 	public void setPortfolioModDate(LocalDateTime portfolioModDate) {
 		this.portfolioModDate = portfolioModDate;
 	}
-	
 	
 	@Override
 	public String toString() {
@@ -199,6 +207,7 @@ public class UserDto  {
 				       ", portfolio_id=" + portfolio_id +
 				       ", comment_id=" + comment_id +
 				       ", commentContent='" + commentContent + '\'' +
+				       ", portfolioContent='" + portfolioContent + '\'' +
 				       ", commentModDate=" + commentModDate +
 				       ", portfolioModDate=" + portfolioModDate +
 				       '}';
