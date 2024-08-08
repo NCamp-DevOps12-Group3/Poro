@@ -595,12 +595,14 @@
                                         <c:choose>
                                             <c:when test="${portfolio.correct_PORTFOLIO_URL}">
                                                 <iframe  class="card-iframe ratio ratio-1x1" style="display:none" id="${portfolio.portfolio_id}iframe"
-                                                         src="${portfolio.PORTFOLIO_URL}">
+                                                         src="${portfolio.PORTFOLIO_URL}"
+                                                         data-code-type="URL">
                                                 </iframe>
                                             </c:when>
                                             <c:otherwise>
                                                 <iframe  class="card-iframe ratio ratio-1x1" style="display:none" id="${portfolio.portfolio_id}iframe"
-                                                         srcdoc="${portfolio.mergeCode}">
+                                                         srcdoc="${portfolio.mergeCode}"
+                                                         data-code-type="CODE">
                                                 </iframe>
                                             </c:otherwise>
                                         </c:choose>

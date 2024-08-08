@@ -136,12 +136,12 @@ public class UserFeedsController {
                     x.setBookmarked(true);
                 }
 
-                if (isURLAccessible(x.getPORTFOLIO_URL())){
-                    x.setCorrect_PORTFOLIO_URL(true);
-                }
-                else {
+//                if (isURLAccessible(x.getPORTFOLIO_URL())){
+//                    x.setCorrect_PORTFOLIO_URL(true);
+//                }
+//                else {
                     x.setCorrect_PORTFOLIO_URL(false);
-                }
+//                }
                 x.setJsCode(List.of());
                 x.setCssCode(List.of());
                 x.setHtmlCode(List.of());
@@ -165,14 +165,14 @@ public class UserFeedsController {
 
         model.addAttribute("profile",profileDto);
         model.addAttribute("page",userFeedsPageDto);
-        List<PortfolioDto> portfolioList=userFeedsService.getUserPortfolio(id,criteria);
+        List<PortfolioDto> portfolioList=userFeedsService.getUserPopularPortfolio(id);
         portfolioList.forEach(x->{
-            if (isURLAccessible(x.getPORTFOLIO_URL())){
-                x.setCorrect_PORTFOLIO_URL(false);
-            }
-            else {
+//            if (isURLAccessible(x.getPORTFOLIO_URL())){
+//                x.setCorrect_PORTFOLIO_URL(false);
+//            }
+//            else {
                 x.setCorrect_PORTFOLIO_URL(true);
-            }
+//            }
         });
         model.addAttribute("popularPortfolio",portfolioList);
 
