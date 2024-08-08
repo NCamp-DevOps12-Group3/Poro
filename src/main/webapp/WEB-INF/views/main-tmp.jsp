@@ -542,9 +542,29 @@
 
             const iframe = document.getElementById('modalPortfolioIframe');
 
-            if (iframe) {
-                iframe.srcdoc = `\${obj.portfolio.mergeCode}`;
+            if(iframe) {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                fetch(obj.portfolio.htmlurl)
+                    .then(response => response.text()) // 응답을 텍스트로 변환
+                    .then(html => {
+                        // iframe의 내부 문서 객체를 업데이트
+                        iframeDoc.open();
+                        iframeDoc.write(html);
+                        iframeDoc.close();
+
+                        const link = iframeDoc.createElement('link');
+                        link.rel = 'stylesheet';
+                        link.href = obj.portfolio.cssurl;
+                        iframeDoc.head.appendChild(link);
+
+                        const script = iframeDoc.createElement('script');
+                        script.src = obj.portfolio.jsurl;
+                        iframeDoc.body.appendChild(script);
+
+                    });
             }
+
 
             const modalCommentMain = document.getElementById('modalCommentMain');
             const modalCommentInput = document.getElementById('modalCommentInput');
@@ -902,6 +922,9 @@
             window.addEventListener('wheel', function(event) {
                 const iframe = document.getElementById('modalPortfolioIframe');
                 if (iframe) {
+                    if(event.target.closest('.modal-comment-main-box')){
+                        return;
+                    }
                     const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                     if (iframeDoc) {
                         iframeDoc.documentElement.scrollTop += event.deltaY;
