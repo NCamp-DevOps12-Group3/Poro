@@ -1,5 +1,8 @@
 package com.bit.devops12.poro.common;
 
+import net.sf.cglib.core.Local;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -53,22 +56,30 @@ public class DdayCalculator {
      // 사람인용 dday 계산기
     public String getDdayRed(LocalDateTime regdate){
 
-        LocalDateTime presentTime = LocalDateTime.now();
+        String[] dDayVals = regdate.toLocalDate().toString().split("-");
 
-        long totalDays = ChronoUnit.DAYS.between(regdate.toLocalDate(), presentTime.toLocalDate());
-        long days = totalDays % 7;
-
-        if (days < 0) {
-            return null;
-        } else if (days == 0){
+        String[] currTimeVals = LocalDateTime.now().toLocalDate().toString().split("-");
+        long totalDays = ChronoUnit.DAYS.between(
+                LocalDateTime.of(Integer.parseInt(currTimeVals[0]), Integer.parseInt(currTimeVals[1]), Integer.parseInt(currTimeVals[2]), 0, 0, 0),
+                LocalDateTime.of(Integer.parseInt(dDayVals[0]), Integer.parseInt(dDayVals[1]), Integer.parseInt(dDayVals[2]), 0, 0, 0));
 
 
-            return "D-Day";
+        if(totalDays < 0) return "D+"+(-1 * totalDays);
+        else if(totalDays == 0) return "D-Day";
+        else return "D-" + totalDays;
+    }
 
-        } else {
-            resultDday = "D-" + days;
-        }
+    public String getDdayRed(String dDay){
+        String[] dDayVals = dDay.split("-");
 
-        return resultDday;
+        String[] currTimeVals = LocalDateTime.now().toLocalDate().toString().split("-");
+        long totalDays = ChronoUnit.DAYS.between(
+                LocalDateTime.of(Integer.parseInt(currTimeVals[0]), Integer.parseInt(currTimeVals[1]), Integer.parseInt(currTimeVals[2]), 0, 0, 0),
+                LocalDateTime.of(Integer.parseInt(dDayVals[0]), Integer.parseInt(dDayVals[1]), Integer.parseInt(dDayVals[2]), 0, 0, 0));
+
+        if(totalDays < 0) return "D+"+(-1 * totalDays);
+        else if(totalDays == 0) return "D-Day";
+        else return "D-" + totalDays;
+
     }
 }
