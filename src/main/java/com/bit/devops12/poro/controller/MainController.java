@@ -3,8 +3,10 @@ package com.bit.devops12.poro.controller;
 import com.bit.devops12.poro.dao.CommentDao;
 import com.bit.devops12.poro.dto.*;
 import com.bit.devops12.poro.service.CommentService;
+import com.bit.devops12.poro.service.CompanyService;
 import com.bit.devops12.poro.service.PortfolioService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.CachedIntrospectionResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,11 +24,13 @@ import java.util.stream.Collectors;
 public class MainController {
     private PortfolioService portfolioService;
     private CommentService commentService;
+    private CompanyService companyService;
 
     @Autowired
-    public MainController(PortfolioService portfolioService, CommentService commentService) {
+    public MainController(PortfolioService portfolioService, CommentService commentService, CompanyService companyService) {
         this.portfolioService = portfolioService;
         this.commentService = commentService;
+        this.companyService = companyService;
     }
 
 
@@ -52,7 +56,7 @@ public class MainController {
 
     @PostMapping("/main-ajax.do")
     @ResponseBody
-    public Map<String, Object> userMainAjax(MainCriteria mainCri, HttpSession session) {
+    public Map<String, Object> userMainAjax(MainCriteria mainCri, HttpSession session, Criteria cri) {
 
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
@@ -66,9 +70,19 @@ public class MainController {
 
         });
 
+
+
         Map<String, Object> returnMap = new HashMap<>();
 
         returnMap.put("portfolioList", portfolioList);
+
+        cri.setAmount(5);
+
+        List<CompanyDto> companyDtoList = companyService.getCompanyList(cri);
+
+        System.out.println(companyDtoList);
+
+        returnMap.put("companyList", companyDtoList);
 
         return returnMap;
     }
