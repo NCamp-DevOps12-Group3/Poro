@@ -7,17 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
-
-
-
-
-
-
-
-
-
-
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 
 
 <html>
@@ -528,7 +518,8 @@
 												</c:when>
 												<c:otherwise>
 													<td style="width: auto">
-														<javatime:format value="${historylog.portfolioModDate}" pattern="yyyy-MM-dd"/>
+														<javatime:format value="${historylog.portfolioModDate}"
+														                 pattern="yyyy-MM-dd"/>
 													</td>
 												</c:otherwise>
 											</c:choose>
