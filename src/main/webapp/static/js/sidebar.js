@@ -51,24 +51,23 @@ $(()=>{
                 console.log(obj);
                 for(let i = 0;  i < obj.members.length; ++i){
                     $('.search-item-profile').append(`<div class="search-item d-flex justify-content-start align-items-center">
-                        <img src="img/home.png" alt="">
+                        <img src="${obj.members[i].profile_image}" alt="">
                         <div class="search-item-info d-flex flex-column justify-content-center">
                             <div><p>${obj.members[i].nickname}<i class="bi bi-check-circle-fill"></i></p></div>
                             <div><p>${obj.members[i].email}</p></div>
                         </div>
                     </div>`);
-                }
 
                 for(let i = 0;  i < obj.portfolio.length; ++i){
                     $('.search-item-profile').append(`<div class="search-item d-flex justify-content-start align-items-center">
-                        <img src="img/home.png" alt="">
+                        <img src="${obj.members[i].thumbnail_url}" alt="">
                         <div class="search-item-info d-flex flex-column justify-content-center">
                             <div><p>${obj.portfolio[i].description}<i class="bi bi-check-circle-fill"></i></p></div>
                             <div><p>${obj.portfolio[i].skillname}</p></div>
                         </div>
                     </div>`);
                 }
-            },
+            }},
             error : function(err){
                 console.log(err);
 
