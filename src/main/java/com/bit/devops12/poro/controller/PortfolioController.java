@@ -84,7 +84,7 @@ public class PortfolioController {
             thumbnailFile.transferTo(thumbnailDest);
             thumbnailPath = (uploadDir+thumbnailFile.getOriginalFilename()).replace(defaultPath, "");
         }else{
-            thumbnailPath = "/static/img/default-portfolio.png";
+            thumbnailPath = "/static/img/default.png";
         }
 
         // 압축푼 파일 경로
