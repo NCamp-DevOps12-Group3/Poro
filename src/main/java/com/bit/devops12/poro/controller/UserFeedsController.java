@@ -105,15 +105,20 @@ public class UserFeedsController {
     }
     //처음 유저페이지 돌입할 때 사용, 클릭한 개체의 유저id에 따라 표출되는 내용이 달라짐, 현재는 로그인 유저 정보 표출
     @GetMapping("/user-feeds.do")
-    public String userFeeds(Model model, HttpSession session, @RequestParam(name = "id") int id,
+    public String userFeeds(Model model, HttpSession session, @RequestParam(name = "id",required = false) Integer id,
             @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType, Criteria criteria) {
+
         boolean isOwner=false;
         int userid=-1;
         if (userFeedsService.isLogin(session)){
             UserDto user= (UserDto) session.getAttribute("loginUser");
             userid=user.getUser_id();
+            if (id==null){
+                id=userid;
+            }
             isOwner=userid==id;
         }
+
         model.addAttribute("isOwner",isOwner);
         int total=0;
         ProfileDto profileDto=userFeedsService.getUserInfo(id);
@@ -131,12 +136,12 @@ public class UserFeedsController {
                     x.setBookmarked(true);
                 }
 
-                if (isURLAccessible(x.getPORTFOLIO_URL())){
-                    x.setCorrect_PORTFOLIO_URL(true);
-                }
-                else {
+//                if (isURLAccessible(x.getPORTFOLIO_URL())){
+//                    x.setCorrect_PORTFOLIO_URL(true);
+//                }
+//                else {
                     x.setCorrect_PORTFOLIO_URL(false);
-                }
+//                }
                 x.setJsCode(List.of());
                 x.setCssCode(List.of());
                 x.setHtmlCode(List.of());
@@ -160,14 +165,14 @@ public class UserFeedsController {
 
         model.addAttribute("profile",profileDto);
         model.addAttribute("page",userFeedsPageDto);
-        List<PortfolioDto> portfolioList=userFeedsService.getUserPortfolio(id,criteria);
+        List<PortfolioDto> portfolioList=userFeedsService.getUserPopularPortfolio(id);
         portfolioList.forEach(x->{
-            if (isURLAccessible(x.getPORTFOLIO_URL())){
-                x.setCorrect_PORTFOLIO_URL(false);
-            }
-            else {
+//            if (isURLAccessible(x.getPORTFOLIO_URL())){
+//                x.setCorrect_PORTFOLIO_URL(false);
+//            }
+//            else {
                 x.setCorrect_PORTFOLIO_URL(true);
-            }
+//            }
         });
         model.addAttribute("popularPortfolio",portfolioList);
 
