@@ -24,15 +24,19 @@
             z-index: 0 !important;
         }
         a.list-group-item.active {
-            background-color: #ddd;
-            border-top: 2px solid black;
-            border-left: 2px solid black;
-            border-bottom: 2px solid black;
-            border-right: 2px solid black;
-            color: black;
-            font-weight: bolder;
-            text-transform: uppercase;
-            font-size: larger;
+            display: flex;
+            flex-direction: column;
+            height: 70px;
+            width: auto;
+            background: #f3f3f3;
+            text-align: center;
+            line-height: 60px;
+            padding: 30px;
+            position: relative;
+            border-color:#dee2e6;
+            margin-left: 5%;
+            margin-right: 5%;
+            color: #606060;
 			
         }
         .accordion-button {
@@ -112,31 +116,10 @@
             margin-left: 5%;
             margin-right: 5%;
             color: #606060;
+	        
+	        
         }
-        .pobox a.active{
-
-            display: flex;
-            flex-direction: column;
-            height: 70px;
-            width: auto;
-            text-align: center;
-            line-height: 60px;
-            padding: 30px;
-            position: relative;
-
-            margin-left: 5%;
-            margin-right: 5%;
-            background-color: #ddd;
-            border-top: 2px solid black;
-            border-left: 2px solid black;
-            border-bottom: 2px solid black;
-            border-right: 2px solid black;
-            color: black;
-            font-weight: bolder;
-            text-transform: uppercase;
-            font-size: larger;
-
-        }
+        
         /* 수정 */
         .boardt {
             margin-left: 10%;
@@ -1370,20 +1353,37 @@
             const onScroll = function() {
                 // id="list-profile" 요소를 가져옴
                 const profileElement = document.getElementById('list-profile');
-                // 해당 요소로 이동하는 링크를 가져옴
-                const linkElement = document.getElementById('list-profileh');
+                // 해당 요소로 이동하는 a 요소를 가져옴
+                const linkElement = document.querySelector('a[href="#list-profile"]');
 
                 // 요소와 링크가 존재하는지 확인
                 if (profileElement && linkElement) {
                     // 요소가 화면에 보이는지 확인
                     const isVisible = checkVisible(profileElement, 'visible');
-                    // 요소가 보이면 a 요소 자체에 'active' 클래스를 추가
+
+                    // 요소가 보이면 a 요소에 스타일을 추가
                     if (isVisible) {
-                        linkElement.classList.add('active');
+                        linkElement.style.backgroundColor = '#ddd';
+                        linkElement.style.borderTop = '2px solid black';
+                        linkElement.style.borderLeft = '2px solid black';
+                        linkElement.style.borderBottom = '2px solid black';
+                        linkElement.style.borderRight = '2px solid black';
+                        linkElement.style.color = 'black';
+                        linkElement.style.fontWeight = 'bolder';
+                        linkElement.style.textTransform = 'uppercase';
+                        linkElement.style.fontSize = 'larger';
                     }
-                    // 요소가 보이지 않으면 'active' 클래스를 제거
+                    // 요소가 보이지 않으면 a 요소의 스타일을 제거
                     else {
-                        linkElement.classList.remove('active');
+                        linkElement.style.backgroundColor = '';
+                        linkElement.style.borderTop = '';
+                        linkElement.style.borderLeft = '';
+                        linkElement.style.borderBottom = '';
+                        linkElement.style.borderRight = '';
+                        linkElement.style.color = '';
+                        linkElement.style.fontWeight = '';
+                        linkElement.style.textTransform = '';
+                        linkElement.style.fontSize = '';
                     }
                 }
             };
@@ -1394,6 +1394,7 @@
             // 페이지 로드 시 초기 상태 체크
             onScroll();
         });
+
 
     });
 </script>
