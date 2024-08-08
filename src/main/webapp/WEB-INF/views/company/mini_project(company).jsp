@@ -155,6 +155,14 @@
             font-weight: bold;
         }
 
+        .modal-body{
+            padding: 0 !important;
+        }
+
+        .modal-backdrop{
+            position: static !important;
+        }
+
     </style>
 </head>
 
@@ -163,7 +171,7 @@
 <div class="modal fade" id="CompanyPortFolioModal" tabindex="-1" aria-labelledby="CompanyPortFolioModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content2">
             <div class="modal-body">
                 <iframe id="imageIframe" frameborder="0"></iframe>
             </div>
@@ -280,7 +288,7 @@
                     height: imgHeight + 'px'
                 });
 
-                $('#CompanyPortFolioModal .modal-content').css({
+                $('#CompanyPortFolioModal .modal-content2').css({
                     width: imgWidth + 'px',
                     height: imgHeight + 'px'
                 });
@@ -389,7 +397,7 @@
                     height: imgHeight + 'px'
                 });
 
-                $('#CompanyPortFolioModal .modal-content').css({
+                $('#CompanyPortFolioModal .modal-content2').css({
                     width: imgWidth + 'px',
                     height: imgHeight + 'px'
                 });
