@@ -32,6 +32,7 @@
         p.thumbnail_url,
         p.description,
         p.regdate,
+        p.PORTFOLIO_URL,
         GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
         GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
         GROUP_CONCAT(DISTINCT c.css_url) AS cssurl,
@@ -80,7 +81,8 @@
             sub.skillname,
             sub.htmlurl,
             sub.cssurl,
-            sub.jsurl
+            sub.jsurl,
+            sub.PORTFOLIO_URL
         FROM
             (SELECT
                  p.portfolio_id,
@@ -88,6 +90,7 @@
                  p.thumbnail_url,
                  p.description,
                  p.regdate,
+                 p.PORTFOLIO_URL,
                  GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
                  GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
                  GROUP_CONCAT(DISTINCT c.css_url) AS cssurl,
