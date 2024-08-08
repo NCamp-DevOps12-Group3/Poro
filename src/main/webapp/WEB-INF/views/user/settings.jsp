@@ -17,6 +17,38 @@
 	<title>설정</title>
 	
 	<style>
+        
+        a.list-group-item.active {
+            background-color: #ddd;
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+            border-bottom: 2px solid black;
+            border-right: 2px solid black;
+            color: black;
+            font-weight: bolder;
+            text-transform: uppercase;
+            font-size: larger;
+
+        }
+        .accordion-button {
+            
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            
+            color: white;
+            border: none;
+            
+            transition:none;
+            background-color: #ddd;
+	        padding-bottom: 20px; margin: 0; border-top-left-radius:
+                15px; border-top-right-radius: 15px;
+        }
+
+        .accordion-button:hover {
+            background-color: #2980b9;
+            transform: none;
+        }
         body {
             font-family: Arial, sans-serif;
             position: relative;
@@ -36,7 +68,7 @@
 
         .col-9 {
             padding-right: 10%;
-            padding-right: 0;
+           
         }
 
         .content {
@@ -56,7 +88,7 @@
             margin-left: 15vw;
             border-right: 1px solid #dbdbdb;
             box-shadow: 1px 0 10px 1px #eeeeee;
-            z-index: 999999999999999999999;
+           
 
         }
 
@@ -71,7 +103,7 @@
             line-height: 60px;
             padding: 30px;
             position: relative;
-            /* border: 1px solid black; */
+            
             margin-left: 5%;
             margin-right: 5%;
             color: #606060;
@@ -80,7 +112,7 @@
         /* 수정 */
         .boardt {
             margin-left: 10%;
-            height: auto;
+           
             margin-right: 20%;
 
             padding-bottom: 200px;
@@ -116,18 +148,7 @@
         }
 
 
-        a.list-group-item.active {
-            background-color: #ddd;
-            border-top: 2px solid black;
-            border-left: 2px solid black;
-            border-bottom: 2px solid black;
-            border-right: 2px solid black;
-            color: black;
-            font-weight: bolder;
-            text-transform: uppercase;
-            font-size: larger;
-            z-index: 9999999999999999999999;
-        }
+        
 
         .accordion-button {
             background-color: #ddd;
@@ -198,7 +219,7 @@
                 background: #f8f9fa;
                 width: 190px;
                 display: inline-block;
-                z-index: 1;
+                
                 border-left: none;
             }
 
@@ -306,105 +327,124 @@
 	
 	</style>
 </head>
-<body style="overflow-x: hidden; z-index: 1">
+<body style="overflow-x: hidden; ">
+
+
 <div class="row">
+<%--	<!--업로드 모달-->--%>
+<%--	<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">--%>
+<%--		<div class="modal-dialog">--%>
+<%--			<div class="modal-content"--%>
+<%--			     style="border: 1px solid rgb(201, 201, 201);padding: 0;  border-radius: 15px;">--%>
+<%--				<div class="modal-header" style="  border-radius: 14px;">--%>
+<%--					<h5 class="modal-title" id="uploadModalLabel">포트폴리오 업로드</h5>--%>
+<%--					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--%>
+<%--				</div>--%>
+<%--				<div class="modal-body" style="  border-radius: 14px;">--%>
+<%--					<form id="uploadForm" autocomplete="off">--%>
+<%--						--%>
+<%--						<div class="upload-section">--%>
+<%--							<label for="uploadCodeFiles">HTML, CSS, JS 파일만 업로드 가능합니다.</label>--%>
+<%--							<input type="file" class="form-control" id="uploadCodeFiles" accept=".html,.css,.js"--%>
+<%--							       multiple required>--%>
+<%--						</div>--%>
+<%--						<div class="upload-section">--%>
+<%--							<label for="uploadThumbnailImage">본인만의 썸네일 이미지를 올려주세요.</label>--%>
+<%--							<input type="file" class="form-control" id="uploadThumbnailImage" accept="image/*"--%>
+<%--							       required>--%>
+<%--							<img id="uploadThumbnailPreview" class="thumbnail-preview" src="#"--%>
+<%--							     alt="Thumbnail Preview">--%>
+<%--						</div>--%>
+<%--						<div class="upload-section">--%>
+<%--							<label for="uploadPortfolioDescription">포트폴리오 설명</label>--%>
+<%--							<textarea class="form-control" id="uploadPortfolioDescription" rows="3"--%>
+<%--							          required></textarea>--%>
+<%--						</div>--%>
+<%--						<div class="upload-section">--%>
+<%--							<label for="uploadPortfolioTags">태그</label>--%>
+<%--							<input type="text" class="form-control" id="uploadPortfolioTags"--%>
+<%--							       placeholder="태그를 쉼표로 구분하여 입력하세요" required>--%>
+<%--						</div>--%>
+<%--						<button type="submit" class="btn  btn-block"--%>
+<%--						        style=" color: white; background-color:#0D6EFD; ">업로드--%>
+<%--						</button>--%>
+<%--					</form>--%>
+<%--				</div>--%>
+<%--				<div class="modal-footer">--%>
+<%--				--%>
+<%--				</div>--%>
+<%--			</div>--%>
+<%--		</div>--%>
+<%--	</div>--%>
+	
+	
+	
+	
+	
+	
+	
 	<div class="col-3">
-		<jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"/>
-		
-		<!--업로드 모달-->
-		<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content"
-				     style="border: 1px solid rgb(201, 201, 201);padding: 0;  border-radius: 15px;">
-					<div class="modal-header" style="  border-radius: 14px;">
-						<h5 class="modal-title" id="uploadModalLabel">포트폴리오 업로드</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body" style="  border-radius: 14px;">
-						<form id="uploadForm" autocomplete="off">
-							
-							<div class="upload-section">
-								<label for="uploadCodeFiles">HTML, CSS, JS 파일만 업로드 가능합니다.</label>
-								<input type="file" class="form-control" id="uploadCodeFiles" accept=".html,.css,.js"
-								       multiple required>
-							</div>
-							<div class="upload-section">
-								<label for="uploadThumbnailImage">본인만의 썸네일 이미지를 올려주세요.</label>
-								<input type="file" class="form-control" id="uploadThumbnailImage" accept="image/*"
-								       required>
-								<img id="uploadThumbnailPreview" class="thumbnail-preview" src="#"
-								     alt="Thumbnail Preview">
-							</div>
-							<div class="upload-section">
-								<label for="uploadPortfolioDescription">포트폴리오 설명</label>
-								<textarea class="form-control" id="uploadPortfolioDescription" rows="3"
-								          required></textarea>
-							</div>
-							<div class="upload-section">
-								<label for="uploadPortfolioTags">태그</label>
-								<input type="text" class="form-control" id="uploadPortfolioTags"
-								       placeholder="태그를 쉼표로 구분하여 입력하세요" required>
-							</div>
-							<button type="submit" class="btn  btn-block"
-							        style=" color: white; background-color:#0D6EFD; ">업로드
-							</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar.jsp"/>
 		
 		
-		<div>
+		
+		<div class="pobox">
 			
-			<div id="setting-list"  class="pobox list-group">
-				<a class="p-1 rounded list-group-item  list-group-item-action mt-4 " href="#list-profile">프로필</a><br>
-				<a class="p-1 rounded list-group-item  list-group-item-action " href="#list-history">내 활동</a><br>
-				<a class="p-1 rounded list-group-item  list-group-item-action " href="#list-locksandsecurity">잠금과 보안</a><br>
-				<a class="p-1 rounded list-group-item  list-group-item-action " href="#list-account">계정</a><br>
-				<a class="p-1 rounded list-group-item  list-group-item-action " href="#list-termsofuse">이용약관</a>
+			<div id="#setting-list" class=" list-group">
+				<a class="p-1 rounded list-group-item list-group-item-action mt-4 "  href="#list-profile">프로필</a><br>
+				<a class="p-1 rounded list-group-item list-group-item-action "  href="#list-history">내 활동</a>                       <br>
+				<a class="p-1 rounded list-group-item list-group-item-action "  href="#list-locksandsecurity">잠금과 보안</a>                       <br>
+				<a class="p-1 rounded list-group-item list-group-item-action "  href="#list-account">계정</a><br>
+				<a class="p-1 rounded list-group-item list-group-item-action "  href="#list-termsofuse">이용약관</a>
 			</div>
 		
 		</div>
 	</div>
 	
+
+	
 	
 	<div class="col-9">
-		<div class="boardt">
+		
+		
 			
-			<div data-bs-spy="scroll" data-bs-target="#setting-list" data-bs-offset="0" data-bs-smooth-scroll="true"
-			     class="scrollspy" tabindex="0"><br><br>
-				<h4 id="list-profile" style="margin-top: 2%;">프로필</h4>
-				
+			<div data-bs-spy="scroll" data-bs-target="setting-list" data-bs-offset="0" data-bs-smooth-scroll="true"
+			     class="scrollspy" tabindex="-2"><br><br>
+				<div class="boardt">
 				
 				<form action="/user/modify.do" method="post" id="modify-form" enctype="multipart/form-data">
-					<div class="container position-relative" style="border-radius: 15px; padding-left: 0">
-						<div class="modal fade" id="modalPic">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-head">
-										<h3 class="text-lg-center m-3">사진변경</h3>
-									</div>
-									<div class="modal-body h-75">
-										<div class="mb-3">
-											<label for="uploadFiles" class="form-label">변경할 프로필 사진</label>
-											<input class="form-control" type="file" name="uploadFiles" id="uploadFiles">
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn"
-										        style="color: white; background-color:#0D6EFD;" data-bs-dismiss="modal">
-											닫기
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="container " style="border-radius: 15px; padding-left: 0">
 						
+						
+						<h4 id="list-profile" style="margin-top: 2%;">프로필</h4>
 						
 						<header class="w-auto h-auto box d-flex align-items-center justify-content-around"
 						        style="background-color: #ddd; padding-bottom: 20px; margin: 0; border-top-left-radius:
 	                                 15px; border-top-right-radius: 15px;">
+							
+							<%--	프로필사진모달--%>
+							
+							<div class="modal fade" id="modalPic">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-head">
+											<h3 class="text-lg-center m-3">사진변경</h3>
+										</div>
+										<div class="modal-body h-75">
+											<div class="mb-3">
+												<label for="uploadFiles" class="form-label">변경할 프로필 사진</label>
+												<input class="form-control" type="file" name="uploadFiles" id="uploadFiles">
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn"
+											        style="color: white; background-color:#0D6EFD;" data-bs-dismiss="modal">
+												닫기
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
 							
 							<div class="d-inline-block" style="border-radius: 16px; margin-left:
 	                            10px;background-color: #ddd; ">
@@ -511,7 +551,7 @@
 					</div>
 				</form>
 				
-				<br><br><br><br><br><br><br><br>
+				<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 				
 				<h4 id="list-history" style="margin-top: 0;">내 활동</h4>
 				<div style="border: 1px solid rgb(201, 201, 201);padding: 20px;  border-radius: 7px; ">
@@ -616,10 +656,12 @@
 					</div>
 					<div>
 						
-						<button type="button" class="btn  " style="background-color: #ddd; color: black;"
+						<button type="button" class="btn" style="background-color: #ddd; color: black;"
 						        data-bs-toggle="modal" data-bs-target="#staticpassswordBackdrop">
 							비밀번호 변경
 						</button>
+						<%--		비밀번호변경모달--%>
+						
 						<div class="modal fade" id="staticpassswordBackdrop" data-bs-keyboard="false" tabindex="-1"
 						     aria-labelledby="staticBackdropLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered">
@@ -637,15 +679,12 @@
 										<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
 										        style="background-color:#0D6EFD;">취소
 										</button>
-										<a href="passwordchangesChk.do" style="color: white;">
-											<button type="button"
-											        style="background-color:#DB3545;" class="btn btn-danger"
-											        id="passwordchange">
-												비밀번호 변경
-											
-											</button>
-										</a>
-									
+										
+										<button type="button"
+										        style="background-color:#DB3545;" class="btn btn-danger"
+										        id="passwordchange"><a href="passwordchangesChk.do" style="color: white;"></a>
+											비밀번호 변경
+										</button>
 									</div>
 								</div>
 							</div>
@@ -656,8 +695,8 @@
 				
 				
 				<div><br><br>
-					<h4 style="margin-top: 20px;">계정</h4>
-					<div id="list-account" style="margin: 20px auto;border: 1px solid rgb(201, 201, 201);padding:
+					<h4 id="list-account" style="margin-top: 20px;">계정</h4>
+					<div  style="margin: 20px auto;border: 1px solid rgb(201, 201, 201);padding:
 						20px;  border-radius: 7px;">
 						
 						
@@ -687,6 +726,8 @@
 						        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 							계정 삭제
 						</button>
+						<%--	계정삭제모달--%>
+						
 						<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
 						     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered">
@@ -1175,7 +1216,7 @@
 		</div>
 	</div>
 </div>
-</body>
+
 
 
 
@@ -1274,4 +1315,5 @@
         });
     });
 </script>
+</body>
 </html>

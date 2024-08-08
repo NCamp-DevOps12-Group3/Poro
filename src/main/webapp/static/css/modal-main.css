@@ -305,7 +305,7 @@ p {
     width: 100vw;
     height: 100vh;
     display: none;
-    position: absolute;
+    /*position: absolute;*/
     /* 기본적으로 숨김 */
     z-index: 1100;
     background-color: rgba(0, 0, 0, 0.3);
