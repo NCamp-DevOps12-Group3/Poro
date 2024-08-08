@@ -1158,6 +1158,7 @@
         }
         $(document).on('click', '.card-img-top', function(event) {
             const portfolioId = $(this).attr('id'); // 'this'는 클릭된 요소를 참조합니다.
+            const srcdoc=$(this).siblings().first().attr('srcdoc');
             $.ajax({
                 url: '/main/modal-ajax.do',
                 type: 'post',
@@ -1166,7 +1167,7 @@
                 },
                 success: (obj) => {
                     console.log(obj)
-                    openModal(obj);
+                    openModal(obj,srcdoc);
                 },
                 error: (err) => {
                     console.log(err);
@@ -1377,10 +1378,11 @@
 </script>
 <script>
 
-    function openModal(obj){
-
+    function openModal(obj,srcdoc){
         if(obj){
-
+            let portfolioId = obj.portfolio.portfolio_id;
+            const portfolioHeartOutlineClass = obj.portfolio.liked ? 'hidden' : '';
+            const portfolioHeartFilledClass = obj.portfolio.liked ? '' : 'hidden';
 
             const modalBox = document.createElement('div');
             modalBox.classList.add('modal-portfolio-overlay');
@@ -1388,6 +1390,13 @@
 
             let htmlStr = `
                                <div class="modal-portfolio-overlay-bond" id="modalPortfolioOverlayBond">
+                                    <form id="modalPortfolioForm" action="/main/delete-portfolio.do" method="post" style="margin-bottom : 0; margin-right : 10px; display : flex; align-items : center">
+                                        <input type="hidden" name="user_id" value="\${obj.portfolio.user_id}">
+                                        <input type="hidden" name="portfolio_id" value="\${obj.portfolio.portfolio_id}">
+                                        <input type="hidden" name="isLiked" value = "\${obj.portfolio.liked}"/>
+                                        <input type="hidden" name="portfolio_id" value = "\${obj.portfolio.portfolio_id}"/>
+                                        <button type="submit" id="hiddenSubmitBtn" style="display: none;"></button>
+                                    </form>
                                    <div class="modal-portfolio" id="modalPortfolio">
                                        <div class="modal-portfolio-bond" id="modalPortfolioBond">
 
@@ -1399,10 +1408,16 @@
                                                <div class="modal-comment-section-bond" id="modalCommentSectionBond">
                                                    <div class="modal-comment-content" id="modalCommentContent">
                                                        <div class="modal-comment-header" id="modalCommentHeader">
-                                                           <div class="modal-comment-header-logo" id="modalCommentHeaderLogo"></div>
-                                                           <div class="modal-comment-header-userId"> <strong>cat1</strong>
-                                                           </div>
-                                                           <div class="modal-comment-header-option" id="modalCommentHeaderOption">
+                                                           <div class="modal-comment-header-logo" id="modalCommentHeaderLogo">
+                                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                                    <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}'); margin-left : 10px;"></div>
+                                                                </a>
+                                                            </div>
+                                                           <div class="modal-comment-header-userId">
+                                                                 <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                                    <strong>\${obj.portfolio.nickname}</strong></div>
+                                                                </a>
+                                                            <div class="modal-comment-header-option" id="modalCommentHeaderOption">
                                                                <div class="modal-comment-header-optionBtn" id="modalCommentHeaderOptionBtn">
                                                                    <svg aria-label="옵션 더 보기" class="x1lliihq x1n2onr6 x5n08af"
                                                                         fill="currentColor" height="24" role="img" viewBox="0 0 24 24"
@@ -1413,7 +1428,7 @@
                                                                        <circle cx="18" cy="12" r="1.5"></circle>
                                                                    </svg>
                                                                </div>
-                                                           </div>
+                                                            </div>
                                                        </div>
 
                                                        <div class="modal-comment-main-box" id="modalCommentMain">
@@ -1426,28 +1441,28 @@
 
                                                                <div class="modal-portfolio-like-logo" style="display:flex">
                                                                    <div class="modal-portfolio-like-logo-wrapper" >
-                                                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
-                                                                           class="bi bi-suit-heart portfolio-like-logo" viewBox="0 0 16 16">
-                                                                           <path
-                                                                               d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                                                                       </svg>
-                                                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
-                                                                           class="bi bi-suit-heart-fill portfolio-like-logo hidden" viewBox="0 0 16 16">
-                                                                           <path
-                                                                               d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
-                                                                       </svg>
+                                                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                                                               class="bi bi-suit-heart portfolio-like-logo \${portfolioHeartOutlineClass}" viewBox="0 0 16 16">
+                                                                               <path
+                                                                                   d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                                                           </svg>
+                                                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                                                               class="bi bi-suit-heart-fill portfolio-like-logo \${portfolioHeartFilledClass}" viewBox="0 0 16 16">
+                                                                               <path
+                                                                                   d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                                                           </svg>
                                                                    </div>
                                                                </div>
 
                                                                <div class="modal-likeCnt-text" id="modalLikeCntText">
-                                                                   <!-- js로 현재까지 클릭된 좋아요 수-->
+                                                                   <p style = "margin-bottom: 0px"> 좋아요 \${obj.portfolio.likeCount}개</p>
                                                                </div>
                                                            </div>
 
                                                            <!--댓글 입력창-->
                                                            <div class="modal-leaveComment" id="modalLeaveComment">
                                                                <input type="text" id="modalCommentInput" class="form-control"
-                                                                      autocomplete="off" placeholder="댓글을 입력하세요...">
+                                                                      autocomplete="off" placeholder="댓글을 입력하세요..." value=""/>
                                                            </div>
                                                        </div>
 
@@ -1457,25 +1472,62 @@
                                        </div>
                                    </div>
                                </div>
+
+                                <!-- 옵션 모달 (본인)-->
+                                <div class="modal-options-overlay" id="modalOptionsOverlaySelf" style="display : none;>
+                                    <div class="modal-options-overlay-bond">
+                                        <div class="modal-options">
+                                            <div class="modal-options-item" id="modalOptionsItemModify" data-bs-toggle="modal"
+                                                 data-bs-target="#modifyModal">게시글 수정</div>
+                                            <div class="modal-options-item" id="modalOptionsItemDelete" style="color:red">게시글 삭제</div>
+                                            <div class="modal-options-item close" id="modalOptionsItemCancle">취소</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 옵션 모달 (타인)-->
+                                <div class="modal-options-overlay" id="modalOptionsOverlayOther" style="display : none;>
+                                    <div class="modal-options-overlay-bond">
+                                        <div class="modal-options">
+                                            <div class="modal-options-item" id="modalOptionsItemUser">계정</div>
+                                            <div class="modal-options-item" id="modalOptionsItemReport" style="color:red">신고</div>
+                                            <div class="modal-options-item close" id="modalOptionsItemCancle">취소</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 댓글 옵션 모달 (본인) -->
+                                <div class="modal-comment-options-overlay" id="deleteCommentModal" style="display : none;">
+                                    <div class="modal-comment-options-overlay-bond">
+                                        <div class="modal-comment-options">
+                                            <div class="modal-comment-options-item" id="deleteCommentBtn" style="color: red">삭제</div>
+                                            <div class="modal-comment-options-item close" >취소</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 댓글 옵션 모달 (타인) -->
+                                <div class="modal-comment-options-overlay" id="reportCommentModal" style="display : none;">
+                                    <div class="modal-comment-options-overlay-bond">
+                                        <div class="modal-comment-options">
+                                            <div class="modal-comment-options-item" id="reportCommentBtn" style="color: red">신고</div>
+                                            <div class="modal-comment-options-item close">취소</div>
+                                        </div>
+                                    </div>
+                                </div>
                            `
 
             modalBox.innerHTML = htmlStr;
             document.body.appendChild(modalBox);
 
-            let replymode = false;
-            let comment_id = 0;
+            let comment_id = null;
             let curr_reply_box = null;
             let curr_comment_box = null;
 
             const iframe = document.getElementById('modalPortfolioIframe');
+            iframe.srcdoc = srcdoc;
 
-            const modalLikeCntText = document.getElementById('modalLikeCntText');
-            // 현재의 좋아요 수를 댓글창에 표시
-            modalLikeCntText.innerHTML = `<p> 좋아요 \${obj.portfolio.likeCount}</p>`;
 
-            if (iframe) {
-                iframe.srcdoc = `\${obj.portfolio.mergeCode}`;
-            }
 
             const modalCommentMain = document.getElementById('modalCommentMain');
             const modalCommentInput = document.getElementById('modalCommentInput');
@@ -1492,9 +1544,13 @@
                 // 제일 처음은 소개문
                 const commentElement = `
                                         <div class="modal-comment">
-                                            <div class="modal-comment-user-logo" style="background-image: url('/static/img/cat1.jpg');"></div>
+                                            <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}');"></div>
+                                            </a>
                                             <div class="modal-comment-main">
-                                                <div class="modal-comment-main-userid"><strong>cat1</strong></div>
+                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                    <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
+                                                </a>
                                                 <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>
@@ -1504,43 +1560,65 @@
                 // 댓글 데이터 로드
                 function renderComments(comments, container) {
                     comments.forEach(comment => {
+                        console.log(comment);
+                        const commentHeartOutlineClass = comment.liked ? 'hidden' : '';
+                        const commentHeartFilledClass = comment.liked ? '' : 'hidden';
+
                         const commentBox = document.createElement('div');
                         commentBox.classList.add('comment-box');
                         container.appendChild(commentBox);
+
+                        let feedLink = '';
+                        if (comment.comment_parent_id !== null && comment.comment_parent_id !== 0) {
+                            feedLink = `<a href="/userfeeds/user-feeds.do?id=\${comment.user_id}" style="text-decoration: none; color : black;"><span>@\${comment.parent_nickname}</span></a>`;
+                        }
+
                         const commentElement = `
-                            <form id="commentForm">
-                                            <input type="hidden" name="comment_id" value="\${comment.comment_id}">
                             <div class="modal-comment">
-                                <a href="">
+                                <form id="commentForm">
+                                                <input type="hidden" name="comment_id" value="\${comment.comment_id}"/>
+                                                <input type="hidden" name="nickname" value="\${comment.nickname}"/>
+                                                <input type="hidden" name="user_id" value="\${comment.user_id}"/>
+                                                <input type="hidden" name="likeCount" value="\${comment.likeCount}"/>
+                                                <input type="hidden" name="isLiked" value = "\${comment.liked}"/>
+                                </form>
+                                <a href="/userfeeds/user-feeds.do?id=\${comment.user_id}">
                                     <div class="modal-comment-user-logo"
-                                        style="background-image: url('/static/img/cat1.jpg');"></div>
+                                        style="background-image: url('\${comment.profile_image}');"></div>
                                 </a>
                                 <div class="modal-comment-wrapper" style="display : flex; width: 75%;">
                                     <div class="modal-comment-main">
                                         <div class="modal-comment-main-userid">
-                                            <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>cat\${comment.user_id}</strong>
+                                            <a href="/userfeeds/user-feeds.do?id=\${comment.user_id}" style="text-decoration: none; color:black">
+                                                <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>\${comment.nickname}</strong>
+                                            </a>
                                             </div>
-                                            <div style="margin-left:5px;">\${comment.content}</div>
+                                            <div style="margin-left:5px;"> \${feedLink} \${comment.content}</div>
                                         </div>
                                         <div class="modal-comment-main-content">
                                             <div style="color: gray;">1주</div>
-                                            <div style="color: gray; margin-left : 10px">좋아요 1만개</div>
+                                            <div style="color: gray; margin-left : 10px" id="commentLike">좋아요 \${comment.likeCount}개</div>
                                             <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" style="margin-left : 10px;"  viewBox="0 -2 16 16">
+                                              <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                            </svg>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-comment-like-logo" style="display : flex; align-items : center">
                                     <div class="modal-comment-like-logo-wrapper">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
-                                            class="bi bi-suit-heart comment-like-logo" viewBox="0 0 16 16">
-                                            <path
-                                                d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
-                                            class="bi bi-suit-heart-fill comment-like-logo hidden" viewBox="0 0 16 16">
-                                            <path
-                                                d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
-                                        </svg>
+                                        <form style="margin-bottom : 0; display : flex; align-items : center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                                class="bi bi-suit-heart comment-like-logo \${commentHeartOutlineClass}" viewBox="0 0 16 16">
+                                                <path
+                                                    d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
+                                                class="bi bi-suit-heart-fill comment-like-logo \${commentHeartFilledClass}" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                            </svg>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -1559,13 +1637,13 @@
                         }
                     });
                 }
+
                 renderComments(obj.commentList, modalCommentMain);
 
                 // 코멘트창 메인핸들러 (모달 여닫을 시 이벤트리스너 초기화를 위해 익명함수가 아닌 실명함수 사용)
                 function modalCommentContentHandler(event){
 
-                    console.log(event.target);
-                    // 클릭된 요소가 reply-view인지 확인합니다.
+                    // 클릭된 요소가 딥글보기 인지 확인합니다.
                     if (event.target.classList.contains('reply-view')) {
                         const replyBox = event.target.closest('.comment-box').querySelector('.reply-box');
                         if (replyBox) {
@@ -1573,139 +1651,209 @@
                         }
                     }
 
+                    // 클릭된 요소가 답글달기 인지 확인합니다.
                     if (event.target.classList.contains('reply-btn')){
-                        curr_comment_box = event.target.closest('.comment-box');
-                        curr_reply_box = curr_comment_box.querySelector('.reply-box');
+                        let curr_comment_box = event.target.closest('.comment-box');
+                        let curr_reply_box = curr_comment_box.querySelector('.reply-box');
+
                         if(!curr_reply_box){
                             curr_reply_box = event.target.closest('.reply-box');
                         }
 
-                        console.log(curr_reply_box);
-                        replymode = true;
                         const modalCommentInput = document.getElementById('modalCommentInput');
                         modalCommentInput.focus();
-                        const commentForm = event.target.closest('.comment-box').querySelector('form');
+
+                        const commentForm = event.target.closest('.modal-comment').querySelector('#commentForm');
                         comment_id = commentForm.querySelector('input[name="comment_id"]').value;
+
                     }
 
+                    // 클릭된 요소가 댓글창인지 확인합니다.
                     if (event.target.classList.contains('form-control')){
-                        replymode = false;
-                        comment_id = 0;
+                        comment_id = null;
                     }
 
-                    if (event.target.closest('.modal-comment-like-logo-wrapper')){
+                    // 클릭된 요소가 댓글 좋아요 인지 확인합니다.
+                    if (event.target.closest('.modal-comment-like-logo-wrapper')) {
+
+                        const commentForm = event.target.closest('.modal-comment').querySelector('#commentForm');
+                        const input = commentForm.querySelector('input[name="isLiked"]');
                         const heartOutline = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart');
                         const heartFilled = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
-                        heartOutline.classList.toggle('hidden');
-                        heartFilled.classList.toggle('hidden');
+                        const commentLike = event.target.closest('.modal-comment').querySelector('#commentLike');
+
+                        $.ajax({
+                            url: '/main/comment-like-ajax.do',
+                            type: 'post',
+                            data: $(commentForm).serialize(),
+                            success: (obj) => {
+                                commentLike.innerHTML = `좋아요 \${obj.comment.likeCount}개`;
+                                input.value = input.value === 'false' ? 'true' : 'false';
+                                heartOutline.classList.toggle('hidden');
+                                heartFilled.classList.toggle('hidden');
+                            },
+                            error: (err) => {
+                                console.log(err);
+                            }
+                        });
                     }
 
+                    // 클릭된 요소가 게시글 좋아요인지 확인합니다.
                     if (event.target.closest('.modal-portfolio-like-logo-wrapper')){
-                        const heartOutline2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart');
-                        const heartFilled2 = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
-                        heartOutline2.classList.toggle('hidden');
-                        heartFilled2.classList.toggle('hidden');
+
+                        const modalPortfolioForm = event.target.closest('.modal-portfolio-overlay-bond').querySelector('#modalPortfolioForm');
+                        const input = modalPortfolioForm.querySelector('input[name="isLiked"]');
+                        const heartOutline = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart');
+                        const heartFilled = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
+                        const modalLikeCntText = event.target.closest('.modal-portfolio-overlay-bond').querySelector('#modalLikeCntText');
+
+                        $.ajax({
+                            url: '/main/portfolio-like-ajax.do',
+                            type: 'post',
+                            data: $(modalPortfolioForm).serialize(),
+                            success: (obj) => {
+                                modalLikeCntText.innerHTML = `<p style = "margin-bottom: 0px"> 좋아요 \${obj.portfolio.likeCount}개 </p>`;
+                                input.value = input.value === 'false' ? 'true' : 'false';
+                                heartOutline.classList.toggle('hidden');
+                                heartFilled.classList.toggle('hidden');
+                            },
+                            error: (err) => {
+                                console.log(err);
+                            }
+                        });
+                    }
+
+                    // 클릭된 요소가 댓글 옵션창 인지 확인합니다.
+                    if(event.target.closest('.bi-three-dots')){
+
+                        const commentForm = event.target.closest('.modal-comment').querySelector('#commentForm');
+                        const commentUserId = commentForm.querySelector('input[name="user_id"]').value;
+
+                        // 댓글 작성자와 사용자의 일치여부에 따라 다른 옵션창
+                        openCommentOptions( commentUserId , ${loginUser.user_id});
+
+                        const deleteCommentBtn = document.getElementById('deleteCommentBtn');
+                        const reportCommentBtn = document.getElementById('reportCommentBtn');
+
+                        deleteCommentBtn.onclick = null;
+                        reportCommentBtn.onclick = null;
+
+                        deleteCommentBtn.onclick = function() {
+                            $.ajax({
+                                url: '/main/delete-comment-ajax.do',
+                                type: 'post',
+                                data: $(commentForm).serialize(),
+                                success: (obj) => {
+                                    modalCommentMain.innerHTML='';
+                                    // 제일 처음은 소개문
+                                    const commentElement = `
+                                        <div class="modal-comment">
+                                            <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}');"></div>
+                                            </a>
+                                            <div class="modal-comment-main">
+                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                    <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
+                                                </a>
+                                                <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
+                                            </div>
+                                        </div>
+                                        `;
+                                    modalCommentMain.insertAdjacentHTML('beforeend', commentElement);
+                                    renderComments(obj.commentList, modalCommentMain);
+                                    document.getElementById('deleteCommentModal').style.display = 'none';
+                                },
+                                error: (err) => {
+                                    console.log(err);
+                                }
+                            });
+                        };
+
+                        reportCommentBtn.onclick = function() {
+                            alert("부적절한 댓글을 신고했습니다");
+                            document.getElementById('reportCommentModal').style.display = 'none';
+                        };
+                    }
+
+                    // 클릭된 요소가 게시글 옵션창 인지 확인합니다.
+                    if(event.target.closest('.modal-comment-header-optionBtn')){
+
+                        const modalPortfolioForm = event.target.closest('.modal-portfolio-overlay-bond').querySelector('#modalPortfolioForm');
+                        const portfolioUserId = modalPortfolioForm.querySelector('input[name="user_id"]').value;
+
+                        // 게시글 작성자와 사용자의 일치여부에 따라 다른 옵션창
+                        openPortfolioOptions(portfolioUserId , ${loginUser.user_id});
+
+                        const deletePortfolioBtn = document.getElementById('modalOptionsItemDelete');
+
+                        console.log(deletePortfolioBtn);
+                        const reportPortfolioBtn = document.getElementById('modalOptionsItemReport');
+
+                        deletePortfolioBtn.onclick = null;
+                        reportPortfolioBtn.onclick = null;
+
+                        deletePortfolioBtn.onclick = function() {
+                            // '게시글 삭제' 버튼 클릭 시 숨겨진 폼 제출 버튼을 클릭합니다.
+                            document.getElementById('hiddenSubmitBtn').click();
+                            modalBox.remove();
+                        };
+
+                        reportPortfolioBtn.onclick = function() {
+                            alert("부적절한 게시물을 신고했습니다");
+                            document.getElementById('modalOptionsOverlayOther').style.display = 'none';
+                        };
                     }
                 }
+
+                // 댓글창에 이벤트 리스너 등록
                 modalCommentContent.addEventListener('click', modalCommentContentHandler);
 
-                // 댓글 입력 로직 (1. 비동기로 DB에 저장  2.저장 성공시 HTML에 동적 DOM 생성하는 renderCommentToDOM 호출)
-                function addComment(comment, comment_id, portfolio_id){
-                    // 서버에 댓글 저장 요청
-                    fetch('/main/comment-ajax.do', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ content: comment, portfolio_id: portfolio_id, user_id: ${loginUser.user_id},
-                            comment_parent_id: comment_id})
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                console.log("댓글 입력 성공")
-                                // // 댓글이 성공적으로 저장되면
-                                renderCommentToDOM(comment);
-                            } else {
-                                console.error('Error saving comment:', data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                }
-                // 새 댓글을 DOM에 추가하는 함수
-                function renderCommentToDOM(comment) {
-                    // 새로운 댓글 요소 생성 (필요한 HTML 구조에 맞게 작성)
-                    const commentBox = document.createElement('div');
-                    commentBox.classList.add('comment-box');
-
-                    const commentElement = `
-                                    <div class="modal-comment">
-                                        <a href="">
-                                            <div class="modal-comment-user-logo"
-                                                style="background-image: url(${loginUser.profile_image});"></div>
-                                        </a>
-                                        <div class="modal-comment-wrapper" style="display : flex; width: 75%;">
-                                            <div class="modal-comment-main">
-                                                <div class="modal-comment-main-userid">
-                                                    <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>${loginUser.nickname}</strong></div>
-                                                    <div style="margin-left:5px;">\${comment}</div>
-                                                </div>
-                                                <div class="modal-comment-main-content">
-                                                    <div style="color: gray;">방금</div>
-                                                    <div style="color: gray; margin-left : 10px">좋아요 0개</div>
-                                                    <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-comment-like-logo" style="display : flex; align-items : center">
-                                            <div class="modal-comment-like-logo-wrapper">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
-                                                    class="bi bi-suit-heart comment-like-logo" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                                                </svg>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red"
-                                                    class="bi bi-suit-heart-fill comment-like-logo hidden" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `;
-
-                    // 댓글 박스에 새 댓글 HTML 추가
-                    commentBox.insertAdjacentHTML('beforeend', commentElement);
-
-                    if(!replymode){
-                        // 기존 댓글 목록에 새 댓글 박스 추가
-                        document.getElementById('modalCommentMain').appendChild(commentBox);
-                    }else{
-                        if(curr_reply_box){
-                            curr_reply_box.appendChild(commentBox);
-                        }else{
-                            curr_comment_box.insertAdjacentHTML('beforeend', '<div class="reply-view" style="color : gainsboro;"> ---- 답글 보기 ---- </div>');
-                            const replyBox2 = document.createElement('div');
-                            replyBox2.classList.add('reply-box');
-                            replyBox2.style.display = 'none';
-                            curr_comment_box.appendChild(replyBox2);
-                            replyBox2.appendChild(commentBox);
-                        }
-                    }
-                }
-                // 댓글창 이벤트핸들러 (엔터키 입력시 addComment 메소드 실행이 목적)
+                // 댓글창 이벤트핸들러 (엔터키 입력시 addComment 메소드 실행)
                 function createCommentInputHandler(e) {
                     if (e.key.toLowerCase() === "enter") {
                         e.preventDefault();
                         const comment = this.value.trim();
                         if (comment) {
-                            addComment(comment, comment_id, obj.portfolio.portfolio_id);
+                            const commentDto = {
+                                content: `\${comment}`,
+                                comment_parent_id: `\${comment_id}`,
+                                user_id: ${loginUser.user_id},
+                                portfolio_id : `\${portfolioId}`
+                            };
+                            $.ajax({
+                                url: '/main/comment-ajax.do',
+                                type: 'post',
+                                data: JSON.stringify(commentDto),
+                                contentType: 'application/json',
+                                success: (obj) => {
+                                    modalCommentMain.innerHTML='';
+                                    // 제일 처음은 소개문
+                                    const commentElement = `
+                                        <div class="modal-comment">
+                                            <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}');"></div>
+                                            </a>
+                                            <div class="modal-comment-main">
+                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                    <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
+                                                </a>
+                                                <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
+                                            </div>
+                                        </div>
+                                        `;
+                                    modalCommentMain.insertAdjacentHTML('beforeend', commentElement);
+                                    renderComments(obj.commentList, modalCommentMain);
+                                },
+                                error: (err) => {
+                                    console.log(err);
+                                }
+                            });
                         }
+                        // 종료 후에는 댓글창 비워주기
                         modalCommentInput.value = '';
                     }
                 }
+
                 modalCommentInput.addEventListener('keypress', createCommentInputHandler);
 
                 // 모달 오버레이 이벤트 핸들러 (클릭 시 기존의 이벤트 리스너를 제거하지 않으면 여러 번 모달을 여닫을 시 중복 생성되어
@@ -1733,10 +1881,85 @@
                 document.body.style.overflow = 'hidden';
             }
 
+            // iframe 외부 스크롤 이벤트 핸들러 설정
+            window.addEventListener('wheel', function(event) {
+                const iframe = document.getElementById('modalPortfolioIframe');
+                if (iframe) {
+                    if(event.target.closest('.modal-comment-main-box')){
+                        return;
+                    }
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    if (iframeDoc) {
+                        iframeDoc.documentElement.scrollTop += event.deltaY;
+                    }
+                }
+            });
+
+            // 댓글 옵션 버튼 클릭 시 호출되는 함수
+            function openCommentOptions(comment_user_id, loginUser_id) {
+                if (parseInt(comment_user_id) === parseInt(loginUser_id)) {
+                    // 삭제 모달 표시
+                    document.getElementById('deleteCommentModal').style.display = 'flex';
+                } else {
+                    // 신고 모달 표시
+                    document.getElementById('reportCommentModal').style.display = 'flex';
+                }
+            }
+
+            // 게시글 옵션 버튼 클릭 시 호출되는 함수
+            function openPortfolioOptions(portfolio_user_id, loginUser_id) {
+                if (parseInt(portfolio_user_id) === parseInt(loginUser_id)) {
+                    // 삭제 모달 표시
+                    document.getElementById('modalOptionsOverlaySelf').style.display = 'flex';
+                } else {
+                    // 신고 모달 표시
+                    document.getElementById('modalOptionsOverlayOther').style.display = 'flex';
+                }
+            }
+
+            // 모달 닫기 기능
+            document.querySelectorAll('.modal-comment-options-item.close').forEach(function(element) {
+                element.onclick = function() {
+                    document.getElementById('deleteCommentModal').style.display = 'none';
+                    document.getElementById('reportCommentModal').style.display = 'none';
+                };
+            });
+
+            // 취소 클릭시도 옵션창 닫힘
+            document.querySelectorAll('.modal-options-item.close').forEach(function(element) {
+                element.onclick = function() {
+                    document.getElementById('modalOptionsOverlaySelf').style.display = 'none';
+                    document.getElementById('modalOptionsOverlayOther').style.display = 'none';
+                };
+            });
+
+            window.addEventListener('click', (e) => {
+                console.log(e.target);
+            });
+
+            // 모달 외부를 클릭했을 때 닫기 기능 추가
+            document.querySelectorAll('.modal-comment-options-overlay-bond').forEach(function(overlay) {
+                overlay.onclick = function(event) {
+                    // 클릭한 요소가 오버레이인 경우에만 모달 닫기
+                    if (event.target === overlay) {
+                        overlay.closest('.modal-comment-options-overlay').style.display = 'none';
+                    }
+                };
+            });
+
+            // 모달 외부를 클릭했을 때 닫기 기능 추가
+            document.querySelectorAll('.modal-options-overlay').forEach(function(overlay) {
+                overlay.onclick = function(event) {
+                    // 클릭한 요소가 오버레이인 경우에만 모달 닫기
+                    if (event.target === overlay) {
+                        overlay.closest('.modal-options-overlay').style.display = 'none';
+                    }
+                };
+            });
         }
     }
 
-
 </script>
+
 </body>
 </html>
