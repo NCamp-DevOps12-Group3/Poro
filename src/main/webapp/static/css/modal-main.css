@@ -217,6 +217,14 @@ p {
     display: none;
 }
 
+.modal-portfolio-overlay::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-portfolio-overlay-bond::-webkit-scrollbar {
+    display: none;
+}
+
 .modal-comment-main-userid {
     font-size: 14px;
     display: flex;

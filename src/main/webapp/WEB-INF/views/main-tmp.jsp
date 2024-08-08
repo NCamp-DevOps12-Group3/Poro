@@ -563,6 +563,7 @@
                         iframeDoc.body.appendChild(script);
 
                     });
+
             }
 
 
@@ -917,20 +918,6 @@
                 // 전체화면의 스크롤은 모달이 떠있을 때 사용 불가
                 document.body.style.overflow = 'hidden';
             }
-
-            // iframe 외부 스크롤 이벤트 핸들러 설정
-            window.addEventListener('wheel', function(event) {
-                const iframe = document.getElementById('modalPortfolioIframe');
-                if (iframe) {
-                    if(event.target.closest('.modal-comment-main-box')){
-                        return;
-                    }
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    if (iframeDoc) {
-                        iframeDoc.documentElement.scrollTop += event.deltaY;
-                    }
-                }
-            });
 
             // 댓글 옵션 버튼 클릭 시 호출되는 함수
             function openCommentOptions(comment_user_id, loginUser_id) {
