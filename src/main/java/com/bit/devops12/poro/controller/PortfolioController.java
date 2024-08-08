@@ -60,6 +60,7 @@ public class PortfolioController {
 
         uploadDir += (pos + 1) + "/";
         directory = new File(uploadDir);
+
         if(!directory.exists()) {
             // 하위폴더도 생성하려면 mkdirs 메소드를 호출한다.
             directory.mkdirs();
@@ -78,6 +79,7 @@ public class PortfolioController {
         String thumbnailPath = thumbnailDest.getPath();
         System.out.println("thumbnail Path : " + thumbnailPath);
         System.out.println("upload Path : " + uploadDir);
+
         if(!thumbnailFile.isEmpty()){
             thumbnailFile.transferTo(thumbnailDest);
             thumbnailPath = (uploadDir+thumbnailFile.getOriginalFilename()).replace(defaultPath, "");
@@ -109,6 +111,7 @@ public class PortfolioController {
         Portfolio portfolio = new Portfolio();
         portfolio.setUserId(userId);
         portfolio.setPortfolioUrl((uploadDir + zipFile.getOriginalFilename()).replace(defaultPath, ""));
+
         portfolio.setThumbnailUrl(thumbnailPath);
         portfolio.setDescription(description);
         portfolio.setRegdate(LocalDateTime.now());
@@ -120,6 +123,7 @@ public class PortfolioController {
         portfolioService.saveHtml(currPortfolio.getPortfolio_id(), htmlPathList);
         portfolioService.saveCss(currPortfolio.getPortfolio_id(), cssPathList);
         portfolioService.saveJs(currPortfolio.getPortfolio_id(), jsPathList);
+
 
 
         // 태그 저장

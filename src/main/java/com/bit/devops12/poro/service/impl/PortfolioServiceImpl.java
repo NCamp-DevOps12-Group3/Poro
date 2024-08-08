@@ -185,6 +185,7 @@ public class PortfolioServiceImpl implements PortfolioService {
             HtmlDto htmlDto = new HtmlDto();
             htmlDto.setPortfolio_id(portfolio_id);
             htmlDto.setHtml_url(path);
+
             htmlDao.insertHtml(htmlDto);
         }
     }

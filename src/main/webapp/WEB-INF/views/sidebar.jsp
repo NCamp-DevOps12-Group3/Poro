@@ -198,7 +198,7 @@
                     <button type="button" id="toStep2Common" class="modal-button center-button">다음</button>
                 </div>
                 <div id="step2Common" class="step-common" style="display:none;">
-                    <h2>Step 2: index.html 프리뷰 / 썸네일 추가(선택)</h2>
+                    <h2 style="margin-left: 20px; margin-top: 30px">Step 2: index.html 프리뷰 / 썸네일 추가(선택)</h2>
                     <div class="step2-content">
                         <iframe id="previewCommon" style="width:100%; height:400px;"></iframe>
                         <div class="thumbnail-preview">
@@ -210,13 +210,13 @@
                     <button type="button" id="toStep3Common" class="modal-button center-button">다음</button>
                 </div>
                 <div id="step3Common" class="step-common" style="display:none;">
-                    <h2>Step 3: 설명, 태그 추가</h2><br>
+                    <h2 style="margin-left: 20px; margin-top: 30px">Step 3: 설명, 태그 추가</h2><br>
                     <div class="step3-content">
                         <iframe id="previewStep3Common" style="width:100%; height:400px;"></iframe>
                         <div class="description-tags">
-                            <h3 style="margin-left: 20px;">설명</h3>
+                            <h3 style="margin-left: 20px; margin-top: 30px">설명</h3>
                             <textarea id="descriptionCommon" name="description" placeholder="Enter description" class="modal-textarea"></textarea>
-                            <h3 style="margin-left: 20px;">태그</h3>
+                            <h3 style="margin-left: 20px; margin-top: 30px">태그</h3>
                             <textarea id="tagsCommon" name="tags" placeholder="Enter tags" class="modal-textarea"></textarea>
                         </div>
                     </div>
@@ -233,20 +233,20 @@
             <form id="uploadFormCompany" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/cupload.do">
                 <div id="step1Company" class="step-company">
                     <div class="content-center">
-                        <h2>Step 1: 기업(공고) 소개 사진 파일을 올려주세요.</h2>
+                        <h2 style="margin-left: 20px; margin-top: 30px">Step 1: 기업(공고) 소개 사진 파일을 올려주세요.</h2>
                         <input type="file" id="imageFileCompany" name="imageFile" accept="image/*">
                         <img id="imagePreviewCompany" src="#" alt="Image Preview" style="display: none; width: 100%;"/>
                     </div>
                     <button id="toStep2Company" type="button" class="modal-button center-button">다음</button>
                 </div>
                 <div id="step2Company" class="step-company" style="display:none;">
-                    <h2>Step 2: 세부사항 추가</h2><br>
+                    <h2 style="margin-left: 20px; margin-top: 30px">Step 2: 세부사항 추가</h2><br>
                     <div class="step2-content">
                         <img id="imagePreviewStep2Company" src="#" alt="Image Preview" style="width: 50%;"/>
                         <div class="description-tags">
-                            <h3>제목</h3>
+                            <h3 style="margin-left: 20px; margin-top: 30px">제목</h3>
                             <textarea id="titleCompany" name="title" placeholder="Enter title" class="modal-textarea"></textarea>
-                            <h3>공고 마감 날짜</h3>
+                            <h3 style="margin-left: 20px; margin-top: 30px">공고 마감 날짜</h3>
                             <input type="date" id="ddayCompany" name="dday" class="modal-input">
                         </div>
                     </div>
@@ -254,15 +254,15 @@
                     <button id="toStep3Company" type="button" class="modal-button center-button">다음</button>
                 </div>
                 <div id="step3Company" class="step-company" style="display:none;">
-                    <h2>Step 3: 세부사항 추가</h2><br>
+                    <h2 style="margin-left: 20px; margin-top: 30px">Step 3: 세부사항 추가</h2><br>
                     <div class="step3-content">
                         <img id="imagePreviewStep3Company" src="#" alt="Image Preview" style="width: 50%;"/>
                         <div class="additional-info">
-                            <h3>근무 위치</h3>
+                            <h3 style="margin-left: 20px; margin-top: 30px">근무 위치</h3>
                             <input type="text" id="locationCompany" name="location" placeholder="Enter location" class="modal-input">
-                            <h3>경력</h3>
+                            <h3 style="margin-left: 20px; margin-top: 30px">경력</h3>
                             <textarea id="experienceCompany" name="experience" placeholder="Enter experience" class="modal-textarea"></textarea>
-                            <h3>학력</h3>
+                            <h3 style="margin-left: 20px; margin-top: 30px">학력</h3>
                             <textarea id="educationCompany" name="education" placeholder="Enter education" class="modal-textarea"></textarea>
                         </div>
                     </div>
@@ -291,22 +291,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // function slideOutCurrentStep(currentStep, direction) {
-            //     if (direction === 'left') {
-            //         currentStep.classList.add('slide-out-left');
-            //     } else {
-            //         currentStep.classList.add('slide-out-right');
-            //     }
-            // }
-            //
-            // function slideInNextStep(nextStep, direction) {
-            //     if (direction === 'left') {
-            //         nextStep.classList.add('slide-in-left');
-            //     } else {
-            //         nextStep.classList.add('slide-in-right');
-            //     }
-            //     nextStep.style.display = 'block';
-            // }
 
             document.querySelectorAll('.modal-button').forEach(function (button) {
                 button.addEventListener('click', function () {
