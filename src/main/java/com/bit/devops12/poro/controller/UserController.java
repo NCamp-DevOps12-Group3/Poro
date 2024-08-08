@@ -113,9 +113,11 @@ public class UserController {
 	
 	@PostMapping("/modify.do")
 	public String modify(UserDto userDto, @RequestParam("uploadFiles") MultipartFile uploadFiles, HttpSession session) {
+		UserDto sessionData = (UserDto)session.getAttribute("loginUser");
+		userDto.setRole(sessionData.getRole());
 		userService.modify(userDto,uploadFiles);
 		session.setAttribute("loginUser", userDto);
-		
+		System.out.println("modify after : " + userDto);
 		return "redirect:/user/settings.dodo";
 	}
 	
@@ -139,7 +141,7 @@ public class UserController {
 			// 수정된 사용자 정보를 모델에 추가하여 뷰에서 사용할 수 있게 함
 			model.addAttribute("loginUser", modifiedUser);
 			// 세션에서 수정된 정보 제거 (옵션)
-			session.removeAttribute("loginUser");
+//			session.removeAttribute("loginUser");
 		}
 		
 		return "/user/settings";

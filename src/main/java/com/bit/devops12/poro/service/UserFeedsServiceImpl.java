@@ -30,7 +30,7 @@ public class UserFeedsServiceImpl {
     public ProfileDto getUserInfo(int id) {
         ProfileDto profileDto = userFeedsDao.getUserInfo(id);
         if (!existFiles(profileDto.getProfile_image())){
-            profileDto.setProfile_image("/static/img/default.png");
+            profileDto.setProfile_image("/static/img/default_profile_img.png");
         }
         return userFeedsDao.getUserInfo(id);
     }
