@@ -38,7 +38,7 @@
         <div class="base-sector" id="baseContentSector">
             <div class="base-sector-personal">
                 <div class="base-sector-personal-title">
-                    <div class="portfolio-container-wrapper" , id="portfolioContainerWrapper">
+                    <div class="portfolio-container-wrapper" id="portfolioContainerWrapper">
                         <div class="portfolio-item" id="portfolioContainer">
                             <form id="page-form" action="/main/main.do" method="post">
                                 <input type="hidden" name="pageNum" value="${page.mainCri.pageNum}">
@@ -971,6 +971,20 @@
                 document.body.style.overflow = 'hidden';
             }
 
+<<<<<<< HEAD
+=======
+            // iframe 외부 스크롤 이벤트 핸들러 설정
+            window.addEventListener('wheel', function(event) {
+                const iframe = document.getElementById('modalPortfolioIframe');
+                if (iframe) {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    if (iframeDoc) {
+                        iframeDoc.documentElement.scrollTop += event.deltaY;
+                    }
+                }
+            });
+
+>>>>>>> origin/hanseojoon
             // 댓글 옵션 버튼 클릭 시 호출되는 함수
             function openCommentOptions(comment_user_id, loginUser_id) {
                 if (parseInt(comment_user_id) === parseInt(loginUser_id)) {

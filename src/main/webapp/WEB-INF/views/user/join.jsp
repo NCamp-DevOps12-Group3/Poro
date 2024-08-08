@@ -37,6 +37,13 @@
         <p class="text-center" >이메일로 회원가입 하기</p><!-- 회원가입 양식 텍스트 -->
         <form  action="/user/join.do" id="join-form" method="post"><!-- 회원가입 양식 폼 -->
             <div class="mb-3"><!-- 회원가입 양식 입력창 -->
+                
+                <div style="height: 60px; margin-bottom: 70px;">이메일
+                    <input type="email" class="form-control" id="email" name="email" placeholder="이메일">
+                    <button type="button" class="btn btn-outline-dark" id="emailChk">중복확인</button>
+                    <div id="EmailAlertholder"></div>
+                </div>
+                
                 <div style="height: 60px; margin-bottom: 70px;">닉네임
                     <input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임 ">
                     <button type="button" class="btn btn-outline-dark" id="nicknameChk">중복확인</button>
@@ -44,10 +51,10 @@
                 </div>
 
                 
-                <div style="height: 60px; margin-bottom: 70px;">이름
+                <div style="height: 60px; margin-bottom: 25px;">이름
 
                     <input type="text" class="form-control" id="name" name="name" placeholder="이름">
-                    <button type="button" class="btn btn-outline-dark" id="nameChk">중복확인</button>
+                    
                     <div id="nameAlertholder"></div>
                 </div>
                 <div style="height: 60px; margin-bottom: 25px;">성별
@@ -74,11 +81,7 @@
                     <input type="tel" class="form-control" id="phonenumber" name="phonenumber" pattern="\d{3}\d{4}\d{4}" placeholder="000-0000-0000 -없이입력" required>
                     <div id="TelAlertholder"></div>
                 </div>
-                <div style="height: 60px; margin-bottom: 70px;">이메일
-                    <input type="email" class="form-control" id="email" name="email" placeholder="이메일">
-                    <button type="button" class="btn btn-outline-dark" id="emailChk">중복확인</button>
-                    <div id="EmailAlertholder"></div>
-                </div>
+               
                 <div style="height: 60px; margin-bottom: 50px;">비밀번호
                     <input type="password" class="form-control" id="password" name="password" placeholder="특수문자, 숫자, 영문자 조합의 8자리 이상">
                     <div id="PasswordAlertholder"></div>
@@ -425,58 +428,7 @@
         
         
         // ------------------------------------------------------------------------------------------------
-        let nameCheck = false;
-        $("#nameChk").on("click", (e) => {
-            console.log($("#join-form").serialize());
-            // 중복체크 버튼 클릭 시 email값이 비어 있으면
-            if($("#name").val() === "") {
-                nameappendAlert('이름을 입력하세요.', 'success');
-                $("#name").focus();
-                return;
-            }
-            
-            // ajax를 이용해서 백엔드와 비동기 통신
-            $.ajax({
-                url: "/user/nameCheck.do",
-                type: "post",
-                data: $("#join-form").serialize(),
-                success: (obj) => {
-                    
-                    // Json String을 Json Object로 변경
-                    const jsonObj = JSON.parse(obj);
-                    
-                    console.log(obj);
-                    console.log(jsonObj);
-                    
-                    if(jsonObj.nameCheckMsg === 'nameOk') {
-                        if(confirm(`사용가능한 이름입니다. \${\$("#name").val()}를 사용하시겠습니까?`)) {
-                            nameCheck = true;
-                            $("#nameChk").attr("disabled", true);
-                        }
-                        return;
-                    }
-                    
-                    nameappendAlert('중복된 이름입니다.', 'success');
-                    nameCheck = false;
-                    $("#name").focus();
-                    // if(obj === 'usernameOk') {
-                    //     alert("사용가능한 아이디입니다.");
-                    // } else {
-                    //     alert("중복된 아이디입니다.");
-                    // }
-                },
-                error: (err) => {
-                    console.log(err);
-                }
-            });
-        });
-        
-        // 중복체크 후에 아이디 값이 변경되면 다시 중복체크 버튼을 활성화
-        $("#name").on("change", (e) => {
-            nameCheck = false;
-            $("#nameChk").attr("disabled", false);
-        });
-        
+       
         
         // 조건을 만족못하고 회원가입 버튼 클릭 시 발생하는 이벤트입니다.
         $("#signUp").on("click", (e) => {

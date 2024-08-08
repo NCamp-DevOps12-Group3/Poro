@@ -16,7 +16,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class FileUtils {
-	public static String parserFileInfo(MultipartFile uploadFiles, String attachPath) {
+	public static String parserFileInfo(MultipartFile uploadFiles, String attachPath, String email) {
 		// 파일명 생성: UUID + 현재 날짜시간 + 원본 파일명
 		
 		
@@ -26,7 +26,7 @@ public class FileUtils {
 		
 		// 파일 저장 경로
 		File uploadFile = new File(attachPath + "/" + originalFilename);
-		String uploadFilestr=uploadFile.toString();
+		String uploadFilestr="/upload/" + email +"/" + originalFilename;
 		String type = "";
 		
 		// 경로가 유효한지 확인

@@ -14,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mini_project(company).css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">
 
@@ -22,7 +22,7 @@
 
         .content {
             padding: 20px;
-            margin-left: 10vw;
+            margin-left: 20vw;
             margin-right:5vw;
             height: 100vh;
 
@@ -155,6 +155,14 @@
             font-weight: bold;
         }
 
+        .modal-body{
+            padding: 0 !important;
+        }
+
+        .modal-backdrop{
+            position: static !important;
+        }
+
     </style>
 </head>
 
@@ -163,7 +171,7 @@
 <div class="modal fade" id="CompanyPortFolioModal" tabindex="-1" aria-labelledby="CompanyPortFolioModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content2">
             <div class="modal-body">
                 <iframe id="imageIframe" frameborder="0"></iframe>
             </div>
@@ -172,35 +180,10 @@
 </div>
 
 <div class="container-content d-flex">
-
     <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar.jsp"></jsp:include>
 
     <div class="content d-flex flex-column justify-content-start" id="main-content">
-        <div class="top-line-list d-flex justify-content-end">
-            <!-- <div class="base-header d-flex justify-content-center align-items-center">
-                <div class="btn-group btn-group-lg" role="group" aria-label="Basic example" id="mainTopLineBtnSet">
-                    <button type="button" class="btn btn-outline-dark" id="baseViewAllBtn">
-                        <i class="bi bi-collection"></i>
-                        <div>전체보기</div>
-                    </button>
-                    <button type="button" class="btn btn-outline-dark" id="basePersonalBtn">
-                        <i class="bi bi-card-list"></i>
-                        <div>개인 포트폴리오</div>
-                    </button>
-                    <button type="button" class="btn btn-dark" id="baseCompanyBtn">
-                        <i class="bi bi-building"></i>
-                        <div>기업 채용</div>
-                    </button>
-                </div>
-            </div> -->
-            <div class="top-line-personal-info d-flex justify-content-start align-items-center">
-                <img src="/static/img/home.png" alt="">
-                <div class="top-line-personal-info-identifier d-flex flex-column justify-content-center">
-                    <div>닉네임<i class="bi bi-check-circle-fill"></i></div>
-                    <div>이메일</div>
-                </div>
-            </div>
-        </div>
+
 
         <form id="companyList" action="/company/mini_project(company).do" method="post">
             <ul class="container company-wrapper">
@@ -253,7 +236,6 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/static/js/jquery-3.7.1.min.js"></script>
-
 <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/sidebar.js"></script>
 <script>
@@ -289,7 +271,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-<scr1ipt src="${pageContext.request.contextPath}/static/js/mini_project(company).js"></scr1ipt>
+<script src="${pageContext.request.contextPath}/static/js/mini_project(company).js"></script>
 <script>
     $(() => {
         function showModal(imageUrl) {
@@ -306,7 +288,7 @@
                     height: imgHeight + 'px'
                 });
 
-                $('#CompanyPortFolioModal .modal-content').css({
+                $('#CompanyPortFolioModal .modal-content2').css({
                     width: imgWidth + 'px',
                     height: imgHeight + 'px'
                 });
@@ -372,9 +354,7 @@
 
                             $('.company-wrapper').on('click', '.company', function () {
                                 const recruitmentId = $(this).attr('class').match(/com(\d+)/)[1]; // 클릭한 회사의 ID 추출
-                                console.log(recruitmentId);
                                 const company = obj.companyList.find(c => c.companyDto.recruitment_id == recruitmentId); // 해당 회사 정보 찾기
-                                console.log(company);
                                 // 회사 정보가 존재하는지 확인
                                 if (company && company.companyDto) {
                                     const imageUrl = company.companyDto.recruitment_url; // 이미지 URL 설정
@@ -417,7 +397,7 @@
                     height: imgHeight + 'px'
                 });
 
-                $('#CompanyPortFolioModal .modal-content').css({
+                $('#CompanyPortFolioModal .modal-content2').css({
                     width: imgWidth + 'px',
                     height: imgHeight + 'px'
                 });

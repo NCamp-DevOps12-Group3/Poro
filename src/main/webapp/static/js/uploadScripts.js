@@ -72,9 +72,9 @@ function initializeModal(modalId, closeButtonId, stepsClass, fileInputId, previe
                         Promise.all(promises).then(() => {
                             if (fileMap['index.html']) {
                                 const iframeDoc = previewIframe.contentDocument || previewIframe.contentWindow.document;
-                                iframeDoc.open();
-                                iframeDoc.write('<!DOCTYPE html><html><head><base href="/" /></head><body></body></html>');
-                                iframeDoc.close();
+
+                                // iframeDoc.write('<!DOCTYPE html><html><head><base href="/" /></head><body></body></html>');
+
 
                                 const base = iframeDoc.createElement('base');
                                 base.href = fileMap['index.html'];
@@ -102,13 +102,16 @@ function initializeModal(modalId, closeButtonId, stepsClass, fileInputId, previe
                                             img.setAttribute('src', fileMap[src]);
                                         }
                                     });
-                                    iframeDoc.body.innerHTML = doc.documentElement.innerHTML;
+                                    // iframeDoc.body.innerHTML = doc.documentElement.innerHTML;
+                                    iframeDoc.open();
+                                    iframeDoc.write(html);
+                                    iframeDoc.close();
 
                                     // step3 iframe 업데이트
                                     const iframeDocStep3 = previewStep3Iframe.contentDocument || previewStep3Iframe.contentWindow.document;
-                                    iframeDocStep3.open();
-                                    iframeDocStep3.write('<!DOCTYPE html><html><head><base href="/" /></head><body></body></html>');
-                                    iframeDocStep3.close();
+
+                                    // iframeDocStep3.write('<!DOCTYPE html><html><head><base href="/" /></head><body></body></html>');
+
 
                                     iframeDocStep3.head.appendChild(base.cloneNode());
 
@@ -134,7 +137,10 @@ function initializeModal(modalId, closeButtonId, stepsClass, fileInputId, previe
                                                 img.setAttribute('src', fileMap[src]);
                                             }
                                         });
-                                        iframeDocStep3.body.innerHTML = doc.documentElement.innerHTML;
+                                        // iframeDocStep3.body.innerHTML = doc.documentElement.innerHTML;
+                                        iframeDocStep3.open();
+                                        iframeDocStep3.write(html);
+                                        iframeDocStep3.close();
                                     });
                                 });
                             } else {
