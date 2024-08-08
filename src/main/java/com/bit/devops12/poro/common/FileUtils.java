@@ -26,7 +26,7 @@ public class FileUtils {
 		
 		// 파일 저장 경로
 		File uploadFile = new File(attachPath + "/" + originalFilename);
-		String uploadFilestr="/upload/" + email +"/" + originalFilename;
+		String uploadFilestr="/upload/" + email +"/" + "Profile"+"/"+ originalFilename;
 		String type = "";
 		
 		// 경로가 유효한지 확인
