@@ -235,36 +235,6 @@
         .grid-item {
             margin-bottom: 20px;
         }
-        .sidebar {
-            width: 15vw;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            background: #f8f9fa;
-            padding-top: 20px;
-        }
-        .sidebar a {
-            display:flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 10px 20px;
-            color: #333;
-            text-decoration: none;
-        }
-        .sidebar a:hover {
-            background-color: #ddd;
-        }
-        .sidebar img{
-            width:30px;
-            height:auto;
-        }
-        .sidebar div{
-            display: inline-block;
-            margin-left:10px;
-        }
-        .sidebar i{
-            font-size:1.5em;
-        }
         @media screen and (max-width:900px){
             .sidebar div{
                 display:none;
@@ -461,7 +431,7 @@
 <body>
 <button type="button" id="toTop">↑</button>
 <div class="container-fluid  d-flex">
-    <jsp:include page="${pageContext.request.contextPath}/sidebar.jsp"></jsp:include>
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar.jsp"></jsp:include>
     <div class="container d-inline-block w-100">
         <button class="btn-toggle btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProfile" id="profileInfoBtn">
             profile
