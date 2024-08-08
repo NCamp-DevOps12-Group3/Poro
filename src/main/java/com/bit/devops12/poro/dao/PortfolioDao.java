@@ -50,6 +50,9 @@ public class PortfolioDao {
         params.put("portfolio_id", portfolio_id);
         params.put("loginUser", loginUser);
 
+        System.out.println( portfolio_id);
+        System.out.println(loginUser);
+
         return mybatis.selectOne("PortfolioDao.getPortfolioById", params);
     }
 

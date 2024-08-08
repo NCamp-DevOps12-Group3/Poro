@@ -129,6 +129,7 @@
              , C.CSS_URL AS cssurl
              , COALESCE(PL.LIKECOUNT, 0) AS LIKECOUNT
              , (CASE WHEN PLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED
+             , COALESCE(CM.COMMENTCOUNT, 0) AS COMMENTCOUNT
          FROM PORTFOLIO P
          JOIN USER U
               ON P.USER_ID = U.USER_ID
@@ -148,6 +149,11 @@
             FROM PORTFOLIO_LIKE
             WHERE USER_ID = #{loginUser.user_id}
         ) PLU ON P.PORTFOLIO_ID = PLU.PORTFOLIO_ID
+         LEFT JOIN (
+             SELECT PORTFOLIO_ID, COUNT(*) AS COMMENTCOUNT
+             FROM COMMENT
+             GROUP BY PORTFOLIO_ID
+         ) CM ON P.PORTFOLIO_ID = CM.PORTFOLIO_ID
         WHERE P.PORTFOLIO_ID = #{portfolio_id}
     </select>
 

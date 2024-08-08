@@ -144,7 +144,7 @@
     display: flex;
     flex-direction: column;
     height: auto;
-    margin: 0px 5px 5px 5px;
+    margin: 0px 5px 5px 10px;
 }
 
 .modal-like-logo svg {
@@ -218,7 +218,7 @@ p {
     display: flex;
     font-size: 14px;
     justify-content: left;
-    margin-left: 5%;
+    margin-left: 6px;
     margin-right: 1px;
     flex-wrap: wrap;
     white-space: pre-wrap;
