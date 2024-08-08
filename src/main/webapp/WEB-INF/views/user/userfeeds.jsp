@@ -351,13 +351,16 @@
             margin-bottom: 30px;
         }
 
+        .container-feeduser{
+            margin-left:25vw;
+        }
     </style>
 </head>
 <body>
 <button type="button" id="toTop">↑</button>
 <div class="container-fluid  d-flex">
     <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar_userfeeds.jsp"></jsp:include>
-    <div class="container d-inline-block">
+    <div class="container container-feeduser d-inline-block">
         <button class="btn-toggle btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProfile" id="profileInfoBtn">
             profile
         </button>

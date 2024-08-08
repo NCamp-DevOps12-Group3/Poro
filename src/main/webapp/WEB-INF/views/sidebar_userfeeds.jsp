@@ -335,7 +335,10 @@
             animation: slideOutRight 0.5s forwards;
         }
         .sidebar-content {
-            position: relative;
+            /*position: relative;*/
+            /*수정한 부분*/
+            position:fixed;
+            width: 15vw;
 
             height: 100vh;
             top: 0;
