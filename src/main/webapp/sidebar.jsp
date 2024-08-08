@@ -21,7 +21,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/add-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">
     <style>
         .content {
@@ -236,7 +235,6 @@
     
     <!-- Custom JavaScript -->
     <script src="${pageContext.request.contextPath}/static/js/darkmode.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/modal-main.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/sidebar.js"></script>
 </body>
 </html>
