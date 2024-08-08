@@ -241,7 +241,7 @@
                                        <div class="content-item-header-user-logo" style="background-image: url('\${obj.portfolioList[i].portfolioDto.profile_image}'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
                                            <div class="content-item-header-main" style="display: flex; flex-direction: column; flex-grow: 1;">
                                                <div class="content-item-header-userid" style="font-size: 14px; margin-left: 10px;">
-                                                   <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">1주전</strong>
+                                                   <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">\${obj.portfolioList[i].portfolioDto.regdateStr}</strong>
                                                </div>
                                                <div class="content-item-header-content" style="font-size: 14px; margin-left: 10px;">
                                                    \${obj.portfolioList[i].portfolioDto.description}
@@ -330,7 +330,7 @@
                                                     <div class="content-item-header-user-logo" style="background-image: url('\${obj.portfolioList[i].portfolioDto.profile_image}'); display: flex; justify-content: center; align-items: center; height: 2vw; width: 2vw; border-radius: 50%; background-size: cover; flex-shrink: 0;"></div>
                                                         <div class="content-item-header-main" style="display: flex; flex-direction: column; flex-grow: 1;">
                                                             <div class="content-item-header-userid" style="font-size: 14px; margin-left: 10px;">
-                                                                <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">1주전</strong>
+                                                                <strong>\${obj.portfolioList[i].portfolioDto.nickname}</strong> <strong style="color: gray;">\${obj.portfolioList[i].portfolioDto.regdateStr}</strong>
                                                             </div>
                                                             <div class="content-item-header-content" style="font-size: 14px; margin-left: 10px;">
                                                                 \${obj.portfolioList[i].portfolioDto.description}
@@ -684,6 +684,7 @@
                                             </div>
                                             <div style="margin-left:5px;"> \${feedLink} \${comment.content}</div>
                                         </div>
+                                        <div class="modal-comment-main-content">
                                         <div class="modal-comment-main-content">
                                             <div style="color: gray;"> \${comment.regdateStr}</div>
                                             <div style="color: gray; margin-left : 10px" id="commentLike">좋아요 \${comment.likeCount}개</div>
