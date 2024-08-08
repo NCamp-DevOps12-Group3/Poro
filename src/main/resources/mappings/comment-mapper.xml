@@ -14,7 +14,9 @@
                C.COMMENT_PARENT_ID,
                COALESCE(CL.LIKECOUNT, 0) AS LIKECOUNT,
                (CASE WHEN CLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED,
-               U.NICKNAME
+               U.NICKNAME,
+               U.PROFILE_IMAGE,
+               PU.NICKNAME AS PARENT_NICKNAME
         FROM COMMENT C
         LEFT JOIN (
             SELECT COMMENT_ID, COUNT(*) AS LIKECOUNT
@@ -27,6 +29,8 @@
             WHERE USER_ID = #{loginUser.user_id}
         ) CLU ON C.COMMENT_ID = CLU.COMMENT_ID
         JOIN USER U ON C.USER_ID = U.USER_ID
+        LEFT JOIN COMMENT PC ON C.COMMENT_PARENT_ID = PC.COMMENT_ID
+        LEFT JOIN USER PU ON PC.USER_ID = PU.USER_ID
         WHERE C.PORTFOLIO_ID = #{portfolio.portfolio_id}
     </select>
 
@@ -68,10 +72,17 @@
                C.REGDATE,
                C.MODDATE,
                C.COMMENT_PARENT_ID,
-               U.NICKNAME
+               U.NICKNAME,
+               U.PROFILE_IMAGE,
+               COALESCE(CL.LIKECOUNT, 0) AS LIKECOUNT
         FROM COMMENT C
         JOIN USER U ON C.USER_ID = U.USER_ID
-        WHERE COMMENT_ID = #{comment_id}
+        LEFT JOIN (
+            SELECT COMMENT_ID, COUNT(*) AS LIKECOUNT
+            FROM COMMENT_LIKE
+            GROUP BY COMMENT_ID
+        ) CL ON C.COMMENT_ID = CL.COMMENT_ID
+        WHERE C.COMMENT_ID = #{comment_id}
     </select>
 
     <!-- 재귀적으로 모든 자식 댓글 찾기 (자신 포함)-->

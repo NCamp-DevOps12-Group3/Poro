@@ -16,6 +16,8 @@ public class CommentDto {
     private int likeCount;
     private boolean isLiked;
     private String nickname;
+    private String parent_nickname;
+    private String profile_image;
 
     @Override
     public String toString() {
@@ -31,7 +33,17 @@ public class CommentDto {
                 ", likeCount=" + likeCount +
                 ", isLiked=" + isLiked +
                 ", nickname='" + nickname + '\'' +
+                ", parent_nickname='" + parent_nickname + '\'' +
+                ", profile_image='" + profile_image + '\'' +
                 '}';
+    }
+
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 
     public String getNickname() {
@@ -120,6 +132,14 @@ public class CommentDto {
 
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public String getParent_nickname() {
+        return parent_nickname;
+    }
+
+    public void setParent_nickname(String parent_nickname) {
+        this.parent_nickname = parent_nickname;
     }
 
 

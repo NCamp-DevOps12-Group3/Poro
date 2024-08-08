@@ -151,14 +151,16 @@ public class MainController {
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
         if(!isLiked) {
-            System.out.println("123");
             commentService.likeComment(comment_id, loginUser);
         }else{
-            System.out.println("456");
             commentService.unLikeComment(comment_id, loginUser);
         }
 
+        CommentDto commentDto = commentService.getCommentById(comment_id);
+
         Map<String, Object> response = new HashMap<>();
+
+        response.put("comment", commentDto);
 
         return response;
     }
@@ -169,14 +171,17 @@ public class MainController {
 
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 
-
         if(!isLiked) {
             portfolioService.likePortfolio(portfolio_id, loginUser);
         }else{
             portfolioService.unLikePortfolio(portfolio_id, loginUser);
         }
 
+        PortfolioDto portfolioDto = portfolioService.getPortfolioById(portfolio_id, loginUser);
+
         Map<String, Object> response = new HashMap<>();
+
+        response.put("portfolio", portfolioDto);
 
         return response;
     }
