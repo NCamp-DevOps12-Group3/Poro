@@ -66,6 +66,7 @@
                     FROM PORTFOLIO_LIKE
                     WHERE USER_ID = #{loginUser.user_id}
                ) PLU ON P.PORTFOLIO_ID = PLU.PORTFOLIO_ID
+                ORDER BY P.PORTFOLIO_ID DESC
                LIMIT #{mainCri.amount} OFFSET #{mainCri.startNum}
     </select>
 
@@ -109,6 +110,7 @@
             FROM PORTFOLIO_LIKE
             WHERE USER_ID = #{loginUser.user_id}
         ) PLU ON P.PORTFOLIO_ID = PLU.PORTFOLIO_ID
+            ORDER BY P.PORTFOLIO_ID DESC
             LIMIT #{miniProjectCri.amount} OFFSET #{miniProjectCri.startNum}
     </select>
 

@@ -32,6 +32,7 @@
         LEFT JOIN COMMENT PC ON C.COMMENT_PARENT_ID = PC.COMMENT_ID
         LEFT JOIN USER PU ON PC.USER_ID = PU.USER_ID
         WHERE C.PORTFOLIO_ID = #{portfolio.portfolio_id}
+        ORDER BY C.COMMENT_ID DESC
     </select>
 
     <insert id="postComment" parameterType="comment">

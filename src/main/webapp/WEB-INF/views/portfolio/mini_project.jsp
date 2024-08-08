@@ -367,16 +367,25 @@
                                        <div class="modal-portfolio-bond" id="modalPortfolioBond">
 
                                            <!-- iframe을 사용하여 콘텐츠 로드 -->
-                                           <iframe class="modal-portfolio-iframe" id="modalPortfolioIframe"></iframe>
+                                           <div id="iframeContainer">
+                                                <img id="loadingImage" src="${pageContext.request.contextPath}/static/img/loading.gif" alt="Loading..." style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+                                                <iframe id="modalPortfolioIframe" style="display: none; width: 100%; height: 100%;"></iframe>
+                                            </div>
 
                                            <!--코멘트-->
                                            <div class="modal-comment-section" id="modalCommentSection">
                                                <div class="modal-comment-section-bond" id="modalCommentSectionBond">
                                                    <div class="modal-comment-content" id="modalCommentContent">
                                                        <div class="modal-comment-header" id="modalCommentHeader">
-                                                           <div class="modal-comment-header-logo" id="modalCommentHeaderLogo"></div>
-                                                           <div class="modal-comment-header-userId"> <strong>cat1</strong>
-                                                           </div>
+                                                           <div class="modal-comment-header-logo" id="modalCommentHeaderLogo">
+                                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                                    <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}'); margin-left : 10px;"></div>
+                                                                </a>
+                                                            </div>
+                                                           <div class="modal-comment-header-userId">
+                                                                 <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                                    <strong>\${obj.portfolio.nickname}</strong></div>
+                                                                </a>
                                                             <div class="modal-comment-header-option" id="modalCommentHeaderOption">
                                                                <div class="modal-comment-header-optionBtn" id="modalCommentHeaderOptionBtn">
                                                                    <svg aria-label="옵션 더 보기" class="x1lliihq x1n2onr6 x5n08af"
@@ -415,7 +424,7 @@
                                                                </div>
 
                                                                <div class="modal-likeCnt-text" id="modalLikeCntText">
-                                                                   <p> 좋아요 \${obj.portfolio.likeCount}</p>
+                                                                   <p style = "margin-bottom: 0px"> 좋아요 \${obj.portfolio.likeCount}개</p>
                                                                </div>
                                                            </div>
 
@@ -484,11 +493,80 @@
                 let curr_reply_box = null;
                 let curr_comment_box = null;
 
+                const iframeContainer = document.getElementById('iframeContainer');
+                const loadingImage = document.getElementById('loadingImage');
                 const iframe = document.getElementById('modalPortfolioIframe');
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                async function loadPortfolio(obj) {
+                    try {
+                        // 로딩 이미지 표시
+                        loadingImage.style.display = 'block';
+                        iframe.style.display = 'none';
+
+                        const response = await fetch(obj.portfolio.htmlurl);
+                        const html = await response.text();
+
+                        // iframe의 내부 문서 객체를 초기화하고 HTML 콘텐츠 작성
+                        iframeDoc.open();
+                        iframeDoc.write(html);
+                        iframeDoc.close();
+
+                        // CSS 파일 추가
+                        const link = iframeDoc.createElement('link');
+                        link.rel = 'stylesheet';
+                        link.href = obj.portfolio.cssurl;
+                        iframeDoc.head.appendChild(link);
+
+                        const linkLoadPromise = new Promise((resolve, reject) => {
+                            link.onload = resolve;
+                            link.onerror = reject;
+                        });
+
+                        // JavaScript 파일 추가
+                        const script = iframeDoc.createElement('script');
+                        script.src = obj.portfolio.jsurl;
+                        iframeDoc.body.appendChild(script);
+
+                        const scriptLoadPromise = new Promise((resolve, reject) => {
+                            script.onload = resolve;
+                            script.onerror = reject;
+                        });
+
+                        // 모든 리소스가 로드될 때까지 기다림
+                        await Promise.all([linkLoadPromise, scriptLoadPromise]);
+
+                        // 로딩 이미지 숨기고 iframe 표시
+                        loadingImage.style.display = 'none';
+                        iframe.style.display = 'block';
+                        console.log("All resources loaded successfully.");
+
+                        // iframe 내의 스크롤바 숨기기
+                        const style = iframeDoc.createElement('style');
+                        style.textContent = `
+                    body {
+                        overflow: auto;
+                    }
+                    ::-webkit-scrollbar {
+                        display: none;
+                    }
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                `;
+                        iframeDoc.head.appendChild(style);
+
+                    } catch (error) {
+                        console.error("Failed to load resources:", error);
+                        // 오류 발생 시 로딩 이미지 숨기고 iframe을 다시 보이도록 설정
+                        loadingImage.style.display = 'none';
+                        iframe.style.display = 'block';
+                    }
+                }
 
                 if (iframe) {
-                    iframe.srcdoc = `\${obj.portfolio.mergeCode}`;
+                    loadPortfolio(obj);
                 }
+
 
                 const modalCommentMain = document.getElementById('modalCommentMain');
                 const modalCommentInput = document.getElementById('modalCommentInput');
@@ -505,9 +583,13 @@
                     // 제일 처음은 소개문
                     const commentElement = `
                                         <div class="modal-comment">
-                                            <div class="modal-comment-user-logo" style="background-image: url('/static/img/cat1.jpg');"></div>
+                                            <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}');"></div>
+                                            </a>
                                             <div class="modal-comment-main">
-                                                <div class="modal-comment-main-userid"><strong>cat1</strong></div>
+                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                    <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
+                                                </a>
                                                 <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>
@@ -517,13 +599,18 @@
                     // 댓글 데이터 로드
                     function renderComments(comments, container) {
                         comments.forEach(comment => {
-
+                            console.log(comment);
                             const commentHeartOutlineClass = comment.liked ? 'hidden' : '';
                             const commentHeartFilledClass = comment.liked ? '' : 'hidden';
 
                             const commentBox = document.createElement('div');
                             commentBox.classList.add('comment-box');
                             container.appendChild(commentBox);
+
+                            let feedLink = '';
+                            if (comment.comment_parent_id !== null && comment.comment_parent_id !== 0) {
+                                feedLink = `<a href="/userfeeds/user-feeds.do?id=\${comment.user_id}" style="text-decoration: none; color : black;"><span>@\${comment.parent_nickname}</span></a>`;
+                            }
 
                             const commentElement = `
                             <div class="modal-comment">
@@ -534,19 +621,22 @@
                                                 <input type="hidden" name="likeCount" value="\${comment.likeCount}"/>
                                                 <input type="hidden" name="isLiked" value = "\${comment.liked}"/>
                                 </form>
-                                <a href="">
+                                <a href="/userfeeds/user-feeds.do?id=\${comment.user_id}">
                                     <div class="modal-comment-user-logo"
-                                        style="background-image: url('/static/img/cat1.jpg');"></div>
+                                        style="background-image: url('\${comment.profile_image}');"></div>
                                 </a>
                                 <div class="modal-comment-wrapper" style="display : flex; width: 75%;">
                                     <div class="modal-comment-main">
                                         <div class="modal-comment-main-userid">
-                                            <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>\${comment.user_id}</strong>
+                                            <a href="/userfeeds/user-feeds.do?id=\${comment.user_id}" style="text-decoration: none; color:black">
+                                                <div style="margin-left:5px; font-weight: bold;" class="userId"><strong>\${comment.nickname}</strong>
+                                            </a>
                                             </div>
-                                            <div style="margin-left:5px;">\${comment.content}</div>
+                                            <div style="margin-left:5px;"> \${feedLink} \${comment.content}</div>
                                         </div>
                                         <div class="modal-comment-main-content">
-                                            <div style="color: gray;">1주</div>
+                                        <div class="modal-comment-main-content">
+                                            <div style="color: gray;"> \${comment.regdateStr}</div>
                                             <div style="color: gray; margin-left : 10px" id="commentLike">좋아요 \${comment.likeCount}개</div>
                                             <div class="reply-btn" style="color: gray; margin-left : 10px">답글 달기</div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" style="margin-left : 10px;"  viewBox="0 -2 16 16">
@@ -587,6 +677,7 @@
                             }
                         });
                     }
+
                     renderComments(obj.commentList, modalCommentMain);
 
                     // 코멘트창 메인핸들러 (모달 여닫을 시 이벤트리스너 초기화를 위해 익명함수가 아닌 실명함수 사용)
@@ -629,12 +720,14 @@
                             const input = commentForm.querySelector('input[name="isLiked"]');
                             const heartOutline = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart');
                             const heartFilled = event.target.closest('.modal-comment-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
+                            const commentLike = event.target.closest('.modal-comment').querySelector('#commentLike');
 
                             $.ajax({
                                 url: '/main/comment-like-ajax.do',
                                 type: 'post',
                                 data: $(commentForm).serialize(),
                                 success: (obj) => {
+                                    commentLike.innerHTML = `좋아요 \${obj.comment.likeCount}개`;
                                     input.value = input.value === 'false' ? 'true' : 'false';
                                     heartOutline.classList.toggle('hidden');
                                     heartFilled.classList.toggle('hidden');
@@ -652,12 +745,14 @@
                             const input = modalPortfolioForm.querySelector('input[name="isLiked"]');
                             const heartOutline = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart');
                             const heartFilled = event.target.closest('.modal-portfolio-like-logo-wrapper').querySelector('.bi-suit-heart-fill');
+                            const modalLikeCntText = event.target.closest('.modal-portfolio-overlay-bond').querySelector('#modalLikeCntText');
 
                             $.ajax({
                                 url: '/main/portfolio-like-ajax.do',
                                 type: 'post',
                                 data: $(modalPortfolioForm).serialize(),
                                 success: (obj) => {
+                                    modalLikeCntText.innerHTML = `<p style = "margin-bottom: 0px"> 좋아요 \${obj.portfolio.likeCount}개 </p>`;
                                     input.value = input.value === 'false' ? 'true' : 'false';
                                     heartOutline.classList.toggle('hidden');
                                     heartFilled.classList.toggle('hidden');
@@ -677,7 +772,6 @@
                             // 댓글 작성자와 사용자의 일치여부에 따라 다른 옵션창
                             openCommentOptions( commentUserId , ${loginUser.user_id});
 
-                            const deleteCommentForm = event.target.closest('form');
                             const deleteCommentBtn = document.getElementById('deleteCommentBtn');
                             const reportCommentBtn = document.getElementById('reportCommentBtn');
 
@@ -688,15 +782,19 @@
                                 $.ajax({
                                     url: '/main/delete-comment-ajax.do',
                                     type: 'post',
-                                    data: $(deleteCommentForm).serialize(),
+                                    data: $(commentForm).serialize(),
                                     success: (obj) => {
                                         modalCommentMain.innerHTML='';
                                         // 제일 처음은 소개문
                                         const commentElement = `
                                         <div class="modal-comment">
-                                            <div class="modal-comment-user-logo" style="background-image: url('/static/img/cat1.jpg');"></div>
+                                            <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}');"></div>
+                                            </a>
                                             <div class="modal-comment-main">
-                                                <div class="modal-comment-main-userid"><strong>cat1</strong></div>
+                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                    <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
+                                                </a>
                                                 <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>
@@ -772,9 +870,13 @@
                                         // 제일 처음은 소개문
                                         const commentElement = `
                                         <div class="modal-comment">
-                                            <div class="modal-comment-user-logo" style="background-image: url('/static/img/cat1.jpg');"></div>
+                                            <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}">
+                                                <div class="modal-comment-user-logo" style="background-image: url('\${obj.portfolio.profile_image}');"></div>
+                                            </a>
                                             <div class="modal-comment-main">
-                                                <div class="modal-comment-main-userid"><strong>cat1</strong></div>
+                                                <a href="/userfeeds/user-feeds.do?id=\${obj.portfolio.user_id}" style="text-decoration: none; color : black;">
+                                                    <div class="modal-comment-main-userid"><strong>\${obj.portfolio.nickname}</strong></div>
+                                                </a>
                                                 <div class="modal-comment-main-content">\${obj.portfolio.description}</div>
                                             </div>
                                         </div>
@@ -818,18 +920,6 @@
                     // 전체화면의 스크롤은 모달이 떠있을 때 사용 불가
                     document.body.style.overflow = 'hidden';
                 }
-
-                // iframe 외부 스크롤 이벤트 핸들러 설정
-                window.addEventListener('wheel', function(event) {
-                    const iframe = document.getElementById('modalPortfolioIframe');
-                    if (iframe) {
-                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                        if (iframeDoc) {
-                            iframeDoc.documentElement.scrollTop += event.deltaY;
-                        }
-                    }
-                });
-
                 // 댓글 옵션 버튼 클릭 시 호출되는 함수
                 function openCommentOptions(comment_user_id, loginUser_id) {
                     if (parseInt(comment_user_id) === parseInt(loginUser_id)) {
