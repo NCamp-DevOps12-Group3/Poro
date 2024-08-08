@@ -94,19 +94,20 @@
                  GROUP_CONCAT(DISTINCT st.skillname) AS skillname,
                  GROUP_CONCAT(DISTINCT h.html_url) AS htmlurl,
                  GROUP_CONCAT(DISTINCT c.css_url) AS cssurl,
-                 GROUP_CONCAT(DISTINCT j.javascript_url) AS jsurl
+                 GROUP_CONCAT(DISTINCT j.javascript_url) AS jsurl,
+                 count(pl.user_id) as likecnt
              FROM portfolio p
-                      JOIN portfolio_skill ps ON p.portfolio_id = ps.portfolio_id
-                      JOIN skilltag st ON ps.hashtag_id = st.hashtagid
-                      JOIN html h ON p.portfolio_id = h.portfolio_id
-                      JOIN css c ON p.portfolio_id = c.portfolio_id
-                      JOIN javascript j ON p.portfolio_id = j.portfolio_id
+                      left JOIN portfolio_skill ps ON p.portfolio_id = ps.portfolio_id
+                      left JOIN skilltag st ON ps.hashtag_id = st.hashtagid
+                      left JOIN html h ON p.portfolio_id = h.portfolio_id
+                      left JOIN css c ON p.portfolio_id = c.portfolio_id
+                      left JOIN javascript j ON p.portfolio_id = j.portfolio_id
+                      left JOIN portfolio_like pl
+                                ON p.portfolio_id = pl.portfolio_id
              WHERE p.user_id = #{userid}
-             GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.description, p.regdate) sub
-                JOIN portfolio_like pl
-                    ON sub.portfolio_id = pl.portfolio_id
-                    and pl.user_id = #{userid}
-        ORDER BY pl.likecount DESC
+             GROUP BY p.portfolio_id, p.user_id, p.thumbnail_url, p.description, p.regdate,pl.portfolio_id) sub
+
+        ORDER BY sub.likecnt DESC
             LIMIT 5;
     </select>
     <select id="getUserBookmarkCoperation" parameterType="map" resultType="coperation">
