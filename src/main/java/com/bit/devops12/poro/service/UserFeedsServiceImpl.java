@@ -254,7 +254,7 @@ public class UserFeedsServiceImpl {
             List<Integer> portfolioIds = Arrays.stream(portfolioIdStrings)
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
-
+            System.out.println(portfolioIds);
             return userFeedsDao.deleteListIsOwner(id,portfolioIds);
         } catch (Exception e) {
             e.printStackTrace();

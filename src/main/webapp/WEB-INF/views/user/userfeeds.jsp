@@ -25,46 +25,7 @@
         .list-group .list-group-item:hover{
             background-color: #ddd;
         }
-        .dark-mode {
-            background-color: #121212;
-            color: white;
-            .top-section{
-                background-color: black;
-            }
-            .top-section #profileImgBtn{
-                background-color: black;
-            }
-            .list-group-item {
-                background-color: black;
-                color: white;
-            }
-            .card > *{
-                border: white 1px solid ;
-                border-collapse: collapse;
 
-                background-color: #262626;
-            }
-            .card *{
-                color: white !important;
-            }
-
-            .sidebar{
-                background-color: #262626;
-            }
-            .sidebar *{
-                color: white;
-            }
-
-            .sidebar .dropdown-menu{
-                background-color: black;
-                color: white;
-            }
-            #modalProfile *{
-                background: black;
-                color: white;
-            }
-
-        }
         .top-section {
             padding: 20px;
             background: #fff;
@@ -76,20 +37,7 @@
             padding: 20px;
             height: 70vh;
         }
-        .toggle-btn {
-            display: block;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1;
-            border: none;
-            background: none;
-            cursor: pointer;
-        }
-        .toggle-btn img {
-            width: 30px;
-            height: 30px;
-        }
+
         #modalProfile {
             -ms-overflow-style: none;
         }
@@ -235,24 +183,7 @@
         .grid-item {
             margin-bottom: 20px;
         }
-        @media screen and (max-width:900px){
-            .sidebar div{
-                display:none;
-            }
-        }
 
-        @media screen and (max-width:770px){
-            .sidebar{
-                width:50px;
-            }
-            .sidebar a {
-                padding: 10px 10px;
-
-            }
-            .sidebar div{
-                display:none;
-            }
-        }
         .card-info-toggle{
             display: none;
         }
@@ -419,20 +350,14 @@
         .custom-grid-item {
             margin-bottom: 30px;
         }
-        .rotate-btn {
-            display: inline-block;
-            margin-top: 10px;
-        }
-        .rotate-btn .bi {
-            margin-right: 5px;
-        }
+
     </style>
 </head>
 <body>
 <button type="button" id="toTop">↑</button>
 <div class="container-fluid  d-flex">
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar.jsp"></jsp:include>
-    <div class="container d-inline-block w-100">
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/sidebar_userfeeds.jsp"></jsp:include>
+    <div class="container d-inline-block">
         <button class="btn-toggle btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProfile" id="profileInfoBtn">
             profile
         </button>
@@ -673,18 +598,18 @@
                             <div class="swiper-wrapper">
                                 <c:forEach items="${popularPortfolio}" var="porfol">
                                     <div class="swiper-slide">
-                                        <c:choose>
-                                        <c:when test="${porfol.correct_PORTFOLIO_URL}">
-                                            <iframe
-                                                     src="${porfol.PORTFOLIO_URL}">
-                                            </iframe>
-                                        </c:when>
-                                        <c:otherwise>
+<%--                                        <c:choose>--%>
+<%--                                        <c:when test="${porfol.correct_PORTFOLIO_URL}">--%>
+<%--                                            <iframe--%>
+<%--                                                     src="${porfol.PORTFOLIO_URL}">--%>
+<%--                                            </iframe>--%>
+<%--                                        </c:when>--%>
+<%--                                        <c:otherwise>--%>
                                             <iframe
                                                      srcdoc="${porfol.mergeCode}">
                                             </iframe>
-                                        </c:otherwise>
-                                        </c:choose>
+<%--                                        </c:otherwise>--%>
+<%--                                        </c:choose>--%>
                                     </div>
                                 </c:forEach>
                             </div>
