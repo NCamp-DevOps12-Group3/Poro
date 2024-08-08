@@ -266,34 +266,6 @@
                     });
                 });
 
-                document.querySelector('.content-item-footer-logos').addEventListener('click', (event) => {
-                    const item = event.target.closest('.mainPortfolio-like-logo');
-                    if (item) {
-                        const contentItemWrapper = item.closest('.content-item-footer-logos');
-                        const PortfolioForm = contentItemWrapper.querySelector('#portfolioForm');
-                        const input = PortfolioForm.querySelector('input[name="isLiked"]');
-                        const heartOutline = contentItemWrapper.querySelector('.bi-suit-heart');
-                        const heartFilled = contentItemWrapper.querySelector('.bi-suit-heart-fill');
-                        const likeContent = item.closest('.content-item-footer').querySelector('.content-item-footer-like');
-
-                        console.log(PortfolioForm);
-
-                        $.ajax({
-                            url: '/main/portfolio-like-ajax.do',
-                            type: 'post',
-                            data: $(PortfolioForm).serialize(),
-                            success: (obj) => {
-                                input.value = input.value === 'false' ? 'true' : 'false';
-                                heartOutline.classList.toggle('hidden');
-                                heartFilled.classList.toggle('hidden');
-                                likeContent.innerHTML = `<strong>좋아요 \${obj.portfolio.likeCount}개</strong>`;
-                            },
-                            error: (err) => {
-                                console.log(err);
-                            }
-                        });
-                    }
-                });
 
                 document.querySelectorAll('.bi-chat').forEach((item) => {
                     item.addEventListener('click', () => {
@@ -405,42 +377,12 @@
                             }
                             $("#portfolioContainer").append(htmlStr);
 
-                            document.querySelectorAll('.mainPortfolio-like-logo').forEach((item) => {
-                                item.addEventListener('click', () => {
-                                    const PortfolioForm = item.closest('.content-item-footer-logos').querySelector('#portfolioForm');
-                                    const input = PortfolioForm.querySelector('input[name="isLiked"]');
-
-                                    const heartOutline = item.closest('.content-item-footer-logos').querySelector('.bi-suit-heart');
-                                    const heartFilled = item.closest('.content-item-footer-logos').querySelector('.bi-suit-heart-fill');
-
-                                    const likeContent = item.closest('.content-item-footer').querySelector('.content-item-footer-like');
-
-                                    console.log(PortfolioForm);
-
-                                    $.ajax({
-                                        url: '/main/portfolio-like-ajax.do',
-                                        type: 'post',
-                                        data: $(PortfolioForm).serialize(),
-                                        success: (obj) => {
-                                            input.value = input.value === 'false' ? 'true' : 'false';
-                                            heartOutline.classList.toggle('hidden');
-                                            heartFilled.classList.toggle('hidden');
-                                            likeContent.innerHTML = `<strong>좋아요 \${obj.portfolio.likeCount}개</strong>`
-                                        },
-                                        error: (err) => {
-                                            console.log(err);
-                                        }
-                                    });
-                                })
-                            });
-
                             document.querySelectorAll('.bi-chat').forEach((item) => {
                                 item.addEventListener('click', () => {
                                     const writeBtn = item.closest('.content-item-footer').querySelector('.write-comments');
                                     writeBtn.click();
                                 })
                             });
-
 
                         },
                         error: (err) => {
