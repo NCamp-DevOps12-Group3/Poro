@@ -80,7 +80,6 @@ public class MainController {
 
         List<CompanyDto> companyDtoList = companyService.getCompanyList(cri);
 
-        System.out.println(companyDtoList);
 
         returnMap.put("companyList", companyDtoList);
 
@@ -147,7 +146,6 @@ public class MainController {
     @ResponseBody
     public Map<String, Object> userModalAjax(@RequestParam("portfolio_id") int portfolio_id, HttpSession session) {
 
-        System.out.println(portfolio_id);
 
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
 

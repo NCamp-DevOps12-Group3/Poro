@@ -266,6 +266,32 @@
                     });
                 });
 
+                $(document).on('click', function (event) {
+                    if (event.target.closest('.mainPortfolio-like-logo')) {
+
+                        const portfolioForm = event.target.closest('.content-item-footer-logos').querySelector('#portfolioForm');
+                        const input = portfolioForm.querySelector('input[name="isLiked"]');
+                        const heartOutline = event.target.closest('.content-item-footer-logos').querySelector('.bi-suit-heart');
+                        const heartFilled = event.target.closest('.content-item-footer-logos').querySelector('.bi-suit-heart-fill');
+                        const likeCntText = event.target.closest('.content-item-footer').querySelector('.content-item-footer-like');
+
+                        $.ajax({
+                            url: '/main/portfolio-like-ajax.do',
+                            type: 'post',
+                            data: $(portfolioForm).serialize(),
+                            success: (obj) => {
+                                likeCntText.innerHTML = `<strong>좋아요 \${obj.portfolio.likeCount}개</strong>`;
+                                input.value = input.value === 'false' ? 'true' : 'false';
+                                heartOutline.classList.toggle('hidden');
+                                heartFilled.classList.toggle('hidden');
+                            },
+                            error: (err) => {
+                                console.log(err);
+                            }
+                        });
+                    }
+                });
+
 
                 document.querySelectorAll('.bi-chat').forEach((item) => {
                     item.addEventListener('click', () => {
@@ -377,12 +403,6 @@
                             }
                             $("#portfolioContainer").append(htmlStr);
 
-                            document.querySelectorAll('.bi-chat').forEach((item) => {
-                                item.addEventListener('click', () => {
-                                    const writeBtn = item.closest('.content-item-footer').querySelector('.write-comments');
-                                    writeBtn.click();
-                                })
-                            });
 
                         },
                         error: (err) => {
