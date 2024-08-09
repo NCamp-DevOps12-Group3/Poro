@@ -474,9 +474,9 @@
 	                                        30px">${loginUser.nickname}</h5>
 								<p style="background-color: #ddd; color: black;">${loginUser.name}</p>
 								<p style="background-color: #ddd; color: black;">${loginUser.email}</p>
-								<p style="background-color: #ddd; color: black;">${loginUser.gender}</p>
+<%--								<p style="background-color: #ddd; color: black;">${loginUser.gender}</p>--%>
 								<p style="background-color: #ddd; color: black;">${loginUser.phonenumber}</p>
-								<p style="background-color: #ddd; color: black;">${loginUser.role}</p>
+<%--								<p style="background-color: #ddd; color: black;">${loginUser.role}</p>--%>
 								<p style="background-color: #ddd; color: black;">${loginUser.site_url}</p>
 							
 							</div>

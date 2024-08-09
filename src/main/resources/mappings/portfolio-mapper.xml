@@ -25,6 +25,24 @@
                    , P.THUMBNAIL_URL
                    , P.DESCRIPTION
     </select>
+<!--    <select id="searchPortfolioByKeyword" parameterType="string" resultType="portfolio">-->
+<!--        SELECT P.PORTFOLIO_ID-->
+<!--             , P.USER_ID-->
+<!--             , P.PORTFOLIO_URL-->
+<!--             , P.THUMBNAIL_URL-->
+<!--             , P.DESCRIPTION-->
+<!--             , ST.SKILLNAME AS SKILLNAME-->
+<!--        FROM PORTFOLIO P-->
+<!--                 INNER JOIN PORTFOLIO_SKILL PS-->
+<!--                            ON PS.PORTFOLIO_ID = P.PORTFOLIO_ID-->
+<!--                 INNER JOIN SKILLTAG ST-->
+<!--                            ON PS.HASHTAG_ID = ST.HASHTAG_ID-->
+<!--        GROUP BY P.PORTFOLIO_ID-->
+<!--               , P.USER_ID-->
+<!--               , P.PORTFOLIO_URL-->
+<!--               , P.THUMBNAIL_URL-->
+<!--               , P.DESCRIPTION-->
+<!--    </select>-->
 
     <select id="getPortfolioList" parameterType="map" resultType="portfolio">
         SELECT P.PORTFOLIO_ID,
