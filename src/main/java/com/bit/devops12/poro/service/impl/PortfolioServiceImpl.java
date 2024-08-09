@@ -112,6 +112,16 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
+    public void bookmarkPortfolio(int portfolio_id, UserDto loginUser) {
+        portfolioDao.bookmarkPortfolio(portfolio_id, loginUser);
+    }
+
+    @Override
+    public void unBookmarkPortfolio(int portfolio_id, UserDto loginUser) {
+        portfolioDao.unBookmarkPortfolio(portfolio_id, loginUser);
+    }
+
+    @Override
     public void deletePortfolio(int portfolio_id) {
         portfolioDao.deletePortfolio(portfolio_id);
     }

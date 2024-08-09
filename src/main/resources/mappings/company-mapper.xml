@@ -16,7 +16,13 @@
               , C.LOCATION
               , C.CAREER
               , C.EDUCATION
+              , (CASE WHEN RBU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS BOOKMARKED
              FROM RECRUITMENT C
+              LEFT JOIN (
+                 SELECT RECRUITMENT_ID, USER_ID
+                 FROM RECRUITMENT_BOOKMARK
+                 WHERE USER_ID = #{loginUser.user_id}
+             ) RBU ON C.RECRUITMENT_ID = RBU.RECRUITMENT_ID
              ORDER BY C.RECRUITMENT_ID DESC
             LIMIT #{cri.amount} OFFSET #{cri.startNum}
     </select>
@@ -25,6 +31,22 @@
         SELECT COUNT(*)
             FROM RECRUITMENT
     </select>
+
+    <insert id="bookmarkCompany" parameterType="map">
+        INSERT INTO RECRUITMENT_BOOKMARK(
+            USER_ID,
+            RECRUITMENT_ID
+        ) VALUES (
+                     #{loginUser.user_id},
+                     #{recruitment_id}
+                 )
+    </insert>
+
+    <delete id="unBookmarkCompany" parameterType="map">
+        DELETE FROM RECRUITMENT_BOOKMARK
+        WHERE USER_ID = #{loginUser.user_id}
+          AND RECRUITMENT_ID = #{recruitment_id}
+    </delete>
 
 
 </mapper>

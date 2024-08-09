@@ -246,4 +246,47 @@ public class MainController {
     public String userPortfolio(HttpSession session){
         return "redirect:/mini/mini_project.do";
     }
+
+    @PostMapping("/portfolio-bookmark-ajax.do")
+    @ResponseBody
+    public Map<String, Object> userPortfolioBookmarkAjax(@RequestParam ("portfolio_id") int portfolio_id, @RequestParam ("bookmarked") boolean bookmarked, HttpSession session) {
+
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
+
+        if(!bookmarked) {
+            portfolioService.bookmarkPortfolio(portfolio_id, loginUser);
+        }else{
+            portfolioService.unBookmarkPortfolio(portfolio_id, loginUser);
+        }
+
+        PortfolioDto portfolioDto = portfolioService.getPortfolioById(portfolio_id, loginUser);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("portfolio", portfolioDto);
+
+        return response;
+    }
+
+    @PostMapping("/company-bookmark-ajax.do")
+    @ResponseBody
+    public Map<String, Object> userCompanyBookmarkAjax(@RequestParam ("recruitment_id") int recruitment_id, @RequestParam ("bookmarked") boolean bookmarked, HttpSession session) {
+
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
+
+        if(!bookmarked) {
+            companyService.bookmarkCompany(recruitment_id, loginUser);
+        }else{
+            companyService.unBookmarkCompany(recruitment_id, loginUser);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+
+        return response;
+    }
+
+
+
 }
+
+

@@ -16,6 +16,17 @@ public class CompanyDto {
     private String education;
     private int user_id;
 
+    public boolean isBookmarked() {
+        return bookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
+    }
+
+    private boolean bookmarked;
+
+
     public int getUser_id() {
         return user_id;
     }

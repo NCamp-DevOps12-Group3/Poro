@@ -115,5 +115,31 @@ public class PortfolioDao {
     public PortfolioDto getCurrentPortfolioByUserId(int userId){
         return mybatis.selectOne("PortfolioDao.getCurrentPortfolioByUserId", userId);
     }
+
+    public void bookmarkPortfolio(int portfolio_id, UserDto loginUser){
+
+        System.out.println("PortfolioDao의 bookmarkPortfolio 메소드 실행");
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("portfolio_id", portfolio_id);
+        params.put("loginUser", loginUser);
+
+        mybatis.insert("PortfolioDao.bookmarkPortfolio", params);
+    }
+
+    public void unBookmarkPortfolio(int portfolio_id, UserDto loginUser){
+
+        System.out.println("PortfolioDao의 unBookmarkPortfolio 메소드 실행");
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("portfolio_id", portfolio_id);
+        params.put("loginUser", loginUser);
+
+        mybatis.delete("PortfolioDao.unBookmarkPortfolio", params);
+    }
+
+
+
+
     
 }

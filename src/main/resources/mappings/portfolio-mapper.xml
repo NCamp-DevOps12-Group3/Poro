@@ -41,7 +41,8 @@
                C.CSS_URL AS cssurl,
                COALESCE(PL.LIKECOUNT, 0) AS LIKECOUNT,
                COALESCE(CM.COMMENTCOUNT, 0) AS COMMENTCOUNT,
-               (CASE WHEN PLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED
+               (CASE WHEN PLU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS ISLIKED,
+               (CASE WHEN PBU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS BOOKMARKED
                FROM PORTFOLIO P
                JOIN USER U
                   ON P.USER_ID = U.USER_ID
@@ -66,6 +67,11 @@
                     FROM PORTFOLIO_LIKE
                     WHERE USER_ID = #{loginUser.user_id}
                ) PLU ON P.PORTFOLIO_ID = PLU.PORTFOLIO_ID
+               LEFT JOIN (
+                   SELECT PORTFOLIO_ID, USER_ID
+                   FROM PORTFOLIO_BOOKMARK
+                   WHERE USER_ID = #{loginUser.user_id}
+               ) PBU ON P.PORTFOLIO_ID = PBU.PORTFOLIO_ID
                 ORDER BY P.PORTFOLIO_ID DESC
                LIMIT #{mainCri.amount} OFFSET #{mainCri.startNum}
     </select>
@@ -172,8 +178,18 @@
              )
     </insert>
 
-    <delete id="unLikePortfolio" parameterType="map">
-        DELETE FROM PORTFOLIO_LIKE
+    <insert id="bookmarkPortfolio" parameterType="map">
+        INSERT INTO PORTFOLIO_BOOKMARK(
+            USER_ID,
+            PORTFOLIO_ID
+        ) VALUES (
+                     #{loginUser.user_id},
+                     #{portfolio_id}
+                 )
+    </insert>
+
+    <delete id="unBookmarkPortfolio" parameterType="map">
+        DELETE FROM PORTFOLIO_BOOKMARK
         WHERE USER_ID = #{loginUser.user_id}
           AND PORTFOLIO_ID = #{portfolio_id}
     </delete>

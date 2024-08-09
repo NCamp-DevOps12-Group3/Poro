@@ -5,6 +5,7 @@ import com.bit.devops12.poro.dao.CompanyDao;
 import com.bit.devops12.poro.dto.CompanyDto;
 import com.bit.devops12.poro.dto.Criteria;
 import com.bit.devops12.poro.dto.FileDto;
+import com.bit.devops12.poro.dto.UserDto;
 import com.bit.devops12.poro.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,15 @@ public class CompanyServiceImpl implements CompanyService {
         return companyDao.getCompanyTotalCnt();
     }
 
+    @Override
+    public void bookmarkCompany(int recruitment_id, UserDto loginUser) {
+        companyDao.bookmarkCompany(recruitment_id, loginUser);
+    }
+
+    @Override
+    public void unBookmarkCompany(int recruitment_id, UserDto loginUser) {
+        companyDao.unBookmarkCompany(recruitment_id, loginUser);
+    }
 
 
 }

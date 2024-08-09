@@ -23,6 +23,9 @@ public interface PortfolioService {
     void likePortfolio(int portfolio_id, UserDto loginUser);
     void unLikePortfolio(int portfolio_id, UserDto loginUser);
 
+    void bookmarkPortfolio(int portfolio_id, UserDto loginUser);
+    void unBookmarkPortfolio(int portfolio_id, UserDto loginUser);
+
     void deletePortfolio(int portfolio_id);
     void saveHtml(int portfolio_id, List<String> htmlPath);
     void saveCss(int portfolio_id, List<String> cssPath);
