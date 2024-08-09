@@ -37,7 +37,8 @@ public class MainController {
 
     @GetMapping("/main.do")
     public String userMain(Model model, MainCriteria mainCri, HttpSession httpSession) {
-
+        if(httpSession.getAttribute("loginUser") == null)
+            return "redirect:/user/login.do";
 
         mainCri.setAmount(2);
 

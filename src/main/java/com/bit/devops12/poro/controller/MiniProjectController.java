@@ -31,7 +31,8 @@ public class MiniProjectController {
 
     @GetMapping("/mini_project.do")
     public String userMain(Model model, MiniProjectCriteria miniProjectCri, HttpSession httpSession) {
-
+        if(httpSession.getAttribute("loginUser") == null)
+            return "redirect:/user/login.do";
         miniProjectCri.setAmount(12);
 
         int total = portfolioService.getPortfolioTotalCnt();

@@ -108,7 +108,8 @@ public class UserFeedsController {
     @GetMapping("/user-feeds.do")
     public String userFeeds(Model model, HttpSession session, @RequestParam(name = "id",required = false) Integer id,
             @RequestParam(name="pageType",defaultValue = "home",required = false) String pageType, Criteria criteria) {
-
+        if(session.getAttribute("loginUser") == null)
+            return "redirect:/user/login.do";
         boolean isOwner=false;
         int userid=-1;
         if (userFeedsService.isLogin(session)){

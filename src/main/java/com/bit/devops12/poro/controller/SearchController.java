@@ -3,6 +3,7 @@ package com.bit.devops12.poro.controller;
 import com.bit.devops12.poro.service.SearchService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("search")
+@RequestMapping("/search")
 public class SearchController {
     private SearchService searchService;
 
