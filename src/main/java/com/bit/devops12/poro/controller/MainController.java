@@ -201,6 +201,8 @@ public class MainController {
 
         PortfolioDto portfolioDto = portfolioService.getPortfolioById(portfolio_id, loginUser);
 
+        System.out.println(portfolioDto);
+
         Map<String, Object> response = new HashMap<>();
 
         response.put("portfolio", portfolioDto);

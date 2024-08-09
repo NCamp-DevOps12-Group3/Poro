@@ -300,6 +300,7 @@
                     if (event.target.closest('.mainPortfolio-like-logo')) {
 
                         const portfolioForm = event.target.closest('.content-item-footer-logos').querySelector('#portfolioForm');
+                        console.log(portfolioForm);
                         const input = portfolioForm.querySelector('input[name="isLiked"]');
                         const heartOutline = event.target.closest('.content-item-footer-logos').querySelector('.bi-suit-heart');
                         const heartFilled = event.target.closest('.content-item-footer-logos').querySelector('.bi-suit-heart-fill');

@@ -178,6 +178,12 @@
              )
     </insert>
 
+    <delete id="unLikePortfolio" parameterType="map">
+        DELETE FROM PORTFOLIO_LIKE
+        WHERE USER_ID = #{loginUser.user_id}
+          AND PORTFOLIO_ID = #{portfolio_id}
+    </delete>
+
     <insert id="bookmarkPortfolio" parameterType="map">
         INSERT INTO PORTFOLIO_BOOKMARK(
             USER_ID,
