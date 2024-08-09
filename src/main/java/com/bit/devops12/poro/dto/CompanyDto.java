@@ -14,26 +14,9 @@ public class CompanyDto {
     private String location;
     private String career;
     private String education;
+    private boolean bookmarked;
     private int user_id;
 
-    public boolean isBookmarked() {
-        return bookmarked;
-    }
-
-    public void setBookmarked(boolean bookmarked) {
-        this.bookmarked = bookmarked;
-    }
-
-    private boolean bookmarked;
-
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
 
     @Override
     public String toString() {
@@ -138,5 +121,21 @@ public class CompanyDto {
 
     public void setEducation(String education) {
         this.education = education;
+    }
+
+    public boolean isBookmarked() {
+        return bookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }

@@ -208,12 +208,12 @@
                                                    d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
                                            </svg>
                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                               fill="currentColor" class="bi bi-bookmark mainPortfolio-bookmark-logo \${portfolioBookmarkOutlineClass}" viewBox="0 0 16 16">
+                                               fill="red" class="bi bi-bookmark mainPortfolio-bookmark-logo \${portfolioBookmarkOutlineClass}" viewBox="0 0 16 16">
                                                <path
                                                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
                                            </svg>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                                fill="currentColor" class="bi bi-bookmark-fill mainPortfolio-bookmark-logo \${portfolioBookmarkFilledClass}" viewBox="0 0 16 16">
+                                                fill="red" class="bi bi-bookmark-fill mainPortfolio-bookmark-logo \${portfolioBookmarkFilledClass}" viewBox="0 0 16 16">
                                               <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
                                             </svg>
                                        </div>
@@ -241,6 +241,8 @@
 
                     const companyBookmarkOutlineClass = obj.companyList[i].bookmarked ? 'hidden' : '';
                     const companyBookmarkFilledClass = obj.companyList[i].bookmarked ? '' : 'hidden';
+
+                    console.log( obj.companyList[i]);
 
                     htmlStr2 += `
                                 <div class="recommend-item" style="display:flex; align-items: center; margin-top : 5px;">
@@ -273,12 +275,12 @@
                                                 <input type="hidden" name="recruitment_id" value="\${obj.companyList[i].recruitment_id}">
                                             </form>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                               fill="currentColor" class="bi bi-bookmark mainCompany-bookmark-logo \${companyBookmarkOutlineClass}" viewBox="0 0 16 16">
+                                               fill="red" class="bi bi-bookmark mainCompany-bookmark-logo \${companyBookmarkOutlineClass}" viewBox="0 0 16 16">
                                                <path
                                                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
                                            </svg>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                fill="currentColor" class="bi bi-bookmark-fill mainCompany-bookmark-logo \${companyBookmarkFilledClass}" viewBox="0 0 16 16">
+                                                fill="red" class="bi bi-bookmark-fill mainCompany-bookmark-logo \${companyBookmarkFilledClass}" viewBox="0 0 16 16">
                                               <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
                                             </svg>
                                     </div>
@@ -461,12 +463,12 @@
                                                                    d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
                                                            </svg>
                                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                                               fill="currentColor" class="bi bi-bookmark mainPortfolio-bookmark-logo \${portfolioBookmarkOutlineClass}" viewBox="0 0 16 16">
+                                                               fill="red" class="bi bi-bookmark mainPortfolio-bookmark-logo \${portfolioBookmarkOutlineClass}" viewBox="0 0 16 16">
                                                                <path
                                                                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
                                                            </svg>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                                                fill="currentColor" class="bi bi-bookmark-fill mainPortfolio-bookmark-logo \${portfolioBookmarkFilledClass}" viewBox="0 0 16 16">
+                                                                fill="red" class="bi bi-bookmark-fill mainPortfolio-bookmark-logo \${portfolioBookmarkFilledClass}" viewBox="0 0 16 16">
                                                               <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
                                                             </svg>
                                                     </div>

@@ -50,5 +50,10 @@ public class CompanyDao {
         mybatis.delete("CompanyDao.unBookmarkCompany", params);
     }
 
+    public List<CompanyDto> getCompanyListMain(Map<String, Object> paramMap){
+
+        return mybatis.selectList("CompanyDao.getCompanyListMain", paramMap);
+    }
+
 
 }

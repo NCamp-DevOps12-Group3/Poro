@@ -16,13 +16,7 @@
               , C.LOCATION
               , C.CAREER
               , C.EDUCATION
-              , (CASE WHEN RBU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS BOOKMARKED
              FROM RECRUITMENT C
-              LEFT JOIN (
-                 SELECT RECRUITMENT_ID, USER_ID
-                 FROM RECRUITMENT_BOOKMARK
-                 WHERE USER_ID = #{loginUser.user_id}
-             ) RBU ON C.RECRUITMENT_ID = RBU.RECRUITMENT_ID
              ORDER BY C.RECRUITMENT_ID DESC
             LIMIT #{cri.amount} OFFSET #{cri.startNum}
     </select>
@@ -47,6 +41,30 @@
         WHERE USER_ID = #{loginUser.user_id}
           AND RECRUITMENT_ID = #{recruitment_id}
     </delete>
+
+    <select id="getCompanyListMain" parameterType="map" resultType="company">
+        SELECT C.RECRUITMENT_ID
+             , C.USER_ID
+             , C.COMPANY_NAME
+             , C.COMPANY_ICON_URL
+             , C.RECRUITMENT_URL
+             , C.RECRUITMENT_TITLE
+             , C.DDAY
+             , C.REGDATE
+             , C.MODDATE
+             , C.LOCATION
+             , C.CAREER
+             , C.EDUCATION
+             , (CASE WHEN RBU.USER_ID IS NOT NULL THEN 1 ELSE 0 END) AS BOOKMARKED
+        FROM RECRUITMENT C
+                 LEFT JOIN (
+            SELECT RECRUITMENT_ID, USER_ID
+            FROM RECRUITMENT_BOOKMARK
+            WHERE USER_ID = #{loginUser.user_id}
+        ) RBU ON C.RECRUITMENT_ID = RBU.RECRUITMENT_ID
+        ORDER BY C.RECRUITMENT_ID DESC
+            LIMIT #{cri.amount} OFFSET #{cri.startNum}
+    </select>
 
 
 </mapper>

@@ -78,7 +78,9 @@ public class MainController {
 
         cri.setAmount(5);
 
-        List<CompanyDto> companyDtoList = companyService.getCompanyList(cri);
+        List<CompanyDto> companyDtoList = companyService.getCompanyListMain(cri, loginUser);
+
+        System.out.println(companyDtoList);
 
 
         returnMap.put("companyList", companyDtoList);

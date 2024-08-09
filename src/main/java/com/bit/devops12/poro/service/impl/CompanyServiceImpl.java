@@ -51,7 +51,6 @@ public class CompanyServiceImpl implements CompanyService {
 
         paramMap.put("ddayList", ddayList);
 
-
         return companyDao.getCompanyList(paramMap);
     }
 
@@ -68,6 +67,39 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public void unBookmarkCompany(int recruitment_id, UserDto loginUser) {
         companyDao.unBookmarkCompany(recruitment_id, loginUser);
+    }
+
+    @Override
+    public List<CompanyDto> getCompanyListMain(Criteria cri,UserDto loginUser){
+        cri.setStartNum((cri.getPageNum() - 1) * cri.getAmount());
+
+
+        Map<String, Object> paramMap = new HashMap<>();
+
+        paramMap.put("cri", cri);
+
+        List<CompanyDto> ddayList = companyDao.getCompanyListMain(paramMap);
+
+
+        for(CompanyDto companyDto : ddayList){
+            DdayCalculator ddayCalculator = new DdayCalculator();
+            String dDayResult = "";
+
+            dDayResult = "";
+            if(companyDto.getDday().isEmpty())
+                dDayResult = ddayCalculator.getDdayRed(companyDto.getRegdate());
+            else dDayResult = ddayCalculator.getDdayRed(companyDto.getDday());
+
+            companyDto.setDday(dDayResult);
+//            System.out.println(companyDto);
+
+        }
+
+        paramMap.put("ddayList", ddayList);
+
+        paramMap.put("loginUser", loginUser);
+
+        return companyDao.getCompanyListMain(paramMap);
     }
 
 

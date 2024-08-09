@@ -11,6 +11,8 @@ import java.util.List;
 public interface CompanyService {
     List<CompanyDto> getCompanyList(Criteria cri);
 
+    List<CompanyDto> getCompanyListMain(Criteria cri, UserDto loginUser);
+
     int getCompanyTotalCnt();
 
     void bookmarkCompany(int recruitment_id, UserDto loginUser);
