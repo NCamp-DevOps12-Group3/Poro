@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
-    
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <style>

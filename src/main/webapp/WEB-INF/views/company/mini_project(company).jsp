@@ -13,10 +13,10 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/darkmode.css">--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/modal-main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mini_project(company).css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sidebar.css">--%>
 
     <style>
 
