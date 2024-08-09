@@ -50,7 +50,8 @@ $(()=>{
             success: function(obj){
                 console.log(obj);
                 for(let i = 0;  i < obj.members.length; ++i){
-                    $('.search-item-profile').append(`<div class="search-item d-flex justify-content-start align-items-center">
+                    $('.search-item-profile').append(`<div class="search-item search-item-member d-flex justify-content-start align-items-center">
+                        <input type="hidden" value="${obj.members[i].user_id}" name="id">
                         <img src="${obj.members[i].profile_image}" alt="">
                         <div class="search-item-info d-flex flex-column justify-content-center">
                             <div><p>${obj.members[i].nickname}<i class="bi bi-check-circle-fill"></i></p></div>
@@ -67,6 +68,13 @@ $(()=>{
                         </div>
                     </div>`);
                 }
+                // document.querySelectorAll('.search-item-member').forEach((item) => {
+                //     item.addEventListener('click', () => {
+                //         const recruitmentForm = item.closest('.recommend-item').querySelector('#recruitmentForm');
+                //         showModal(recruitmentForm.querySelector('input').value);
+                //     });
+                // });
+                // $('#search-item-member-container')
             }},
             error : function(err){
                 console.log(err);

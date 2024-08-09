@@ -169,7 +169,7 @@
                     </form>
                 </div>
                 <div class="search-recent-body">
-                    <div class="search-item-profile d-flex flex-column justify-content-start">
+                    <div class="search-item-profile d-flex flex-column justify-content-start" id="search-item-member-container">
 
 
                     </div>
