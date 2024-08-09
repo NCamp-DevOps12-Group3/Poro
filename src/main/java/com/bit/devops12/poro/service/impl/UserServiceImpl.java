@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
 				// 필요시 추가적인 오류 처리 로직
 			}
 		}
-		
+		else userDto.setProfile_image("/static/img/default_profile_img.png");
 		userDto.setModdate(LocalDateTime.now());
 		
 		
