@@ -17,7 +17,7 @@
               , C.CAREER
               , C.EDUCATION
              FROM RECRUITMENT C
-             ORDER BY C.RECRUITMENT_ID
+             ORDER BY C.RECRUITMENT_ID DESC
             LIMIT #{cri.amount} OFFSET #{cri.startNum}
     </select>
 
