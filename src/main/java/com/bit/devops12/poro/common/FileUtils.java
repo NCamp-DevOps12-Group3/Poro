@@ -22,7 +22,7 @@ public class FileUtils {
 		
 		
 		String originalFilename = uploadFiles.getOriginalFilename(); // 원본 파일명
-		
+        System.out.println("original filename: " + originalFilename);
 		
 		// 파일 저장 경로
 		File uploadFile = new File(attachPath + "/" + originalFilename);
