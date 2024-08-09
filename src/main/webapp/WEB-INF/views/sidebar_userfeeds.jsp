@@ -407,9 +407,13 @@
                 </a>
             </div>
             <div class="sidebar-list-etc">
-                <a href="#" class="nav-link" data-page="setting.html">
-                    <i class="bi bi-list"></i>
-                    <div>더보기</div>
+<%--                <a href="#" class="nav-link" data-page="setting.html">--%>
+<%--                    <i class="bi bi-list"></i>--%>
+<%--                    <div>더보기</div>--%>
+<%--                </a>--%>
+                <a href="/user/logout.do" class="nav-link" data-page="">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <div>로그아웃</div>
                 </a>
             </div>
         </div>
