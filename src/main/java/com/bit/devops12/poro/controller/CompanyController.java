@@ -31,7 +31,8 @@ public class CompanyController {
 
     @GetMapping("/test.do")
     public String companyListView(Model model, Criteria cri, HttpSession session){
-
+        if(session.getAttribute("loginUser") == null)
+            return "redirect:/user/login.do";
         cri.setAmount(12);
 
         List<CompanyDto> infiniteScrollList = companyService.getCompanyList(cri);

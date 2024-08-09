@@ -92,6 +92,8 @@ public class UserController {
 	
 	@GetMapping("/settings.do")
 	public String settingView(HttpSession session, Model model) {
+		if(session.getAttribute("loginUser") == null)
+			return "redirect:/user/login.do";
 		UserDto userDto = (UserDto) session.getAttribute("loginUser");
 		// userService에서 사용자의 역사 로그를 가져옴
 		// historylog 메서드는 사용자 DTO를 인자로 받아서 해당 사용자의 역사 로그를 반환
